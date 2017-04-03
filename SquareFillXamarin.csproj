@@ -117,6 +117,9 @@
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Builders\ShapeSetBuilder.cs" />
+    <Compile Include="Builders\GridSquare.cs" />
+    <Compile Include="Builders\ShapeSet.cs" />
+    <Compile Include="Builders\Shape.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
