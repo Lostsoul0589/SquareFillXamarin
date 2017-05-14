@@ -112,9 +112,12 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Logger.cs" />
+    <Compile Include="Models\ShapeMover.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Models\MovementResult.cs" />
+    <Compile Include="Controllers\ShapeController.cs" />
     <Compile Include="Models\Square.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">

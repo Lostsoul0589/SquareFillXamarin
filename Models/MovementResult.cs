@@ -4,6 +4,6 @@ namespace SquareFillXamarin.Models
     {
         public bool ShapeHasCrossedAHorizontalGridBoundary { get; set; }
         public bool ShapeHasCrossedAVerticalGridBoundary { get; set; }
-        public bool NoShapesAreintheWay { get; set; }
+        public bool NoShapesAreInTheWay { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace SquareFillXamarin.Models
 	{
         public CGPoint CentreOfShape { get; private set; }
         public List<Square> Squares { get; private set; }
-        
 
 	    public nfloat NumSquaresLeftOfShapeCentre { get; private set; }
 	    public nfloat NumSquaresRightOfShapeCentre { get; private set; }
@@ -208,7 +207,7 @@ namespace SquareFillXamarin.Models
                 }
             }
 
-             movementResult.NoShapesAreintheWay = !somethingIsintheWay;
+             movementResult.NoShapesAreInTheWay = !somethingIsintheWay;
 
              return movementResult;
         }
