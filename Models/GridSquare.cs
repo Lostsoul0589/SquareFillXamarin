@@ -1,4 +1,4 @@
-﻿namespace SquareFillXamarin
+﻿namespace SquareFillXamarin.Models
 {
 	public class GridSquare
 	{

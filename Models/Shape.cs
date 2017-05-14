@@ -2,7 +2,7 @@
 using CoreGraphics;
 using UIKit;
 
-namespace SquareFillXamarin
+namespace SquareFillXamarin.Models
 {
 	public class Shape
 	{

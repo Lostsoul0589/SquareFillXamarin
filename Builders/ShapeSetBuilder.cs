@@ -1,74 +1,75 @@
 ﻿using System;
-using CoreGraphics;
 using System.Collections.Generic;
+using CoreGraphics;
+using SquareFillXamarin.Models;
 using UIKit;
-using Foundation;
 
-namespace SquareFillXamarin
+namespace SquareFillXamarin.Builders
 {
 	public class ShapeSetBuilder
 	{
-		static Double SquareWidth = 32;
-		static int GridWidth = 13;
-		static int GridHeight = 20;
-		static Double ScreenWidth = GridWidth * SquareWidth;
-		static Double ScreenHeight = GridHeight * SquareWidth;
+        public static Double SquareWidth = 32;
 
-		static CGRect ContainingSquare = new CGRect(
-			x: 4 * SquareWidth,
-			y: 6 * SquareWidth,
-			width: 7 * SquareWidth,
-			height: 7 * SquareWidth);
+        public static CGRect ContainingSquare = new CGRect(
+            x: 4 * SquareWidth,
+            y: 6 * SquareWidth,
+            width: 7 * SquareWidth,
+            height: 7 * SquareWidth);
 
-		static CGRect TopGridBorder = new CGRect(
+        public static CGPoint CentreOfTopLeftGridSquare = new CGPoint(
+            x: ContainingSquare.X + SquareWidth / 2,
+            y: ContainingSquare.Y + SquareWidth / 2);
+
+        public static int GridWidth = 13;
+        public static int GridHeight = 20;
+        public static Double ScreenWidth = GridWidth * SquareWidth;
+        public static Double ScreenHeight = GridHeight * SquareWidth;
+
+        private static readonly CGRect TopGridBorder = new CGRect(
 			x: 3 * SquareWidth,
 			y: 5 * SquareWidth,
 			width: 9 * SquareWidth,
 			height: SquareWidth);
 
-		static CGRect LeftGridBorder = new CGRect(
+        private static readonly CGRect LeftGridBorder = new CGRect(
 			x: 3 * SquareWidth,
 			y: 6 * SquareWidth,
 			width: SquareWidth,
 			height: 7 * SquareWidth);
 
-		static CGRect RightGridBorder = new CGRect(
+        private static readonly CGRect RightGridBorder = new CGRect(
 			x: 11 * SquareWidth,
 			y: 6 * SquareWidth,
 			width: SquareWidth,
 			height: 7 * SquareWidth);
 
-		static CGRect BottomLeftGridBorder = new CGRect(
+        private static readonly CGRect BottomLeftGridBorder = new CGRect(
 			x: 3 * SquareWidth,
 			y: 13 * SquareWidth,
 			width: 2 * SquareWidth,
 			height: SquareWidth);
 
-		static CGRect BottomRightGridBorder = new CGRect(
+        private static readonly CGRect BottomRightGridBorder = new CGRect(
 			x: 10 * SquareWidth,
 			y: 13 * SquareWidth,
 			width: 2 * SquareWidth,
 			height: SquareWidth);
 
-		static List<CGPoint> borderSquares = new List<CGPoint>();
+        private static readonly List<CGPoint> BorderSquares = new List<CGPoint>();
 
-		static CGPoint CentreOfTopLeftGridSquare = new CGPoint(
-			x: ContainingSquare.X + SquareWidth / 2,
-			y: ContainingSquare.Y + SquareWidth / 2);
+        public static List<CGPoint> RightHydrantPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: 1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 0, y: -1) };
+        public static List<CGPoint> FourBarPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 1, y: 0), new CGPoint(x: 2, y: 0) };
+        public static List<CGPoint> SevenPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 0, y: 2) };
+        public static List<CGPoint> FourSquarePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: -1, y: 1) };
+        public static List<CGPoint> LeftCornerPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1) };
+        public static List<CGPoint> UpsideDownTPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: -1), new CGPoint(x: 1, y: 0) };
+        public static List<CGPoint> ThreePolePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: 0, y: -1), new CGPoint(x: 0, y: 1) };
+        public static List<CGPoint> TwoPolePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: 0, y: -1) };
+        public static List<CGPoint> BackwardsLPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: -1), new CGPoint(x: 0, y: -2) };
+        public static List<CGPoint> SingleSquarePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0) };
 
-		static List<CGPoint> rightHydrantPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: 1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 0, y: -1) };
-		static List<CGPoint> fourBarPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 1, y: 0), new CGPoint(x: 2, y: 0) };
-		static List<CGPoint> sevenPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 0, y: 2) };
-		static List<CGPoint> fourSquarePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: -1, y: 1) };
-		static List<CGPoint> leftCornerPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1) };
-		static List<CGPoint> upsideDownTPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: -1), new CGPoint(x: 1, y: 0) };
-		static List<CGPoint> threePolePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: 0, y: -1), new CGPoint(x: 0, y: 1) };
-		static List<CGPoint> twoPolePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: 0, y: -1) };
-		static List<CGPoint> backwardsLPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: -1), new CGPoint(x: 0, y: -2) };
-		static List<CGPoint> singleSquarePoints = new List<CGPoint> { new CGPoint(x: 0, y: 0) };
-
-		static List<CGPoint> leftHydrantPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 0, y: -1) };
-		static List<CGPoint> rightWayUpTPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 1, y: 0) };
+        public static List<CGPoint> LeftHydrantPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 0, y: -1) };
+        public static List<CGPoint> RightWayUpTPoints = new List<CGPoint> { new CGPoint(x: 0, y: 0), new CGPoint(x: -1, y: 0), new CGPoint(x: 0, y: 1), new CGPoint(x: 1, y: 0) };
 
 		public static List<List<GridSquare>> MakeGridSquares()
 		{
@@ -87,72 +88,9 @@ namespace SquareFillXamarin
 			return occupiedGridSquares;
 		}
 
-		public static void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
-		{
-			foreach (var borderSquare in borderSquares)
-			{
-				occupiedGridSquares[Convert.ToInt32(borderSquare.X)][Convert.ToInt32(borderSquare.Y)].Occupied = true;
-			}
-		}
-
-		public static void BuildBorderSquares()
-		{
-			borderSquares.Add(new CGPoint(x: 3, y: 5));
-			borderSquares.Add(new CGPoint(x: 4, y: 5));
-			borderSquares.Add(new CGPoint(x: 5, y: 5));
-			borderSquares.Add(new CGPoint(x: 6, y: 5));
-			borderSquares.Add(new CGPoint(x: 7, y: 5));
-			borderSquares.Add(new CGPoint(x: 8, y: 5));
-			borderSquares.Add(new CGPoint(x: 9, y: 5));
-			borderSquares.Add(new CGPoint(x: 10, y: 5));
-			borderSquares.Add(new CGPoint(x: 11, y: 5));
-			borderSquares.Add(new CGPoint(x: 11, y: 6));
-			borderSquares.Add(new CGPoint(x: 11, y: 7));
-			borderSquares.Add(new CGPoint(x: 11, y: 8));
-			borderSquares.Add(new CGPoint(x: 11, y: 9));
-			borderSquares.Add(new CGPoint(x: 11, y: 10));
-			borderSquares.Add(new CGPoint(x: 11, y: 11));
-			borderSquares.Add(new CGPoint(x: 11, y: 12));
-			borderSquares.Add(new CGPoint(x: 11, y: 13));
-			borderSquares.Add(new CGPoint(x: 10, y: 13));
-			borderSquares.Add(new CGPoint(x: 4, y: 13));
-			borderSquares.Add(new CGPoint(x: 3, y: 13));
-			borderSquares.Add(new CGPoint(x: 3, y: 12));
-			borderSquares.Add(new CGPoint(x: 3, y: 11));
-			borderSquares.Add(new CGPoint(x: 3, y: 10));
-			borderSquares.Add(new CGPoint(x: 3, y: 9));
-			borderSquares.Add(new CGPoint(x: 3, y: 8));
-			borderSquares.Add(new CGPoint(x: 3, y: 7));
-			borderSquares.Add(new CGPoint(x: 3, y: 6));
-		}
-
-		public static void MakeContainingRectangle(UIView view)
-		{
-			var containingRectangle = new UIImageView();
-
-			containingRectangle.Frame = ContainingSquare;
-
-			containingRectangle.BackgroundColor = UIColor.Yellow;
-
-			view.AddSubview(containingRectangle);
-		}
-
-		public static void MakeBorderPiece(UIView view, CGRect rect)
-		{
-			var borderPiece = new UIImageView();
-
-			borderPiece.Frame = rect;
-
-			borderPiece.BackgroundColor = UIColor.Black;
-
-			view.AddSubview(borderPiece);
-		}
-
 		public static void MakeGameGrid(UIView view, List<List<GridSquare>> occupiedGridSquares)
 		{
-
 			MakeContainingRectangle(view: view);
-
 
 			MakeBorderPiece(view: view, rect: TopGridBorder);
 
@@ -171,7 +109,6 @@ namespace SquareFillXamarin
 
 		public static ShapeSet MakeHardCodedShapeSet(UIView view)
 		{
-
 			var originX = SquareWidth / 2;
 
 			var originY = SquareWidth / 2;
@@ -180,94 +117,150 @@ namespace SquareFillXamarin
             // 1:
             new Shape(colour: UIColor.Red,
 					  centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 2*SquareWidth),
-					  relativePoints: rightHydrantPoints,
+					  relativePoints: RightHydrantPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
 			// 2:
             new Shape(colour: UIColor.Blue,
 						centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 15*SquareWidth),
-					  relativePoints: fourBarPoints,
+					  relativePoints: FourBarPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 3:
             new Shape(colour: UIColor.Black,
 						centreOfShape: new CGPoint(x:originX + 10*SquareWidth, y:originY + SquareWidth),
-					  relativePoints: sevenPoints,
+					  relativePoints: SevenPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 4:
             new Shape(colour: UIColor.Orange,
 						centreOfShape: new CGPoint(x:originX + 7*SquareWidth, y:originY + 2*SquareWidth),
-					  relativePoints: fourSquarePoints,
+					  relativePoints: FourSquarePoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 5:
             new Shape(colour: UIColor.Green,
 					  centreOfShape: new CGPoint(x:originX + 8*SquareWidth, y:originY + 15*SquareWidth),
-					  relativePoints: leftCornerPoints,
+					  relativePoints: LeftCornerPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 6:
             new Shape(colour: UIColor.Yellow,
 					  centreOfShape: new CGPoint(x:originX, y:originY + 2*SquareWidth),
-					  relativePoints: rightHydrantPoints,
+					  relativePoints: RightHydrantPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
 			// 7:
             new Shape(colour: UIColor.Purple,
 					  centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 18*SquareWidth),
-					  relativePoints: upsideDownTPoints,
+					  relativePoints: UpsideDownTPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 8:
             new Shape(colour: UIColor.Magenta,
 						centreOfShape: new CGPoint(x:originX, y:originY + 17*SquareWidth),
-					  relativePoints: threePolePoints,
+					  relativePoints: ThreePolePoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 9:
             new Shape(colour: UIColor.Brown,
 						centreOfShape: new CGPoint(x:originX + 6*SquareWidth, y:originY + 18*SquareWidth),
-					  relativePoints: twoPolePoints,
+					  relativePoints: TwoPolePoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 10:
-           new Shape(colour: UIColor.Cyan,
+            new Shape(colour: UIColor.Cyan,
 						centreOfShape: new CGPoint(x:originX + SquareWidth, y:originY + 9*SquareWidth),
-					  relativePoints: fourSquarePoints,
+					  relativePoints: FourSquarePoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 11:
             new Shape(colour: UIColor.DarkGray,
 					  centreOfShape: new CGPoint(x:originX + SquareWidth, y:originY + 7*SquareWidth),
-					  relativePoints: backwardsLPoints,
+					  relativePoints: BackwardsLPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 12:
             new Shape(colour: UIColor.Gray,
 					  centreOfShape: new CGPoint(x:originX, y:originY + 13*SquareWidth),
-					  relativePoints: rightHydrantPoints,
+					  relativePoints: RightHydrantPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 13:
             new Shape(colour: UIColor.White,
 						centreOfShape: new CGPoint(x:originX + 11*SquareWidth, y:originY + 16*SquareWidth),
-					  relativePoints: upsideDownTPoints,
+					  relativePoints: UpsideDownTPoints,
 					  view: view,
 					  containingRectangle: ContainingSquare),
             // 14:
             new Shape(colour: UIColor.LightGray,
 					centreOfShape: new CGPoint(x:originX + 12*SquareWidth, y:originY + 2*SquareWidth),
-					relativePoints: singleSquarePoints,
+					relativePoints: SingleSquarePoints,
 					view: view,
 					containingRectangle: ContainingSquare)
 
 			});
 		}
 
+        private static void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
+        {
+            foreach (var borderSquare in BorderSquares)
+            {
+                occupiedGridSquares[Convert.ToInt32(borderSquare.X)][Convert.ToInt32(borderSquare.Y)].Occupied = true;
+            }
+        }
 
-		public ShapeSetBuilder()
-		{
-		}
+        private static void BuildBorderSquares()
+        {
+            BorderSquares.Add(new CGPoint(x: 3, y: 5));
+            BorderSquares.Add(new CGPoint(x: 4, y: 5));
+            BorderSquares.Add(new CGPoint(x: 5, y: 5));
+            BorderSquares.Add(new CGPoint(x: 6, y: 5));
+            BorderSquares.Add(new CGPoint(x: 7, y: 5));
+            BorderSquares.Add(new CGPoint(x: 8, y: 5));
+            BorderSquares.Add(new CGPoint(x: 9, y: 5));
+            BorderSquares.Add(new CGPoint(x: 10, y: 5));
+            BorderSquares.Add(new CGPoint(x: 11, y: 5));
+            BorderSquares.Add(new CGPoint(x: 11, y: 6));
+            BorderSquares.Add(new CGPoint(x: 11, y: 7));
+            BorderSquares.Add(new CGPoint(x: 11, y: 8));
+            BorderSquares.Add(new CGPoint(x: 11, y: 9));
+            BorderSquares.Add(new CGPoint(x: 11, y: 10));
+            BorderSquares.Add(new CGPoint(x: 11, y: 11));
+            BorderSquares.Add(new CGPoint(x: 11, y: 12));
+            BorderSquares.Add(new CGPoint(x: 11, y: 13));
+            BorderSquares.Add(new CGPoint(x: 10, y: 13));
+            BorderSquares.Add(new CGPoint(x: 4, y: 13));
+            BorderSquares.Add(new CGPoint(x: 3, y: 13));
+            BorderSquares.Add(new CGPoint(x: 3, y: 12));
+            BorderSquares.Add(new CGPoint(x: 3, y: 11));
+            BorderSquares.Add(new CGPoint(x: 3, y: 10));
+            BorderSquares.Add(new CGPoint(x: 3, y: 9));
+            BorderSquares.Add(new CGPoint(x: 3, y: 8));
+            BorderSquares.Add(new CGPoint(x: 3, y: 7));
+            BorderSquares.Add(new CGPoint(x: 3, y: 6));
+        }
+
+        private static void MakeContainingRectangle(UIView view)
+        {
+            var containingRectangle = new UIImageView();
+
+            containingRectangle.Frame = ContainingSquare;
+
+            containingRectangle.BackgroundColor = UIColor.Yellow;
+
+            view.AddSubview(containingRectangle);
+        }
+
+        private static void MakeBorderPiece(UIView view, CGRect rect)
+        {
+            var borderPiece = new UIImageView();
+
+            borderPiece.Frame = rect;
+
+            borderPiece.BackgroundColor = UIColor.Black;
+
+            view.AddSubview(borderPiece);
+        }
 	}
 }

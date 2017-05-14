@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SquareFillXamarin
+namespace SquareFillXamarin.Models
 {
 	public class ShapeSet
 	{
