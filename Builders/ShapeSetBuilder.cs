@@ -38,6 +38,18 @@ namespace SquareFillXamarin
 			width: SquareWidth,
 			height: 7 * SquareWidth);
 
+		static CGRect BottomLeftGridBorder = new CGRect(
+			x: 3 * SquareWidth,
+			y: 13 * SquareWidth,
+			width: 2 * SquareWidth,
+			height: SquareWidth);
+
+		static CGRect BottomRightGridBorder = new CGRect(
+			x: 10 * SquareWidth,
+			y: 13 * SquareWidth,
+			width: 2 * SquareWidth,
+			height: SquareWidth);
+
 		static List<CGPoint> borderSquares = new List<CGPoint>();
 
 		static CGPoint CentreOfTopLeftGridSquare = new CGPoint(
@@ -135,6 +147,124 @@ namespace SquareFillXamarin
 
 			view.AddSubview(borderPiece);
 		}
+
+		public static void MakeGameGrid(UIView view, List<List<GridSquare>> occupiedGridSquares)
+		{
+
+			MakeContainingRectangle(view: view);
+
+
+			MakeBorderPiece(view: view, rect: TopGridBorder);
+
+			MakeBorderPiece(view: view, rect: LeftGridBorder);
+
+			MakeBorderPiece(view: view, rect: RightGridBorder);
+
+			MakeBorderPiece(view: view, rect: BottomLeftGridBorder);
+
+			MakeBorderPiece(view: view, rect: BottomRightGridBorder);
+
+			BuildBorderSquares();
+
+			OccupyBorderSquares(occupiedGridSquares: occupiedGridSquares);
+		}
+
+		public static ShapeSet MakeHardCodedShapeSet(UIView view)
+		{
+
+			var originX = SquareWidth / 2;
+
+			var originY = SquareWidth / 2;
+
+			return new ShapeSet(shapes: new List<Shape> {
+            // 1:
+            new Shape(colour: UIColor.Red,
+					  centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 2*SquareWidth),
+					  relativePoints: rightHydrantPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+			// 2:
+            new Shape(colour: UIColor.Blue,
+						centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 15*SquareWidth),
+					  relativePoints: fourBarPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 3:
+            new Shape(colour: UIColor.Black,
+						centreOfShape: new CGPoint(x:originX + 10*SquareWidth, y:originY + SquareWidth),
+					  relativePoints: sevenPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 4:
+            new Shape(colour: UIColor.Orange,
+						centreOfShape: new CGPoint(x:originX + 7*SquareWidth, y:originY + 2*SquareWidth),
+					  relativePoints: fourSquarePoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 5:
+            new Shape(colour: UIColor.Green,
+					  centreOfShape: new CGPoint(x:originX + 8*SquareWidth, y:originY + 15*SquareWidth),
+					  relativePoints: leftCornerPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 6:
+            new Shape(colour: UIColor.Yellow,
+					  centreOfShape: new CGPoint(x:originX, y:originY + 2*SquareWidth),
+					  relativePoints: rightHydrantPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+			// 7:
+            new Shape(colour: UIColor.Purple,
+					  centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 18*SquareWidth),
+					  relativePoints: upsideDownTPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 8:
+            new Shape(colour: UIColor.Magenta,
+						centreOfShape: new CGPoint(x:originX, y:originY + 17*SquareWidth),
+					  relativePoints: threePolePoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 9:
+            new Shape(colour: UIColor.Brown,
+						centreOfShape: new CGPoint(x:originX + 6*SquareWidth, y:originY + 18*SquareWidth),
+					  relativePoints: twoPolePoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 10:
+           new Shape(colour: UIColor.Cyan,
+						centreOfShape: new CGPoint(x:originX + SquareWidth, y:originY + 9*SquareWidth),
+					  relativePoints: fourSquarePoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 11:
+            new Shape(colour: UIColor.DarkGray,
+					  centreOfShape: new CGPoint(x:originX + SquareWidth, y:originY + 7*SquareWidth),
+					  relativePoints: backwardsLPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 12:
+            new Shape(colour: UIColor.Gray,
+					  centreOfShape: new CGPoint(x:originX, y:originY + 13*SquareWidth),
+					  relativePoints: rightHydrantPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 13:
+            new Shape(colour: UIColor.White,
+						centreOfShape: new CGPoint(x:originX + 11*SquareWidth, y:originY + 16*SquareWidth),
+					  relativePoints: upsideDownTPoints,
+					  view: view,
+					  containingRectangle: ContainingSquare),
+            // 14:
+            new Shape(colour: UIColor.LightGray,
+					centreOfShape: new CGPoint(x:originX + 12*SquareWidth, y:originY + 2*SquareWidth),
+					relativePoints: singleSquarePoints,
+					view: view,
+					containingRectangle: ContainingSquare)
+
+			});
+		}
+
 
 		public ShapeSetBuilder()
 		{
