@@ -1,4 +1,6 @@
-namespace SquareFillXamarin.Builders
+using SquareFillDomain.Utils;
+
+namespace SquareFillDomain.Interfaces
 {
     public interface ISquareViewMaker
     {

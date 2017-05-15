@@ -1,12 +1,13 @@
-using UIKit;
+using SquareFillDomain.Interfaces;
+using SquareFillDomain.Utils;
 
-namespace SquareFillXamarin.Builders
+namespace SquareFillXamarin.UIComponents
 {
     public class SquareViewMaker : ISquareViewMaker
     {
-        private readonly UIView _view;
+        private readonly UIKit.UIView _view;
 
-        public SquareViewMaker(UIView view)
+        public SquareViewMaker(UIKit.UIView view)
         {
             _view = view;
         }

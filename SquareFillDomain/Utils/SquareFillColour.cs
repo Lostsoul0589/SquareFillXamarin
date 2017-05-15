@@ -1,4 +1,4 @@
-namespace SquareFillXamarin.Builders
+namespace SquareFillDomain.Utils
 {
     public enum SquareFillColour
     {

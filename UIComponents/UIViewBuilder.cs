@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using CoreGraphics;
-using SquareFillXamarin.Models;
+﻿using CoreGraphics;
+using SquareFillDomain.Interfaces;
+using SquareFillXamarin.Builders;
 using UIKit;
 
-namespace SquareFillXamarin.Builders
+namespace SquareFillXamarin.UIComponents
 {
     public class UIViewBuilder
 	{
@@ -44,13 +43,13 @@ namespace SquareFillXamarin.Builders
 			width: 2 * ShapeSetBuilder.SquareWidth,
 			height: ShapeSetBuilder.SquareWidth);
     
-        public static ISquareViewMaker InitialiseUIComponents(UIView view)
+        public static ISquareViewMaker InitialiseUIComponents(UIKit.UIView view)
         {
             MakeGameGrid(view: view);
             return new SquareViewMaker(view: view);
         }
 
-        public static void MakeGameGrid(UIView view)
+        public static void MakeGameGrid(UIKit.UIView view)
         {
             MakeContainingRectangle(view: view);
 
@@ -61,7 +60,7 @@ namespace SquareFillXamarin.Builders
             MakeBorderPiece(view: view, rect: BottomRightGridBorder);
         }
 
-        private static void MakeContainingRectangle(UIView view)
+        private static void MakeContainingRectangle(UIKit.UIView view)
         {
             var containingRectangle = new UIImageView();
 
@@ -72,7 +71,7 @@ namespace SquareFillXamarin.Builders
             view.AddSubview(containingRectangle);
         }
 
-        private static void MakeBorderPiece(UIView view, CGRect rect)
+        private static void MakeBorderPiece(UIKit.UIView view, CGRect rect)
         {
             var borderPiece = new UIImageView();
 

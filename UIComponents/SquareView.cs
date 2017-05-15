@@ -1,13 +1,17 @@
 using CoreGraphics;
+using SquareFillDomain.Interfaces;
+using SquareFillDomain.Models;
+using SquareFillDomain.Utils;
+using SquareFillXamarin.Builders;
 using UIKit;
 
-namespace SquareFillXamarin.Builders
+namespace SquareFillXamarin.UIComponents
 {
     public class SquareView : ISquareView
     {
-        private UIImageView _imageView;
+        private readonly UIImageView _imageView;
 
-        public SquareView(UIView view, SquareFillColour colour)
+        public SquareView(UIKit.UIView view, SquareFillColour colour)
         {
             _imageView = new UIImageView();
             _imageView.Frame = new CGRect(

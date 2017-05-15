@@ -1,4 +1,5 @@
-namespace SquareFillXamarin.Builders
+
+namespace SquareFillDomain.Models
 {
     public class SquareFillRect
     {
