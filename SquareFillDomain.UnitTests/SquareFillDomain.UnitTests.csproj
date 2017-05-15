@@ -56,14 +56,14 @@
   <ItemGroup>
     <Compile Include="MockShapeMaker.cs" />
     <Compile Include="MockSquareView.cs" />
-    <Compile Include="ShapeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShapeControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SquareFillXamarin\SquareFillDomain\SquareFillDomain.csproj">
+    <ProjectReference Include="..\SquareFillDomain\SquareFillDomain.csproj">
       <Project>{e5f365ee-a413-450b-8360-d0924f5d1a6c}</Project>
       <Name>SquareFillDomain</Name>
     </ProjectReference>
