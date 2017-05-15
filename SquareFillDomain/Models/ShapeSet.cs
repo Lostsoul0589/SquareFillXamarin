@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SquareFillDomain.Models;
+﻿using System.Collections.Generic;
 
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Models
 {
 	public class ShapeSet
     {

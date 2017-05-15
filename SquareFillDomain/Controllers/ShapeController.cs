@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
-using SquareFillXamarin.Builders;
-using SquareFillXamarin.Models;
+using SquareFillDomain.Utils;
 
-namespace SquareFillXamarin.Controllers
+namespace SquareFillDomain.Controllers
 {
     public class ShapeController
     {

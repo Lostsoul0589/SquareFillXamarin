@@ -1,8 +1,8 @@
 using System;
+using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
-using SquareFillXamarin.Builders;
 
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Utils
 {
     internal class ShapeMover
     {

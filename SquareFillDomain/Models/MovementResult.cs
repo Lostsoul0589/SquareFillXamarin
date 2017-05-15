@@ -1,4 +1,4 @@
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Models
 {
     public class MovementResult
     {

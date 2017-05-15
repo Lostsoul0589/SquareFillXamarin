@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using CoreGraphics;
+using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
-using SquareFillDomain.Models;
 using SquareFillDomain.Utils;
-using SquareFillXamarin.Builders;
 
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Models
 {
     public class Shape
 	{

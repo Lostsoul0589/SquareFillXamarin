@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using SquareFillDomain.Models;
 
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Utils
 {
     public class Logger
     {

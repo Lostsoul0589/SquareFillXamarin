@@ -99,6 +99,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="Resources\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
@@ -115,21 +116,12 @@
     <Compile Include="UIComponents\SquareView.cs" />
     <Compile Include="UIComponents\SquareViewMaker.cs" />
     <Compile Include="UIComponents\UIViewBuilder.cs" />
-    <Compile Include="Models\Logger.cs" />
-    <Compile Include="Models\ShapeMover.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Models\MovementResult.cs" />
-    <Compile Include="Controllers\ShapeController.cs" />
-    <Compile Include="Models\Square.cs" />
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Builders\ShapeSetBuilder.cs" />
-    <Compile Include="Models\GridSquare.cs" />
-    <Compile Include="Models\ShapeSet.cs" />
-    <Compile Include="Models\Shape.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="SquareFillDomain\SquareFillDomain.csproj">

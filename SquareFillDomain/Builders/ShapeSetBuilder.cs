@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
 using SquareFillDomain.Utils;
-using SquareFillXamarin.Models;
 
-namespace SquareFillXamarin.Builders
+namespace SquareFillDomain.Builders
 {
 	public class ShapeSetBuilder
 	{

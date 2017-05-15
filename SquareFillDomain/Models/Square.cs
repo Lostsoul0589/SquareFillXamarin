@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
-using SquareFillDomain.Models;
-using SquareFillXamarin.Builders;
 
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Models
 {
     public class Square
     {
