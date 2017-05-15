@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoreGraphics;
-using SquareFillXamarin.Models;
-using UIKit;
+using SquareFillDomain.Models;
 
-namespace SquareFillXamarin.Builders
+namespace SquareFillDomain.Builders
 {
 	public class ShapeSetBuilder
 	{
@@ -118,72 +116,86 @@ namespace SquareFillXamarin.Builders
             new Shape(colour: UIColor.Red,
 					  centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 2*SquareWidth),
 					  relativePoints: RightHydrantPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
 			// 2:
             new Shape(colour: UIColor.Blue,
 						centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 15*SquareWidth),
 					  relativePoints: FourBarPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 3:
             new Shape(colour: UIColor.Black,
 						centreOfShape: new CGPoint(x:originX + 10*SquareWidth, y:originY + SquareWidth),
 					  relativePoints: SevenPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 4:
             new Shape(colour: UIColor.Orange,
 						centreOfShape: new CGPoint(x:originX + 7*SquareWidth, y:originY + 2*SquareWidth),
 					  relativePoints: FourSquarePoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 5:
             new Shape(colour: UIColor.Green,
 					  centreOfShape: new CGPoint(x:originX + 8*SquareWidth, y:originY + 15*SquareWidth),
 					  relativePoints: LeftCornerPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 6:
             new Shape(colour: UIColor.Yellow,
 					  centreOfShape: new CGPoint(x:originX, y:originY + 2*SquareWidth),
 					  relativePoints: RightHydrantPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
 			// 7:
             new Shape(colour: UIColor.Purple,
 					  centreOfShape: new CGPoint(x:originX + 3*SquareWidth, y:originY + 18*SquareWidth),
 					  relativePoints: UpsideDownTPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 8:
             new Shape(colour: UIColor.Magenta,
 						centreOfShape: new CGPoint(x:originX, y:originY + 17*SquareWidth),
 					  relativePoints: ThreePolePoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 9:
             new Shape(colour: UIColor.Brown,
 						centreOfShape: new CGPoint(x:originX + 6*SquareWidth, y:originY + 18*SquareWidth),
 					  relativePoints: TwoPolePoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 10:
             new Shape(colour: UIColor.Cyan,
 						centreOfShape: new CGPoint(x:originX + SquareWidth, y:originY + 9*SquareWidth),
 					  relativePoints: FourSquarePoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 11:
             new Shape(colour: UIColor.DarkGray,
 					  centreOfShape: new CGPoint(x:originX + SquareWidth, y:originY + 7*SquareWidth),
 					  relativePoints: BackwardsLPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 12:
             new Shape(colour: UIColor.Gray,
 					  centreOfShape: new CGPoint(x:originX, y:originY + 13*SquareWidth),
 					  relativePoints: RightHydrantPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 13:
             new Shape(colour: UIColor.White,
 						centreOfShape: new CGPoint(x:originX + 11*SquareWidth, y:originY + 16*SquareWidth),
 					  relativePoints: UpsideDownTPoints,
-					  view: view),
+					  view: view,
+					  containingRectangle: ContainingSquare),
             // 14:
             new Shape(colour: UIColor.LightGray,
 					centreOfShape: new CGPoint(x:originX + 12*SquareWidth, y:originY + 2*SquareWidth),
 					relativePoints: SingleSquarePoints,
-					view: view)
+					view: view,
+					containingRectangle: ContainingSquare)
 
 			});
 		}

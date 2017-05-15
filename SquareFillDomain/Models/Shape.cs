@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using CoreGraphics;
-using SquareFillXamarin.Builders;
-using UIKit;
+using SquareFillDomain.Builders;
 
-namespace SquareFillXamarin.Models
+namespace SquareFillDomain.Models
 {
     public class Shape
 	{
@@ -24,7 +20,8 @@ namespace SquareFillXamarin.Models
 			UIColor colour,
 			CGPoint centreOfShape,
 			List<CGPoint> relativePoints,
-			UIView view)
+			UIView view,
+			CGRect containingRectangle)
 		{
             List<Square> squares = new List<Square>();
 
@@ -47,6 +44,7 @@ namespace SquareFillXamarin.Models
             _view = view;
             CentreOfShape = centreOfShape;
             Squares = squares;
+           
         
             Initialise();
 		}

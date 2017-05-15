@@ -112,6 +112,7 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\UIViewBuilder.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ShapeMover.cs" />
     <Compile Include="Main.cs" />
