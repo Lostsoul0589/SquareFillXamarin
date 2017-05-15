@@ -112,6 +112,13 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\ISquareView.cs" />
+    <Compile Include="Builders\ISquareViewMaker.cs" />
+    <Compile Include="Builders\SquareFillColour.cs" />
+    <Compile Include="Builders\SquareFillPoint.cs" />
+    <Compile Include="Builders\SquareFillRect.cs" />
+    <Compile Include="Builders\SquareView.cs" />
+    <Compile Include="Builders\SquareViewMaker.cs" />
     <Compile Include="Builders\UIViewBuilder.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ShapeMover.cs" />
@@ -128,6 +135,12 @@
     <Compile Include="Models\GridSquare.cs" />
     <Compile Include="Models\ShapeSet.cs" />
     <Compile Include="Models\Shape.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SquareFillDomain\SquareFillDomain.csproj">
+      <Project>{09bc4a61-d530-415e-ab30-ef00d956da11}</Project>
+      <Name>SquareFillDomain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
