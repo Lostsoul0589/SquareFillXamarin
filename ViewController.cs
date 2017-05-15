@@ -1,6 +1,8 @@
 ﻿using System;
 using Foundation;
+using SquareFillDomain.Models;
 using SquareFillXamarin.Controllers;
+using SquareFillXamarin.UIComponents;
 using UIKit;
 
 namespace SquareFillXamarin
@@ -12,13 +14,19 @@ namespace SquareFillXamarin
 		protected ViewController(IntPtr handle) : base(handle)
 		{
 			// Note: this .ctor should not contain any initialization logic.
-		    _shapeController = new ShapeController(view: View);
 		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
+            // Perform any additional setup after loading the view, typically from a nib.
+
+            var squareMaker = UIViewBuilder.InitialiseUIComponents(view: View);
+
+            _shapeController = new ShapeController(
+                squareViewMaker: squareMaker,
+                screenWidth: Convert.ToInt16(View.Frame.Width),
+                screenHeight: Convert.ToInt16(View.Frame.Height));
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -33,7 +41,10 @@ namespace SquareFillXamarin
 	        if (touch != null)
             {
                 var newLocation = touch.GetPreciseLocation(View);
-                _shapeController.StartMove(cursorPositionAtStart: newLocation);
+                _shapeController.StartMove(
+                    new SquareFillPoint(
+                        x: Convert.ToInt16(newLocation.X), 
+                        y: Convert.ToInt16(newLocation.Y)));
 	        }
 	    }
 
@@ -43,7 +54,10 @@ namespace SquareFillXamarin
             if (touch != null)
             {
                 var newLocation = touch.GetPreciseLocation(View);
-                _shapeController.ContinueMove(newLocation: newLocation);
+                _shapeController.ContinueMove(
+                    new SquareFillPoint(
+                        x: Convert.ToInt16(newLocation.X),
+                        y: Convert.ToInt16(newLocation.Y)));
             }
         }
 
@@ -53,7 +67,10 @@ namespace SquareFillXamarin
             if (touch != null)
             {
                 var touchLocation = touch.GetPreciseLocation(View);
-                _shapeController.EndMove(finalLocation: touchLocation);
+                _shapeController.EndMove(
+                    new SquareFillPoint(
+                        x: Convert.ToInt16(touchLocation.X),
+                        y: Convert.ToInt16(touchLocation.Y)));
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using CoreGraphics;
+using SquareFillDomain.Models;
 
 namespace SquareFillXamarin.Models
 {
@@ -13,7 +13,7 @@ namespace SquareFillXamarin.Models
             Shapes = shapes;
 		}
 
-	    public Shape SelectShape(CGPoint selectedPoint)
+	    public Shape SelectShape(SquareFillPoint selectedPoint)
 	    {
             Shape selectedShape = null;
         

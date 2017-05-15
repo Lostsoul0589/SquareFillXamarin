@@ -3,66 +3,55 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using CoreGraphics;
+using SquareFillDomain.Interfaces;
+using SquareFillDomain.Models;
+using SquareFillDomain.Utils;
 using SquareFillXamarin.Builders;
-using UIKit;
 
 namespace SquareFillXamarin.Models
 {
     public class Shape
 	{
-        public CGPoint CentreOfShape { get; private set; }
+        public SquareFillPoint CentreOfShape { get; private set; }
         public List<Square> Squares { get; private set; }
 
-	    public nfloat NumSquaresLeftOfShapeCentre { get; private set; }
-	    public nfloat NumSquaresRightOfShapeCentre { get; private set; }
-	    public nfloat NumSquaresAboveShapeCentre { get; private set; }
-	    public nfloat NumSquaresBelowShapeCentre { get; private set; }
-    
-        private UIView _view = null;
+	    public int NumSquaresLeftOfShapeCentre { get; private set; }
+	    public int NumSquaresRightOfShapeCentre { get; private set; }
+	    public int NumSquaresAboveShapeCentre { get; private set; }
+	    public int NumSquaresBelowShapeCentre { get; private set; }
 
 		public Shape(
-			UIColor colour,
-			CGPoint centreOfShape,
-			List<CGPoint> relativePoints,
-			UIView view)
+            SquareFillColour colour,
+            SquareFillPoint centreOfShape,
+            List<SquareFillPoint> relativePoints,
+            ISquareViewMaker squareMaker)
 		{
             List<Square> squares = new List<Square>();
 
             foreach(var point in relativePoints)
             {
-                var imageView = new UIImageView();
-                imageView.Frame = new CGRect(
-                    x: 0,
-                    y: 0,
-                    width: ShapeSetBuilder.SquareWidth,
-                    height: ShapeSetBuilder.SquareWidth);
-                imageView.BackgroundColor = colour;
-                view.AddSubview(imageView);
-                imageView.Layer.BorderColor = UIColor.Black.CGColor;
-                imageView.Layer.BorderWidth = 1;
-
-                squares.Add(new Square(positionRelativeToParent: point, sprite: imageView));
+                squares.Add(new Square(
+                    positionRelativeToParent: point,
+                    sprite: squareMaker.MakeSquare(colour: colour)));
             }
-        
-            _view = view;
+
             CentreOfShape = centreOfShape;
             Squares = squares;
         
             Initialise();
 		}
 
-        public Shape(CGPoint centreOfShape,
-         List<Square> squareDefinitions,
-         CGRect containingRectangle)
+        public Shape(
+            SquareFillPoint centreOfShape,
+            List<Square> squareDefinitions)
         {
-        
             CentreOfShape = centreOfShape;
             Squares = squareDefinitions;
         
             Initialise();
         }
 
-        public bool IsInShape(CGPoint point)
+        public bool IsInShape(SquareFillPoint point)
         {
             bool isInShape = false;
             
@@ -74,21 +63,21 @@ namespace SquareFillXamarin.Models
             return isInShape;
         }
 
-        public void PutShapeInNewLocation(CGPoint newCentreOfShape)
+        public void PutShapeInNewLocation(SquareFillPoint newCentreOfShape)
         {
             CentreOfShape = newCentreOfShape;
             foreach(var square in Squares) 
             {
                 if (square.Sprite != null)
                 {
-                    square.Sprite.Center = new CGPoint(
-                        x: CentreOfShape.X + (square.PositionRelativeToParent.X*ShapeSetBuilder.SquareWidth),
-                        y: CentreOfShape.Y + (square.PositionRelativeToParent.Y*ShapeSetBuilder.SquareWidth));
+                    square.Sprite.MoveSquare(
+                        newX: CentreOfShape.X + (square.PositionRelativeToParent.X * ShapeSetBuilder.SquareWidth),
+                        newY: CentreOfShape.Y + (square.PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth));
                 }
             }
         }
 
-        public void CalculateOrigins(CGPoint newCentreOfShape)
+        public void CalculateOrigins(SquareFillPoint newCentreOfShape)
         {
             foreach (var square in Squares) 
             {
@@ -96,8 +85,9 @@ namespace SquareFillXamarin.Models
             }
         }
 
-         public MovementResult AttemptToUpdateOrigins(List<List<GridSquare>> occupiedGridSquares,
-                                              CGPoint newShapeCentre)
+        public MovementResult AttemptToUpdateOrigins(
+            List<List<GridSquare>> occupiedGridSquares,
+            SquareFillPoint newShapeCentre)
         {
             bool somethingIsintheWay = false;
             var movementResult = new MovementResult();
@@ -109,22 +99,21 @@ namespace SquareFillXamarin.Models
                 List<int> newGridXCoords = new List<int>();
                 List<int> newGridYCoords = new List<int>();
 
-                float oldGridXCoord = Convert.ToInt16(square.Origin.X)/Convert.ToInt16(ShapeSetBuilder.SquareWidth);
-                float oldGridYCoord = Convert.ToInt16(square.Origin.Y)/Convert.ToInt16(ShapeSetBuilder.SquareWidth);
-                CGPoint oldGridOrigin = new CGPoint(
+                int oldGridXCoord = square.Origin.X/ShapeSetBuilder.SquareWidth;
+                int oldGridYCoord = square.Origin.Y/ShapeSetBuilder.SquareWidth;
+                SquareFillPoint oldGridOrigin = new SquareFillPoint(
                     x: oldGridXCoord,
                     y: oldGridYCoord);
 
-
-                bool oldXDivisibleBySquareWidth = Convert.ToInt16(square.Origin.X)%
-                                                 Convert.ToInt16(ShapeSetBuilder.SquareWidth) == 0;
-                bool oldYDivisibleBySquareWidth = Convert.ToInt16(square.Origin.Y)%
-                                                 Convert.ToInt16(ShapeSetBuilder.SquareWidth) == 0;
+                bool oldXDivisibleBySquareWidth = 
+                    square.Origin.X % ShapeSetBuilder.SquareWidth == 0;
+                bool oldYDivisibleBySquareWidth = 
+                    square.Origin.Y % ShapeSetBuilder.SquareWidth == 0;
             
-                float newGridXCoord = Convert.ToInt16(newOrigin.X)/Convert.ToInt16(ShapeSetBuilder.SquareWidth);
-                float newGridYCoord = Convert.ToInt16(newOrigin.Y)/Convert.ToInt16(ShapeSetBuilder.SquareWidth);
+                int newGridXCoord = newOrigin.X/ShapeSetBuilder.SquareWidth;
+                int newGridYCoord = newOrigin.Y/ShapeSetBuilder.SquareWidth;
 
-                var newGridOrigin = new CGPoint(
+                var newGridOrigin = new SquareFillPoint(
                     x: newGridXCoord,
                     y: newGridYCoord);
 
@@ -138,10 +127,10 @@ namespace SquareFillXamarin.Models
                     newGridOrigin.Y = newGridOrigin.Y - 1;
                 }
 
-                bool newXDivisibleBySquareWidth = Convert.ToInt16(newOrigin.X)%
-                                                  Convert.ToInt16(ShapeSetBuilder.SquareWidth) == 0;
-                bool newYDivisibleBySquareWidth = Convert.ToInt16(newOrigin.Y)%
-                                                 Convert.ToInt16(ShapeSetBuilder.SquareWidth) == 0;
+                bool newXDivisibleBySquareWidth = 
+                    newOrigin.X % ShapeSetBuilder.SquareWidth == 0;
+                bool newYDivisibleBySquareWidth = 
+                    newOrigin.Y % ShapeSetBuilder.SquareWidth == 0;
             
                 if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
                     || oldGridOrigin.X != newGridOrigin.X)
@@ -160,20 +149,21 @@ namespace SquareFillXamarin.Models
                 {
                     if (newXDivisibleBySquareWidth)
                     {
-                        newGridXCoords.Add(Convert.ToInt16(newGridOrigin.X));
+                        newGridXCoords.Add(newGridOrigin.X);
                     } else
                     {
-                        newGridXCoords.Add(Convert.ToInt16(newGridOrigin.X));
-                        newGridXCoords.Add(Convert.ToInt16(newGridOrigin.X) + 1);
+                        newGridXCoords.Add(newGridOrigin.X);
+                        newGridXCoords.Add(newGridOrigin.X + 1);
                     }
                 
                     if (newYDivisibleBySquareWidth)
                     {
-                        newGridYCoords.Add(Convert.ToInt16(newGridOrigin.Y));
-                    } else
+                        newGridYCoords.Add(newGridOrigin.Y);
+                    } 
+                    else
                     {
-                        newGridYCoords.Add(Convert.ToInt16(newGridOrigin.Y));
-                        newGridYCoords.Add(Convert.ToInt16(newGridOrigin.Y) + 1);
+                        newGridYCoords.Add(newGridOrigin.Y);
+                        newGridYCoords.Add(newGridOrigin.Y + 1);
                     }
                 
                     // These nested for loops work because at the moment we are just considering one square, not the whole shape.
@@ -186,19 +176,19 @@ namespace SquareFillXamarin.Models
                                 || yCoord < 0)
                             {
                                 somethingIsintheWay = true;
-                            } else
+                            } 
+                            else
                             {
                                 somethingIsintheWay = somethingIsintheWay
-                                                      ||
-                                                      occupiedGridSquares[Convert.ToInt16(xCoord)][
-                                                          Convert.ToInt16(yCoord)].Occupied;
+                                    || occupiedGridSquares[xCoord][yCoord].Occupied;
                             }
                         }
                     }
                 }
             }
         
-            if (!somethingIsintheWay) {
+            if (!somethingIsintheWay) 
+            {
                 foreach (var square in Squares)
                 {
                     square.CalculateOrigin(parentShapeCentre: newShapeCentre);
@@ -214,8 +204,8 @@ namespace SquareFillXamarin.Models
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = Convert.ToInt16(square.Origin.X)/Convert.ToInt16(ShapeSetBuilder.SquareWidth);
-                int occupiedYCoordinate = Convert.ToInt16(square.Origin.Y)/Convert.ToInt16(ShapeSetBuilder.SquareWidth);
+                int occupiedXCoordinate = square.Origin.X/ShapeSetBuilder.SquareWidth;
+                int occupiedYCoordinate = square.Origin.Y/ShapeSetBuilder.SquareWidth;
             
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = false;
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = null;
@@ -226,8 +216,8 @@ namespace SquareFillXamarin.Models
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = Convert.ToInt16(square.Origin.X) / Convert.ToInt16(ShapeSetBuilder.SquareWidth);
-                int occupiedYCoordinate = Convert.ToInt16(square.Origin.Y) / Convert.ToInt16(ShapeSetBuilder.SquareWidth);
+                int occupiedXCoordinate = square.Origin.X / ShapeSetBuilder.SquareWidth;
+                int occupiedYCoordinate = square.Origin.Y / ShapeSetBuilder.SquareWidth;
 
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = true;
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = this;
@@ -238,7 +228,7 @@ namespace SquareFillXamarin.Models
         {
             foreach(var square in Squares)
             {
-            square.CalculateOrigin(parentShapeCentre: CentreOfShape);
+                square.CalculateOrigin(parentShapeCentre: CentreOfShape);
             }
         
             CalculateNumSquaresAroundCentre();
@@ -248,17 +238,13 @@ namespace SquareFillXamarin.Models
         private void CalculateNumSquaresAroundCentre()
         {
             foreach (var square in Squares) {
-                NumSquaresLeftOfShapeCentre =
-                    (nfloat)Convert.ToDouble(Math.Min(NumSquaresLeftOfShapeCentre, square.PositionRelativeToParent.X));
+                NumSquaresLeftOfShapeCentre = Math.Min(NumSquaresLeftOfShapeCentre, square.PositionRelativeToParent.X);
             
-                NumSquaresRightOfShapeCentre =
-                     (nfloat)Convert.ToDouble(Math.Max(NumSquaresRightOfShapeCentre, square.PositionRelativeToParent.X));
+                NumSquaresRightOfShapeCentre = Math.Max(NumSquaresRightOfShapeCentre, square.PositionRelativeToParent.X);
             
-                NumSquaresAboveShapeCentre =
-                    (nfloat)Convert.ToDouble(Math.Min(NumSquaresAboveShapeCentre, square.PositionRelativeToParent.Y));
+                NumSquaresAboveShapeCentre = Math.Min(NumSquaresAboveShapeCentre, square.PositionRelativeToParent.Y);
             
-                NumSquaresBelowShapeCentre =
-                    (nfloat)Convert.ToDouble(Math.Max(NumSquaresBelowShapeCentre, square.PositionRelativeToParent.Y));
+                NumSquaresBelowShapeCentre = Math.Max(NumSquaresBelowShapeCentre, square.PositionRelativeToParent.Y);
             }
         
             DealWithNegativeNumbersOfSquares();
@@ -266,8 +252,8 @@ namespace SquareFillXamarin.Models
 
         private void DealWithNegativeNumbersOfSquares()
         {
-           NumSquaresLeftOfShapeCentre = (nfloat) Convert.ToDouble((Math.Abs(NumSquaresLeftOfShapeCentre)));
-           NumSquaresAboveShapeCentre = (nfloat) Convert.ToDouble(Math.Abs(NumSquaresAboveShapeCentre));
+           NumSquaresLeftOfShapeCentre = Math.Abs(NumSquaresLeftOfShapeCentre);
+           NumSquaresAboveShapeCentre = Math.Abs(NumSquaresAboveShapeCentre);
         }
 	}
 }

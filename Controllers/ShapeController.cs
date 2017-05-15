@@ -1,45 +1,45 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using CoreGraphics;
+using SquareFillDomain.Interfaces;
+using SquareFillDomain.Models;
 using SquareFillXamarin.Builders;
 using SquareFillXamarin.Models;
-using UIKit;
 
 namespace SquareFillXamarin.Controllers
 {
     public class ShapeController
     {
         public Shape ShapeToMove = null;
-        public List<List<GridSquare>> OccupiedGridSquares = new List<List<GridSquare>>();
+        public List<List<GridSquare>> OccupiedGridSquares;
         public ShapeSet ShapeSet = null;
     
-        private ShapeMover _shapeMover;
+        private readonly ShapeMover _shapeMover;
         private List<List<Shape>> _shapesInGrid = new List<List<Shape>>();
         private List<List<bool>> _occupied = new List<List<bool>>();
-        private UIView _view;
-        private CGPoint _lastGoodLocation;
+        private SquareFillPoint _lastGoodLocation;
         private bool _colliding = false;
 
-        public ShapeController(UIView view)
+        public ShapeController(
+            ISquareViewMaker squareViewMaker,
+            int screenWidth,
+            int screenHeight)
         {
-            _view = view;
-
             OccupiedGridSquares = ShapeSetBuilder.MakeGridSquares();
-            ShapeSetBuilder.MakeGameGrid(view: _view, occupiedGridSquares: OccupiedGridSquares);
-            ShapeSet = ShapeSetBuilder.MakeHardCodedShapeSet(view: _view);
+            ShapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
+            ShapeSet = ShapeSetBuilder.MakeHardCodedShapeSet(squareViewMaker: squareViewMaker);
             PutAllShapesIntoGrid();
 
             _shapeMover = new ShapeMover(
-                screenWidth: view.Frame.Width, 
-                screenHeight: view.Frame.Height);
+                screenWidth: screenWidth,
+                screenHeight: screenHeight);
 
-            _lastGoodLocation = new CGPoint(x:0, y:0);
+            _lastGoodLocation = new SquareFillPoint(x:0, y:0);
         }
 
-        public void StartMove(CGPoint cursorPositionAtStart)
+        public void StartMove(SquareFillPoint cursorPositionAtStart)
         {
-             ShapeToMove = ShapeSet.SelectShape(selectedPoint: cursorPositionAtStart);
+            ShapeToMove = ShapeSet.SelectShape(selectedPoint: cursorPositionAtStart);
         
             if (ShapeToMove != null) 
             {
@@ -49,12 +49,12 @@ namespace SquareFillXamarin.Controllers
             }
         }
 
-        public void ContinueMove(CGPoint newLocation) 
+        public void ContinueMove(SquareFillPoint newLocation) 
         {
             if (ShapeToMove != null)
             {
-                CGPoint newShapeCentre = _shapeMover.CalculateShapeCentre(newCursorPosition: newLocation);
-                CGPoint positionInGrid = CalculateGridPosition(shapeCentre: newShapeCentre);
+                SquareFillPoint newShapeCentre = _shapeMover.CalculateShapeCentre(newCursorPosition: newLocation);
+                SquareFillPoint positionInGrid = CalculateGridPosition(shapeCentre: newShapeCentre);
                 var logger = new Logger();
 
                 bool cursorIsInShape = ShapeToMove.IsInShape(point: newLocation);
@@ -100,11 +100,11 @@ namespace SquareFillXamarin.Controllers
             }
         }
     
-        public void EndMove(CGPoint finalLocation) 
+        public void EndMove(SquareFillPoint finalLocation) 
         {
             if (ShapeToMove != null)
             {
-                CGPoint newShapeCentre = _shapeMover.CalculateShapeCentre(newCursorPosition: finalLocation);
+                SquareFillPoint newShapeCentre = _shapeMover.CalculateShapeCentre(newCursorPosition: finalLocation);
                 MovementResult movementResult = ShapeToMove.AttemptToUpdateOrigins(
                     occupiedGridSquares: OccupiedGridSquares,
                     newShapeCentre: newShapeCentre);
@@ -127,7 +127,7 @@ namespace SquareFillXamarin.Controllers
             }
         }
 
-        private MovementResult CheckWhetherMovementIsPossible(CGPoint newShapeCentre, Logger logger)
+        private MovementResult CheckWhetherMovementIsPossible(SquareFillPoint newShapeCentre, Logger logger)
         {
             logger.Clear().Plus(desc: "Origins1", squares: ShapeToMove.Squares).Log();
             var movementResult = ShapeToMove.AttemptToUpdateOrigins(
@@ -138,15 +138,11 @@ namespace SquareFillXamarin.Controllers
             return movementResult;
         }
 
-        private CGPoint CalculateGridPosition(CGPoint shapeCentre)
+        private SquareFillPoint CalculateGridPosition(SquareFillPoint shapeCentre)
         {
-            return new CGPoint(
-                x:
-                    Convert.ToInt16(shapeCentre.X - ShapeSetBuilder.SquareWidth/2)/
-                    Convert.ToInt16(ShapeSetBuilder.SquareWidth),
-                y:
-                    Convert.ToInt16(shapeCentre.Y - ShapeSetBuilder.SquareWidth/2)/
-                    Convert.ToInt16(ShapeSetBuilder.SquareWidth));
+            return new SquareFillPoint(
+                x: (shapeCentre.X - ShapeSetBuilder.SquareWidth/2)/ShapeSetBuilder.SquareWidth,
+                y: (shapeCentre.Y - ShapeSetBuilder.SquareWidth/2)/ShapeSetBuilder.SquareWidth);
         }
 
         private void LogMessagePlusOrigins(Logger logger, string message)
@@ -157,10 +153,10 @@ namespace SquareFillXamarin.Controllers
                 .Log();
         }
 
-        private void LogLocation(string message, string locationName, CGPoint location)
+        private void LogLocation(string message, string locationName, SquareFillPoint location)
         {
-            string xCoord = Convert.ToInt16(location.X).ToString();
-            string yCoord = Convert.ToInt16(location.Y).ToString();
+            string xCoord = location.X.ToString();
+            string yCoord = location.Y.ToString();
             Debug.WriteLine(message + " " + locationName + "(x:" + xCoord + ",y:" + yCoord + ")");
         }
 
@@ -174,10 +170,10 @@ namespace SquareFillXamarin.Controllers
 
         private void SnapToGridInRelevantDimensionsIfPossible(
             MovementResult movementResult, 
-            CGPoint previousShapeCentre, 
+            SquareFillPoint previousShapeCentre, 
             Shape shapeToMove)
         {
-            var newShapeCentre = new CGPoint(x: previousShapeCentre.X, y: previousShapeCentre.Y);
+            var newShapeCentre = new SquareFillPoint(x: previousShapeCentre.X, y: previousShapeCentre.Y);
         
             if (movementResult.ShapeHasCrossedAHorizontalGridBoundary)
             {

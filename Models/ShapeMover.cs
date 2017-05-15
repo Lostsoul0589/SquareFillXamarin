@@ -1,5 +1,5 @@
 using System;
-using CoreGraphics;
+using SquareFillDomain.Models;
 using SquareFillXamarin.Builders;
 
 namespace SquareFillXamarin.Models
@@ -7,39 +7,39 @@ namespace SquareFillXamarin.Models
     internal class ShapeMover
     {
         public Shape ShapeToMove { get; private set; }
-        public nfloat ScreenWidth { get; private set; }
-        public nfloat ScreenHeight { get; private set; }
+        public int ScreenWidth { get; private set; }
+        public int ScreenHeight { get; private set; }
 
-        private CGPoint _shapeCentreRelativeToCursorPosition = new CGPoint(x: 0, y: 0);
+        private SquareFillPoint _shapeCentreRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
-        public ShapeMover(nfloat screenWidth, nfloat screenHeight)
+        public ShapeMover(int screenWidth, int screenHeight)
         {
             ScreenWidth = RoundDimensionDownToMultipleOfSquareWidth(screenDimension: screenWidth);
             ScreenHeight = RoundDimensionDownToMultipleOfSquareWidth(screenDimension: screenHeight);
         }
 
-        public void StartMove(CGPoint cursorPositionAtStart, Shape shapeToMove)
+        public void StartMove(SquareFillPoint cursorPositionAtStart, Shape shapeToMove)
         {
             ShapeToMove = shapeToMove;
             _shapeCentreRelativeToCursorPosition.X = ShapeToMove.CentreOfShape.X - cursorPositionAtStart.X;
             _shapeCentreRelativeToCursorPosition.Y = ShapeToMove.CentreOfShape.Y - cursorPositionAtStart.Y;
         }
 
-        public CGPoint CalculateShapeCentre(CGPoint newCursorPosition)
+        public SquareFillPoint CalculateShapeCentre(SquareFillPoint newCursorPosition)
         {
-            return new CGPoint(
+            return new SquareFillPoint(
                 x: newCursorPosition.X + _shapeCentreRelativeToCursorPosition.X,
                 y: newCursorPosition.Y + _shapeCentreRelativeToCursorPosition.Y);
         }
 
-        public CGPoint CalculateCursorPosition(CGPoint centreOfShape)
+        public SquareFillPoint CalculateCursorPosition(SquareFillPoint centreOfShape)
         {
-            return new CGPoint(
+            return new SquareFillPoint(
                 x: centreOfShape.X - _shapeCentreRelativeToCursorPosition.X,
                 y: centreOfShape.Y - _shapeCentreRelativeToCursorPosition.Y);
         }
 
-        public void MoveToNewCursorPosition(CGPoint newCursorPosition)
+        public void MoveToNewCursorPosition(SquareFillPoint newCursorPosition)
         {
             if (ShapeToMove != null)
             {
@@ -48,13 +48,13 @@ namespace SquareFillXamarin.Models
             }
         }
 
-        public void SnapToGrid(CGPoint newCursorPosition)
+        public void SnapToGrid(SquareFillPoint newCursorPosition)
         {
             if (ShapeToMove != null)
             {
                 var shapeCentreTakingRelativePositionIntoAccount =
                     CalculateShapeCentre(newCursorPosition: newCursorPosition);
-                var newShapeCentre = new CGPoint(
+                var newShapeCentre = new SquareFillPoint(
                     x: CalculateSnappedX(newShapeCentreX: shapeCentreTakingRelativePositionIntoAccount.X),
                     y: CalculateSnappedY(newShapeCentreY: shapeCentreTakingRelativePositionIntoAccount.Y));
         
@@ -63,47 +63,46 @@ namespace SquareFillXamarin.Models
             }
         }
 
-        public nfloat CalculateSnappedX(nfloat newShapeCentreX)
+        public int CalculateSnappedX(int newShapeCentreX)
         {
             return CalculateSnappedCoordinate(
                 newShapeCentreCoord: newShapeCentreX,
                 boundaryRectangleOriginCoord: 0,
                 boundaryRectangleDimension: ScreenWidth,
-                numSquaresOnSmallestSide: Convert.ToInt16(ShapeToMove.NumSquaresLeftOfShapeCentre),
-                numSquaresOnLargestSide: Convert.ToInt16(ShapeToMove.NumSquaresRightOfShapeCentre));
+                numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfShapeCentre,
+                numSquaresOnLargestSide:  ShapeToMove.NumSquaresRightOfShapeCentre);
         }
 
-        public nfloat CalculateSnappedY(nfloat newShapeCentreY)
+        public int CalculateSnappedY(int newShapeCentreY)
         {
             return CalculateSnappedCoordinate(
                 newShapeCentreCoord: newShapeCentreY,
                 boundaryRectangleOriginCoord: 0,
                 boundaryRectangleDimension: ScreenHeight,
-                numSquaresOnSmallestSide: Convert.ToInt16(ShapeToMove.NumSquaresAboveShapeCentre),
-                numSquaresOnLargestSide: Convert.ToInt16(ShapeToMove.NumSquaresBelowShapeCentre));
+                numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveShapeCentre,
+                numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowShapeCentre);
         }
 
-        private nfloat RoundDimensionDownToMultipleOfSquareWidth(nfloat screenDimension)
+        private int RoundDimensionDownToMultipleOfSquareWidth(int screenDimension)
         {
-            var maxNumberOfGridSquaresInDimension =
-                Convert.ToInt16(Convert.ToInt16(screenDimension)/Convert.ToInt16(ShapeSetBuilder.SquareWidth));
-            return (nfloat)(maxNumberOfGridSquaresInDimension*ShapeSetBuilder.SquareWidth);
+            var maxNumberOfGridSquaresInDimension = screenDimension / ShapeSetBuilder.SquareWidth;
+            return maxNumberOfGridSquaresInDimension * ShapeSetBuilder.SquareWidth;
         }
 
-        private nfloat CalculateSnappedCoordinate(
-            nfloat newShapeCentreCoord, 
+        private int CalculateSnappedCoordinate(
+            int newShapeCentreCoord, 
             int boundaryRectangleOriginCoord, 
-            nfloat boundaryRectangleDimension, 
+            int boundaryRectangleDimension, 
             int numSquaresOnSmallestSide, 
             int numSquaresOnLargestSide)
         {
             var squareWidth = ShapeSetBuilder.SquareWidth;
 
-            var shapeCentreCoord = newShapeCentreCoord;
-            int numberOfSquaresFromEdgeOfScreen = Convert.ToInt16(shapeCentreCoord)/Convert.ToInt16(squareWidth);
+            int shapeCentreCoord = newShapeCentreCoord;
+            int numberOfSquaresFromEdgeOfScreen = shapeCentreCoord / squareWidth;
 
-            var potentialNewSquareCentre = numberOfSquaresFromEdgeOfScreen*Convert.ToInt16(squareWidth) +
-                                           Convert.ToInt16(Convert.ToInt16(squareWidth)/2);
+            var potentialNewSquareCentre = numberOfSquaresFromEdgeOfScreen * squareWidth +
+                                           (squareWidth/2) ;
 
             var squareCentreAtOneEndOfContainer = boundaryRectangleOriginCoord + squareWidth/2;
 
@@ -111,25 +110,23 @@ namespace SquareFillXamarin.Models
                 boundaryRectangleOriginCoord + boundaryRectangleDimension - squareWidth/2;
 
             var potentialCentreOfShapeEdgeOnOneSide =
-                potentialNewSquareCentre - (numSquaresOnSmallestSide*Convert.ToInt16(squareWidth));
+                potentialNewSquareCentre - numSquaresOnSmallestSide * squareWidth;
 
             var centreOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
-                Math.Max(potentialCentreOfShapeEdgeOnOneSide,
-                    Convert.ToInt16(squareCentreAtOneEndOfContainer));
+                Math.Max(potentialCentreOfShapeEdgeOnOneSide, squareCentreAtOneEndOfContainer);
 
             var shapeCentreAdjustedForSmallestContainerEdge =
                 centreOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
-                + (numSquaresOnSmallestSide*Convert.ToInt16(squareWidth));
+                + (numSquaresOnSmallestSide * squareWidth);
 
-            var potentialCentreOfShapeEdgeOnOtherSide = Convert.ToInt16(shapeCentreAdjustedForSmallestContainerEdge) +
-                                                        (numSquaresOnLargestSide*Convert.ToInt16(squareWidth));
+            var potentialCentreOfShapeEdgeOnOtherSide = shapeCentreAdjustedForSmallestContainerEdge +
+                                                        (numSquaresOnLargestSide * squareWidth);
 
             var centreOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
-                Math.Min(potentialCentreOfShapeEdgeOnOtherSide,
-                    Convert.ToInt16(squareCentreAtOtherEndOfContainer));
+                Math.Min(potentialCentreOfShapeEdgeOnOtherSide, squareCentreAtOtherEndOfContainer);
 
-            nfloat actualSquareCentre = centreOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
-                                     - (numSquaresOnLargestSide*Convert.ToInt16(squareWidth));
+            int actualSquareCentre = centreOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
+                                     - (numSquaresOnLargestSide * squareWidth);
 
             return actualSquareCentre;
         }

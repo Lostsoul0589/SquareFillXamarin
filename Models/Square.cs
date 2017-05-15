@@ -1,42 +1,43 @@
-﻿using CoreGraphics;
+﻿using System;
+using SquareFillDomain.Interfaces;
+using SquareFillDomain.Models;
 using SquareFillXamarin.Builders;
-using UIKit;
 
 namespace SquareFillXamarin.Models
 {
     public class Square
     {
-        public CGPoint PositionRelativeToParent { get; private set; }
-        public UIImageView Sprite { get; private set; }
-        public CGPoint Origin { get; private set; }
+        public SquareFillPoint PositionRelativeToParent { get; private set; }
+        public ISquareView Sprite { get; private set; }
+        public SquareFillPoint Origin { get; private set; }
 
         public Square()
         {
-            Origin = new CGPoint(x: 0, y: 0);
+            Origin = new SquareFillPoint(x: 0, y: 0);
         }
 
-        public Square(CGPoint positionRelativeToParent, UIImageView sprite)
+        public Square(SquareFillPoint positionRelativeToParent, ISquareView sprite)
         {
             PositionRelativeToParent = positionRelativeToParent;
             Sprite = sprite;
-            Origin = new CGPoint(x: 0, y: 0);
+            Origin = new SquareFillPoint(x: 0, y: 0);
         }
 
-        public void CalculateOrigin(CGPoint parentShapeCentre)
+        public void CalculateOrigin(SquareFillPoint parentShapeCentre)
         {
             Origin = CalculatePotentialOrigin(parentShapeCentre: parentShapeCentre);
         }
 
-        public CGPoint CalculatePotentialOrigin(CGPoint parentShapeCentre)
+        public SquareFillPoint CalculatePotentialOrigin(SquareFillPoint parentShapeCentre)
         {
-            return new CGPoint(
-           x: parentShapeCentre.X + (PositionRelativeToParent.X * ShapeSetBuilder.SquareWidth)
-               - ShapeSetBuilder.SquareWidth / 2,
-           y: parentShapeCentre.Y + (PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth)
-               - ShapeSetBuilder.SquareWidth / 2);
+            return new SquareFillPoint(
+                x: parentShapeCentre.X + (PositionRelativeToParent.X * ShapeSetBuilder.SquareWidth)
+                    - ShapeSetBuilder.SquareWidth / 2,
+                y: parentShapeCentre.Y + (PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth)
+                    - ShapeSetBuilder.SquareWidth / 2);
         }
 
-        public bool IsInSquare(CGPoint point)
+        public bool IsInSquare(SquareFillPoint point)
         {
             return Origin.X <= point.X
                    && point.X <= (Origin.X + ShapeSetBuilder.SquareWidth)

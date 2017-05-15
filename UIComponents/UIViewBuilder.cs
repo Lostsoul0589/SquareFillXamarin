@@ -64,7 +64,7 @@ namespace SquareFillXamarin.UIComponents
         {
             var containingRectangle = new UIImageView();
 
-            containingRectangle.Frame = ShapeSetBuilder.ContainingSquare;
+            containingRectangle.Frame = _containingRectangle;
 
             containingRectangle.BackgroundColor = UIColor.Yellow;
 

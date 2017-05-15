@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using CoreGraphics;
+using SquareFillDomain.Models;
 
 namespace SquareFillXamarin.Models
 {
@@ -15,10 +15,10 @@ namespace SquareFillXamarin.Models
             return this;
         }
 
-        public Logger Plus(string desc, CGPoint point)
+        public Logger Plus(string desc, SquareFillPoint point)
         {
-            String xCoord = Convert.ToInt16(point.X).ToString();
-            String yCoord = Convert.ToInt16(point.Y).ToString();
+            String xCoord = point.X.ToString();
+            String yCoord = point.Y.ToString();
             _message = _message + desc + "(x:" + xCoord + ",y:" + yCoord + ")" + "; ";
 
             return this;
@@ -29,8 +29,8 @@ namespace SquareFillXamarin.Models
             _message = _message + desc + ": ";
             foreach(var square in squares)
             {
-                string originX = Convert.ToInt16(square.Origin.X).ToString();
-                string originY = Convert.ToInt16(square.Origin.Y).ToString();
+                string originX = square.Origin.X.ToString();
+                string originY = square.Origin.Y.ToString();
                 _message = _message + originX + "," + originY + " ";
             }
             _message = _message + "; ";
