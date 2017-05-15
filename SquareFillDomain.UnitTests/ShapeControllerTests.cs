@@ -28,7 +28,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
 
@@ -48,7 +48,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.SquareWidth/2,
                 y: ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -70,7 +70,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.SquareWidth/2,
                 y: ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -86,7 +86,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange & Act
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
 
@@ -100,7 +100,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange & Act
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
 
@@ -128,7 +128,7 @@ namespace SquareFillDomain.UnitTests
                 x: 9*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2,
                 y: 18*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: outsideContainingSquareButInsideFourSquare);
@@ -155,7 +155,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.SquareWidth/2,
                 y: ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -178,7 +178,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             foreach (var occupiedGridSquareArray in shapeController.OccupiedGridSquares)
@@ -207,7 +207,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.SquareWidth/2,
                 y: ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -232,7 +232,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.SquareWidth/2 + 5,
                 y: ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2 + 6);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -257,7 +257,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.SquareWidth/2 + 1,
                 y: ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2 + 2);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -288,7 +288,7 @@ namespace SquareFillDomain.UnitTests
                 x: insideContainingSquare.X + 3*ShapeSetBuilder.SquareWidth,
                 y: insideContainingSquare.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingSquareButInsideRightHydrant);
@@ -327,7 +327,7 @@ namespace SquareFillDomain.UnitTests
                 x: insideObstacle.X + 2*ShapeSetBuilder.SquareWidth,
                 y: insideObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideRightHydrantWithOffset);
@@ -375,7 +375,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyToLeftOfObstacle.X,
                 y: directlyToLeftOfObstacle.Y + yOffset);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -416,7 +416,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyToRightOfObstacle.X,
                 y: directlyToRightOfObstacle.Y + yOffset);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -457,7 +457,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyBelowObstacle.X + xOffset,
                 y: directlyBelowObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -498,7 +498,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyAboveObstacle.X + xOffset,
                 y: directlyAboveObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -542,7 +542,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyBottomRightOfObstacle.X,
                 y: directlyBottomRightOfObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -582,7 +582,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyBottomLeftOfObstacle.X,
                 y: directlyBottomLeftOfObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -622,7 +622,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyTopLeftOfObstacle.X,
                 y: directlyTopLeftOfObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -662,7 +662,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyTopRightOfObstacle.X,
                 y: directlyTopRightOfObstacle.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -698,7 +698,7 @@ namespace SquareFillDomain.UnitTests
                 x: collidingWithSomething.X + 2*ShapeSetBuilder.SquareWidth + laterRelativeCursorPosition.X,
                 y: collidingWithSomething.Y + laterRelativeCursorPosition.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: startingInsideShape);
@@ -744,7 +744,7 @@ namespace SquareFillDomain.UnitTests
                 x: collidingWithSomething.X + 2*ShapeSetBuilder.SquareWidth + 10,
                 y: collidingWithSomething.Y + 2*ShapeSetBuilder.SquareWidth);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: startingInsideShape);
@@ -785,7 +785,7 @@ namespace SquareFillDomain.UnitTests
                 x: collidingWithSomething.X + 3*ShapeSetBuilder.SquareWidth,
                 y: collidingWithSomething.Y + 3*ShapeSetBuilder.SquareWidth);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: startingInsideShape);
@@ -818,7 +818,7 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2 + 10 + 1,
                 y: ShapeSetBuilder.SquareWidth + 1);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: cursorPositionAtStart);
@@ -857,7 +857,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyToRightOfObstacle.X - ShapeSetBuilder.SquareWidth + relativeCursorPosition.X + xOffset,
                 y: directlyToRightOfObstacle.Y + relativeCursorPosition.Y);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -894,7 +894,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyBelowObstacle.X + relativeCursorPosition.X,
                 y: directlyBelowObstacle.Y - ShapeSetBuilder.SquareWidth + relativeCursorPosition.Y + yOffset);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
@@ -923,7 +923,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyBelowObstacle.X,
                 y: directlyBelowObstacle.Y - ShapeSetBuilder.SquareWidth);
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             shapeController.StartMove(cursorPositionAtStart: centreOfFourSquare);
@@ -943,7 +943,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var shapeController = new ShapeController(
-                squareViewMaker: new MockShapeMaker(),
+                squareViewFactory: new MockShapeFactory(),
                 screenWidth: ShapeSetBuilder.ScreenWidth,
                 screenHeight: ShapeSetBuilder.ScreenHeight);
             var containingX = _containingSquare.X/ShapeSetBuilder.SquareWidth;

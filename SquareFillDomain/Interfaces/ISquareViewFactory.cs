@@ -2,7 +2,7 @@ using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.Interfaces
 {
-    public interface ISquareViewMaker
+    public interface ISquareViewFactory
     {
         ISquareView MakeSquare(SquareFillColour colour);
     }

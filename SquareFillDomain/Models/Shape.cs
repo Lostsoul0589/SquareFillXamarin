@@ -20,7 +20,7 @@ namespace SquareFillDomain.Models
             SquareFillColour colour,
             SquareFillPoint centreOfShape,
             List<SquareFillPoint> relativePoints,
-            ISquareViewMaker squareMaker)
+            ISquareViewFactory squareFactory)
 		{
             List<Square> squares = new List<Square>();
 
@@ -28,7 +28,7 @@ namespace SquareFillDomain.Models
             {
                 squares.Add(new Square(
                     positionRelativeToParent: point,
-                    sprite: squareMaker.MakeSquare(colour: colour)));
+                    sprite: squareFactory.MakeSquare(colour: colour)));
             }
 
             CentreOfShape = centreOfShape;

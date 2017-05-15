@@ -8,7 +8,7 @@ using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.UnitTests
 {
-    public class MockShapeMaker : ISquareViewMaker
+    public class MockShapeFactory : ISquareViewFactory
     {
         public ISquareView MakeSquare(SquareFillColour colour)
         {

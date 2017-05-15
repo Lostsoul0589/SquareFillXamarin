@@ -41,7 +41,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Controllers\ShapeController.cs" />
     <Compile Include="Interfaces\ISquareView.cs" />
-    <Compile Include="Interfaces\ISquareViewMaker.cs" />
+    <Compile Include="Interfaces\ISquareViewFactory.cs" />
     <Compile Include="Models\GridSquare.cs" />
     <Compile Include="Models\MovementResult.cs" />
     <Compile Include="Models\Shape.cs" />

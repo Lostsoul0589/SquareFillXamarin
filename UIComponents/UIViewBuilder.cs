@@ -43,10 +43,10 @@ namespace SquareFillXamarin.UIComponents
 			width: 2 * ShapeSetBuilder.SquareWidth,
 			height: ShapeSetBuilder.SquareWidth);
     
-        public static ISquareViewMaker InitialiseUIComponents(UIKit.UIView view)
+        public static ISquareViewFactory InitialiseUIComponents(UIKit.UIView view)
         {
             MakeGameGrid(view: view);
-            return new SquareViewMaker(view: view);
+            return new SquareViewFactory(view: view);
         }
 
         public static void MakeGameGrid(UIKit.UIView view)

@@ -20,13 +20,13 @@ namespace SquareFillDomain.Controllers
         private bool _colliding = false;
 
         public ShapeController(
-            ISquareViewMaker squareViewMaker,
+            ISquareViewFactory squareViewFactory,
             int screenWidth,
             int screenHeight)
         {
             OccupiedGridSquares = ShapeSetBuilder.MakeGridSquares();
             ShapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
-            ShapeSet = ShapeSetBuilder.MakeHardCodedShapeSet(squareViewMaker: squareViewMaker);
+            ShapeSet = ShapeSetBuilder.MakeHardCodedShapeSet(squareViewFactory: squareViewFactory);
             PutAllShapesIntoGrid();
 
             _shapeMover = new ShapeMover(

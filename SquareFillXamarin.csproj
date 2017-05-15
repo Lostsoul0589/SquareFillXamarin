@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UIComponents\SquareView.cs" />
-    <Compile Include="UIComponents\SquareViewMaker.cs" />
+    <Compile Include="UIComponents\SquareViewFactory.cs" />
     <Compile Include="UIComponents\UIViewBuilder.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />

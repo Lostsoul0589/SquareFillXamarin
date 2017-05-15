@@ -3,11 +3,11 @@ using SquareFillDomain.Utils;
 
 namespace SquareFillXamarin.UIComponents
 {
-    public class SquareViewMaker : ISquareViewMaker
+    public class SquareViewFactory : ISquareViewFactory
     {
         private readonly UIKit.UIView _view;
 
-        public SquareViewMaker(UIKit.UIView view)
+        public SquareViewFactory(UIKit.UIView view)
         {
             _view = view;
         }

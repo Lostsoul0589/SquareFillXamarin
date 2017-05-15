@@ -66,7 +66,7 @@ namespace SquareFillDomain.Builders
             }
         }
 
-		public static ShapeSet MakeHardCodedShapeSet(ISquareViewMaker squareViewMaker)
+		public static ShapeSet MakeHardCodedShapeSet(ISquareViewFactory squareViewFactory)
 		{
 			var originX = SquareWidth / 2;
 			var originY = SquareWidth / 2;
@@ -76,72 +76,72 @@ namespace SquareFillDomain.Builders
                 new Shape(colour: SquareFillColour.Red,
 					      centreOfShape: new SquareFillPoint(x:originX + 3*SquareWidth, y:originY + 2*SquareWidth),
 					      relativePoints: RightHydrantPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
 			    // 2:
                 new Shape(colour: SquareFillColour.Blue,
 						  centreOfShape: new SquareFillPoint(x:originX + 3*SquareWidth, y:originY + 15*SquareWidth),
 					      relativePoints: FourBarPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 3:
                 new Shape(colour: SquareFillColour.Black,
 						  centreOfShape: new SquareFillPoint(x:originX + 10*SquareWidth, y:originY + SquareWidth),
 					      relativePoints: SevenPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 4:
                 new Shape(colour: SquareFillColour.Orange,
 						  centreOfShape: new SquareFillPoint(x:originX + 7*SquareWidth, y:originY + 2*SquareWidth),
 					      relativePoints: FourSquarePoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 5:
                 new Shape(colour: SquareFillColour.Green,
 					      centreOfShape: new SquareFillPoint(x:originX + 8*SquareWidth, y:originY + 15*SquareWidth),
 					      relativePoints: LeftCornerPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 6:
                 new Shape(colour: SquareFillColour.Yellow,
 					      centreOfShape: new SquareFillPoint(x:originX, y:originY + 2*SquareWidth),
 					      relativePoints: RightHydrantPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
 			    // 7:
                 new Shape(colour: SquareFillColour.Purple,
 					      centreOfShape: new SquareFillPoint(x:originX + 3*SquareWidth, y:originY + 18*SquareWidth),
 					      relativePoints: UpsideDownTPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 8:
                 new Shape(colour: SquareFillColour.Magenta,
 						  centreOfShape: new SquareFillPoint(x:originX, y:originY + 17*SquareWidth),
 					      relativePoints: ThreePolePoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 9:
                 new Shape(colour: SquareFillColour.Brown,
 						  centreOfShape: new SquareFillPoint(x:originX + 6*SquareWidth, y:originY + 18*SquareWidth),
 					      relativePoints: TwoPolePoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 10:
                 new Shape(colour: SquareFillColour.Cyan,
 						  centreOfShape: new SquareFillPoint(x:originX + SquareWidth, y:originY + 9*SquareWidth),
 					      relativePoints: FourSquarePoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 11:
                 new Shape(colour: SquareFillColour.DarkGrey,
 					      centreOfShape: new SquareFillPoint(x:originX + SquareWidth, y:originY + 7*SquareWidth),
 					      relativePoints: BackwardsLPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 12:
                 new Shape(colour: SquareFillColour.Grey,
 					      centreOfShape: new SquareFillPoint(x:originX, y:originY + 13*SquareWidth),
 					      relativePoints: RightHydrantPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 13:
                 new Shape(colour: SquareFillColour.White,
 						  centreOfShape: new SquareFillPoint(x:originX + 11*SquareWidth, y:originY + 16*SquareWidth),
 					      relativePoints: UpsideDownTPoints,
-					      squareMaker: squareViewMaker),
+					      squareFactory: squareViewFactory),
                 // 14:
                 new Shape(colour: SquareFillColour.LightGrey,
                           centreOfShape: new SquareFillPoint(x:originX + 12*SquareWidth, y:originY + 2*SquareWidth),
                           relativePoints: SingleSquarePoints,
-                          squareMaker: squareViewMaker)
+                          squareFactory: squareViewFactory)
 			});
 		}
 
