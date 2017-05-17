@@ -1,9 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using SquareFillDomain.Builders;
-using SquareFillDomain.Controllers;
-using SquareFillDomain.Interfaces;
-using SquareFillDomain.Models;
+﻿using SquareFillDomain.Interfaces;
 using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.UnitTests

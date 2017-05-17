@@ -1,10 +1,7 @@
-using System;
 using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Controllers;
-using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
-using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.UnitTests
 {
@@ -22,7 +19,7 @@ namespace SquareFillDomain.UnitTests
             y: ShapeSetBuilder.ContainingSquare.Y,
             width: ShapeSetBuilder.ContainingSquare.Width,
             height: ShapeSetBuilder.ContainingSquare.Height);
-
+        
         [Test]
         public void TestPerformanceOfStartMove()
         {
