@@ -5,7 +5,7 @@ namespace SquareFillDomain.Models
 {
     public class Square
     {
-        public SquareFillPoint PositionRelativeToParent { get; private set; }
+        public SquareFillPoint PositionRelativeToParent { get; set; }
         public ISquareView Sprite { get; private set; }
         public SquareFillPoint Origin { get; private set; }
 

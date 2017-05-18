@@ -4,7 +4,7 @@ using SquareFillDomain.Models;
 
 namespace SquareFillDomain.Utils
 {
-    internal class ShapeMover
+    public class ShapeMover
     {
         public Shape ShapeToMove { get; private set; }
         public int ScreenWidth { get; private set; }
