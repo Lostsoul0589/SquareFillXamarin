@@ -9,6 +9,7 @@ namespace SquareFillDomain.Models
     public class Shape
 	{
         public SquareFillPoint CentreOfShape { get; private set; }
+        public SquareFillPoint TopLeftCorner { get; private set; }
         public List<Square> Squares { get; private set; }
 
 	    public int NumSquaresLeftOfShapeCentre { get; private set; }
@@ -19,6 +20,7 @@ namespace SquareFillDomain.Models
 		public Shape(
             SquareFillColour colour,
             SquareFillPoint centreOfShape,
+            SquareFillPoint topLeftCorner,
             List<SquareFillPoint> relativePoints,
             ISquareViewFactory squareFactory)
 		{
@@ -32,6 +34,7 @@ namespace SquareFillDomain.Models
             }
 
             CentreOfShape = centreOfShape;
+		    TopLeftCorner = topLeftCorner;
             Squares = squares;
         
             Initialise();
@@ -39,9 +42,11 @@ namespace SquareFillDomain.Models
 
         public Shape(
             SquareFillPoint centreOfShape,
+            SquareFillPoint topLeftCorner,
             List<Square> squareDefinitions)
         {
             CentreOfShape = centreOfShape;
+            TopLeftCorner = topLeftCorner;
             Squares = squareDefinitions;
         
             Initialise();

@@ -21,6 +21,9 @@ namespace SquareFillDomain.UnitTests
                     centreOfShape: new SquareFillPoint(
                         x: ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.SquareWidth / 2,
                         y: ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.SquareWidth / 2),
+                    topLeftCorner: new SquareFillPoint(
+                        x: ShapeSetBuilder.ContainingRectangle.X,
+                        y: ShapeSetBuilder.ContainingRectangle.Y),
                     squareDefinitions: new List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), sprite: new MockSquareView()) });
         }
 
@@ -348,12 +351,16 @@ namespace SquareFillDomain.UnitTests
 				x:ShapeSetBuilder.ContainingRectangle.X
 					+ (numSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth) + ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.SquareWidth/2);
-			var newCursorPosition = new SquareFillPoint(
+            var topLeftAtStart = new SquareFillPoint(
+                x: ShapeSetBuilder.ContainingRectangle.X,
+                y: ShapeSetBuilder.ContainingRectangle.Y);
+            var newCursorPosition = new SquareFillPoint(
 				x:cursorAndCentreAtStart.X - (numSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth),
 				y:cursorAndCentreAtStart.Y);
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
-				squareDefinitions: new List<Square>{
+                topLeftCorner: topLeftAtStart,
+                squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParent: new SquareFillPoint(x:-numSquaresLeftOfShapeCentre, y:0), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:2, y:0), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
@@ -377,12 +384,16 @@ namespace SquareFillDomain.UnitTests
 				x:ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y
 					+ (numSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth) + ShapeSetBuilder.SquareWidth/2);
-			var newCursorPosition = new SquareFillPoint(
+            var topLeftAtStart = new SquareFillPoint(
+                x: ShapeSetBuilder.ContainingRectangle.X,
+                y: ShapeSetBuilder.ContainingRectangle.Y);
+            var newCursorPosition = new SquareFillPoint(
 				x:cursorAndCentreAtStart.X,
 				y:cursorAndCentreAtStart.Y - (numSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth));
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
-				squareDefinitions: new List<Square>{
+                topLeftCorner: topLeftAtStart,
+                squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-numSquaresAboveShapeCentre), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:2), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
@@ -408,12 +419,16 @@ namespace SquareFillDomain.UnitTests
 					- (numSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth)
 					- ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.SquareWidth/2);
-			var newCursorPosition = new SquareFillPoint(
+            var topLeftAtStart = new SquareFillPoint(
+                x: ShapeSetBuilder.ContainingRectangle.X,
+                y: ShapeSetBuilder.ContainingRectangle.Y);
+            var newCursorPosition = new SquareFillPoint(
 				x:cursorAndCentreAtStart.X + (numSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth),
 				y:cursorAndCentreAtStart.Y);
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
-				squareDefinitions: new List<Square>{
+                topLeftCorner: topLeftAtStart,
+                squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParent: new SquareFillPoint(x:numSquaresRightOfShapeCentre, y:0), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:-2, y:0), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
@@ -439,12 +454,16 @@ namespace SquareFillDomain.UnitTests
 					+ ShapeSetBuilder.ContainingRectangle.Height
 					- (numSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth)
 					- ShapeSetBuilder.SquareWidth/2);
-			var newCursorPosition = new SquareFillPoint(
+            var topLeftAtStart = new SquareFillPoint(
+                x: ShapeSetBuilder.ContainingRectangle.X,
+                y: ShapeSetBuilder.ContainingRectangle.Y);
+            var newCursorPosition = new SquareFillPoint(
 				x:cursorAndCentreAtStart.X,
 				y:cursorAndCentreAtStart.Y + (numSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth));
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
-				squareDefinitions: new List<Square>{
+                topLeftCorner: topLeftAtStart,
+                squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:numSquaresBelowShapeCentre), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-2), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
