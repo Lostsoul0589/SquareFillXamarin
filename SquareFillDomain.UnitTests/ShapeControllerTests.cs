@@ -8,8 +8,6 @@ namespace SquareFillDomain.UnitTests
     [TestFixture]
     public class ShapeControllerTests
     {
-        private int _squareWidth = ShapeSetBuilder.SquareWidth;
-
         private readonly SquareFillPoint _outsideContainingRectangleButInsideRightHydrant = new SquareFillPoint(
             x: ShapeSetBuilder.SquareWidth/2,
             y: 2*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
