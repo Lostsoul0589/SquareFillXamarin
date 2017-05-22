@@ -12,6 +12,7 @@ namespace SquareFillDomain.Models
         public Square()
         {
             Origin = new SquareFillPoint(x: 0, y: 0);
+            PositionRelativeToParent = new SquareFillPoint(x: 0, y: 0);
         }
 
         public Square(SquareFillPoint positionRelativeToParent, ISquareView sprite)

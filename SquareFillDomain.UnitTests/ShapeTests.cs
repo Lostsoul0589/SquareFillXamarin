@@ -10,8 +10,21 @@ namespace SquareFillDomain.UnitTests
     public class ShapeTests
     {
         private readonly Linq.List<Linq.List<GridSquare>> _occupiedGridSquares = ShapeSetBuilder.MakeGridSquares();
-		
-		[Test]
+
+        [SetUp]
+        public void Setup()
+        {
+            foreach(var gridSquareArray in _occupiedGridSquares)
+            {
+                foreach(var gridSquare in gridSquareArray)
+                {
+                    gridSquare.Occupied = false;
+                    gridSquare.ShapeInSquare = null;
+                }
+            }
+        }
+
+        [Test]
 		public void TestCentreOfShapeIsDefinedAsInsideShape() 
         {
 			// Arrange
