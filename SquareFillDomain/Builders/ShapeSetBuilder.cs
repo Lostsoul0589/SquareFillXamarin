@@ -84,7 +84,7 @@ namespace SquareFillDomain.Builders
 			    // 2:
                 new Shape(colour: SquareFillColour.Blue,
 						  centreOfShape: new SquareFillPoint(x:originX + 3*SquareWidth, y:originY + 15*SquareWidth),
-                          topLeftCorner: new SquareFillPoint(x:SquareWidth, y:15*SquareWidth),
+                          topLeftCorner: new SquareFillPoint(x:2*SquareWidth, y:15*SquareWidth),
                           relativePoints: FourBarPoints,
 					      squareFactory: squareViewFactory),
                 // 3:
@@ -102,7 +102,7 @@ namespace SquareFillDomain.Builders
                 // 5:
                 new Shape(colour: SquareFillColour.Green,
 					      centreOfShape: new SquareFillPoint(x:originX + 8*SquareWidth, y:originY + 15*SquareWidth),
-                          topLeftCorner: new SquareFillPoint(x:8*SquareWidth, y:14*SquareWidth),
+                          topLeftCorner: new SquareFillPoint(x:7*SquareWidth, y:15*SquareWidth),
                           relativePoints: LeftCornerPoints,
 					      squareFactory: squareViewFactory),
                 // 6:
@@ -120,13 +120,13 @@ namespace SquareFillDomain.Builders
                 // 8:
                 new Shape(colour: SquareFillColour.Magenta,
 						  centreOfShape: new SquareFillPoint(x:originX, y:originY + 17*SquareWidth),
-                          topLeftCorner: new SquareFillPoint(x:originX, y:originY + 16*SquareWidth),
+                          topLeftCorner: new SquareFillPoint(x:0, y:16*SquareWidth),
                           relativePoints: ThreePolePoints,
 					      squareFactory: squareViewFactory),
                 // 9:
                 new Shape(colour: SquareFillColour.Brown,
 						  centreOfShape: new SquareFillPoint(x:originX + 6*SquareWidth, y:originY + 18*SquareWidth),
-                          topLeftCorner: new SquareFillPoint(x:6*SquareWidth, y:18*SquareWidth),
+                          topLeftCorner: new SquareFillPoint(x:6*SquareWidth, y:17*SquareWidth),
                           relativePoints: TwoPolePoints,
 					      squareFactory: squareViewFactory),
                 // 10:
@@ -155,8 +155,8 @@ namespace SquareFillDomain.Builders
 					      squareFactory: squareViewFactory),
                 // 14:
                 new Shape(colour: SquareFillColour.LightGrey,
-                          centreOfShape: new SquareFillPoint(x:originX + 12*SquareWidth, y:originY + 2*SquareWidth),
-                          topLeftCorner: new SquareFillPoint(x:12*SquareWidth, y:2*SquareWidth),
+                          centreOfShape: new SquareFillPoint(x:originX + 9*SquareWidth, y:originY + 18*SquareWidth),
+                          topLeftCorner: new SquareFillPoint(x:9*SquareWidth, y:18*SquareWidth),
                           relativePoints: SingleSquarePoints,
                           squareFactory: squareViewFactory)
 			});
