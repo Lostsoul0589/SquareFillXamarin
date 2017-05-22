@@ -9,15 +9,15 @@ namespace SquareFillDomain.Builders
 	{
         public static int SquareWidth = 32;
 
-        public static SquareFillRect ContainingSquare = new SquareFillRect(
+        public static SquareFillRect ContainingRectangle = new SquareFillRect(
             x: 4 * SquareWidth,
             y: 6 * SquareWidth,
             width: 7 * SquareWidth,
             height: 7 * SquareWidth);
 
         public static SquareFillPoint CentreOfTopLeftGridSquare = new SquareFillPoint(
-            x: ContainingSquare.X + SquareWidth / 2,
-            y: ContainingSquare.Y + SquareWidth / 2);
+            x: ContainingRectangle.X + SquareWidth / 2,
+            y: ContainingRectangle.Y + SquareWidth / 2);
 
         public static int GridWidth = 13;
         public static int GridHeight = 20;

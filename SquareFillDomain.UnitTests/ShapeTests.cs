@@ -218,7 +218,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                   centreOfShape: centreOfShape,
                   relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                  squareFactory: new MockShapeFactory());
+                  squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.WeStartedWithinTheContainingRectangle();
@@ -237,7 +237,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.WeStartedWithinTheContainingRectangle();
@@ -256,7 +256,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.WeStartedWithinTheContainingRectangle();
@@ -270,12 +270,12 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + ShapeSetBuilder.ContainingSquare.Width - ShapeSetBuilder.SquareWidth,
+                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + ShapeSetBuilder.ContainingRectangle.Width - ShapeSetBuilder.SquareWidth,
                 y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.WeStartedWithinTheContainingRectangle();
@@ -290,11 +290,11 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var centreOfShape = new SquareFillPoint(
                 x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.ContainingSquare.Height);
+                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.ContainingRectangle.Height);
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.WeStartedWithinTheContainingRectangle();
@@ -313,7 +313,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             foreach (var relativePoint in ShapeSetBuilder.RightHydrantPoints)
             {
                 _occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied = true;
@@ -353,7 +353,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             shape.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
@@ -389,7 +389,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -423,7 +423,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -457,7 +457,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -491,7 +491,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -525,7 +525,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -559,14 +559,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[0 + containingX][1 + containingY].Occupied = true;
             _occupiedGridSquares[0 + containingX][2 + containingY].Occupied = true;
@@ -596,14 +596,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[1 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
             _occupiedGridSquares[1 + containingX][2 + containingY].Occupied = true;
@@ -633,14 +633,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][4 + containingY].Occupied = true;
             _occupiedGridSquares[0 + containingX][5 + containingY].Occupied = true;
             _occupiedGridSquares[0 + containingX][6 + containingY].Occupied = true;
@@ -670,14 +670,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[0 + containingX][1 + containingY].Occupied = true;
             _occupiedGridSquares[0 + containingX][2 + containingY].Occupied = true;
@@ -707,14 +707,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][0 + containingY].Occupied = true;
 
             // Act
@@ -742,14 +742,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[2 + containingX][0 + containingY].Occupied = true;
 
             // Act
@@ -777,14 +777,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][4 + containingY].Occupied = true;
 
             // Act
@@ -812,14 +812,14 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.Origin.X, y: square.Origin.Y));
             }
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[2 + containingX][4 + containingY].Occupied = true;
 
             // Act
@@ -1081,9 +1081,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourSquarePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[1 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
 
@@ -1099,7 +1099,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + ShapeSetBuilder.ContainingSquare.Width,
+                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + ShapeSetBuilder.ContainingRectangle.Width,
                 y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + 1);
             var newCentreOfShape = new SquareFillPoint(
                 x: centreOfShape.X - 1,
@@ -1107,9 +1107,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourSquarePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[5 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[5 + containingX][1 + containingY].Occupied = true;
 
@@ -1133,9 +1133,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourSquarePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[1 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
 
@@ -1152,16 +1152,16 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var centreOfShape = new SquareFillPoint(
                 x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + ShapeSetBuilder.SquareWidth + 1,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.ContainingSquare.Height - ShapeSetBuilder.SquareWidth);
+                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.ContainingRectangle.Height - ShapeSetBuilder.SquareWidth);
             var newCentreOfShape = new SquareFillPoint(
                 x: centreOfShape.X,
                 y: centreOfShape.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourSquarePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][5 + containingY].Occupied = true;
             _occupiedGridSquares[1 + containingX][5 + containingY].Occupied = true;
 
@@ -1185,7 +1185,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.TwoPolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -1218,7 +1218,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.TwoPolePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
             {
@@ -1251,9 +1251,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.TwoPolePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][0 + containingY].Occupied = true;
 
             // Act
@@ -1276,9 +1276,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.TwoPolePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[1 + containingX][0 + containingY].Occupied = true;
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
 
@@ -1302,9 +1302,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][1 + containingY].Occupied = true;
 
             // Act
@@ -1327,9 +1327,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[2 + containingX][1 + containingY].Occupied = true;
 
             // Act
@@ -1352,9 +1352,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourBarPoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[2 + containingX][0 + containingY].Occupied = true;
 
             // Act
@@ -1377,9 +1377,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourBarPoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[2 + containingX][1 + containingY].Occupied = true;
 
             // Act
@@ -1402,9 +1402,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.FourSquarePoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[3 + containingX][1 + containingY].Occupied = true;
 
             // Act
@@ -1427,9 +1427,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.LeftHydrantPoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[0 + containingX][1 + containingY].Occupied = true;
 
             // Act
@@ -1452,9 +1452,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightHydrantPoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[2 + containingX][1 + containingY].Occupied = true;
 
             // Act
@@ -1477,9 +1477,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.UpsideDownTPoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[1 + containingX][0 + containingY].Occupied = true;
 
             // Act
@@ -1502,9 +1502,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.RightWayUpTPoints,
-                              squareFactory: new MockShapeFactory());
-            var containingX = ShapeSetBuilder.ContainingSquare.X / ShapeSetBuilder.SquareWidth;
-            var containingY = ShapeSetBuilder.ContainingSquare.Y / ShapeSetBuilder.SquareWidth;
+                              squareFactory: new MockSquareFactory());
+            var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
+            var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
             _occupiedGridSquares[1 + containingX][2 + containingY].Occupied = true;
 
             // Act
@@ -1527,7 +1527,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1549,7 +1549,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1571,7 +1571,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1593,7 +1593,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1615,7 +1615,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1637,7 +1637,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1659,7 +1659,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1681,7 +1681,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
@@ -1703,7 +1703,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][0].Occupied = true;
 
             // Act
@@ -1726,7 +1726,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             _occupiedGridSquares[0][1].Occupied = true;
 
             // Act
@@ -1749,7 +1749,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               relativePoints: ShapeSetBuilder.SingleSquarePoints,
-                              squareFactory: new MockShapeFactory());
+                              squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][1].Occupied = true;
 
             // Act

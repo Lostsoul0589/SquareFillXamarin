@@ -227,10 +227,10 @@ namespace SquareFillDomain.Models
             var rightEdge = CentreOfShape.X + NumSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
             var bottomEdge = CentreOfShape.Y + NumSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
 
-            return leftEdge >= ShapeSetBuilder.ContainingSquare.X
-                && topEdge >= ShapeSetBuilder.ContainingSquare.Y
-                && rightEdge <= (ShapeSetBuilder.ContainingSquare.X + ShapeSetBuilder.ContainingSquare.Width)
-                && bottomEdge <= (ShapeSetBuilder.ContainingSquare.Y + ShapeSetBuilder.ContainingSquare.Height);
+            return leftEdge >= ShapeSetBuilder.ContainingRectangle.X
+                && topEdge >= ShapeSetBuilder.ContainingRectangle.Y
+                && rightEdge <= (ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.ContainingRectangle.Width)
+                && bottomEdge <= (ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.ContainingRectangle.Height);
         }
 
         private void Initialise()

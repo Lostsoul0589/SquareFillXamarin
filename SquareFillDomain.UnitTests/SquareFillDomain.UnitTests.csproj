@@ -54,7 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MockShapeFactory.cs" />
+    <Compile Include="MockSquareFactory.cs" />
     <Compile Include="MockSquareView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShapeControllerTests.cs" />
