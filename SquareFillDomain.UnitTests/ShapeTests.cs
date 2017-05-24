@@ -9,12 +9,26 @@ namespace SquareFillDomain.UnitTests
     [TestFixture]
     public class ShapeTests
     {
+        Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
+            {
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 1, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 1), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: -1), positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
+            };
+        Linq.List<Square> _crossShapeSquareList = new Linq.List<Square> {
+                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-1), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+                new Square(positionRelativeToParent: new SquareFillPoint(x:-1, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:-1, y:1), sprite: new MockSquareView()),
+                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:1), sprite: new MockSquareView()),
+                new Square(positionRelativeToParent: new SquareFillPoint(x:1, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:1, y:1), sprite: new MockSquareView()),
+                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:1), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:2), sprite: new MockSquareView())
+            };
         private readonly Linq.List<Linq.List<GridSquare>> _occupiedGridSquares = ShapeSetBuilder.MakeGridSquares();
 
         [SetUp]
         public void Setup()
         {
-            foreach(var gridSquareArray in _occupiedGridSquares)
+            foreach (var gridSquareArray in _occupiedGridSquares)
             {
                 foreach(var gridSquare in gridSquareArray)
                 {
@@ -35,7 +49,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(
 				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: new Linq.List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), sprite: null) });
+                squareDefinitions: new Linq.List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null) });
 			
 			// Act
 			var isInShape = shape.IsInShape(point: centreOfShape);
@@ -55,7 +69,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(
                 centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: new Linq.List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), sprite: null) });
+                squareDefinitions: new Linq.List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null) });
             var pointInQuestion = new SquareFillPoint(x: centreOfShape.X + 10, y: centreOfShape.Y - 10);
 
             // Act
@@ -76,7 +90,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(
                 centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: new Linq.List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), sprite: null) });
+                squareDefinitions: new Linq.List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null) });
             var pointInQuestion = new SquareFillPoint(x: centreOfShape.X + 10, y: centreOfShape.Y - 50);
 
             // Act
@@ -97,12 +111,7 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(
                 centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:1, y:0), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:1), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-1), sprite: null)
-                });
+                squareDefinitions: _rightHydrantSquareList);
             var pointInQuestion = new SquareFillPoint(x: centreOfShape.X + ShapeSetBuilder.SquareWidth + 10, y: centreOfShape.Y - 10);
 
             // Act
@@ -120,17 +129,10 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2,
                 y: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: ShapeSetBuilder.SquareWidth, y: 0);
-            var squareDefinitions = new Linq.List<Square> {
-                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-1), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:-1, y:0), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:1, y:0), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:1), sprite: new MockSquareView())
-            };
             var shape = new Shape(
                 centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: squareDefinitions);
+                squareDefinitions: _crossShapeSquareList);
             var newCentreOfShape = new SquareFillPoint(x: 120, y: 160);
 
             // Act
@@ -157,8 +159,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x: -numSquaresLeftOfCentre, y:0), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParent: new SquareFillPoint(x: -numSquaresLeftOfCentre, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -176,8 +178,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x: numSquaresRightOfCentre, y:0), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParent: new SquareFillPoint(x: numSquaresRightOfCentre, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -195,8 +197,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y: -numSquaresAboveCentre), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y: -numSquaresAboveCentre), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -214,12 +216,88 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y: numSquaresBelowCentre), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y: numSquaresBelowCentre), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
             Assert.AreEqual(shape.NumSquaresBelowShapeCentre, numSquaresBelowCentre);
+        }
+
+        [Test]
+        public void TestNumSquaresLeftOfTopLeftCornerIsInitialisedAccordingToRelativePosition()
+        {
+            // Arrange
+            int numSquaresLeftOfTopLeftCorner = 2;
+
+            // Act
+            var shape = new Shape(
+                centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
+                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                squareDefinitions: new Linq.List<Square> {
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                });
+
+            // Assert
+            Assert.AreEqual(shape.NumSquaresLeftOfTopLeftCorner, numSquaresLeftOfTopLeftCorner);
+        }
+
+        [Test]
+        public void TestNumSquaresRightOfTopLeftCornerIsInitialisedAcordingToRelativePosition()
+        {
+            // Arrange
+            int numSquaresRightOfTopLeftCorner = 2;
+
+            // Act
+            var shape = new Shape(
+                centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
+                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                squareDefinitions: new Linq.List<Square> {
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                });
+
+            // Assert
+            Assert.AreEqual(shape.NumSquaresRightOfTopLeftCorner, numSquaresRightOfTopLeftCorner);
+        }
+
+        [Test]
+        public void TestNumSquaresAboveTopLeftCornerIsInitialisedAcordingToRelativePosition()
+        {
+            // Arrange
+            int numSquaresAboveTopLeftCorner = 2;
+
+            // Act
+            var shape = new Shape(
+                centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
+                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                squareDefinitions: new Linq.List<Square> {
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                });
+
+            // Assert
+            Assert.AreEqual(shape.NumSquaresAboveTopLeftCorner, numSquaresAboveTopLeftCorner);
+        }
+
+        [Test]
+        public void TestNumSquaresBelowTopLeftCornerIsInitialisedAcordingToRelativePosition()
+        {
+            // Arrange
+            int numSquaresBelowTopLeftCorner = 2;
+
+            // Act
+            var shape = new Shape(
+                centreOfShape: new SquareFillPoint(x: ShapeSetBuilder.SquareWidth / 2, y: ShapeSetBuilder.SquareWidth / 2),
+                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                squareDefinitions: new Linq.List<Square> {
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
+                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                });
+
+            // Assert
+            Assert.AreEqual(shape.NumSquaresBelowTopLeftCorner, numSquaresBelowTopLeftCorner);
         }
 
         [Test]
@@ -235,7 +313,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                   centreOfShape: centreOfShape,
                   topLeftCorner: topLeftCorner,
-                  relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                  relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                  relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                   squareFactory: new MockSquareFactory());
 
             // Act
@@ -258,7 +337,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                              relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -281,7 +361,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                              relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -304,7 +385,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                              relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -327,7 +409,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                              relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -348,9 +431,10 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                              relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
-            foreach (var relativePoint in ShapeSetBuilder.RightHydrantPoints)
+            foreach (var relativePoint in ShapeSetBuilder.RightHydrantCentrePoints)
             {
                 _occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied = true;
                 _occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].ShapeInSquare = shape;
@@ -390,14 +474,15 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
             shape.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
 
             // Assert
-            foreach (var relativePoint in ShapeSetBuilder.ThreePolePoints)
+            foreach (var relativePoint in ShapeSetBuilder.ThreePoleCentrePoints)
             {
                 Assert.AreEqual(_occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied, true);
             }
@@ -428,7 +513,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -464,7 +550,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -500,7 +587,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -536,7 +624,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -572,7 +661,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -610,7 +700,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -651,7 +742,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -692,7 +784,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -733,7 +826,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -774,7 +868,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -813,7 +908,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -852,7 +948,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -891,7 +988,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -931,6 +1029,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -964,6 +1063,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -997,6 +1097,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -1030,6 +1131,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -1063,6 +1165,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -1096,6 +1199,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -1129,6 +1233,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -1162,6 +1267,7 @@ namespace SquareFillDomain.UnitTests
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
                               relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
             foreach(var square in shape.Squares) {
@@ -1196,7 +1302,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourSquarePoints,
+                              relativePoints: ShapeSetBuilder.FourSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourSquarePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1226,7 +1333,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourSquarePoints,
+                              relativePoints: ShapeSetBuilder.FourSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourSquarePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1256,7 +1364,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourSquarePoints,
+                              relativePoints: ShapeSetBuilder.FourSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourSquarePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1286,7 +1395,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourSquarePoints,
+                              relativePoints: ShapeSetBuilder.FourSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourSquarePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1316,7 +1426,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.TwoPolePoints,
+                              relativePoints: ShapeSetBuilder.TwoPoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -1353,7 +1464,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.TwoPolePoints,
+                              relativePoints: ShapeSetBuilder.TwoPoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             foreach (var square in shape.Squares)
@@ -1390,7 +1502,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.TwoPolePoints,
+                              relativePoints: ShapeSetBuilder.TwoPoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1419,7 +1532,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.TwoPolePoints,
+                              relativePoints: ShapeSetBuilder.TwoPoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1449,7 +1563,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1478,7 +1593,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
+                              relativePoints: ShapeSetBuilder.ThreePoleCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1507,7 +1623,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourBarPoints,
+                              relativePoints: ShapeSetBuilder.FourBarCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourBarPoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1536,7 +1653,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourBarPoints,
+                              relativePoints: ShapeSetBuilder.FourBarCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourBarPoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1565,7 +1683,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.FourSquarePoints,
+                              relativePoints: ShapeSetBuilder.FourSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.FourSquarePoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1594,7 +1713,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.LeftHydrantPoints,
+                              relativePoints: ShapeSetBuilder.LeftHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.LeftHydrantPoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1623,7 +1743,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightHydrantPoints,
+                              relativePoints: ShapeSetBuilder.RightHydrantCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1652,7 +1773,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.UpsideDownTPoints,
+                              relativePoints: ShapeSetBuilder.UpsideDownTCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.UpsideDownTPoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1681,7 +1803,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.RightWayUpTPoints,
+                              relativePoints: ShapeSetBuilder.RightWayUpTCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.RightWayUpTPoints,
                               squareFactory: new MockSquareFactory());
             var containingX = ShapeSetBuilder.ContainingRectangle.X / ShapeSetBuilder.SquareWidth;
             var containingY = ShapeSetBuilder.ContainingRectangle.Y / ShapeSetBuilder.SquareWidth;
@@ -1708,7 +1831,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1732,7 +1856,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1756,7 +1881,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1780,7 +1906,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1804,7 +1931,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1828,7 +1956,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1852,7 +1981,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1876,7 +2006,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
             // Act
@@ -1900,7 +2031,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][0].Occupied = true;
 
@@ -1925,7 +2057,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[0][1].Occupied = true;
 
@@ -1950,7 +2083,8 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(colour: SquareFillColour.Red,
                               centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.SingleSquarePoints,
+                              relativePoints: ShapeSetBuilder.SingleSquareCentrePoints,
+                              relativePointsTopLeftCorner: ShapeSetBuilder.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][1].Occupied = true;
 

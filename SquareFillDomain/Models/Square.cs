@@ -6,6 +6,7 @@ namespace SquareFillDomain.Models
     public class Square
     {
         public SquareFillPoint PositionRelativeToParent { get; set; }
+        public SquareFillPoint PositionRelativeToParentCorner { get; set; }
         public ISquareView Sprite { get; private set; }
         public SquareFillPoint Origin { get; private set; }
 
@@ -13,11 +14,13 @@ namespace SquareFillDomain.Models
         {
             Origin = new SquareFillPoint(x: 0, y: 0);
             PositionRelativeToParent = new SquareFillPoint(x: 0, y: 0);
+            PositionRelativeToParentCorner = new SquareFillPoint(x: 0, y: 0);
         }
 
-        public Square(SquareFillPoint positionRelativeToParent, ISquareView sprite)
+        public Square(SquareFillPoint positionRelativeToParent, SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
             PositionRelativeToParent = positionRelativeToParent;
+            PositionRelativeToParentCorner = positionRelativeToParentCorner;
             Sprite = sprite;
             Origin = new SquareFillPoint(x: 0, y: 0);
         }

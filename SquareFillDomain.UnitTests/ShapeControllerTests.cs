@@ -120,7 +120,7 @@ namespace SquareFillDomain.UnitTests
                 x: 7*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2,
                 y: 2*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var stillOutsideContainingRectangle = new SquareFillPoint(
-                x: 9*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2,
+                x: 11*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2,
                 y: 18*ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
             var shapeController = new ShapeController(
                 squareViewFactory: new MockSquareFactory(),
@@ -136,10 +136,10 @@ namespace SquareFillDomain.UnitTests
             Assert.AreEqual(shapeController.OccupiedGridSquares[7][2].Occupied, false);
             Assert.AreEqual(shapeController.OccupiedGridSquares[6][3].Occupied, false);
             Assert.AreEqual(shapeController.OccupiedGridSquares[7][3].Occupied, false);
-            Assert.AreEqual(shapeController.OccupiedGridSquares[8][18].Occupied, true);
-            Assert.AreEqual(shapeController.OccupiedGridSquares[9][18].Occupied, true);
-            Assert.AreEqual(shapeController.OccupiedGridSquares[8][19].Occupied, true);
-            Assert.AreEqual(shapeController.OccupiedGridSquares[9][19].Occupied, true);
+            Assert.AreEqual(shapeController.OccupiedGridSquares[10][18].Occupied, true);
+            Assert.AreEqual(shapeController.OccupiedGridSquares[11][18].Occupied, true);
+            Assert.AreEqual(shapeController.OccupiedGridSquares[10][19].Occupied, true);
+            Assert.AreEqual(shapeController.OccupiedGridSquares[11][19].Occupied, true);
         }
 
         [Test]

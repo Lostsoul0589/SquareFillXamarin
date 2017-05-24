@@ -24,7 +24,7 @@ namespace SquareFillDomain.UnitTests
                     topLeftCorner: new SquareFillPoint(
                         x: ShapeSetBuilder.ContainingRectangle.X,
                         y: ShapeSetBuilder.ContainingRectangle.Y),
-                    squareDefinitions: new List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), sprite: new MockSquareView()) });
+                    squareDefinitions: new List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: new MockSquareView()) });
         }
 
         [Test]
@@ -346,24 +346,24 @@ namespace SquareFillDomain.UnitTests
 		[Test]
 		public void TestIfLeftmostShapeEdgeIsLeftOfContainerThenShapeWillNotBeSnappedBackInsideContainer() {
 			// Arrange
-			int numSquaresLeftOfShapeCentre = 2;
+			int numSquaresLeftOfContainer = 2;
 			var cursorAndCentreAtStart = new SquareFillPoint(
 				x:ShapeSetBuilder.ContainingRectangle.X
-					+ (numSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth) + ShapeSetBuilder.SquareWidth/2,
+					+ (numSquaresLeftOfContainer * ShapeSetBuilder.SquareWidth) + ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.SquareWidth/2);
             var topLeftAtStart = new SquareFillPoint(
                 x: ShapeSetBuilder.ContainingRectangle.X,
                 y: ShapeSetBuilder.ContainingRectangle.Y);
             var newCursorPosition = new SquareFillPoint(
-				x:cursorAndCentreAtStart.X - (numSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth),
+				x:cursorAndCentreAtStart.X - (numSquaresLeftOfContainer * ShapeSetBuilder.SquareWidth),
 				y:cursorAndCentreAtStart.Y);
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:-numSquaresLeftOfShapeCentre, y:0), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:2, y:0), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParent: new SquareFillPoint(x:-numSquaresLeftOfContainer, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:2, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer + 2, y:0), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
 			
@@ -379,24 +379,24 @@ namespace SquareFillDomain.UnitTests
 		[Test]
 		public void TestIfTopShapeEdgeIsAboveContainerThenShapeWillNotBeSnappedBackInsideContainer() {
 			// Arrange
-			int numSquaresAboveShapeCentre = 3;
+			int numSquaresAboveContainer = 3;
 			var cursorAndCentreAtStart = new SquareFillPoint(
 				x:ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y
-					+ (numSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth) + ShapeSetBuilder.SquareWidth/2);
+					+ (numSquaresAboveContainer * ShapeSetBuilder.SquareWidth) + ShapeSetBuilder.SquareWidth/2);
             var topLeftAtStart = new SquareFillPoint(
                 x: ShapeSetBuilder.ContainingRectangle.X,
                 y: ShapeSetBuilder.ContainingRectangle.Y);
             var newCursorPosition = new SquareFillPoint(
 				x:cursorAndCentreAtStart.X,
-				y:cursorAndCentreAtStart.Y - (numSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth));
+				y:cursorAndCentreAtStart.Y - (numSquaresAboveContainer * ShapeSetBuilder.SquareWidth));
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-numSquaresAboveShapeCentre), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:2), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-numSquaresAboveContainer), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:2), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer + 2), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
 			
@@ -412,26 +412,26 @@ namespace SquareFillDomain.UnitTests
 		[Test]
 		public void TestIfRightShapeEdgeIsRightOfContainerThenShapeWillNotBeSnappedBackInsideContainer() {
 			// Arrange
-			int numSquaresRightOfShapeCentre = 1;
+			int numSquaresRightOfContainer = 1;
 			var cursorAndCentreAtStart = new SquareFillPoint(
 				x:ShapeSetBuilder.ContainingRectangle.X
 					+ ShapeSetBuilder.ContainingRectangle.Width
-					- (numSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth)
+					- (numSquaresRightOfContainer * ShapeSetBuilder.SquareWidth)
 					- ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.SquareWidth/2);
             var topLeftAtStart = new SquareFillPoint(
                 x: ShapeSetBuilder.ContainingRectangle.X,
                 y: ShapeSetBuilder.ContainingRectangle.Y);
             var newCursorPosition = new SquareFillPoint(
-				x:cursorAndCentreAtStart.X + (numSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth),
+				x:cursorAndCentreAtStart.X + (numSquaresRightOfContainer * ShapeSetBuilder.SquareWidth),
 				y:cursorAndCentreAtStart.Y);
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:numSquaresRightOfShapeCentre, y:0), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:-2, y:0), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParent: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:-2, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer + 2, y:0), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
 			
@@ -447,26 +447,26 @@ namespace SquareFillDomain.UnitTests
 		[Test]
 		public void TestIfBottomShapeEdgeIsBelowContainerThenShapeWillNotBeSnappedBackInsideContainer() {
 			// Arrange
-			int numSquaresBelowShapeCentre = 2;
+			int numSquaresBelowContainer = 2;
 			var cursorAndCentreAtStart = new SquareFillPoint(
 				x:ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.SquareWidth/2,
 				y:ShapeSetBuilder.ContainingRectangle.Y
 					+ ShapeSetBuilder.ContainingRectangle.Height
-					- (numSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth)
+					- (numSquaresBelowContainer * ShapeSetBuilder.SquareWidth)
 					- ShapeSetBuilder.SquareWidth/2);
             var topLeftAtStart = new SquareFillPoint(
                 x: ShapeSetBuilder.ContainingRectangle.X,
                 y: ShapeSetBuilder.ContainingRectangle.Y);
             var newCursorPosition = new SquareFillPoint(
 				x:cursorAndCentreAtStart.X,
-				y:cursorAndCentreAtStart.Y + (numSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth));
+				y:cursorAndCentreAtStart.Y + (numSquaresBelowContainer * ShapeSetBuilder.SquareWidth));
 			var shapeToMove = new Shape(
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:numSquaresBelowShapeCentre), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-2), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:numSquaresBelowContainer), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-2), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer), sprite: new MockSquareView()),
+					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer + 2), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
 			

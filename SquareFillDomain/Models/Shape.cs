@@ -17,19 +17,26 @@ namespace SquareFillDomain.Models
 	    public int NumSquaresAboveShapeCentre { get; private set; }
 	    public int NumSquaresBelowShapeCentre { get; private set; }
 
-		public Shape(
+        public int NumSquaresLeftOfTopLeftCorner { get; private set; }
+        public int NumSquaresRightOfTopLeftCorner { get; private set; }
+        public int NumSquaresAboveTopLeftCorner { get; private set; }
+        public int NumSquaresBelowTopLeftCorner { get; private set; }
+
+        public Shape(
             SquareFillColour colour,
             SquareFillPoint centreOfShape,
             SquareFillPoint topLeftCorner,
             List<SquareFillPoint> relativePoints,
+            List<SquareFillPoint> relativePointsTopLeftCorner,
             ISquareViewFactory squareFactory)
 		{
             List<Square> squares = new List<Square>();
 
-            foreach(var point in relativePoints)
+            foreach(var point in relativePointsTopLeftCorner)
             {
                 squares.Add(new Square(
-                    positionRelativeToParent: point,
+                    positionRelativeToParent: relativePoints[relativePointsTopLeftCorner.IndexOf(point)],
+                    positionRelativeToParentCorner: point,
                     sprite: squareFactory.MakeSquare(colour: colour)));
             }
 
@@ -246,7 +253,21 @@ namespace SquareFillDomain.Models
             }
         
             CalculateNumSquaresAroundCentre();
+            CalculateNumSquaresAroundTopLeftCorner();
             PutShapeInNewLocation(newCentreOfShape: CentreOfShape);
+        }
+
+        private void CalculateNumSquaresAroundTopLeftCorner()
+        {
+            foreach (var square in Squares)
+            {
+                NumSquaresLeftOfTopLeftCorner = Math.Min(NumSquaresLeftOfTopLeftCorner, square.PositionRelativeToParentCorner.X);
+                NumSquaresRightOfTopLeftCorner = Math.Max(NumSquaresRightOfTopLeftCorner, square.PositionRelativeToParentCorner.X);
+                NumSquaresAboveTopLeftCorner = Math.Min(NumSquaresAboveTopLeftCorner, square.PositionRelativeToParentCorner.Y);
+                NumSquaresBelowTopLeftCorner = Math.Max(NumSquaresBelowTopLeftCorner, square.PositionRelativeToParentCorner.Y);
+            }
+
+            DealWithNegativeNumbersOfSquares();
         }
 
         private void CalculateNumSquaresAroundCentre()
@@ -266,8 +287,11 @@ namespace SquareFillDomain.Models
 
         private void DealWithNegativeNumbersOfSquares()
         {
-           NumSquaresLeftOfShapeCentre = Math.Abs(NumSquaresLeftOfShapeCentre);
-           NumSquaresAboveShapeCentre = Math.Abs(NumSquaresAboveShapeCentre);
+            NumSquaresLeftOfShapeCentre = Math.Abs(NumSquaresLeftOfShapeCentre);
+            NumSquaresAboveShapeCentre = Math.Abs(NumSquaresAboveShapeCentre);
+
+            NumSquaresLeftOfTopLeftCorner = Math.Abs(NumSquaresLeftOfTopLeftCorner);
+            NumSquaresAboveTopLeftCorner = Math.Abs(NumSquaresAboveTopLeftCorner);
         }
 	}
 }

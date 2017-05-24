@@ -2,13 +2,22 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
+using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests
 {
     [TestFixture]
     public class ShapeSetTests
-    {    
-		[Test]
+    {
+        readonly Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
+            {
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 1, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 1), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
+                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: -1), positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
+            };
+
+        [Test]
 		public void TestWhenUserClicksInAreaOfScreenWithNoShapeThenNoShapeIsSelected() {
 			// Arrange
 			var centreOfShape = new SquareFillPoint(
@@ -18,7 +27,7 @@ namespace SquareFillDomain.UnitTests
             var singleSquareShape = new Shape(
 				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
 			var selectedPoint = new SquareFillPoint(x:ShapeSetBuilder.SquareWidth*3 + 10, y:ShapeSetBuilder.SquareWidth*3 + 10);
 			
@@ -40,7 +49,7 @@ namespace SquareFillDomain.UnitTests
             var singleSquareShape = new Shape(
 				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
 			var selectedPoint = centreOfShape;
 			
@@ -69,11 +78,11 @@ namespace SquareFillDomain.UnitTests
             var firstSquareShape = new Shape(
 				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var secondSquareShape = new Shape(
 				centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var shapeList = new List<Shape>{firstSquareShape, secondSquareShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
 			var selectedPoint = centreOfSecondShape;
@@ -103,11 +112,11 @@ namespace SquareFillDomain.UnitTests
             var firstSquareShape = new Shape(
 				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var secondSquareShape = new Shape(
 				centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
 			var shapeSet = new ShapeSet(shapes: shapeList);
 			var selectedPoint = new SquareFillPoint(x: centreOfSecondShape.X + 10, y: centreOfSecondShape.Y + 10);
@@ -137,16 +146,11 @@ namespace SquareFillDomain.UnitTests
             var firstSquareShape = new Shape(
 				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null)});
+                squareDefinitions: new List<Square>{new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)});
 			var secondSquareShape = new Shape(
 				centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), sprite: null),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:1, y:0), sprite: null),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:1), sprite: null),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-1), sprite: null)
-				});
+                squareDefinitions: _rightHydrantSquareList);
 			var shapeList = new List<Shape>{firstSquareShape, secondSquareShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
 			var selectedPoint = new SquareFillPoint(x: centreOfSecondShape.X + ShapeSetBuilder.SquareWidth + 10, y: centreOfSecondShape.Y + 10);
