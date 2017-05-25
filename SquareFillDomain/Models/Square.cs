@@ -30,6 +30,11 @@ namespace SquareFillDomain.Models
             TopLeftCorner = CalculatePotentialOrigin(parentShapeCentre: parentShapeCentre);
         }
 
+        public void CalculateTopLeftCorner(SquareFillPoint parentTopLeftCorner)
+        {
+            TopLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
+        }
+
         public SquareFillPoint CalculatePotentialOrigin(SquareFillPoint parentShapeCentre)
         {
             return new SquareFillPoint(
@@ -37,6 +42,13 @@ namespace SquareFillDomain.Models
                     - ShapeSetBuilder.SquareWidth / 2,
                 y: parentShapeCentre.Y + (PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth)
                     - ShapeSetBuilder.SquareWidth / 2);
+        }
+
+        public SquareFillPoint CalculatePotentialTopLeftCorner(SquareFillPoint parentTopLeftCorner)
+        {
+            return new SquareFillPoint(
+                x: parentTopLeftCorner.X + (PositionRelativeToParentCorner.X * ShapeSetBuilder.SquareWidth),
+                y: parentTopLeftCorner.Y + (PositionRelativeToParentCorner.Y * ShapeSetBuilder.SquareWidth));
         }
 
         public bool IsInSquare(SquareFillPoint point)

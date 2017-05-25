@@ -75,5 +75,43 @@ namespace SquareFillDomain.UnitTests
 			Assert.AreEqual(square.TopLeftCorner.Y, parentShapeCentre.Y
 				+ (square.PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth) - ShapeSetBuilder.SquareWidth/2);
 		}
+
+        [Test]
+        public void TestTopLeftCornerIsCalculatedAsParentCornerAdjustedByRelativePosition()
+        {
+            // Arrange
+            var parentTopLeftCorner = new SquareFillPoint(
+                x: 4 * ShapeSetBuilder.SquareWidth,
+                y: 4 * ShapeSetBuilder.SquareWidth);
+            var square = new Square();
+            square.PositionRelativeToParentCorner = new SquareFillPoint(x: -2, y: -3);
+
+            // Act
+            square.CalculateTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
+
+            // Assert
+            Assert.AreEqual(square.TopLeftCorner.X, parentTopLeftCorner.X
+                + (square.PositionRelativeToParentCorner.X * ShapeSetBuilder.SquareWidth));
+            Assert.AreEqual(square.TopLeftCorner.Y, parentTopLeftCorner.Y
+                + (square.PositionRelativeToParentCorner.Y * ShapeSetBuilder.SquareWidth));
+        }
+
+        [Test]
+        public void TestPotentialTopLeftCornerIsCalculatedAsParentCornerAdjustedByRelativePosition()
+        {
+            // Arrange
+            var parentTopLeftCorner = new SquareFillPoint(
+                x: 4 * ShapeSetBuilder.SquareWidth,
+                y: 4 * ShapeSetBuilder.SquareWidth);
+            var square = new Square();
+            square.PositionRelativeToParentCorner = new SquareFillPoint(x: -2, y: -3);
+
+            // Act
+            SquareFillPoint result = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
+
+            // Assert
+            Assert.AreEqual(result.X, parentTopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeSetBuilder.SquareWidth));
+            Assert.AreEqual(result.Y, parentTopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeSetBuilder.SquareWidth));
+        }
 	}
 }

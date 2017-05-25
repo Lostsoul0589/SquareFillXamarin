@@ -107,6 +107,14 @@ namespace SquareFillDomain.Models
             }
         }
 
+        public void CalculateTopLeftCorners(SquareFillPoint newTopLeftCorner)
+        {
+            foreach (var square in Squares)
+            {
+                square.CalculateTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
+            }
+        }
+
         public MovementResult AttemptToUpdateOrigins(
             List<List<GridSquare>> occupiedGridSquares,
             SquareFillPoint newShapeCentre)
