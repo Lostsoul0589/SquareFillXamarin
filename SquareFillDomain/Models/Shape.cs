@@ -256,10 +256,19 @@ namespace SquareFillDomain.Models
 
         public bool WeStartedWithinTheContainingRectangle()
         {
-            var leftEdge = CentreOfShape.X - NumSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth - ShapeSetBuilder.SquareWidth / 2;
-            var topEdge = CentreOfShape.Y - NumSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth - ShapeSetBuilder.SquareWidth / 2;
-            var rightEdge = CentreOfShape.X + NumSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
-            var bottomEdge = CentreOfShape.Y + NumSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
+            //var leftEdge = CentreOfShape.X - NumSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth - ShapeSetBuilder.SquareWidth / 2;
+            //var topEdge = CentreOfShape.Y - NumSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth - ShapeSetBuilder.SquareWidth / 2;
+            //var rightEdge = CentreOfShape.X + NumSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
+            //var bottomEdge = CentreOfShape.Y + NumSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
+
+            //return leftEdge >= ShapeSetBuilder.ContainingRectangle.X
+            //    && topEdge >= ShapeSetBuilder.ContainingRectangle.Y
+            //    && rightEdge <= (ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.ContainingRectangle.Width)
+            //    && bottomEdge <= (ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.ContainingRectangle.Height);
+            var leftEdge = TopLeftCorner.X - NumSquaresLeftOfTopLeftCorner * ShapeSetBuilder.SquareWidth;
+            var topEdge = TopLeftCorner.Y - NumSquaresAboveTopLeftCorner * ShapeSetBuilder.SquareWidth;
+            var rightEdge = TopLeftCorner.X + NumSquaresRightOfTopLeftCorner * ShapeSetBuilder.SquareWidth;
+            var bottomEdge = TopLeftCorner.Y + NumSquaresBelowTopLeftCorner * ShapeSetBuilder.SquareWidth;
 
             return leftEdge >= ShapeSetBuilder.ContainingRectangle.X
                 && topEdge >= ShapeSetBuilder.ContainingRectangle.Y
@@ -273,10 +282,15 @@ namespace SquareFillDomain.Models
             {
                 square.CalculateOrigin(parentShapeCentre: CentreOfShape);
             }
+            foreach (var square in Squares)
+            {
+                square.CalculateTopLeftCorner(parentTopLeftCorner: TopLeftCorner);
+            }
         
             CalculateNumSquaresAroundCentre();
             CalculateNumSquaresAroundTopLeftCorner();
             PutShapeInNewLocation(newCentreOfShape: CentreOfShape);
+            MoveAllShapeSquares(newTopLeftCorner: TopLeftCorner);
         }
 
         private void CalculateNumSquaresAroundTopLeftCorner()
@@ -296,11 +310,8 @@ namespace SquareFillDomain.Models
         {
             foreach (var square in Squares) {
                 NumSquaresLeftOfShapeCentre = Math.Min(NumSquaresLeftOfShapeCentre, square.PositionRelativeToParent.X);
-            
                 NumSquaresRightOfShapeCentre = Math.Max(NumSquaresRightOfShapeCentre, square.PositionRelativeToParent.X);
-            
                 NumSquaresAboveShapeCentre = Math.Min(NumSquaresAboveShapeCentre, square.PositionRelativeToParent.Y);
-            
                 NumSquaresBelowShapeCentre = Math.Max(NumSquaresBelowShapeCentre, square.PositionRelativeToParent.Y);
             }
         
