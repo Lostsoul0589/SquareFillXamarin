@@ -85,6 +85,20 @@ namespace SquareFillDomain.Models
             }
         }
 
+        public void MoveAllShapeSquares(SquareFillPoint newTopLeftCorner)
+        {
+            TopLeftCorner = newTopLeftCorner;
+            foreach (var square in Squares)
+            {
+                if (square.Sprite != null)
+                {
+                    square.Sprite.MoveTopLeftCorner(
+                        newX: TopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeSetBuilder.SquareWidth),
+                        newY: TopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeSetBuilder.SquareWidth));
+                }
+            }
+        }
+
         public void CalculateOrigins(SquareFillPoint newCentreOfShape)
         {
             foreach (var square in Squares) 

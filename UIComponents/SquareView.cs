@@ -29,17 +29,26 @@ namespace SquareFillXamarin.UIComponents
         {
             _imageView.Center = new CGPoint(x: newX, y: newY);
         }
+
+        public void MoveTopLeftCorner(int newX, int newY)
+        {
+            _imageView.Center = new CGPoint(
+                x: newX + _imageView.Frame.Width/2,
+                y: newY + _imageView.Frame.Height/2);
+        }
     
         public SquareFillPoint Centre()
         {
-            int x = 1;
-            int y = 2;
-            int width = 4;
-            int height = 7;
-            var thing = new SquareFillRect(x: x, y: y, width: width, height: height);
             return new SquareFillPoint(
                 x: (int)_imageView.Center.X,
                 y: (int)_imageView.Center.Y);
+        }
+
+        public SquareFillPoint TopLeftCorner()
+        {
+            return new SquareFillPoint(
+                x: (int)(_imageView.Center.X - _imageView.Frame.Width/2),
+                y: (int)(_imageView.Center.Y - _imageView.Frame.Height/2));
         }
 
         private UIColor ConvertColour(SquareFillColour colour)

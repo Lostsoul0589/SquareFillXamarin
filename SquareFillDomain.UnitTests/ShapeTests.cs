@@ -149,6 +149,33 @@ namespace SquareFillDomain.UnitTests
         }
 
         [Test]
+        public void TestWhenShapeIsMovedToNewLocationThenAllSpritesArePlacedRelativeToTopLeftCorner()
+        {
+            // Arrange
+            var centreOfShape = new SquareFillPoint(
+                x: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2,
+                y: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2);
+            var topLeftCorner = new SquareFillPoint(x: ShapeSetBuilder.SquareWidth, y: 0);
+            var shape = new Shape(
+                centreOfShape: centreOfShape,
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _crossShapeSquareList);
+            var newTopLeftCorner = new SquareFillPoint(x: 120, y: 160);
+
+            // Act
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            foreach (var square in shape.Squares)
+            {
+                Assert.AreEqual(square.Sprite.TopLeftCorner().X,
+                               newTopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeSetBuilder.SquareWidth));
+                Assert.AreEqual(square.Sprite.TopLeftCorner().Y,
+                               newTopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeSetBuilder.SquareWidth));
+            }
+        }
+
+        [Test]
         public void TestNumSquaresLeftOfCentreIsInitialisedAccordingToRelativePosition()
         {
             // Arrange
