@@ -70,9 +70,9 @@ namespace SquareFillDomain.UnitTests
 			square.CalculateOrigin(parentShapeCentre: parentShapeCentre);
 			
 			// Assert
-			Assert.AreEqual(square.Origin.X, parentShapeCentre.X
+			Assert.AreEqual(square.TopLeftCorner.X, parentShapeCentre.X
 				+ (square.PositionRelativeToParent.X * ShapeSetBuilder.SquareWidth) - ShapeSetBuilder.SquareWidth/2);
-			Assert.AreEqual(square.Origin.Y, parentShapeCentre.Y
+			Assert.AreEqual(square.TopLeftCorner.Y, parentShapeCentre.Y
 				+ (square.PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth) - ShapeSetBuilder.SquareWidth/2);
 		}
 	}

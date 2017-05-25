@@ -8,11 +8,11 @@ namespace SquareFillDomain.Models
         public SquareFillPoint PositionRelativeToParent { get; set; }
         public SquareFillPoint PositionRelativeToParentCorner { get; set; }
         public ISquareView Sprite { get; private set; }
-        public SquareFillPoint Origin { get; private set; }
+        public SquareFillPoint TopLeftCorner { get; private set; }
 
         public Square()
         {
-            Origin = new SquareFillPoint(x: 0, y: 0);
+            TopLeftCorner = new SquareFillPoint(x: 0, y: 0);
             PositionRelativeToParent = new SquareFillPoint(x: 0, y: 0);
             PositionRelativeToParentCorner = new SquareFillPoint(x: 0, y: 0);
         }
@@ -22,12 +22,12 @@ namespace SquareFillDomain.Models
             PositionRelativeToParent = positionRelativeToParent;
             PositionRelativeToParentCorner = positionRelativeToParentCorner;
             Sprite = sprite;
-            Origin = new SquareFillPoint(x: 0, y: 0);
+            TopLeftCorner = new SquareFillPoint(x: 0, y: 0);
         }
 
         public void CalculateOrigin(SquareFillPoint parentShapeCentre)
         {
-            Origin = CalculatePotentialOrigin(parentShapeCentre: parentShapeCentre);
+            TopLeftCorner = CalculatePotentialOrigin(parentShapeCentre: parentShapeCentre);
         }
 
         public SquareFillPoint CalculatePotentialOrigin(SquareFillPoint parentShapeCentre)
@@ -41,10 +41,10 @@ namespace SquareFillDomain.Models
 
         public bool IsInSquare(SquareFillPoint point)
         {
-            return Origin.X <= point.X
-                   && point.X <= (Origin.X + ShapeSetBuilder.SquareWidth)
-                   && Origin.Y <= point.Y
-                   && point.Y <= (Origin.Y + ShapeSetBuilder.SquareWidth);
+            return TopLeftCorner.X <= point.X
+                   && point.X <= (TopLeftCorner.X + ShapeSetBuilder.SquareWidth)
+                   && TopLeftCorner.Y <= point.Y
+                   && point.Y <= (TopLeftCorner.Y + ShapeSetBuilder.SquareWidth);
         }
     }
 }

@@ -104,8 +104,8 @@ namespace SquareFillDomain.UnitTests
             {
                 foreach (var square in shape.Squares)
                 {
-                    var xCoord = square.Origin.X/ShapeSetBuilder.SquareWidth;
-                    var yCoord = square.Origin.Y/ShapeSetBuilder.SquareWidth;
+                    var xCoord = square.TopLeftCorner.X/ShapeSetBuilder.SquareWidth;
+                    var yCoord = square.TopLeftCorner.Y/ShapeSetBuilder.SquareWidth;
                     Assert.AreEqual(shapeController.OccupiedGridSquares[xCoord][yCoord].Occupied, true);
                 }
             }

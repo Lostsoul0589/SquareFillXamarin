@@ -29,8 +29,8 @@ namespace SquareFillDomain.Utils
             _message = _message + desc + ": ";
             foreach(var square in squares)
             {
-                string originX = square.Origin.X.ToString();
-                string originY = square.Origin.Y.ToString();
+                string originX = square.TopLeftCorner.X.ToString();
+                string originY = square.TopLeftCorner.Y.ToString();
                 _message = _message + originX + "," + originY + " ";
             }
             _message = _message + "; ";

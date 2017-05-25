@@ -8,10 +8,10 @@ namespace SquareFillXamarin.UIComponents
     public class UIViewBuilder
 	{
         private static CGRect _containingRectangle = new CGRect(
-        x: ShapeSetBuilder.ContainingSquare.X,
-        y: ShapeSetBuilder.ContainingSquare.Y,
-        width: ShapeSetBuilder.ContainingSquare.Width,
-        height: ShapeSetBuilder.ContainingSquare.Height);
+        x: ShapeSetBuilder.ContainingRectangle.X,
+        y: ShapeSetBuilder.ContainingRectangle.Y,
+        width: ShapeSetBuilder.ContainingRectangle.Width,
+        height: ShapeSetBuilder.ContainingRectangle.Height);
 
         private static readonly CGRect TopGridBorder = new CGRect(
 			x: 3 * ShapeSetBuilder.SquareWidth,

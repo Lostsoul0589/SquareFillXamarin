@@ -491,12 +491,12 @@ namespace SquareFillDomain.UnitTests
 			
 			// Act
 			_shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: _defaultSingleSquareShape);
-			var originalOrigin = _defaultSingleSquareShape.Squares[0].Origin;
+			var originalOrigin = _defaultSingleSquareShape.Squares[0].TopLeftCorner;
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			Assert.AreEqual(_shapeMover.ShapeToMove.Squares[0].Origin.X, originalOrigin.X + horizontalMovement);
-			Assert.AreEqual(_shapeMover.ShapeToMove.Squares[0].Origin.Y, originalOrigin.Y + verticalMovement);
+			Assert.AreEqual(_shapeMover.ShapeToMove.Squares[0].TopLeftCorner.X, originalOrigin.X + horizontalMovement);
+			Assert.AreEqual(_shapeMover.ShapeToMove.Squares[0].TopLeftCorner.Y, originalOrigin.Y + verticalMovement);
 		}
 	}
 }

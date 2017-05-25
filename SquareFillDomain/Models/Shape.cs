@@ -121,16 +121,16 @@ namespace SquareFillDomain.Models
                 List<int> newGridXCoords = new List<int>();
                 List<int> newGridYCoords = new List<int>();
 
-                int oldGridXCoord = square.Origin.X/ShapeSetBuilder.SquareWidth;
-                int oldGridYCoord = square.Origin.Y/ShapeSetBuilder.SquareWidth;
+                int oldGridXCoord = square.TopLeftCorner.X/ShapeSetBuilder.SquareWidth;
+                int oldGridYCoord = square.TopLeftCorner.Y/ShapeSetBuilder.SquareWidth;
                 SquareFillPoint oldGridOrigin = new SquareFillPoint(
                     x: oldGridXCoord,
                     y: oldGridYCoord);
 
                 bool oldXDivisibleBySquareWidth = 
-                    square.Origin.X % ShapeSetBuilder.SquareWidth == 0;
+                    square.TopLeftCorner.X % ShapeSetBuilder.SquareWidth == 0;
                 bool oldYDivisibleBySquareWidth = 
-                    square.Origin.Y % ShapeSetBuilder.SquareWidth == 0;
+                    square.TopLeftCorner.Y % ShapeSetBuilder.SquareWidth == 0;
             
                 int newGridXCoord = newOrigin.X/ShapeSetBuilder.SquareWidth;
                 int newGridYCoord = newOrigin.Y/ShapeSetBuilder.SquareWidth;
@@ -226,8 +226,8 @@ namespace SquareFillDomain.Models
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = square.Origin.X/ShapeSetBuilder.SquareWidth;
-                int occupiedYCoordinate = square.Origin.Y/ShapeSetBuilder.SquareWidth;
+                int occupiedXCoordinate = square.TopLeftCorner.X/ShapeSetBuilder.SquareWidth;
+                int occupiedYCoordinate = square.TopLeftCorner.Y/ShapeSetBuilder.SquareWidth;
             
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = false;
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = null;
@@ -238,8 +238,8 @@ namespace SquareFillDomain.Models
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = square.Origin.X / ShapeSetBuilder.SquareWidth;
-                int occupiedYCoordinate = square.Origin.Y / ShapeSetBuilder.SquareWidth;
+                int occupiedXCoordinate = square.TopLeftCorner.X / ShapeSetBuilder.SquareWidth;
+                int occupiedYCoordinate = square.TopLeftCorner.Y / ShapeSetBuilder.SquareWidth;
 
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = true;
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = this;
