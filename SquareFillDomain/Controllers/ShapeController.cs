@@ -172,12 +172,12 @@ namespace SquareFillDomain.Controllers
         
             if (movementResult.ShapeHasCrossedAHorizontalGridBoundary)
             {
-                newShapeCentre.X = _shapeMover.CalculateSnappedX(newShapeCentreX: newShapeCentre.X);
+                newShapeCentre.X = _shapeMover.CalculateSnappedX1(newShapeCentreX: newShapeCentre.X);
             }
         
             if (movementResult.ShapeHasCrossedAVerticalGridBoundary)
             {
-                newShapeCentre.Y = _shapeMover.CalculateSnappedY(newShapeCentreY: newShapeCentre.Y);
+                newShapeCentre.Y = _shapeMover.CalculateSnappedY1(newShapeCentreY: newShapeCentre.Y);
             }
 
             MovementResult newMovementResult = ShapeToMove.AttemptToUpdateOrigins(

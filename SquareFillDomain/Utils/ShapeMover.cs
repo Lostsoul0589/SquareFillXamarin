@@ -58,17 +58,24 @@ namespace SquareFillDomain.Utils
                 var shapeCentreTakingRelativePositionIntoAccount =
                     CalculateShapeCentre(newCursorPosition: newCursorPosition);
                 var newShapeCentre = new SquareFillPoint(
-                    x: CalculateSnappedX(newShapeCentreX: shapeCentreTakingRelativePositionIntoAccount.X),
-                    y: CalculateSnappedY(newShapeCentreY: shapeCentreTakingRelativePositionIntoAccount.Y));
-        
+                    x: CalculateSnappedX1(newShapeCentreX: shapeCentreTakingRelativePositionIntoAccount.X),
+                    y: CalculateSnappedY1(newShapeCentreY: shapeCentreTakingRelativePositionIntoAccount.Y));
                 ShapeToMove.PutShapeInNewLocation(newCentreOfShape: newShapeCentre);
                 ShapeToMove.CalculateOrigins(newCentreOfShape: newShapeCentre);
+
+                var topLeftCornerTakingRelativePositionIntoAccount = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
+                var newTopLeftCorner = new SquareFillPoint(
+                    x: CalculateSnappedX(newTopLeftCornerX: topLeftCornerTakingRelativePositionIntoAccount.X),
+                    y: CalculateSnappedY(newTopLeftCornerY: topLeftCornerTakingRelativePositionIntoAccount.Y));
+
+                ShapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
+                ShapeToMove.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
             }
         }
 
-        public int CalculateSnappedX(int newShapeCentreX)
+        public int CalculateSnappedX1(int newShapeCentreX)
         {
-            return CalculateSnappedCoordinate(
+            return CalculateSnappedCoordinate1(
                 newShapeCentreCoord: newShapeCentreX,
                 boundaryRectangleOriginCoord: 0,
                 boundaryRectangleDimension: ShapeSetBuilder.ScreenWidth,
@@ -76,14 +83,34 @@ namespace SquareFillDomain.Utils
                 numSquaresOnLargestSide:  ShapeToMove.NumSquaresRightOfShapeCentre);
         }
 
-        public int CalculateSnappedY(int newShapeCentreY)
+        public int CalculateSnappedX(int newTopLeftCornerX)
         {
             return CalculateSnappedCoordinate(
+                newTopLeftCornerCoord: newTopLeftCornerX,
+                boundaryRectangleOriginCoord: 0,
+                boundaryRectangleDimension: ShapeSetBuilder.ScreenWidth,
+                numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfTopLeftCorner,
+                numSquaresOnLargestSide: ShapeToMove.NumSquaresRightOfTopLeftCorner);
+        }
+
+        public int CalculateSnappedY1(int newShapeCentreY)
+        {
+            return CalculateSnappedCoordinate1(
                 newShapeCentreCoord: newShapeCentreY,
                 boundaryRectangleOriginCoord: 0,
                 boundaryRectangleDimension: ShapeSetBuilder.ScreenHeight,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveShapeCentre,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowShapeCentre);
+        }
+
+        public int CalculateSnappedY(int newTopLeftCornerY)
+        {
+            return CalculateSnappedCoordinate(
+                newTopLeftCornerCoord: newTopLeftCornerY,
+                boundaryRectangleOriginCoord: 0,
+                boundaryRectangleDimension: ShapeSetBuilder.ScreenHeight,
+                numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveTopLeftCorner,
+                numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowTopLeftCorner);
         }
 
         private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPositionAtStart)
@@ -92,7 +119,7 @@ namespace SquareFillDomain.Utils
             _topLeftCornerRelativeToCursorPosition.Y = ShapeToMove.TopLeftCorner.Y - cursorPositionAtStart.Y;
         }
 
-        private int CalculateSnappedCoordinate(
+        private int CalculateSnappedCoordinate1(
             int newShapeCentreCoord, 
             int boundaryRectangleOriginCoord, 
             int boundaryRectangleDimension, 
@@ -132,6 +159,45 @@ namespace SquareFillDomain.Utils
                                      - (numSquaresOnLargestSide * squareWidth);
 
             return actualSquareCentre;
+        }
+
+        private int CalculateSnappedCoordinate(
+            int newTopLeftCornerCoord,
+            int boundaryRectangleOriginCoord,
+            int boundaryRectangleDimension,
+            int numSquaresOnSmallestSide,
+            int numSquaresOnLargestSide)
+        {
+            var squareWidth = ShapeSetBuilder.SquareWidth;
+
+            int topLeftCornerCoord = newTopLeftCornerCoord;
+            int numberOfSquaresFromEdgeOfScreen = newTopLeftCornerCoord / squareWidth;
+
+            var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
+
+            var topLeftCornerAtOneEndOfContainer = boundaryRectangleOriginCoord;
+
+            var topLeftCornerAtOtherEndOfContainer = boundaryRectangleOriginCoord + boundaryRectangleDimension;
+
+            var potentialTopLeftCornerOfShapeEdgeOnOneSide = potentialNewTopLeftCorner - (numSquaresOnSmallestSide * squareWidth);
+
+            var topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
+                Math.Max(potentialTopLeftCornerOfShapeEdgeOnOneSide, topLeftCornerAtOneEndOfContainer);
+
+            var topLeftCornerAdjustedForSmallestContainerEdge =
+                topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
+                + (numSquaresOnSmallestSide * squareWidth);
+
+            var potentialTopLeftCornerOfShapeEdgeOnOtherSide = topLeftCornerAdjustedForSmallestContainerEdge +
+                                                        (numSquaresOnLargestSide * squareWidth);
+
+            var topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
+                Math.Min(potentialTopLeftCornerOfShapeEdgeOnOtherSide, topLeftCornerAtOtherEndOfContainer);
+
+            int actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
+                                     - (numSquaresOnLargestSide * squareWidth);
+
+            return actualTopLeftCorner;
         }
     }
 }
