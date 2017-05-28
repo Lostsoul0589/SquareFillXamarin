@@ -552,7 +552,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -589,7 +589,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -626,7 +626,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -663,7 +663,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -700,7 +700,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -744,7 +744,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][2 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -786,7 +786,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][2 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -828,7 +828,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][6 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -870,7 +870,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][2 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -910,7 +910,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][0 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -950,7 +950,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[2 + containingX][0 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -990,7 +990,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][4 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1030,7 +1030,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[2 + containingX][4 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1340,7 +1340,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1371,7 +1371,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[5 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1402,7 +1402,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1433,7 +1433,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][5 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1465,7 +1465,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -1503,7 +1503,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, true);
@@ -1539,7 +1539,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][0 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1570,7 +1570,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1600,7 +1600,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1630,7 +1630,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[2 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1660,7 +1660,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[2 + containingX][0 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1690,7 +1690,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[2 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1720,7 +1720,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[3 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1750,7 +1750,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1780,7 +1780,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[2 + containingX][1 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1810,7 +1810,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][0 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1840,7 +1840,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1 + containingX][2 + containingY].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1865,7 +1865,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1890,7 +1890,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1915,7 +1915,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1940,7 +1940,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1965,7 +1965,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1990,7 +1990,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -2015,7 +2015,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -2040,7 +2040,7 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -2066,7 +2066,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1][0].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -2092,7 +2092,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[0][1].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);
@@ -2118,7 +2118,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares[1][1].Occupied = true;
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
+            var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
             Assert.AreEqual(result.NoShapesAreInTheWay, false);

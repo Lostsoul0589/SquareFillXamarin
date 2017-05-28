@@ -115,7 +115,7 @@ namespace SquareFillDomain.Models
             }
         }
 
-        public MovementResult AttemptToUpdateOrigins(
+        public MovementResult AttemptToUpdateOrigins1(
             List<List<GridSquare>> occupiedGridSquares,
             SquareFillPoint newShapeCentre)
         {
@@ -222,6 +222,123 @@ namespace SquareFillDomain.Models
                 foreach (var square in Squares)
                 {
                     square.CalculateOrigin(parentShapeCentre: newShapeCentre);
+                }
+            }
+
+            movementResult.NoShapesAreInTheWay = !somethingIsintheWay;
+
+            return movementResult;
+        }
+
+        public MovementResult AttemptToUpdateOrigins(
+            List<List<GridSquare>> occupiedGridSquares,
+            SquareFillPoint newTopLeftCorner)
+        {
+            bool somethingIsintheWay = false;
+            var movementResult = new MovementResult();
+
+            foreach (var square in Squares)
+            {
+                var newOrigin = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
+
+                List<int> newGridXCoords = new List<int>();
+                List<int> newGridYCoords = new List<int>();
+
+                int oldGridXCoord = square.TopLeftCorner.X / ShapeSetBuilder.SquareWidth;
+                int oldGridYCoord = square.TopLeftCorner.Y / ShapeSetBuilder.SquareWidth;
+                SquareFillPoint oldGridOrigin = new SquareFillPoint(
+                    x: oldGridXCoord,
+                    y: oldGridYCoord);
+
+                bool oldXDivisibleBySquareWidth =
+                    square.TopLeftCorner.X % ShapeSetBuilder.SquareWidth == 0;
+                bool oldYDivisibleBySquareWidth =
+                    square.TopLeftCorner.Y % ShapeSetBuilder.SquareWidth == 0;
+
+                int newGridXCoord = newOrigin.X / ShapeSetBuilder.SquareWidth;
+                int newGridYCoord = newOrigin.Y / ShapeSetBuilder.SquareWidth;
+
+                var newGridOrigin = new SquareFillPoint(
+                    x: newGridXCoord,
+                    y: newGridYCoord);
+
+                if (newOrigin.X < 0)
+                {
+                    newGridOrigin.X = newGridOrigin.X - 1;
+                }
+
+                if (newOrigin.Y < 0)
+                {
+                    newGridOrigin.Y = newGridOrigin.Y - 1;
+                }
+
+                bool newXDivisibleBySquareWidth =
+                    newOrigin.X % ShapeSetBuilder.SquareWidth == 0;
+                bool newYDivisibleBySquareWidth =
+                    newOrigin.Y % ShapeSetBuilder.SquareWidth == 0;
+
+                if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
+                    || oldGridOrigin.X != newGridOrigin.X)
+                {
+                    movementResult.ShapeHasCrossedAHorizontalGridBoundary = true;
+                }
+
+                if (oldYDivisibleBySquareWidth != newYDivisibleBySquareWidth
+                    || oldGridOrigin.Y != newGridOrigin.Y)
+                {
+                    movementResult.ShapeHasCrossedAVerticalGridBoundary = true;
+                }
+
+                if (movementResult.ShapeHasCrossedAHorizontalGridBoundary
+                    || movementResult.ShapeHasCrossedAVerticalGridBoundary)
+                {
+                    if (newXDivisibleBySquareWidth)
+                    {
+                        newGridXCoords.Add(newGridOrigin.X);
+                    }
+                    else
+                    {
+                        newGridXCoords.Add(newGridOrigin.X);
+                        newGridXCoords.Add(newGridOrigin.X + 1);
+                    }
+
+                    if (newYDivisibleBySquareWidth)
+                    {
+                        newGridYCoords.Add(newGridOrigin.Y);
+                    }
+                    else
+                    {
+                        newGridYCoords.Add(newGridOrigin.Y);
+                        newGridYCoords.Add(newGridOrigin.Y + 1);
+                    }
+
+                    // These nested for loops work because at the moment we are just considering one square, not the whole shape.
+                    foreach (var xCoord in newGridXCoords)
+                    {
+                        foreach (var yCoord in newGridYCoords)
+                        {
+                            if (xCoord >= occupiedGridSquares.Count
+                                || yCoord >= occupiedGridSquares[0].Count
+                                || xCoord < 0
+                                || yCoord < 0)
+                            {
+                                somethingIsintheWay = true;
+                            }
+                            else
+                            {
+                                somethingIsintheWay = somethingIsintheWay
+                                    || occupiedGridSquares[xCoord][yCoord].Occupied;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!somethingIsintheWay)
+            {
+                foreach (var square in Squares)
+                {
+                    square.CalculateTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
                 }
             }
 
