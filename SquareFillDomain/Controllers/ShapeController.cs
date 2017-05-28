@@ -29,9 +29,7 @@ namespace SquareFillDomain.Controllers
             ShapeSet = ShapeSetBuilder.MakeHardCodedShapeSet(squareViewFactory: squareViewFactory);
             PutAllShapesIntoGrid();
 
-            _shapeMover = new ShapeMover(
-                screenWidth: screenWidth,
-                screenHeight: screenHeight);
+            _shapeMover = new ShapeMover();
 
             _lastGoodLocation = new SquareFillPoint(x:0, y:0);
         }

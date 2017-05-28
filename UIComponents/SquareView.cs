@@ -57,48 +57,34 @@ namespace SquareFillXamarin.UIComponents
             {
                 case SquareFillColour.Red:
                     return UIColor.Red;
-                    break;
                 case SquareFillColour.Blue:
                     return UIColor.Blue;
-                    break;
                 case SquareFillColour.Black:
                     return UIColor.Black;
-                    break;
                 case SquareFillColour.Orange:
                     return UIColor.Orange;
-                    break;
                 case SquareFillColour.Green:
                     return UIColor.Green;
-                    break;
                 case SquareFillColour.Yellow:
                     return UIColor.Yellow;
-                    break;
                 case SquareFillColour.Purple:
                     return UIColor.Purple;
-                    break;
                 case SquareFillColour.Magenta:
                     return UIColor.Magenta;
-                    break;
                 case SquareFillColour.Brown:
                     return UIColor.Brown;
-                    break;
                 case SquareFillColour.Cyan:
                     return UIColor.Cyan;
-                    break;
                 case SquareFillColour.DarkGrey:
                     return UIColor.DarkGray;
-                    break;
                 case SquareFillColour.Grey:
                     return UIColor.Gray;
-                    break;
                 case SquareFillColour.White:
                     return UIColor.White;
-                    break;
                 case SquareFillColour.LightGrey:
                     return UIColor.LightGray;
-                    break;
-                default: return UIColor.Black;
-                    break;
+                default: 
+                    return UIColor.Black;
             }
         }
     }

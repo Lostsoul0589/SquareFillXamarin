@@ -16,7 +16,7 @@ namespace SquareFillDomain.UnitTests
         [SetUp]
         public void Setup()
         {
-            _shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
+            _shapeMover = new ShapeMover();
             _defaultSingleSquareShape = new Shape(
                     centreOfShape: new SquareFillPoint(
                         x: ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.SquareWidth / 2,
@@ -26,18 +26,6 @@ namespace SquareFillDomain.UnitTests
                         y: ShapeSetBuilder.ContainingRectangle.Y),
                     squareDefinitions: new List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: new MockSquareView()) });
         }
-
-        [Test]
-		public void TestShapeMoverWillRoundScreenDimensionsDownToClosestMultiplesOfSquareWidth() {
-			// Arrange & Act
-			var shapeMover = new ShapeMover(
-				screenWidth: (10 * ShapeSetBuilder.SquareWidth) + 10,
-				screenHeight: (20 * ShapeSetBuilder.SquareWidth) + 3);
-			
-			// Assert
-			Assert.AreEqual(shapeMover.ScreenWidth, 10 * ShapeSetBuilder.SquareWidth);
-			Assert.AreEqual(shapeMover.ScreenHeight, 20 * ShapeSetBuilder.SquareWidth);
-		}
 		
 		[Test]
 		public void TestNewShapeCentreWillBeNewCursorPositionWhenCursorIsInCentreOfShape() {
@@ -365,7 +353,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParent: new SquareFillPoint(x:2, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer, y:0), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer + 2, y:0), sprite: new MockSquareView())
 				});
-			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
+			var shapeMover = new ShapeMover();
 			
 			// Act
 			shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: shapeToMove);
@@ -398,7 +386,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:2), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer + 2), sprite: new MockSquareView())
 				});
-			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
+			var shapeMover = new ShapeMover();
 			
 			// Act
 			shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: shapeToMove);
@@ -433,7 +421,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParent: new SquareFillPoint(x:-2, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer + 2, y:0), sprite: new MockSquareView())
 				});
-			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
+			var shapeMover = new ShapeMover();
 			
 			// Act
 			shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: shapeToMove);
@@ -468,7 +456,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-2), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer), sprite: new MockSquareView()),
 					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer + 2), sprite: new MockSquareView())
 				});
-			var shapeMover = new ShapeMover(screenWidth: ShapeSetBuilder.ScreenWidth, screenHeight: ShapeSetBuilder.ScreenHeight);
+			var shapeMover = new ShapeMover();
 			
 			// Act
 			shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: shapeToMove);

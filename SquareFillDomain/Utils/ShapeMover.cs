@@ -7,16 +7,8 @@ namespace SquareFillDomain.Utils
     public class ShapeMover
     {
         public Shape ShapeToMove { get; private set; }
-        public int ScreenWidth { get; private set; }
-        public int ScreenHeight { get; private set; }
 
-        private SquareFillPoint _shapeCentreRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
-
-        public ShapeMover(int screenWidth, int screenHeight)
-        {
-            ScreenWidth = RoundDimensionDownToMultipleOfSquareWidth(screenDimension: screenWidth);
-            ScreenHeight = RoundDimensionDownToMultipleOfSquareWidth(screenDimension: screenHeight);
-        }
+        private readonly SquareFillPoint _shapeCentreRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
         public void StartMove(SquareFillPoint cursorPositionAtStart, Shape shapeToMove)
         {
@@ -68,7 +60,7 @@ namespace SquareFillDomain.Utils
             return CalculateSnappedCoordinate(
                 newShapeCentreCoord: newShapeCentreX,
                 boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ScreenWidth,
+                boundaryRectangleDimension: ShapeSetBuilder.ScreenWidth,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfShapeCentre,
                 numSquaresOnLargestSide:  ShapeToMove.NumSquaresRightOfShapeCentre);
         }
@@ -78,15 +70,9 @@ namespace SquareFillDomain.Utils
             return CalculateSnappedCoordinate(
                 newShapeCentreCoord: newShapeCentreY,
                 boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ScreenHeight,
+                boundaryRectangleDimension: ShapeSetBuilder.ScreenHeight,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveShapeCentre,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowShapeCentre);
-        }
-
-        private int RoundDimensionDownToMultipleOfSquareWidth(int screenDimension)
-        {
-            var maxNumberOfGridSquaresInDimension = screenDimension / ShapeSetBuilder.SquareWidth;
-            return maxNumberOfGridSquaresInDimension * ShapeSetBuilder.SquareWidth;
         }
 
         private int CalculateSnappedCoordinate(

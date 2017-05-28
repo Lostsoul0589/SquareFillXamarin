@@ -22,10 +22,18 @@ namespace SquareFillDomain.Builders
             x: ContainingRectangle.X,
             y: ContainingRectangle.Y);
 
+        // NB If these four v\alues ever stop being hard-coded - eg calculated from device screen dimensions
+        //  ... we can use the RoundDimensionDownToMultipleOfSquareWidth method below.
         public static int GridWidth = 13;
         public static int GridHeight = 20;
-        public static int ScreenWidth = GridWidth * SquareWidth;
+        public static int ScreenWidth = GridWidth * SquareWidth; 
         public static int ScreenHeight = GridHeight * SquareWidth;
+
+        private int RoundDimensionDownToMultipleOfSquareWidth(int screenDimension)
+        {
+            var maxNumberOfGridSquaresInDimension = screenDimension / ShapeSetBuilder.SquareWidth;
+            return maxNumberOfGridSquaresInDimension * ShapeSetBuilder.SquareWidth;
+        }
 
         private static readonly List<SquareFillPoint> BorderSquares = new List<SquareFillPoint>();
 

@@ -256,15 +256,6 @@ namespace SquareFillDomain.Models
 
         public bool WeStartedWithinTheContainingRectangle()
         {
-            //var leftEdge = CentreOfShape.X - NumSquaresLeftOfShapeCentre * ShapeSetBuilder.SquareWidth - ShapeSetBuilder.SquareWidth / 2;
-            //var topEdge = CentreOfShape.Y - NumSquaresAboveShapeCentre * ShapeSetBuilder.SquareWidth - ShapeSetBuilder.SquareWidth / 2;
-            //var rightEdge = CentreOfShape.X + NumSquaresRightOfShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
-            //var bottomEdge = CentreOfShape.Y + NumSquaresBelowShapeCentre * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2;
-
-            //return leftEdge >= ShapeSetBuilder.ContainingRectangle.X
-            //    && topEdge >= ShapeSetBuilder.ContainingRectangle.Y
-            //    && rightEdge <= (ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.ContainingRectangle.Width)
-            //    && bottomEdge <= (ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.ContainingRectangle.Height);
             var leftEdge = TopLeftCorner.X - NumSquaresLeftOfTopLeftCorner * ShapeSetBuilder.SquareWidth;
             var topEdge = TopLeftCorner.Y - NumSquaresAboveTopLeftCorner * ShapeSetBuilder.SquareWidth;
             var rightEdge = TopLeftCorner.X + NumSquaresRightOfTopLeftCorner * ShapeSetBuilder.SquareWidth;
