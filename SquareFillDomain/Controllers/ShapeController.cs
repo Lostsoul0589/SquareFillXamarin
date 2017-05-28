@@ -19,10 +19,7 @@ namespace SquareFillDomain.Controllers
         private SquareFillPoint _lastGoodLocation;
         private bool _colliding = false;
 
-        public ShapeController(
-            ISquareViewFactory squareViewFactory,
-            int screenWidth,
-            int screenHeight)
+        public ShapeController(ISquareViewFactory squareViewFactory)
         {
             OccupiedGridSquares = ShapeSetBuilder.MakeGridSquares();
             ShapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
