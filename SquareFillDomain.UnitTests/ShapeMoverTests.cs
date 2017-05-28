@@ -26,6 +26,27 @@ namespace SquareFillDomain.UnitTests
                         y: ShapeSetBuilder.ContainingRectangle.Y),
                     squareDefinitions: new List<Square> { new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: new MockSquareView()) });
         }
+
+        [Test]
+        public void TestCursorPositionCanBeCalculatedAccordingToTopLeftCorner()
+        {
+            // Arrange
+            var cursorPositionAtStart = new SquareFillPoint(
+                x: _defaultSingleSquareShape.TopLeftCorner.X + 15,
+                y: _defaultSingleSquareShape.TopLeftCorner.Y + 10);
+            var newCursorPosition = new SquareFillPoint(
+                x: cursorPositionAtStart.X + 2,
+                y: cursorPositionAtStart.Y + 3);
+            _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart, shapeToMove: _defaultSingleSquareShape);
+            _shapeMover.MoveToNewCursorPosition(newCursorPosition: newCursorPosition);
+
+            // Act
+            SquareFillPoint calculatedCursorPosition = _shapeMover.CalculateCursorPosition(topLeftCorner:_defaultSingleSquareShape.TopLeftCorner);
+
+            // Assert
+            Assert.AreEqual(calculatedCursorPosition.X, newCursorPosition.X);
+            Assert.AreEqual(calculatedCursorPosition.Y, newCursorPosition.Y);
+        }
 		
 		[Test]
 		public void TestNewShapeCentreWillBeNewCursorPositionWhenCursorIsInCentreOfShape() {

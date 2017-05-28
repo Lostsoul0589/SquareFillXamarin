@@ -9,12 +9,21 @@ namespace SquareFillDomain.Utils
         public Shape ShapeToMove { get; private set; }
 
         private readonly SquareFillPoint _shapeCentreRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
+        private readonly SquareFillPoint _topLeftCornerRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
         public void StartMove(SquareFillPoint cursorPositionAtStart, Shape shapeToMove)
         {
             ShapeToMove = shapeToMove;
             _shapeCentreRelativeToCursorPosition.X = ShapeToMove.CentreOfShape.X - cursorPositionAtStart.X;
             _shapeCentreRelativeToCursorPosition.Y = ShapeToMove.CentreOfShape.Y - cursorPositionAtStart.Y;
+            CalculateTopLeftCornerRelativeToCursorPosition(cursorPositionAtStart);
+        }
+
+        public SquareFillPoint CalculateTopLeftCorner(SquareFillPoint newCursorPosition)
+        {
+            return new SquareFillPoint(
+                x: newCursorPosition.X + _topLeftCornerRelativeToCursorPosition.X,
+                y: newCursorPosition.Y + _topLeftCornerRelativeToCursorPosition.Y);
         }
 
         public SquareFillPoint CalculateShapeCentre(SquareFillPoint newCursorPosition)
@@ -24,11 +33,11 @@ namespace SquareFillDomain.Utils
                 y: newCursorPosition.Y + _shapeCentreRelativeToCursorPosition.Y);
         }
 
-        public SquareFillPoint CalculateCursorPosition(SquareFillPoint centreOfShape)
+        public SquareFillPoint CalculateCursorPosition(SquareFillPoint topLeftCorner)
         {
             return new SquareFillPoint(
-                x: centreOfShape.X - _shapeCentreRelativeToCursorPosition.X,
-                y: centreOfShape.Y - _shapeCentreRelativeToCursorPosition.Y);
+                x: topLeftCorner.X - _topLeftCornerRelativeToCursorPosition.X,
+                y: topLeftCorner.Y - _topLeftCornerRelativeToCursorPosition.Y);
         }
 
         public void MoveToNewCursorPosition(SquareFillPoint newCursorPosition)
@@ -36,7 +45,9 @@ namespace SquareFillDomain.Utils
             if (ShapeToMove != null)
             {
                 var newShapeCentre = CalculateShapeCentre(newCursorPosition: newCursorPosition);
+                var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
                 ShapeToMove.PutShapeInNewLocation(newCentreOfShape: newShapeCentre);
+                ShapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
             }
         }
 
@@ -73,6 +84,12 @@ namespace SquareFillDomain.Utils
                 boundaryRectangleDimension: ShapeSetBuilder.ScreenHeight,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveShapeCentre,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowShapeCentre);
+        }
+
+        private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPositionAtStart)
+        {
+            _topLeftCornerRelativeToCursorPosition.X = ShapeToMove.TopLeftCorner.X - cursorPositionAtStart.X;
+            _topLeftCornerRelativeToCursorPosition.Y = ShapeToMove.TopLeftCorner.Y - cursorPositionAtStart.Y;
         }
 
         private int CalculateSnappedCoordinate(

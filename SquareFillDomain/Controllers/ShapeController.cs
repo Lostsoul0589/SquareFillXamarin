@@ -48,6 +48,7 @@ namespace SquareFillDomain.Controllers
             if (ShapeToMove != null)
             {
                 SquareFillPoint newShapeCentre = _shapeMover.CalculateShapeCentre(newCursorPosition: newLocation);
+                SquareFillPoint newTopLeftCorner = _shapeMover.CalculateTopLeftCorner(newCursorPosition: newLocation);
                 SquareFillPoint positionInGrid = CalculateGridPosition(shapeCentre: newShapeCentre);
                 var logger = new Logger();
 
@@ -72,7 +73,7 @@ namespace SquareFillDomain.Controllers
                     else
                     {
                         _colliding = true;
-                        _lastGoodLocation = _shapeMover.CalculateCursorPosition(centreOfShape: ShapeToMove.CentreOfShape);
+                        _lastGoodLocation = _shapeMover.CalculateCursorPosition(topLeftCorner: ShapeToMove.TopLeftCorner);
                         SnapToGridInRelevantDimensionsIfPossible(
                             movementResult: movementResult,
                             previousShapeCentre: ShapeToMove.CentreOfShape,
