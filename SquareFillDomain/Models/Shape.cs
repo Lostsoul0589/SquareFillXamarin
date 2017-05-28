@@ -225,9 +225,9 @@ namespace SquareFillDomain.Models
                 }
             }
 
-             movementResult.NoShapesAreInTheWay = !somethingIsintheWay;
+            movementResult.NoShapesAreInTheWay = !somethingIsintheWay;
 
-             return movementResult;
+            return movementResult;
         }
 
         public void VacateGridSquares(List<List<GridSquare>>occupiedGridSquares) 

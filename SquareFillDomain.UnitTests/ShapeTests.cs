@@ -533,7 +533,9 @@ namespace SquareFillDomain.UnitTests
             var centreOfShape = new SquareFillPoint(
                 x: ShapeSetBuilder.SquareWidth,
                 y: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2);
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = new SquareFillPoint(
+                x: ShapeSetBuilder.SquareWidth / 2,
+                y: 0);
             var newCentreOfShape = new SquareFillPoint(
                 x: ShapeSetBuilder.SquareWidth,
                 y: 3 * ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth / 2);
@@ -1672,8 +1674,8 @@ namespace SquareFillDomain.UnitTests
                 x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + ShapeSetBuilder.SquareWidth + 1,
                 y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y);
             var topLeftCorner = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 1,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y);
+                x: ShapeSetBuilder.TopLeftGridSquare.X + 1,
+                y: ShapeSetBuilder.TopLeftGridSquare.Y);
             var newCentreOfShape = new SquareFillPoint(
                 x: centreOfShape.X,
                 y: centreOfShape.Y + 1);
