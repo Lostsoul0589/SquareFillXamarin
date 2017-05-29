@@ -23,9 +23,9 @@ namespace SquareFillXamarin
             // Perform any additional setup after loading the view, typically from a nib.
 
             var squareMaker = UIViewBuilder.InitialiseUIComponents(view: View);
-		    var shapeSetBuilder = new ShapeSetBuilder();
+		    var shapeSetBuilder = new ShapeSetBuilder(squareViewFactory: squareMaker);
 
-            _shapeController = new ShapeController(squareViewFactory: squareMaker, shapeSetBuilder: shapeSetBuilder);
+            _shapeController = new ShapeController(shapeSetBuilder: shapeSetBuilder);
 		}
 
 		public override void DidReceiveMemoryWarning()

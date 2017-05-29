@@ -64,7 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SquareTests.cs" />
-    <Compile Include="TestUtils\ShapeSetBuilder.cs" />
+    <Compile Include="TestUtils\TestShapeSetBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SquareFillDomain\SquareFillDomain.csproj">

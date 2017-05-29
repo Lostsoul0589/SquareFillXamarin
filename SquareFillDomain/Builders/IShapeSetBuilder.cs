@@ -8,6 +8,6 @@ namespace SquareFillDomain.Builders
     {
         void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares);
 
-        ShapeSet GetShapeSet(ISquareViewFactory squareViewFactory);
+        ShapeSet GetShapeSet();
     }
 }
