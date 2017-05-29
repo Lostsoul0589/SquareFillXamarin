@@ -171,7 +171,11 @@ namespace SquareFillDomain.Utils
             var squareWidth = ShapeConstants.SquareWidth;
 
             int topLeftCornerCoord = newTopLeftCornerCoord;
-            int numberOfSquaresFromEdgeOfScreen = newTopLeftCornerCoord / squareWidth;
+            int numberOfSquaresFromEdgeOfScreen = topLeftCornerCoord / squareWidth;
+            if (newTopLeftCornerCoord % squareWidth > squareWidth / 2)
+            {
+                numberOfSquaresFromEdgeOfScreen++;
+            }
 
             var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
 
