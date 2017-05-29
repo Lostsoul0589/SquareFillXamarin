@@ -19,12 +19,6 @@ namespace SquareFillDomain.UnitTests
         private SquareFillPoint _insideBorder;
         private readonly SquareFillPoint _relativeCursorPosition = new SquareFillPoint(x: 2, y: 3);
 
-        private readonly SquareFillRect _containingRectangle = new SquareFillRect(
-            x: TestConstants.ContainingRectangle.X,
-            y: TestConstants.ContainingRectangle.Y,
-            width: TestConstants.ContainingRectangle.Width,
-            height: TestConstants.ContainingRectangle.Height);
-
         [SetUp]
         public void Setup()
         {
@@ -171,8 +165,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.StartMove(cursorPositionAtStart: insideContainingRectangle);
 
             // Assert
-            var containingX = _containingRectangle.X / TestConstants.SquareWidth;
-            var containingY = _containingRectangle.Y / TestConstants.SquareWidth;
+            var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
+            var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][0 + containingY].Occupied, false);
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][1 + containingY].Occupied, false);
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][2 + containingY].Occupied, false);
@@ -218,8 +212,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.EndMove(finalLocation: insideContainingRectangle);
 
             // Assert
-            var containingX = _containingRectangle.X / TestConstants.SquareWidth;
-            var containingY = _containingRectangle.Y / TestConstants.SquareWidth;
+            var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
+            var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][0 + containingY].Occupied, true);
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][1 + containingY].Occupied, true);
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][2 + containingY].Occupied, true);
@@ -240,8 +234,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.EndMove(finalLocation: insideContainingRectangleButNotAlignedWithGrid);
 
             // Assert
-            var containingX = _containingRectangle.X/TestConstants.SquareWidth;
-            var containingY = _containingRectangle.Y / TestConstants.SquareWidth;
+            var containingX = TestConstants.ContainingRectangle.X/TestConstants.SquareWidth;
+            var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][0 + containingY].Occupied, true);
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][1 + containingY].Occupied, true);
             Asserter.AreEqual(shapeController.OccupiedGridSquares[0 + containingX][2 + containingY].Occupied, true);

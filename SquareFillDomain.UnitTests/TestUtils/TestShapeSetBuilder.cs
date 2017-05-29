@@ -42,8 +42,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
         public TestShapeSetBuilder(ISquareViewFactory squareViewFactory)
         {
-            MakeShapes(squareViewFactory: squareViewFactory);
             _borderBuilder.BuildBorderSquares(squareWidth: TestConstants.SquareWidth, containingRectangle: TestConstants.ContainingRectangle);
+            MakeShapes(squareViewFactory: squareViewFactory);
         }
 
         public ShapeSet GetShapeSet()
@@ -82,95 +82,100 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
         private void MakeShapes(ISquareViewFactory squareViewFactory)
         {
-            var originX = TestConstants.SquareWidth / 2;
-            var originY = TestConstants.SquareWidth / 2;
-
             // 1:
             _rightHydrantShape = new Shape(colour: SquareFillColour.Red,
-                topLeftCorner: new SquareFillPoint(x: 3 * TestConstants.SquareWidth, y: TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 3, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 3:
             _sevenShape = new Shape(colour: SquareFillColour.Black,
-                topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth, y: TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 9, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.SevenPoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 4:
             _fourSquareShape = new Shape(colour: SquareFillColour.Orange,
-                topLeftCorner: new SquareFillPoint(x: 6 * TestConstants.SquareWidth,
-                    y: 2 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 6, y: 2),
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 5:
             _leftCornerShape = new Shape(colour: SquareFillColour.Green,
-                topLeftCorner: new SquareFillPoint(x: 7 * TestConstants.SquareWidth,
-                    y: 15 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 7, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 7:
             _upsideDownTShape = new Shape(colour: SquareFillColour.Purple,
-                topLeftCorner: new SquareFillPoint(x: 3 * TestConstants.SquareWidth,
-                    y: 17 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 3, y: 17),
                 relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 8:
             _threePoleShape = new Shape(colour: SquareFillColour.Magenta,
-                topLeftCorner: new SquareFillPoint(x: 0, y: 16 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 0, y: 16),
                 relativePointsTopLeftCorner: ShapeConstants.ThreePolePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 9:
             _twoPoleShape = new Shape(colour: SquareFillColour.Brown,
-                topLeftCorner: new SquareFillPoint(x: 6 * TestConstants.SquareWidth,
-                    y: 17 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 6, y: 17),
                 relativePointsTopLeftCorner: ShapeConstants.TwoPolePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 11:
             _backwardsLShape = new Shape(colour: SquareFillColour.DarkGrey,
-                topLeftCorner: new SquareFillPoint(x: TestConstants.SquareWidth, y: 5 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 1, y: 5),
                 relativePointsTopLeftCorner: ShapeConstants.BackwardsLPoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // 14:
             _singleSquareShape01 = new Shape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
-                    y: 18 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 9, y: 18),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // created purely for test:
             _topLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
-                    y: 18 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: TopRowBorderSquares[0].X, y: TopRowBorderSquares[0].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // created purely for test:
             _topRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
-                    y: 18 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(
+                    x: TopRowBorderSquares[TopRowBorderSquares.Count - 1].X, 
+                    y: TopRowBorderSquares[TopRowBorderSquares.Count - 1].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // created purely for test:
             _bottomLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
-                    y: 18 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: BottomLeftBorderSquares[0].X, y: BottomLeftBorderSquares[0].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
 
             // created purely for test:
             _bottomRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
-                    y: 18 * TestConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(
+                    x: BottomRightBorderSquares[BottomRightBorderSquares.Count - 1].X, 
+                    y: BottomRightBorderSquares[BottomRightBorderSquares.Count - 1].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
-                squareFactory: squareViewFactory);
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
         }
     }
 }

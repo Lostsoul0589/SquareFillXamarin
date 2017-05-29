@@ -20,18 +20,18 @@ namespace SquareFillDomain.Models
             SquareFillColour colour,
             SquareFillPoint topLeftCorner,
             List<SquareFillPoint> relativePointsTopLeftCorner,
-            ISquareViewFactory squareFactory)
-		{
-            List<Square> squares = new List<Square>();
+            ISquareViewFactory squareFactory,
+            bool topLeftCornerIsInPixels = true)
+        {
+            InitialiseTopLeftCorner(topLeftCorner, topLeftCornerIsInPixels);
 
+            List<Square> squares = new List<Square>();
             foreach(var point in relativePointsTopLeftCorner)
             {
                 squares.Add(new Square(
                     positionRelativeToParentCorner: point,
                     sprite: squareFactory.MakeSquare(colour: colour)));
             }
-
-		    TopLeftCorner = topLeftCorner;
             Squares = squares;
         
             Initialise();
@@ -39,13 +39,28 @@ namespace SquareFillDomain.Models
 
         public Shape(
             SquareFillPoint topLeftCorner,
-            List<Square> squareDefinitions)
+            List<Square> squareDefinitions,
+            bool topLeftCornerIsInPixels = true)
         {
-            TopLeftCorner = topLeftCorner;
+            InitialiseTopLeftCorner(topLeftCorner, topLeftCornerIsInPixels);
             Squares = squareDefinitions;
         
             Initialise();
         }
+
+	    private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)
+	    {
+            if (topLeftCornerIsInPixels)
+	        {
+	            TopLeftCorner = topLeftCorner;
+	        }
+	        else
+	        {
+	            TopLeftCorner = new SquareFillPoint(
+                    x: topLeftCorner.X * ShapeConstants.SquareWidth,
+                    y: topLeftCorner.Y * ShapeConstants.SquareWidth);
+	        }
+	    }
 
 	    public SquareFillPoint CentreOfShape
 	    {
