@@ -13,9 +13,6 @@ namespace SquareFillDomain.Utils
             width: 7 * SquareWidth,
             height: 7 * SquareWidth);
 
-        public static SquareFillPoint CentreOfTopLeftGridSquare = new SquareFillPoint(
-            x: ContainingRectangle.X + SquareWidth / 2,
-            y: ContainingRectangle.Y + SquareWidth / 2);
         public static SquareFillPoint TopLeftGridSquare = new SquareFillPoint(
             x: ContainingRectangle.X,
             y: ContainingRectangle.Y);

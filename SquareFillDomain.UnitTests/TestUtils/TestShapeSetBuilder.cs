@@ -9,14 +9,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
     public class TestShapeSetBuilder : IShapeSetBuilder
     {
         public Shape RightHydrantShape { get { return _rightHydrantShape; } }
-        public Shape SevenShape { get { return _sevenShape; } }
         public Shape FourSquareShape { get { return _fourSquareShape; } }
         public Shape LeftCornerShape { get { return _leftCornerShape; } }
-        public Shape UpsideDownTShape { get { return _upsideDownTShape; } }
-        public Shape ThreePoleShape { get { return _threePoleShape; } }
-        public Shape TwoPoleShape { get { return _twoPoleShape; } }
-        public Shape BackwardsLShape { get { return _backwardsLShape; } }
-        public Shape SingleSquareShape01 { get { return _singleSquareShape01; } }
 
         public List<SquareFillPoint> TopRowBorderSquares { get { return _borderBuilder.TopRowBorderSquares; } }
         public List<SquareFillPoint> LeftWallBorderSquares { get { return _borderBuilder.LeftWallBorderSquares; } }
@@ -27,14 +21,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private readonly BorderBuilder _borderBuilder = new BorderBuilder();
 
         private Shape _rightHydrantShape;
-        private Shape _sevenShape;
         private Shape _fourSquareShape;
         private Shape _leftCornerShape;
-        private Shape _upsideDownTShape;
-        private Shape _threePoleShape;
-        private Shape _twoPoleShape;
-        private Shape _backwardsLShape;
-        private Shape _singleSquareShape01;
         private Shape _topLeftCornerOfContainingBorder;
         private Shape _topRightCornerOfContainingBorder;
         private Shape _bottomLeftCornerOfContainingBorder;
@@ -60,14 +48,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
         {
             return new ShapeSet(shapes: new List<Shape> {
                 _rightHydrantShape,
-                _sevenShape,
                 _fourSquareShape,
                 _leftCornerShape,
-                _upsideDownTShape,
-                _threePoleShape,
-                _twoPoleShape,
-                _backwardsLShape,
-                _singleSquareShape01,
                 _topLeftCornerOfContainingBorder,
                 _topRightCornerOfContainingBorder,
                 _bottomLeftCornerOfContainingBorder,
@@ -89,13 +71,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
-            // 3:
-            _sevenShape = new Shape(colour: SquareFillColour.Black,
-                topLeftCorner: new SquareFillPoint(x: 9, y: 1),
-                relativePointsTopLeftCorner: ShapeConstants.SevenPoints,
-                squareFactory: squareViewFactory,
-                topLeftCornerIsInPixels: false);
-
             // 4:
             _fourSquareShape = new Shape(colour: SquareFillColour.Orange,
                 topLeftCorner: new SquareFillPoint(x: 6, y: 2),
@@ -107,41 +82,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
             _leftCornerShape = new Shape(colour: SquareFillColour.Green,
                 topLeftCorner: new SquareFillPoint(x: 7, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
-                squareFactory: squareViewFactory,
-                topLeftCornerIsInPixels: false);
-
-            // 7:
-            _upsideDownTShape = new Shape(colour: SquareFillColour.Purple,
-                topLeftCorner: new SquareFillPoint(x: 3, y: 17),
-                relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
-                squareFactory: squareViewFactory,
-                topLeftCornerIsInPixels: false);
-
-            // 8:
-            _threePoleShape = new Shape(colour: SquareFillColour.Magenta,
-                topLeftCorner: new SquareFillPoint(x: 0, y: 16),
-                relativePointsTopLeftCorner: ShapeConstants.ThreePolePoints,
-                squareFactory: squareViewFactory,
-                topLeftCornerIsInPixels: false);
-
-            // 9:
-            _twoPoleShape = new Shape(colour: SquareFillColour.Brown,
-                topLeftCorner: new SquareFillPoint(x: 6, y: 17),
-                relativePointsTopLeftCorner: ShapeConstants.TwoPolePoints,
-                squareFactory: squareViewFactory,
-                topLeftCornerIsInPixels: false);
-
-            // 11:
-            _backwardsLShape = new Shape(colour: SquareFillColour.DarkGrey,
-                topLeftCorner: new SquareFillPoint(x: 1, y: 5),
-                relativePointsTopLeftCorner: ShapeConstants.BackwardsLPoints,
-                squareFactory: squareViewFactory,
-                topLeftCornerIsInPixels: false);
-
-            // 14:
-            _singleSquareShape01 = new Shape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9, y: 18),
-                relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 

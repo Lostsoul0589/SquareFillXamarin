@@ -7,10 +7,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
     public class TestConstants
     {
         public static int SquareWidth = ShapeConstants.SquareWidth;
-
         public static SquareFillRect ContainingRectangle = ShapeConstants.ContainingRectangle;
-
-        public static SquareFillPoint CentreOfTopLeftGridSquare = ShapeConstants.CentreOfTopLeftGridSquare;
         public static SquareFillPoint TopLeftGridSquare = ShapeConstants.TopLeftGridSquare;
 
         public static int GridWidth = ShapeConstants.GridWidth;

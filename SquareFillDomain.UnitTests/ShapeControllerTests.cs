@@ -12,7 +12,6 @@ namespace SquareFillDomain.UnitTests
     {
         private TestShapeSetBuilder _shapeSetBuilder;
 
-        private SquareFillPoint _outsideContainingRectangleButInCentreOfRightHydrant;
         private SquareFillPoint _outsideContainingRectangleButAtCornerOfRightHydrant;
         private SquareFillPoint _outsideContainingRectangleButInsideRightHydrant;
         private SquareFillPoint _topLeftCornerInsideBorder;
@@ -23,10 +22,6 @@ namespace SquareFillDomain.UnitTests
         public void Setup()
         {
             _shapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
-
-            _outsideContainingRectangleButInCentreOfRightHydrant = new SquareFillPoint(
-                x: _shapeSetBuilder.RightHydrantShape.TopLeftCorner.X + TestConstants.SquareWidth/2,
-                y: _shapeSetBuilder.RightHydrantShape.TopLeftCorner.Y + TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
 
             _outsideContainingRectangleButAtCornerOfRightHydrant = _shapeSetBuilder.RightHydrantShape.TopLeftCorner;
 
@@ -65,7 +60,7 @@ namespace SquareFillDomain.UnitTests
                 x: TestConstants.ContainingRectangle.X + TestConstants.SquareWidth/2,
                 y: TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
-            shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInCentreOfRightHydrant);
+            shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Assert
             // self.measure()	{
@@ -84,7 +79,7 @@ namespace SquareFillDomain.UnitTests
                 x: TestConstants.ContainingRectangle.X + TestConstants.SquareWidth/2,
                 y: TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
-            shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInCentreOfRightHydrant);
+            shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Assert
             // self.measure()	{
