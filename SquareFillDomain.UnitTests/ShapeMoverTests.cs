@@ -30,7 +30,6 @@ namespace SquareFillDomain.UnitTests
                     squareDefinitions: new List<Square>
                     {
                         new Square(
-                            positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), 
                             positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), 
                             sprite: new MockSquareView())
                     });
@@ -381,9 +380,9 @@ namespace SquareFillDomain.UnitTests
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:-numSquaresLeftOfContainer, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:2, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer*2, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer, y:0), sprite: new MockSquareView()),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer*2, y:0), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover();
 			
@@ -415,9 +414,9 @@ namespace SquareFillDomain.UnitTests
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-numSquaresAboveContainer), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:numSquaresAboveContainer), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer*2), sprite: new MockSquareView())
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer), sprite: new MockSquareView()),
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer*2), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover();
 			
@@ -454,9 +453,9 @@ namespace SquareFillDomain.UnitTests
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParent: new SquareFillPoint(x:-numSquaresRightOfContainer, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer*2, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), sprite: new MockSquareView()),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer*2, y:0), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover();
 			
@@ -493,9 +492,9 @@ namespace SquareFillDomain.UnitTests
 				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-2), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer), sprite: new MockSquareView()),
-					new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:numSquaresBelowContainer), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer + 2), sprite: new MockSquareView())
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer), sprite: new MockSquareView()),
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer + 2), sprite: new MockSquareView())
 				});
 			var shapeMover = new ShapeMover();
 			

@@ -12,21 +12,21 @@ namespace SquareFillDomain.UnitTests
     {
         Linq.List<Square> _simpleSingleSquareList = new Linq.List<Square>
         {
-            new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
+            new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
         };
         Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
             {
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 1, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 1), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: -1), positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
             };
         Linq.List<Square> _crossShapeSquareList = new Linq.List<Square> {
-                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:-1), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:-1, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:-1, y:1), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:1), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:1, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:1, y:1), sprite: new MockSquareView()),
-                new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:1), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:2), sprite: new MockSquareView())
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x:-1, y:1), sprite: new MockSquareView()),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:1), sprite: new MockSquareView()),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x:1, y:1), sprite: new MockSquareView()),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:2), sprite: new MockSquareView())
             };
         private readonly Linq.List<Linq.List<GridSquare>> _occupiedGridSquares = TestConstants.MakeGridSquares();
 
@@ -191,8 +191,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -210,8 +210,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -229,8 +229,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -248,8 +248,8 @@ namespace SquareFillDomain.UnitTests
                 centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
-                    new Square(positionRelativeToParent: new SquareFillPoint(x:0, y:0), positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
+                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert

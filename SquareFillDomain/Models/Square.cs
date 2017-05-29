@@ -16,7 +16,7 @@ namespace SquareFillDomain.Models
             PositionRelativeToParentCorner = new SquareFillPoint(x: 0, y: 0);
         }
 
-        public Square(SquareFillPoint positionRelativeToParent, SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
+        public Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
             PositionRelativeToParentCorner = positionRelativeToParentCorner;
             Sprite = sprite;

@@ -29,7 +29,6 @@ namespace SquareFillDomain.Models
             foreach(var point in relativePointsTopLeftCorner)
             {
                 squares.Add(new Square(
-                    positionRelativeToParent: relativePoints[relativePointsTopLeftCorner.IndexOf(point)],
                     positionRelativeToParentCorner: point,
                     sprite: squareFactory.MakeSquare(colour: colour)));
             }

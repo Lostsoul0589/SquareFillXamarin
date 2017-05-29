@@ -13,18 +13,18 @@ namespace SquareFillDomain.UnitTests
     {
         private readonly Linq.List<Square> _singleSquareShapeSquareList1 = new Linq.List<Square>
             {
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
             };
         private readonly Linq.List<Square> _singleSquareShapeSquareList2 = new Linq.List<Square>
             {
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
             };
         readonly Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
             {
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 1, y: 0), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: 1), positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
-                new Square(positionRelativeToParent: new SquareFillPoint(x: 0, y: -1), positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
+                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
             };
 
         [Test]
