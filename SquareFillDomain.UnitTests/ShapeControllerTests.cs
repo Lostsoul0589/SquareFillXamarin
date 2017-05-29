@@ -366,8 +366,8 @@ namespace SquareFillDomain.UnitTests
             int yOffset = 13;
             var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyToRightOfObstacle = new SquareFillPoint(
-                x: 5 * ShapeConstants.SquareWidth,
-                y: 2 * ShapeConstants.SquareWidth);
+                x: _shapeSetBuilder.RightHydrantShape01.TopLeftCorner.X + 2*ShapeConstants.SquareWidth,
+                y: _shapeSetBuilder.RightHydrantShape01.TopLeftCorner.Y + ShapeConstants.SquareWidth);
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
@@ -403,8 +403,8 @@ namespace SquareFillDomain.UnitTests
             int yOffset = 11;
             var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyBelowObstacle = new SquareFillPoint(
-                x: 6*ShapeConstants.SquareWidth,
-                y: 6*ShapeConstants.SquareWidth);
+                x: _shapeSetBuilder.TopRowBorderSquares[3].X* ShapeConstants.SquareWidth,
+                y: (_shapeSetBuilder.TopRowBorderSquares[3].Y + 1)* ShapeConstants.SquareWidth);
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
@@ -473,28 +473,24 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xAndYOffset = 10;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
+            var topLeftCornerOfLeftCornerShape = _shapeSetBuilder.LeftCornerShape.TopLeftCorner;
             var directlyBottomRightOfObstacle = new SquareFillPoint(
-                x: 4*ShapeConstants.SquareWidth,
-                y: 6*ShapeConstants.SquareWidth);
-            var insideFourSquare = new SquareFillPoint(
-                x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
-                y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
+                x: (_shapeSetBuilder.BottomLeftBorderSquares[1].X + 1) * ShapeConstants.SquareWidth,
+                y: (_shapeSetBuilder.BottomLeftBorderSquares[1].Y + 1) * ShapeConstants.SquareWidth);
+            var insideLeftCornerShape = new SquareFillPoint(
+                x: topLeftCornerOfLeftCornerShape.X + relativeCursorPosition.X,
+                y: topLeftCornerOfLeftCornerShape.Y + relativeCursorPosition.Y);
             var nearObstacleDiagonallyTopLeftOfFourSquare = new SquareFillPoint(
                 x: directlyBottomRightOfObstacle.X + relativeCursorPosition.X + xAndYOffset,
                 y: directlyBottomRightOfObstacle.Y + relativeCursorPosition.Y + xAndYOffset);
             var insideObstacleDiagonallyTopLeftOfFourSquare = new SquareFillPoint(
-                x:
-                    directlyBottomRightOfObstacle.X - ShapeConstants.SquareWidth + relativeCursorPosition.X +
-                    xAndYOffset,
-                y:
-                    directlyBottomRightOfObstacle.Y - ShapeConstants.SquareWidth + relativeCursorPosition.Y +
-                    xAndYOffset);
+                x: directlyBottomRightOfObstacle.X - ShapeConstants.SquareWidth + relativeCursorPosition.X + xAndYOffset,
+                y: directlyBottomRightOfObstacle.Y - ShapeConstants.SquareWidth + relativeCursorPosition.Y + xAndYOffset);
             var snappedToTopLeftCornerByObstacle = new SquareFillPoint(
                 x: directlyBottomRightOfObstacle.X,
                 y: directlyBottomRightOfObstacle.Y);
             var shapeController = new ShapeController(_shapeSetBuilder);
-            shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
+            shapeController.StartMove(cursorPositionAtStart: insideLeftCornerShape);
             var shapeToMove = shapeController.ShapeToMove;
 
             // Act
@@ -507,29 +503,29 @@ namespace SquareFillDomain.UnitTests
         }
 
         [Test]
-        public void TestWhenObstacleIsDetectedDiagonallyTopRightThenShapeWillSnapToTopLeftCornerByObstacle()
+        public void TestWhenObstacleIsDetectedDiagonallyTopRightThenShapeWillSnapToTopRightCornerByObstacle()
         {
             // Arrange
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xAndYOffset = 10;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
+            var topLeftCornerOfLeftCornerShape = _shapeSetBuilder.LeftCornerShape.TopLeftCorner;
             var directlyBottomLeftOfObstacle = new SquareFillPoint(
-                x: 8*ShapeConstants.SquareWidth,
-                y: 2*ShapeConstants.SquareWidth);
-            var insideFourSquare = new SquareFillPoint(
-                x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
-                y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
+                x: (_shapeSetBuilder.BottomRightBorderSquares[0].X - 2) * ShapeConstants.SquareWidth,
+                y: (_shapeSetBuilder.BottomRightBorderSquares[0].Y + 1) * ShapeConstants.SquareWidth);
+            var insideLeftCornerShape = new SquareFillPoint(
+                x: topLeftCornerOfLeftCornerShape.X + relativeCursorPosition.X,
+                y: topLeftCornerOfLeftCornerShape.Y + relativeCursorPosition.Y);
             var nearObstacleDiagonallyTopRightOfFourSquare = new SquareFillPoint(
                 x: directlyBottomLeftOfObstacle.X + relativeCursorPosition.X - xAndYOffset,
                 y: directlyBottomLeftOfObstacle.Y + relativeCursorPosition.Y + xAndYOffset);
             var insideObstacleDiagonallyTopRightOfFourSquare = new SquareFillPoint(
-                x: directlyBottomLeftOfObstacle.X + ShapeConstants.SquareWidth + relativeCursorPosition.X - xAndYOffset,
+                x: directlyBottomLeftOfObstacle.X + ShapeConstants.SquareWidth + relativeCursorPosition.X + xAndYOffset,
                 y: directlyBottomLeftOfObstacle.Y - ShapeConstants.SquareWidth + relativeCursorPosition.Y + xAndYOffset);
             var snappedToTopRightCornerByObstacle = new SquareFillPoint(
                 x: directlyBottomLeftOfObstacle.X,
                 y: directlyBottomLeftOfObstacle.Y);
             var shapeController = new ShapeController(_shapeSetBuilder);
-            shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
+            shapeController.StartMove(cursorPositionAtStart: insideLeftCornerShape);
             var shapeToMove = shapeController.ShapeToMove;
 
             // Act
