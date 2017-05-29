@@ -67,8 +67,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Asserter.AreEqual(selectedShape.CentreOfShape.X, singleSquareShape.CentreOfShape.X);
-			Asserter.AreEqual(selectedShape.CentreOfShape.Y, singleSquareShape.CentreOfShape.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.X, singleSquareShape.TopLeftCorner.X);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, singleSquareShape.TopLeftCorner.Y);
 		}
 		
 		[Test]
@@ -83,8 +83,8 @@ namespace SquareFillDomain.UnitTests
 				y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
             var topLeftSecondShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth,
-                y: TestConstants.SquareWidth);
+                x: topLeftFirstShape.X + TestConstants.SquareWidth,
+                y: topLeftFirstShape.Y + TestConstants.SquareWidth);
             var firstSquareShape = new Shape(
 				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
@@ -101,8 +101,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Asserter.AreEqual(selectedShape.CentreOfShape.X, secondSquareShape.CentreOfShape.X);
-			Asserter.AreEqual(selectedShape.CentreOfShape.Y, secondSquareShape.CentreOfShape.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondSquareShape.TopLeftCorner.X);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondSquareShape.TopLeftCorner.Y);
 		}
 		
 		[Test]
@@ -129,14 +129,14 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
 			var shapeSet = new ShapeSet(shapes: shapeList);
-			var selectedPoint = new SquareFillPoint(x: centreOfSecondShape.X + 10, y: centreOfSecondShape.Y + 10);
+            var selectedPoint = new SquareFillPoint(x: topLeftSecondShape.X + 1, y: topLeftSecondShape.Y + 1);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Asserter.AreEqual(selectedShape.CentreOfShape.X, secondSquareShape.CentreOfShape.X);
-			Asserter.AreEqual(selectedShape.CentreOfShape.Y, secondSquareShape.CentreOfShape.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondSquareShape.TopLeftCorner.X);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondSquareShape.TopLeftCorner.Y);
 		}
 		
 		[Test]
@@ -165,14 +165,52 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _rightHydrantSquareList);
 			var shapeList = new List<Shape>{firstShape, secondShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
-			var selectedPoint = new SquareFillPoint(x: centreOfSecondShape.X + TestConstants.SquareWidth + 10, y: centreOfSecondShape.Y + 10);
+            var selectedPoint = new SquareFillPoint(x: topLeftSecondShape.X + 1, y: topLeftSecondShape.Y + 1);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Asserter.AreEqual(selectedShape.CentreOfShape.X, secondShape.CentreOfShape.X);
-			Asserter.AreEqual(selectedShape.CentreOfShape.Y, secondShape.CentreOfShape.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondShape.TopLeftCorner.X);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondShape.TopLeftCorner.Y);
 		}
+
+        [Test]
+        public void TestWhenCursorIsInNonCornerSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
+        {
+            // Arrange
+            var centreOfFirstShape = new SquareFillPoint(
+                x: TestConstants.SquareWidth / 2,
+                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
+            var centreOfSecondShape = new SquareFillPoint(
+                x: TestConstants.SquareWidth + TestConstants.SquareWidth / 2,
+                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
+            var topLeftFirstShape = new SquareFillPoint(
+                x: 0,
+                y: TestConstants.SquareWidth);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: TestConstants.SquareWidth,
+                y: 0);
+            var firstShape = new Shape(
+                centreOfShape: centreOfFirstShape,
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1);
+            var secondShape = new Shape(
+                centreOfShape: centreOfSecondShape,
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _rightHydrantSquareList);
+            var shapeList = new List<Shape> { firstShape, secondShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+            var selectedPoint = new SquareFillPoint(
+                x: topLeftSecondShape.X + TestConstants.SquareWidth + 10,
+                y: topLeftSecondShape.Y + TestConstants.SquareWidth + 10);
+
+            // Act
+            var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondShape.TopLeftCorner.X);
+            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondShape.TopLeftCorner.Y);
+        }
 	}
 }
