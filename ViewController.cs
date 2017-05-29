@@ -1,5 +1,6 @@
 ﻿using System;
 using Foundation;
+using SquareFillDomain.Builders;
 using SquareFillDomain.Controllers;
 using SquareFillDomain.Models;
 using SquareFillXamarin.UIComponents;
@@ -22,8 +23,9 @@ namespace SquareFillXamarin
             // Perform any additional setup after loading the view, typically from a nib.
 
             var squareMaker = UIViewBuilder.InitialiseUIComponents(view: View);
+		    var shapeSetBuilder = new ShapeSetBuilder();
 
-            _shapeController = new ShapeController(squareViewFactory: squareMaker);
+            _shapeController = new ShapeController(squareViewFactory: squareMaker, shapeSetBuilder: shapeSetBuilder);
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -70,12 +72,5 @@ namespace SquareFillXamarin
                         y: Convert.ToInt16(touchLocation.Y)));
             }
         }
-
-	    //public override void () {
-    //    for touch: AnyObject in touches {
-    //        let newLocation = touch.location(in: self.view)
-    //        _shapeController.StartMove(cursorPositionAtStart: newLocation)
-    //    }
-    //}
 	}
 }

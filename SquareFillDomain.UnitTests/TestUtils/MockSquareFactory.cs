@@ -1,7 +1,7 @@
 ﻿using SquareFillDomain.Interfaces;
 using SquareFillDomain.Utils;
 
-namespace SquareFillDomain.UnitTests
+namespace SquareFillDomain.UnitTests.TestUtils
 {
     public class MockSquareFactory : ISquareViewFactory
     {

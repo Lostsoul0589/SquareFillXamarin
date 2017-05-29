@@ -1,6 +1,7 @@
 ﻿using CoreGraphics;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
+using SquareFillDomain.Utils;
 using UIKit;
 
 namespace SquareFillXamarin.UIComponents

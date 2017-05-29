@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
+using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.UnitTests
 {

@@ -17,11 +17,11 @@ namespace SquareFillDomain.Controllers
         private SquareFillPoint _lastGoodLocation;
         private bool _colliding = false;
 
-        public ShapeController(ISquareViewFactory squareViewFactory)
+        public ShapeController(ISquareViewFactory squareViewFactory, IShapeSetBuilder shapeSetBuilder)
         {
             OccupiedGridSquares = ShapeConstants.MakeGridSquares();
-            ShapeConstants.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
-            ShapeSet = ShapeConstants.MakeHardCodedShapeSet(squareViewFactory: squareViewFactory);
+            shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
+            ShapeSet = shapeSetBuilder.GetShapeSet(squareViewFactory: squareViewFactory);
             PutAllShapesIntoGrid();
 
             _shapeMover = new ShapeMover();

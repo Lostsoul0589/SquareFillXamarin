@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
+using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
 using SquareFillDomain.Utils;
 
-namespace SquareFillDomain.Builders
+namespace SquareFillDomain.UnitTests.TestUtils
 {
-    public class ShapeSetBuilder : IShapeSetBuilder
+    public class TestShapeSetBuilder : IShapeSetBuilder
     {
         private static readonly List<SquareFillPoint> _borderSquares = new List<SquareFillPoint>();
 
         public ShapeSet GetShapeSet(ISquareViewFactory squareViewFactory)
         {
-            return MakeHardCodedShapeSet(squareViewFactory: squareViewFactory);
+            return MakeTestShapeSet(squareViewFactory: squareViewFactory);
         }
 
         public void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
@@ -23,7 +24,7 @@ namespace SquareFillDomain.Builders
             }
         }
 
-        private ShapeSet MakeHardCodedShapeSet(ISquareViewFactory squareViewFactory)
+        private ShapeSet MakeTestShapeSet(ISquareViewFactory squareViewFactory)
         {
             var originX = ShapeConstants.SquareWidth / 2;
             var originY = ShapeConstants.SquareWidth / 2;

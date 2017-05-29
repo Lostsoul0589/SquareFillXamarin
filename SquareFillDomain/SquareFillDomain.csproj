@@ -37,6 +37,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\IShapeSetBuilder.cs" />
+    <Compile Include="Utils\ShapeConstants.cs" />
     <Compile Include="Builders\ShapeSetBuilder.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Controllers\ShapeController.cs" />

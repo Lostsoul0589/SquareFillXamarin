@@ -1,5 +1,6 @@
 ﻿using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
+using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.Models
 {

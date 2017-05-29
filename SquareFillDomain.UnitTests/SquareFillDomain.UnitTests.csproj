@@ -54,8 +54,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MockSquareFactory.cs" />
-    <Compile Include="MockSquareView.cs" />
+    <Compile Include="TestUtils\MockSquareFactory.cs" />
+    <Compile Include="TestUtils\MockSquareView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShapeControllerTests.cs" />
     <Compile Include="ShapeMoverTests.cs" />
@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SquareTests.cs" />
+    <Compile Include="TestUtils\ShapeSetBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SquareFillDomain\SquareFillDomain.csproj">
