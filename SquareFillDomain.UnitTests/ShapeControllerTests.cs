@@ -432,17 +432,17 @@ namespace SquareFillDomain.UnitTests
                 x: 6*ShapeSetBuilder.SquareWidth,
                 y: 2*ShapeSetBuilder.SquareWidth);
             var directlyAboveObstacle = new SquareFillPoint(
-                x: 6*ShapeSetBuilder.SquareWidth,
-                y: 13*ShapeSetBuilder.SquareWidth);
+                x: 7*ShapeSetBuilder.SquareWidth,
+                y: 12*ShapeSetBuilder.SquareWidth);
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
             var nearObstacleBelowFourSquare = new SquareFillPoint(
                 x: directlyAboveObstacle.X + relativeCursorPosition.X + xOffset,
-                y: directlyAboveObstacle.Y + relativeCursorPosition.Y + yOffset);
+                y: directlyAboveObstacle.Y + relativeCursorPosition.Y - yOffset);
             var insideObstacleBelowFourSquare = new SquareFillPoint(
                 x: directlyAboveObstacle.X + relativeCursorPosition.X + xOffset,
-                y: directlyAboveObstacle.Y + ShapeSetBuilder.SquareWidth + relativeCursorPosition.Y + yOffset);
+                y: directlyAboveObstacle.Y + ShapeSetBuilder.SquareWidth + relativeCursorPosition.Y - yOffset);
             var snappedToBottomOfBorderWithObstacle = new SquareFillPoint(
                 x: directlyAboveObstacle.X + xOffset,
                 y: directlyAboveObstacle.Y);
@@ -510,16 +510,16 @@ namespace SquareFillDomain.UnitTests
                 x: 6*ShapeSetBuilder.SquareWidth,
                 y: 2*ShapeSetBuilder.SquareWidth);
             var directlyBottomLeftOfObstacle = new SquareFillPoint(
-                x: 9*ShapeSetBuilder.SquareWidth,
-                y: 6*ShapeSetBuilder.SquareWidth);
+                x: 8*ShapeSetBuilder.SquareWidth,
+                y: 2*ShapeSetBuilder.SquareWidth);
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
             var nearObstacleDiagonallyTopRightOfFourSquare = new SquareFillPoint(
-                x: directlyBottomLeftOfObstacle.X + relativeCursorPosition.X + xAndYOffset,
+                x: directlyBottomLeftOfObstacle.X + relativeCursorPosition.X - xAndYOffset,
                 y: directlyBottomLeftOfObstacle.Y + relativeCursorPosition.Y + xAndYOffset);
             var insideObstacleDiagonallyTopRightOfFourSquare = new SquareFillPoint(
-                x: directlyBottomLeftOfObstacle.X + ShapeSetBuilder.SquareWidth + relativeCursorPosition.X + xAndYOffset,
+                x: directlyBottomLeftOfObstacle.X + ShapeSetBuilder.SquareWidth + relativeCursorPosition.X - xAndYOffset,
                 y: directlyBottomLeftOfObstacle.Y - ShapeSetBuilder.SquareWidth + relativeCursorPosition.Y + xAndYOffset);
             var snappedToTopRightCornerByObstacle = new SquareFillPoint(
                 x: directlyBottomLeftOfObstacle.X,
