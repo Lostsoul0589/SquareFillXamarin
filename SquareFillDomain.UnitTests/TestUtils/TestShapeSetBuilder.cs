@@ -39,12 +39,23 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private Shape _twoPoleShape;
         private Shape _backwardsLShape;
         private Shape _singleSquareShape01;
+        private Shape _topLeftCornerOfContainingBorder;
+        private Shape _topRightCornerOfContainingBorder;
+        private Shape _bottomLeftCornerOfContainingBorder;
+        private Shape _bottomRightCornerOfContainingBorder;
 
-        private static readonly List<SquareFillPoint> BorderSquares = new List<SquareFillPoint>();
+        private readonly List<SquareFillPoint> _borderSquares = new List<SquareFillPoint>();
+
+        public readonly List<SquareFillPoint> TopRowBorderSquares = new List<SquareFillPoint>();
+        public readonly List<SquareFillPoint> LeftWallBorderSquares = new List<SquareFillPoint>();
+        public readonly List<SquareFillPoint> RightWallBorderSquares = new List<SquareFillPoint>();
+        public readonly List<SquareFillPoint> BottomLeftBorderSquares = new List<SquareFillPoint>();
+        public readonly List<SquareFillPoint> BottomRightBorderSquares = new List<SquareFillPoint>();
 
         public TestShapeSetBuilder(ISquareViewFactory squareViewFactory)
         {
             MakeShapes(squareViewFactory: squareViewFactory);
+            BuildBorderSquares();
         }
 
         public ShapeSet GetShapeSet()
@@ -54,8 +65,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
         public void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
         {
-            BuildBorderSquares();
-            foreach (var borderSquare in BorderSquares)
+            foreach (var borderSquare in _borderSquares)
             {
                 occupiedGridSquares[borderSquare.X][borderSquare.Y].Occupied = true;
             }
@@ -78,39 +88,107 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 _rightHydrantShape03,
                 _upsideDownTShape02,
                 _singleSquareShape01,
-                _fourSquareShape03
+                _fourSquareShape03,
+                _topLeftCornerOfContainingBorder,
+                _topRightCornerOfContainingBorder,
+                _bottomLeftCornerOfContainingBorder,
+                _bottomRightCornerOfContainingBorder
 			});
         }
 
-        private static void BuildBorderSquares()
+        private void BuildBorderSquares()
         {
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 4, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 5, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 6, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 7, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 8, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 9, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 10, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 5));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 6));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 7));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 8));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 9));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 10));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 11));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 12));
-            BorderSquares.Add(new SquareFillPoint(x: 11, y: 13));
-            BorderSquares.Add(new SquareFillPoint(x: 10, y: 13));
-            BorderSquares.Add(new SquareFillPoint(x: 4, y: 13));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 13));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 12));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 11));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 10));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 9));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 8));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 7));
-            BorderSquares.Add(new SquareFillPoint(x: 3, y: 6));
+            BuildTopRowBorderSquares();
+            BuildRightWallBorderSquares();
+            BuildBottomRightBorderSquares();
+            BuildBottomLeftBorderSquares();
+            BuildLeftWallBorderSquares();
+        }
+
+        private void BuildTopRowBorderSquares()
+        {
+            var topRowY = (ShapeConstants.ContainingRectangle.Y / ShapeConstants.SquareWidth) - 1;
+            var leftWallX = (ShapeConstants.ContainingRectangle.X / ShapeConstants.SquareWidth) - 1;
+
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 1, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 2, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 3, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 4, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 5, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 6, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 7, y: topRowY));
+            TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + 8, y: topRowY));
+
+            foreach (var square in TopRowBorderSquares)
+            {
+                _borderSquares.Add(square);
+            }
+        }
+
+        private void BuildRightWallBorderSquares()
+        {
+            var rightWallX = (ShapeConstants.ContainingRectangle.X + ShapeConstants.ContainingRectangle.Width) / ShapeConstants.SquareWidth;
+
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 6));
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 7));
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 8));
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 9));
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 10));
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 11));
+            RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: 12));
+
+            foreach (var square in RightWallBorderSquares)
+            {
+                _borderSquares.Add(square);
+            }
+        }
+
+        private void BuildBottomRightBorderSquares()
+        {
+            var bottomY = (ShapeConstants.ContainingRectangle.Y + ShapeConstants.ContainingRectangle.Height) / ShapeConstants.SquareWidth;
+            var rightWallX = (ShapeConstants.ContainingRectangle.X + ShapeConstants.ContainingRectangle.Width) / ShapeConstants.SquareWidth;
+
+            BottomRightBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: bottomY));
+            BottomRightBorderSquares.Add(new SquareFillPoint(x: rightWallX - 1, y: bottomY));
+
+            foreach (var square in BottomLeftBorderSquares)
+            {
+                _borderSquares.Add(square);
+            }
+        }
+
+        private void BuildBottomLeftBorderSquares()
+        {
+            var bottomY = (ShapeConstants.ContainingRectangle.Y + ShapeConstants.ContainingRectangle.Height) / ShapeConstants.SquareWidth;
+            var leftWallX = (ShapeConstants.ContainingRectangle.X / ShapeConstants.SquareWidth) - 1;
+
+            BottomLeftBorderSquares.Add(new SquareFillPoint(x: leftWallX + 1, y: bottomY));
+            BottomLeftBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY));
+
+            foreach (var square in BottomRightBorderSquares)
+            {
+                _borderSquares.Add(square);
+            }
+        }
+
+        private void BuildLeftWallBorderSquares()
+        {
+            var leftWallX = (ShapeConstants.ContainingRectangle.X / ShapeConstants.SquareWidth) - 1;
+            var bottomY = (ShapeConstants.ContainingRectangle.Y + ShapeConstants.ContainingRectangle.Height) / ShapeConstants.SquareWidth;
+
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 1));
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 2));
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 3));
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 4));
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 5));
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 6));
+            LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY - 7));
+
+            foreach (var square in LeftWallBorderSquares)
+            {
+                _borderSquares.Add(square);
+            }
         }
 
         private void MakeShapes(ISquareViewFactory squareViewFactory)
@@ -256,6 +334,46 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 topLeftCorner: new SquareFillPoint(x: 6*ShapeConstants.SquareWidth, y: 8*ShapeConstants.SquareWidth),
                 relativePoints: ShapeConstants.FourSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
+                squareFactory: squareViewFactory);
+
+            // created purely for test:
+            _topLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+                centreOfShape: new SquareFillPoint(x: originX + 9 * ShapeConstants.SquareWidth,
+                    y: originY + 18 * ShapeConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 9 * ShapeConstants.SquareWidth,
+                    y: 18 * ShapeConstants.SquareWidth),
+                relativePoints: ShapeConstants.SingleSquareCentrePoints,
+                relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
+                squareFactory: squareViewFactory);
+
+            // created purely for test:
+            _topRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+                centreOfShape: new SquareFillPoint(x: originX + 9 * ShapeConstants.SquareWidth,
+                    y: originY + 18 * ShapeConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 9 * ShapeConstants.SquareWidth,
+                    y: 18 * ShapeConstants.SquareWidth),
+                relativePoints: ShapeConstants.SingleSquareCentrePoints,
+                relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
+                squareFactory: squareViewFactory);
+
+            // created purely for test:
+            _bottomLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+                centreOfShape: new SquareFillPoint(x: originX + 9 * ShapeConstants.SquareWidth,
+                    y: originY + 18 * ShapeConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 9 * ShapeConstants.SquareWidth,
+                    y: 18 * ShapeConstants.SquareWidth),
+                relativePoints: ShapeConstants.SingleSquareCentrePoints,
+                relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
+                squareFactory: squareViewFactory);
+
+            // created purely for test:
+            _bottomRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+                centreOfShape: new SquareFillPoint(x: originX + 9 * ShapeConstants.SquareWidth,
+                    y: originY + 18 * ShapeConstants.SquareWidth),
+                topLeftCorner: new SquareFillPoint(x: 9 * ShapeConstants.SquareWidth,
+                    y: 18 * ShapeConstants.SquareWidth),
+                relativePoints: ShapeConstants.SingleSquareCentrePoints,
+                relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
         }
     }
