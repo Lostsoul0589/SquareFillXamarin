@@ -18,9 +18,7 @@ namespace SquareFillDomain.Models
 
         public Shape(
             SquareFillColour colour,
-            SquareFillPoint centreOfShape,
             SquareFillPoint topLeftCorner,
-            List<SquareFillPoint> relativePoints,
             List<SquareFillPoint> relativePointsTopLeftCorner,
             ISquareViewFactory squareFactory)
 		{
@@ -40,7 +38,6 @@ namespace SquareFillDomain.Models
 		}
 
         public Shape(
-            SquareFillPoint centreOfShape,
             SquareFillPoint topLeftCorner,
             List<Square> squareDefinitions)
         {

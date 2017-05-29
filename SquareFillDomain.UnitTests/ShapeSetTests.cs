@@ -30,12 +30,8 @@ namespace SquareFillDomain.UnitTests
         [Test]
 		public void TestWhenUserClicksInAreaOfScreenWithNoShapeThenNoShapeIsSelected() {
 			// Arrange
-			var centreOfShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
-				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
@@ -57,7 +53,6 @@ namespace SquareFillDomain.UnitTests
 				y: TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
-				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
@@ -75,9 +70,6 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenTwoShapesExistThatUserCanSelectTheCorrectShape()
 		{
 			// Arrange
-			var centreOfFirstShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
 			var centreOfSecondShape = new SquareFillPoint(
 				x: TestConstants.SquareWidth + TestConstants.SquareWidth/2, 
 				y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
@@ -86,11 +78,9 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftFirstShape.X + TestConstants.SquareWidth,
                 y: topLeftFirstShape.Y + TestConstants.SquareWidth);
             var firstSquareShape = new Shape(
-				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var secondSquareShape = new Shape(
-				centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
 			var shapeList = new List<Shape>{firstSquareShape, secondSquareShape};
@@ -109,22 +99,14 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenCursorIsNotInCentreOfSingleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
-			var centreOfFirstShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
-            var centreOfSecondShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth*2 + TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth*2 + TestConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
             var topLeftSecondShape = new SquareFillPoint(
                 x: TestConstants.SquareWidth*2,
                 y: TestConstants.SquareWidth*2);
             var firstSquareShape = new Shape(
-				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var secondSquareShape = new Shape(
-				centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
@@ -143,12 +125,6 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenCursorIsInNonCentralSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
-			var centreOfFirstShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
-			var centreOfSecondShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth + TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(
                 x: 0, 
                 y: TestConstants.SquareWidth);
@@ -156,11 +132,9 @@ namespace SquareFillDomain.UnitTests
                 x: TestConstants.SquareWidth,
                 y: 0);
             var firstShape = new Shape(
-				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var secondShape = new Shape(
-				centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _rightHydrantSquareList);
 			var shapeList = new List<Shape>{firstShape, secondShape};
@@ -179,12 +153,6 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenCursorIsInNonCornerSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
         {
             // Arrange
-            var centreOfFirstShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
-            var centreOfSecondShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftFirstShape = new SquareFillPoint(
                 x: 0,
                 y: TestConstants.SquareWidth);
@@ -192,11 +160,9 @@ namespace SquareFillDomain.UnitTests
                 x: TestConstants.SquareWidth,
                 y: 0);
             var firstShape = new Shape(
-                centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
             var secondShape = new Shape(
-                centreOfShape: centreOfSecondShape,
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _rightHydrantSquareList);
             var shapeList = new List<Shape> { firstShape, secondShape };

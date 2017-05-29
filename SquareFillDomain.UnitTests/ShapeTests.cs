@@ -52,7 +52,6 @@ namespace SquareFillDomain.UnitTests
 				y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
-				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
 			
@@ -67,12 +66,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationInCentralSquareIsDefinedAsInsideShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
-                centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
             var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
@@ -88,12 +83,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationOutsideShapeIsNotDefinedAsInsideShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
-                centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList );
             var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y - 10);
@@ -109,12 +100,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationInNonCornerSquareIsDefinedAsInsideShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
-                centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
             var pointInQuestion = new SquareFillPoint(
@@ -132,12 +119,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationInNonCentralSquareIsDefinedAsInsideShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
-                centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
             var pointInQuestion = new SquareFillPoint(
@@ -155,12 +138,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeIsMovedToNewLocationThenAllSpritesArePlacedRelativeToTopLeftCorner()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: TestConstants.SquareWidth, y: 0);
             var shape = new Shape(
-                centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _crossShapeSquareList);
             var newTopLeftCorner = new SquareFillPoint(
@@ -188,7 +167,6 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
                     new Square(positionRelativeToParentCorner: new SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
@@ -207,7 +185,6 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
                     new Square(positionRelativeToParentCorner: new SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
@@ -226,7 +203,6 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
                     new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
@@ -245,7 +221,6 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                centreOfShape: new SquareFillPoint(x: TestConstants.SquareWidth / 2, y: TestConstants.SquareWidth / 2),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
                     new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
@@ -260,16 +235,11 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreWithinTheContainingRectangleIfAllEdgesAreWithinIt()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.CentreOfTopLeftGridSquare.X + TestConstants.SquareWidth,
-                y: TestConstants.CentreOfTopLeftGridSquare.Y + 2 * TestConstants.SquareWidth);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X + TestConstants.SquareWidth,
                 y: TestConstants.TopLeftGridSquare.Y + TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                  centreOfShape: centreOfShape,
                   topLeftCorner: topLeftCorner,
-                  relativePoints: TestConstants.RightHydrantCentrePoints,
                   relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                   squareFactory: new MockSquareFactory());
 
@@ -284,16 +254,11 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheLeftEdge()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.CentreOfTopLeftGridSquare.X - TestConstants.SquareWidth,
-                y: TestConstants.CentreOfTopLeftGridSquare.Y + TestConstants.SquareWidth);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X - TestConstants.SquareWidth,
                 y: TestConstants.TopLeftGridSquare.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
@@ -308,16 +273,11 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheTopEdge()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.CentreOfTopLeftGridSquare.X,
-                y: TestConstants.CentreOfTopLeftGridSquare.Y - TestConstants.SquareWidth);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X,
                 y: TestConstants.TopLeftGridSquare.Y - TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
@@ -332,16 +292,11 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheRightEdge()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.CentreOfTopLeftGridSquare.X + TestConstants.ContainingRectangle.Width - TestConstants.SquareWidth,
-                y: TestConstants.CentreOfTopLeftGridSquare.Y + TestConstants.SquareWidth);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X + TestConstants.ContainingRectangle.Width,
                 y: TestConstants.TopLeftGridSquare.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
@@ -356,16 +311,11 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheBottomEdge()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.CentreOfTopLeftGridSquare.X,
-                y: TestConstants.CentreOfTopLeftGridSquare.Y + TestConstants.ContainingRectangle.Height);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X,
                 y: TestConstants.TopLeftGridSquare.Y + TestConstants.ContainingRectangle.Height - TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
 
@@ -380,20 +330,15 @@ namespace SquareFillDomain.UnitTests
         public void TestVacateGridSquaresWillVacateOnlyTheSquaresOccupiedByTheShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
-            foreach (var relativePoint in TestConstants.RightHydrantCentrePoints)
+            foreach (var relativePoint in TestConstants.RightHydrantPoints)
             {
-                _occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied = true;
-                _occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].ShapeInSquare = shape;
+                _occupiedGridSquares[relativePoint.X][relativePoint.Y].Occupied = true;
+                _occupiedGridSquares[relativePoint.X][relativePoint.Y].ShapeInSquare = shape;
             }
             // Occupy some other squares too, so we can check they're still occupied afterwards
             for (int count = 0; count <= (_occupiedGridSquares[_occupiedGridSquares.Count - 1].Count - 1); count++)
@@ -423,14 +368,9 @@ namespace SquareFillDomain.UnitTests
         public void TestOccupyGridSquaresWillOccupyOnlyTheSquaresOccupiedByTheShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
 
@@ -438,9 +378,9 @@ namespace SquareFillDomain.UnitTests
             shape.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
 
             // Assert
-            foreach (var relativePoint in TestConstants.ThreePoleCentrePoints)
+            foreach (var relativePoint in TestConstants.ThreePolePoints)
             {
-                Asserter.AreEqual(_occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied, true);
+                Asserter.AreEqual(_occupiedGridSquares[relativePoint.X][relativePoint.Y].Occupied, true);
             }
             for (int yCount = 3; yCount <= (_occupiedGridSquares[0].Count - 1); yCount++)
             {
@@ -459,9 +399,6 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongLeftEdgeOfGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0);
@@ -469,9 +406,7 @@ namespace SquareFillDomain.UnitTests
                 x: 0,
                 y: 2 * TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -497,18 +432,13 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongRightEdgeOfGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.ScreenWidth - TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 2 * TestConstants.SquareWidth);
             var xMovement = (TestConstants.ScreenWidth / TestConstants.SquareWidth) - 1;
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -535,17 +465,12 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongTopEdgeOfGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -571,18 +496,13 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongBottomEdgeOfGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.ScreenHeight - 3 * TestConstants.SquareWidth);
             var yMovement = (TestConstants.ScreenHeight / TestConstants.SquareWidth) - 3;
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -609,17 +529,12 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewShapeCentreIsInMiddleOfGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 3 * TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -646,9 +561,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayOnTheLeft()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth/2,
-                y: 2*TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.SquareWidth,
                 y: 0);
@@ -656,9 +568,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -686,9 +596,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayOnTheRight()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0);
@@ -696,9 +603,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -726,9 +631,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayBelow()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0);
@@ -736,9 +638,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -764,9 +664,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayAbove()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: 2*TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: TestConstants.SquareWidth);
@@ -774,9 +671,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -802,9 +697,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyTopLeft()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth/2,
-                y: 2*TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.SquareWidth,
                 y: TestConstants.SquareWidth);
@@ -812,9 +704,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -840,9 +730,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyTopRight()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: 2*TestConstants.SquareWidth * TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: TestConstants.SquareWidth);
@@ -850,9 +737,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -878,9 +763,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyBottomLeft()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth * TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(
                 x: 1,
                 y: 0);
@@ -888,9 +770,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -916,9 +796,6 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyBottomRight()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth * TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0);
@@ -926,9 +803,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -954,9 +829,6 @@ namespace SquareFillDomain.UnitTests
         /*[Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingLeft() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -964,9 +836,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X - 1,
                 y: centreOfShape.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -988,9 +858,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingRight() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10)
@@ -998,9 +865,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X + 1,
                 y: centreOfShape.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1022,9 +887,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingUp() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -1032,9 +894,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X,
                 y: centreOfShape.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1056,9 +916,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDown() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -1066,9 +923,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X,
                 y: centreOfShape.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1090,9 +945,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyUpAndLeft() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -1100,9 +952,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X - 1,
                 y: centreOfShape.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1124,9 +974,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyUpAndRight() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -1134,9 +981,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X + 1,
                 y: centreOfShape.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1158,9 +1003,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyDownAndLeft() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -1168,9 +1010,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X - 1,
                 y: centreOfShape.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1192,9 +1032,6 @@ namespace SquareFillDomain.UnitTests
         [Test]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyDownAndRight() {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: ShapeSetBuilder.CentreOfTopLeftGridSquare.X + 10,
-                y: ShapeSetBuilder.CentreOfTopLeftGridSquare.Y + ShapeSetBuilder.SquareWidth + 10);
             var topLeftCorner = new SquareFillPoint(
                 x: ShapeSetBuilder.TopLeftGridSquare.X + 10,
                 y: ShapeSetBuilder.TopLeftGridSquare.Y + 10);
@@ -1202,9 +1039,7 @@ namespace SquareFillDomain.UnitTests
                 x: centreOfShape.X + 1,
                 y: centreOfShape.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: ShapeSetBuilder.ThreePolePoints,
                               relativePointsTopLeftCorner: ShapeSetBuilder.ThreePolePoints,
                               squareFactory: new MockShapeFactory());
             var originalSquareOrigins = new List<SquareFillPoint>();
@@ -1228,9 +1063,6 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedVerticallyThenWeCanStillUpdateOrigins()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2 + 1,
-                y: 2*TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1);
             var topLeftCorner = new SquareFillPoint(
                 x: 0 + 1,
                 y: TestConstants.SquareWidth + 1);
@@ -1238,9 +1070,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.TwoPoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -1265,9 +1095,6 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedHorizontallyThenWeCanStillUpdateOrigins()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2 + 1,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth + 1);
             var topLeftCorner = new SquareFillPoint(
                 x: 0 + 1,
                 y: 0 + 1);
@@ -1275,9 +1102,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.TwoPoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -1303,9 +1128,6 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedVerticallyThenWeCanStillDetectAnotherShapeInTheWay()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2 + 1,
-                y: 2 * TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0 + 1,
                 y: TestConstants.SquareWidth);
@@ -1313,9 +1135,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.TwoPoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[0][0].Occupied = true;
@@ -1331,9 +1151,6 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedHorizontallyThenWeCanStillDetectAnotherShapeInTheWay()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0 + 1);
@@ -1341,9 +1158,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.TwoPoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][0].Occupied = true;
@@ -1359,9 +1174,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurLeftSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.SquareWidth,
                 y: 0 + 1);
@@ -1369,9 +1181,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[0][1].Occupied = true;
@@ -1387,9 +1197,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurRightSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0 + 1);
@@ -1397,9 +1204,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.ThreePoleCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][1].Occupied = true;
@@ -1415,9 +1220,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurTopSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth / 2 + 1,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: TestConstants.SquareWidth);
@@ -1425,9 +1227,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.FourBarCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.FourBarPoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[2][0].Occupied = true;
@@ -1443,9 +1243,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurBottomSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1,
-                y: TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0 + 1,
                 y: 0);
@@ -1453,9 +1250,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.FourBarCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.FourBarPoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[2][1].Occupied = true;
@@ -1471,9 +1266,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItIsCompletelyInsideTheMovingShape()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0);
@@ -1481,9 +1273,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 3 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.NineSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.NineSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[4][1].Occupied = true;
@@ -1499,9 +1289,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurLeftSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: 2 * TestConstants.SquareWidth + TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(
                 x: 2*TestConstants.SquareWidth,
                 y: 0);
@@ -1509,9 +1296,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.LeftHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.LeftHydrantPoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[0][1].Occupied = true;
@@ -1527,9 +1312,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurRightSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth/2,
-                y: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1);
             var topLeftCorner = new SquareFillPoint(
                 x: 0,
                 y: 0 + 1);
@@ -1537,9 +1319,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightHydrantCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[2][1].Occupied = true;
@@ -1555,9 +1335,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurTopSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1,
-                y: 2*TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: TestConstants.SquareWidth + 1,
                 y: TestConstants.SquareWidth);
@@ -1565,9 +1342,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.UpsideDownTCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.UpsideDownTPoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][0].Occupied = true;
@@ -1583,9 +1358,6 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurBottomSide()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth + TestConstants.SquareWidth/2 + 1,
-                y: TestConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(
                 x: 0 + 1,
                 y: 0);
@@ -1593,9 +1365,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.RightWayUpTCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.RightWayUpTPoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][2].Occupied = true;
@@ -1611,17 +1381,12 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheTopOfTheScreen()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
@@ -1636,17 +1401,12 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheBottomOfTheScreen()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + _occupiedGridSquares[0].Count * TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
@@ -1661,17 +1421,12 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheLeftEdgeOfTheScreen()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
@@ -1686,17 +1441,12 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheRightEdgeOfTheScreen()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + _occupiedGridSquares.Count * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
 
@@ -1711,17 +1461,12 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeAreHorizontallyAlignedWithTheGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + 10,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][0].Occupied = true;
@@ -1737,17 +1482,12 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeAreVerticallyAlignedWithTheGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 10);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[0][1].Occupied = true;
@@ -1763,17 +1503,12 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeArePerfectlyAlignedWithTheGrid()
         {
             // Arrange
-            var centreOfShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth / 2,
-                y: TestConstants.SquareWidth / 2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
-                              centreOfShape: centreOfShape,
                               topLeftCorner: topLeftCorner,
-                              relativePoints: TestConstants.SingleSquareCentrePoints,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
             _occupiedGridSquares[1][1].Occupied = true;

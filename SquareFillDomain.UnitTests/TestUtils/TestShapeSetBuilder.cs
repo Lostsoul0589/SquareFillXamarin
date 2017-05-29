@@ -87,125 +87,88 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
             // 1:
             _rightHydrantShape = new Shape(colour: SquareFillColour.Red,
-                centreOfShape: new SquareFillPoint(x: originX + 3 * TestConstants.SquareWidth, y: originY + 2 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 3 * TestConstants.SquareWidth, y: TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.RightHydrantCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareViewFactory);
 
             // 3:
             _sevenShape = new Shape(colour: SquareFillColour.Black,
-                centreOfShape: new SquareFillPoint(x: originX + 10 * TestConstants.SquareWidth,
-                    y: originY + TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth, y: TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.SevenCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SevenPoints,
                 squareFactory: squareViewFactory);
 
             // 4:
             _fourSquareShape = new Shape(colour: SquareFillColour.Orange,
-                centreOfShape: new SquareFillPoint(x: originX + 7 * TestConstants.SquareWidth,
-                    y: originY + 2 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 6 * TestConstants.SquareWidth,
                     y: 2 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.FourSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
                 squareFactory: squareViewFactory);
 
             // 5:
             _leftCornerShape = new Shape(colour: SquareFillColour.Green,
-                centreOfShape: new SquareFillPoint(x: originX + 8 * TestConstants.SquareWidth,
-                    y: originY + 15 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 7 * TestConstants.SquareWidth,
                     y: 15 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.LeftCornerCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
                 squareFactory: squareViewFactory);
 
             // 7:
             _upsideDownTShape = new Shape(colour: SquareFillColour.Purple,
-                centreOfShape: new SquareFillPoint(x: originX + 3 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 3 * TestConstants.SquareWidth,
                     y: 17 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.UpsideDownTCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
                 squareFactory: squareViewFactory);
 
             // 8:
             _threePoleShape = new Shape(colour: SquareFillColour.Magenta,
-                centreOfShape: new SquareFillPoint(x: originX, y: originY + 17 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 0, y: 16 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.ThreePoleCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.ThreePolePoints,
                 squareFactory: squareViewFactory);
 
             // 9:
             _twoPoleShape = new Shape(colour: SquareFillColour.Brown,
-                centreOfShape: new SquareFillPoint(x: originX + 6 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 6 * TestConstants.SquareWidth,
                     y: 17 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.TwoPoleCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.TwoPolePoints,
                 squareFactory: squareViewFactory);
 
             // 11:
             _backwardsLShape = new Shape(colour: SquareFillColour.DarkGrey,
-                centreOfShape: new SquareFillPoint(x: originX + TestConstants.SquareWidth,
-                    y: originY + 7 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: TestConstants.SquareWidth, y: 5 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.BackwardsLCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.BackwardsLPoints,
                 squareFactory: squareViewFactory);
 
             // 14:
             _singleSquareShape01 = new Shape(colour: SquareFillColour.LightGrey,
-                centreOfShape: new SquareFillPoint(x: originX + 9 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
                     y: 18 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.SingleSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _topLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                centreOfShape: new SquareFillPoint(x: originX + 9 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
                     y: 18 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.SingleSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _topRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                centreOfShape: new SquareFillPoint(x: originX + 9 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
                     y: 18 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.SingleSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _bottomLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                centreOfShape: new SquareFillPoint(x: originX + 9 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
                     y: 18 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.SingleSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _bottomRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
-                centreOfShape: new SquareFillPoint(x: originX + 9 * TestConstants.SquareWidth,
-                    y: originY + 18 * TestConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 9 * TestConstants.SquareWidth,
                     y: 18 * TestConstants.SquareWidth),
-                relativePoints: ShapeConstants.SingleSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
         }

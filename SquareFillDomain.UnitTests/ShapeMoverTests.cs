@@ -21,9 +21,6 @@ namespace SquareFillDomain.UnitTests
             _shapeMover = new ShapeMover();
 
             _defaultSingleSquareShape = new Shape(
-                    centreOfShape: new SquareFillPoint(
-                        x: TestConstants.ContainingRectangle.X + TestConstants.SquareWidth / 2,
-                        y: TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth / 2),
                     topLeftCorner: new SquareFillPoint(
                         x: TestConstants.ContainingRectangle.X,
                         y: TestConstants.ContainingRectangle.Y),
@@ -377,7 +374,6 @@ namespace SquareFillDomain.UnitTests
 				x:cursorAndCentreAtStart.X - (numSquaresLeftOfContainer * TestConstants.SquareWidth),
 				y:cursorAndCentreAtStart.Y);
 			var shapeToMove = new Shape(
-				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
@@ -411,7 +407,6 @@ namespace SquareFillDomain.UnitTests
 				x:cursorAndCentreAtStart.X,
 				y:cursorAndCentreAtStart.Y - (numSquaresAboveContainer * TestConstants.SquareWidth));
 			var shapeToMove = new Shape(
-				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
@@ -450,7 +445,6 @@ namespace SquareFillDomain.UnitTests
 				x:cursorAndCentreAtStart.X + (numSquaresRightOfContainer * TestConstants.SquareWidth),
 				y:cursorAndCentreAtStart.Y);
 			var shapeToMove = new Shape(
-				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
 					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
@@ -489,7 +483,6 @@ namespace SquareFillDomain.UnitTests
 				x:cursorAndCentreAtStart.X,
 				y:cursorAndCentreAtStart.Y + (numSquaresBelowContainer * TestConstants.SquareWidth));
 			var shapeToMove = new Shape(
-				centreOfShape: cursorAndCentreAtStart,
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
                     new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
