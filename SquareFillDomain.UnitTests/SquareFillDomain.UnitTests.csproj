@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestUtils\Asserter.cs" />
     <Compile Include="TestUtils\MockSquareFactory.cs" />
     <Compile Include="TestUtils\MockSquareView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

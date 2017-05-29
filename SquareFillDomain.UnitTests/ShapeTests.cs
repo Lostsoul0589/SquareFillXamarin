@@ -56,7 +56,7 @@ namespace SquareFillDomain.UnitTests
 			var isInShape = shape.IsInShape(point: centreOfShape);
 			
 			// Assert
-			Assert.AreEqual(isInShape, true);
+			Asserter.AreEqual(isInShape, true);
 		}
 
         [Test]
@@ -77,7 +77,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Assert.AreEqual(isInShape, true);
+            Asserter.AreEqual(isInShape, true);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Assert.AreEqual(isInShape, false);
+            Asserter.AreEqual(isInShape, false);
         }
 
         [Test]
@@ -119,7 +119,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Assert.AreEqual(isInShape, true);
+            Asserter.AreEqual(isInShape, true);
         }
 
         [Test]
@@ -142,9 +142,9 @@ namespace SquareFillDomain.UnitTests
             // Assert
             foreach (var square in shape.Squares)
             {
-                Assert.AreEqual(square.Sprite.Centre().X,
+                Asserter.AreEqual(square.Sprite.Centre().X,
                                newCentreOfShape.X + (square.PositionRelativeToParent.X * ShapeConstants.SquareWidth));
-                Assert.AreEqual(square.Sprite.Centre().Y,
+                Asserter.AreEqual(square.Sprite.Centre().Y,
                                newCentreOfShape.Y + (square.PositionRelativeToParent.Y * ShapeConstants.SquareWidth));
             }
         }
@@ -169,9 +169,9 @@ namespace SquareFillDomain.UnitTests
             // Assert
             foreach (var square in shape.Squares)
             {
-                Assert.AreEqual(square.Sprite.TopLeftCorner().X,
+                Asserter.AreEqual(square.Sprite.TopLeftCorner().X,
                                newTopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth));
-                Assert.AreEqual(square.Sprite.TopLeftCorner().Y,
+                Asserter.AreEqual(square.Sprite.TopLeftCorner().Y,
                                newTopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
             }
         }
@@ -192,7 +192,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresLeftOfShapeCentre, numSquaresLeftOfCentre);
+            Asserter.AreEqual(shape.NumSquaresLeftOfShapeCentre, numSquaresLeftOfCentre);
         }
 
         [Test]
@@ -211,7 +211,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresRightOfShapeCentre, numSquaresRightOfCentre);
+            Asserter.AreEqual(shape.NumSquaresRightOfShapeCentre, numSquaresRightOfCentre);
         }
 
         [Test]
@@ -230,7 +230,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresAboveShapeCentre, numSquaresAboveCentre);
+            Asserter.AreEqual(shape.NumSquaresAboveShapeCentre, numSquaresAboveCentre);
         }
 
         [Test]
@@ -249,7 +249,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresBelowShapeCentre, numSquaresBelowCentre);
+            Asserter.AreEqual(shape.NumSquaresBelowShapeCentre, numSquaresBelowCentre);
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresLeftOfTopLeftCorner, numSquaresLeftOfTopLeftCorner);
+            Asserter.AreEqual(shape.NumSquaresLeftOfTopLeftCorner, numSquaresLeftOfTopLeftCorner);
         }
 
         [Test]
@@ -287,7 +287,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresRightOfTopLeftCorner, numSquaresRightOfTopLeftCorner);
+            Asserter.AreEqual(shape.NumSquaresRightOfTopLeftCorner, numSquaresRightOfTopLeftCorner);
         }
 
         [Test]
@@ -306,7 +306,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresAboveTopLeftCorner, numSquaresAboveTopLeftCorner);
+            Asserter.AreEqual(shape.NumSquaresAboveTopLeftCorner, numSquaresAboveTopLeftCorner);
         }
 
         [Test]
@@ -325,7 +325,7 @@ namespace SquareFillDomain.UnitTests
                 });
 
             // Assert
-            Assert.AreEqual(shape.NumSquaresBelowTopLeftCorner, numSquaresBelowTopLeftCorner);
+            Asserter.AreEqual(shape.NumSquaresBelowTopLeftCorner, numSquaresBelowTopLeftCorner);
         }
 
         [Test]
@@ -349,7 +349,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Assert.AreEqual(result, true);
+            Asserter.AreEqual(result, true);
         }
 
         [Test]
@@ -373,7 +373,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Assert.AreEqual(result, false);
+            Asserter.AreEqual(result, false);
         }
 
         [Test]
@@ -397,7 +397,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Assert.AreEqual(result, false);
+            Asserter.AreEqual(result, false);
         }
 
         [Test]
@@ -421,7 +421,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Assert.AreEqual(result, false);
+            Asserter.AreEqual(result, false);
         }
 
         [Test]
@@ -445,7 +445,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Assert.AreEqual(result, false);
+            Asserter.AreEqual(result, false);
         }
 
         [Test]
@@ -481,13 +481,13 @@ namespace SquareFillDomain.UnitTests
             {
                 for (int yCount = 0; yCount <= (_occupiedGridSquares[xCount].Count - 1); yCount++)
                 {
-                    Assert.AreEqual(_occupiedGridSquares[xCount][yCount].Occupied, false);
+                    Asserter.AreEqual(_occupiedGridSquares[xCount][yCount].Occupied, false);
                 }
             }
             // Check the other occupied squares are still occupied
             for (int count = 0; count <= (_occupiedGridSquares[_occupiedGridSquares.Count - 1].Count - 1); count++)
             {
-                Assert.AreEqual(_occupiedGridSquares[_occupiedGridSquares.Count - 1][count].Occupied, true);
+                Asserter.AreEqual(_occupiedGridSquares[_occupiedGridSquares.Count - 1][count].Occupied, true);
             }
         }
 
@@ -512,17 +512,17 @@ namespace SquareFillDomain.UnitTests
             // Assert
             foreach (var relativePoint in ShapeConstants.ThreePoleCentrePoints)
             {
-                Assert.AreEqual(_occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied, true);
+                Asserter.AreEqual(_occupiedGridSquares[relativePoint.X][relativePoint.Y + 1].Occupied, true);
             }
             for (int yCount = 3; yCount <= (_occupiedGridSquares[0].Count - 1); yCount++)
             {
-                Assert.AreEqual(_occupiedGridSquares[0][yCount].Occupied, false);
+                Asserter.AreEqual(_occupiedGridSquares[0][yCount].Occupied, false);
             }
             for (int xCount = 1; xCount <= (_occupiedGridSquares.Count - 1); xCount++)
             {
                 for (int yCount = 0; yCount <= (_occupiedGridSquares[xCount].Count - 1); yCount++)
                 {
-                    Assert.AreEqual(_occupiedGridSquares[xCount][yCount].Occupied, false);
+                    Asserter.AreEqual(_occupiedGridSquares[xCount][yCount].Occupied, false);
                 }
             }
         }
@@ -556,11 +556,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
                     + 2 * ShapeConstants.SquareWidth);
             }
         }
@@ -593,12 +593,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
                     + xMovement * ShapeConstants.SquareWidth);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
                     + 2 * ShapeConstants.SquareWidth);
             }
         }
@@ -630,12 +630,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
                     + 2 * ShapeConstants.SquareWidth);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -667,12 +667,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
                     + 2 * ShapeConstants.SquareWidth);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
                     + yMovement * ShapeConstants.SquareWidth);
             }
         }
@@ -704,12 +704,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
                     + 2 * ShapeConstants.SquareWidth);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
                     + 3 * ShapeConstants.SquareWidth);
             }
         }
@@ -748,11 +748,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -790,11 +790,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -832,11 +832,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -874,11 +874,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -914,11 +914,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -954,11 +954,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -994,11 +994,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -1034,11 +1034,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -1070,10 +1070,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1104,10 +1104,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1138,10 +1138,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1172,10 +1172,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1206,10 +1206,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1240,10 +1240,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1274,10 +1274,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }
 		
@@ -1308,10 +1308,10 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 			
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count-1; count++) {
-                Assert.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].Origin.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].Origin.Y, originalSquareOrigins[count].Y);
             }
         }*/
         // !! These tests should be reinstated when we start using grid coordinates for eerything instead of pixels
@@ -1344,7 +1344,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1375,7 +1375,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1406,7 +1406,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1437,7 +1437,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1469,11 +1469,11 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y
                     - ShapeConstants.SquareWidth);
             }
         }
@@ -1507,12 +1507,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, true);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int count = 0; count <= shape.Squares.Count - 1; count++)
             {
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.X, originalSquareOrigins[count].X
                     + ShapeConstants.SquareWidth);
-                Assert.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(shape.Squares[count].TopLeftCorner.Y, originalSquareOrigins[count].Y);
             }
         }
 
@@ -1543,7 +1543,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1574,7 +1574,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1604,7 +1604,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1634,7 +1634,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1664,7 +1664,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1694,7 +1694,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1724,7 +1724,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1754,7 +1754,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1784,7 +1784,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1814,7 +1814,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1844,7 +1844,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1869,7 +1869,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1894,7 +1894,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1919,7 +1919,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1944,7 +1944,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1969,7 +1969,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -1994,7 +1994,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -2019,7 +2019,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -2044,7 +2044,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -2070,7 +2070,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -2096,7 +2096,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
         [Test]
@@ -2122,7 +2122,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.AttemptToUpdateOrigins1(occupiedGridSquares: _occupiedGridSquares, newShapeCentre: newCentreOfShape);
 
             // Assert
-            Assert.AreEqual(result.NoShapesAreInTheWay, false);
+            Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 	}
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
+using SquareFillDomain.UnitTests.TestUtils;
 using SquareFillDomain.Utils;
 using Linq = System.Collections.Generic;
 
@@ -44,7 +45,7 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Assert.AreEqual(null, selectedShape);
+			Asserter.AreEqual(null, selectedShape);
 		}
 		
 		[Test]
@@ -66,8 +67,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Assert.AreEqual(selectedShape.CentreOfShape.X, singleSquareShape.CentreOfShape.X);
-			Assert.AreEqual(selectedShape.CentreOfShape.Y, singleSquareShape.CentreOfShape.Y);
+			Asserter.AreEqual(selectedShape.CentreOfShape.X, singleSquareShape.CentreOfShape.X);
+			Asserter.AreEqual(selectedShape.CentreOfShape.Y, singleSquareShape.CentreOfShape.Y);
 		}
 		
 		[Test]
@@ -100,8 +101,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Assert.AreEqual(selectedShape.CentreOfShape.X, secondSquareShape.CentreOfShape.X);
-			Assert.AreEqual(selectedShape.CentreOfShape.Y, secondSquareShape.CentreOfShape.Y);
+			Asserter.AreEqual(selectedShape.CentreOfShape.X, secondSquareShape.CentreOfShape.X);
+			Asserter.AreEqual(selectedShape.CentreOfShape.Y, secondSquareShape.CentreOfShape.Y);
 		}
 		
 		[Test]
@@ -134,8 +135,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Assert.AreEqual(selectedShape.CentreOfShape.X, secondSquareShape.CentreOfShape.X);
-			Assert.AreEqual(selectedShape.CentreOfShape.Y, secondSquareShape.CentreOfShape.Y);
+			Asserter.AreEqual(selectedShape.CentreOfShape.X, secondSquareShape.CentreOfShape.X);
+			Asserter.AreEqual(selectedShape.CentreOfShape.Y, secondSquareShape.CentreOfShape.Y);
 		}
 		
 		[Test]
@@ -170,8 +171,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-			Assert.AreEqual(selectedShape.CentreOfShape.X, secondShape.CentreOfShape.X);
-			Assert.AreEqual(selectedShape.CentreOfShape.Y, secondShape.CentreOfShape.Y);
+			Asserter.AreEqual(selectedShape.CentreOfShape.X, secondShape.CentreOfShape.X);
+			Asserter.AreEqual(selectedShape.CentreOfShape.Y, secondShape.CentreOfShape.Y);
 		}
 	}
 }

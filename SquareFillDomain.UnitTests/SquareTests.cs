@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
+using SquareFillDomain.UnitTests.TestUtils;
 using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.UnitTests
@@ -21,7 +22,7 @@ namespace SquareFillDomain.UnitTests
 			var isInSquare = square.IsInSquare(point: centreOfSquare);
 			
 			// Assert
-			Assert.AreEqual(isInSquare, true);
+			Asserter.AreEqual(isInSquare, true);
 		}
 		
 		[Test]
@@ -38,7 +39,7 @@ namespace SquareFillDomain.UnitTests
 			var isInSquare = square.IsInSquare(point: pointInQuestion);
 			
 			// Assert
-			Assert.AreEqual(isInSquare, true);
+			Asserter.AreEqual(isInSquare, true);
 		}
 		
 		[Test]
@@ -55,7 +56,7 @@ namespace SquareFillDomain.UnitTests
 			var isInSquare = square.IsInSquare(point: pointInQuestion);
 			
 			// Assert
-			Assert.AreEqual(isInSquare, false);
+			Asserter.AreEqual(isInSquare, false);
 		}
 		
 		[Test]
@@ -71,9 +72,9 @@ namespace SquareFillDomain.UnitTests
 			square.CalculateOrigin(parentShapeCentre: parentShapeCentre);
 			
 			// Assert
-			Assert.AreEqual(square.TopLeftCorner.X, parentShapeCentre.X
+			Asserter.AreEqual(square.TopLeftCorner.X, parentShapeCentre.X
 				+ (square.PositionRelativeToParent.X * ShapeConstants.SquareWidth) - ShapeConstants.SquareWidth/2);
-			Assert.AreEqual(square.TopLeftCorner.Y, parentShapeCentre.Y
+			Asserter.AreEqual(square.TopLeftCorner.Y, parentShapeCentre.Y
 				+ (square.PositionRelativeToParent.Y * ShapeConstants.SquareWidth) - ShapeConstants.SquareWidth/2);
 		}
 
@@ -91,9 +92,9 @@ namespace SquareFillDomain.UnitTests
             square.CalculateTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
 
             // Assert
-            Assert.AreEqual(square.TopLeftCorner.X, parentTopLeftCorner.X
+            Asserter.AreEqual(square.TopLeftCorner.X, parentTopLeftCorner.X
                 + (square.PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth));
-            Assert.AreEqual(square.TopLeftCorner.Y, parentTopLeftCorner.Y
+            Asserter.AreEqual(square.TopLeftCorner.Y, parentTopLeftCorner.Y
                 + (square.PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
         }
 
@@ -111,8 +112,8 @@ namespace SquareFillDomain.UnitTests
             SquareFillPoint result = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
 
             // Assert
-            Assert.AreEqual(result.X, parentTopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth));
-            Assert.AreEqual(result.Y, parentTopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
+            Asserter.AreEqual(result.X, parentTopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth));
+            Asserter.AreEqual(result.Y, parentTopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
         }
 	}
 }
