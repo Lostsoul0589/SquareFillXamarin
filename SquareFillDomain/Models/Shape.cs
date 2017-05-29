@@ -8,14 +8,8 @@ namespace SquareFillDomain.Models
 {
     public class Shape
 	{
-        public SquareFillPoint CentreOfShape { get; private set; }
         public SquareFillPoint TopLeftCorner { get; private set; }
         public List<Square> Squares { get; private set; }
-
-	    public int NumSquaresLeftOfShapeCentre { get; private set; }
-	    public int NumSquaresRightOfShapeCentre { get; private set; }
-	    public int NumSquaresAboveShapeCentre { get; private set; }
-	    public int NumSquaresBelowShapeCentre { get; private set; }
 
         public int NumSquaresLeftOfTopLeftCorner { get; private set; }
         public int NumSquaresRightOfTopLeftCorner { get; private set; }
@@ -40,7 +34,6 @@ namespace SquareFillDomain.Models
                     sprite: squareFactory.MakeSquare(colour: colour)));
             }
 
-            CentreOfShape = centreOfShape;
 		    TopLeftCorner = topLeftCorner;
             Squares = squares;
         
@@ -52,12 +45,21 @@ namespace SquareFillDomain.Models
             SquareFillPoint topLeftCorner,
             List<Square> squareDefinitions)
         {
-            CentreOfShape = centreOfShape;
             TopLeftCorner = topLeftCorner;
             Squares = squareDefinitions;
         
             Initialise();
         }
+
+	    public SquareFillPoint CentreOfShape
+	    {
+	        get
+	        {
+	            return new SquareFillPoint(
+	                x: TopLeftCorner.X + ShapeConstants.SquareWidth / 2,
+	                y: TopLeftCorner.Y + ShapeConstants.SquareWidth / 2);
+	        }
+	    }
 
         public bool IsInShape(SquareFillPoint point)
         {
@@ -69,20 +71,6 @@ namespace SquareFillDomain.Models
             }
 
             return isInShape;
-        }
-
-        public void PutShapeInNewLocation(SquareFillPoint newCentreOfShape)
-        {
-            CentreOfShape = newCentreOfShape;
-            foreach(var square in Squares) 
-            {
-                if (square.Sprite != null)
-                {
-                    square.Sprite.MoveSquare(
-                        newX: CentreOfShape.X + (square.PositionRelativeToParent.X * ShapeConstants.SquareWidth),
-                        newY: CentreOfShape.Y + (square.PositionRelativeToParent.Y * ShapeConstants.SquareWidth));
-                }
-            }
         }
 
         public void MoveAllShapeSquares(SquareFillPoint newTopLeftCorner)
@@ -99,135 +87,12 @@ namespace SquareFillDomain.Models
             }
         }
 
-        public void CalculateOrigins(SquareFillPoint newCentreOfShape)
-        {
-            foreach (var square in Squares) 
-            {
-                square.CalculateOrigin(parentShapeCentre: newCentreOfShape);
-            }
-        }
-
         public void CalculateTopLeftCorners(SquareFillPoint newTopLeftCorner)
         {
             foreach (var square in Squares)
             {
                 square.CalculateTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
             }
-        }
-
-        public MovementResult AttemptToUpdateOrigins1(
-            List<List<GridSquare>> occupiedGridSquares,
-            SquareFillPoint newShapeCentre)
-        {
-            bool somethingIsintheWay = false;
-            var movementResult = new MovementResult();
-        
-            foreach (var square in Squares)
-            {
-                var newOrigin = square.CalculatePotentialOrigin(parentShapeCentre: newShapeCentre);
-
-                List<int> newGridXCoords = new List<int>();
-                List<int> newGridYCoords = new List<int>();
-
-                int oldGridXCoord = square.TopLeftCorner.X/ShapeConstants.SquareWidth;
-                int oldGridYCoord = square.TopLeftCorner.Y/ShapeConstants.SquareWidth;
-                SquareFillPoint oldGridOrigin = new SquareFillPoint(
-                    x: oldGridXCoord,
-                    y: oldGridYCoord);
-
-                bool oldXDivisibleBySquareWidth = 
-                    square.TopLeftCorner.X % ShapeConstants.SquareWidth == 0;
-                bool oldYDivisibleBySquareWidth = 
-                    square.TopLeftCorner.Y % ShapeConstants.SquareWidth == 0;
-            
-                int newGridXCoord = newOrigin.X/ShapeConstants.SquareWidth;
-                int newGridYCoord = newOrigin.Y/ShapeConstants.SquareWidth;
-
-                var newGridOrigin = new SquareFillPoint(
-                    x: newGridXCoord,
-                    y: newGridYCoord);
-
-                if (newOrigin.X < 0)
-                {
-                    newGridOrigin.X = newGridOrigin.X - 1;
-                }
-
-                if (newOrigin.Y < 0)
-                {
-                    newGridOrigin.Y = newGridOrigin.Y - 1;
-                }
-
-                bool newXDivisibleBySquareWidth = 
-                    newOrigin.X % ShapeConstants.SquareWidth == 0;
-                bool newYDivisibleBySquareWidth = 
-                    newOrigin.Y % ShapeConstants.SquareWidth == 0;
-            
-                if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
-                    || oldGridOrigin.X != newGridOrigin.X)
-                {
-                    movementResult.ShapeHasCrossedAHorizontalGridBoundary = true;
-                }
-            
-                if (oldYDivisibleBySquareWidth != newYDivisibleBySquareWidth
-                    || oldGridOrigin.Y != newGridOrigin.Y)
-                {
-                    movementResult.ShapeHasCrossedAVerticalGridBoundary = true;
-                }
-            
-                if (movementResult.ShapeHasCrossedAHorizontalGridBoundary
-                    || movementResult.ShapeHasCrossedAVerticalGridBoundary)
-                {
-                    if (newXDivisibleBySquareWidth)
-                    {
-                        newGridXCoords.Add(newGridOrigin.X);
-                    } else
-                    {
-                        newGridXCoords.Add(newGridOrigin.X);
-                        newGridXCoords.Add(newGridOrigin.X + 1);
-                    }
-                
-                    if (newYDivisibleBySquareWidth)
-                    {
-                        newGridYCoords.Add(newGridOrigin.Y);
-                    } 
-                    else
-                    {
-                        newGridYCoords.Add(newGridOrigin.Y);
-                        newGridYCoords.Add(newGridOrigin.Y + 1);
-                    }
-                
-                    // These nested for loops work because at the moment we are just considering one square, not the whole shape.
-                    foreach (var xCoord in newGridXCoords) 
-                    {
-                        foreach (var yCoord in newGridYCoords) {
-                            if (xCoord >= occupiedGridSquares.Count
-                                || yCoord >= occupiedGridSquares[0].Count
-                                || xCoord < 0
-                                || yCoord < 0)
-                            {
-                                somethingIsintheWay = true;
-                            } 
-                            else
-                            {
-                                somethingIsintheWay = somethingIsintheWay
-                                    || occupiedGridSquares[xCoord][yCoord].Occupied;
-                            }
-                        }
-                    }
-                }
-            }
-        
-            if (!somethingIsintheWay) 
-            {
-                foreach (var square in Squares)
-                {
-                    square.CalculateOrigin(parentShapeCentre: newShapeCentre);
-                }
-            }
-
-            movementResult.NoShapesAreInTheWay = !somethingIsintheWay;
-
-            return movementResult;
         }
 
         public MovementResult AttemptToUpdateOrigins(
@@ -386,18 +251,12 @@ namespace SquareFillDomain.Models
 
         private void Initialise()
         {
-            foreach(var square in Squares)
-            {
-                square.CalculateOrigin(parentShapeCentre: CentreOfShape);
-            }
             foreach (var square in Squares)
             {
                 square.CalculateTopLeftCorner(parentTopLeftCorner: TopLeftCorner);
             }
         
-            CalculateNumSquaresAroundCentre();
             CalculateNumSquaresAroundTopLeftCorner();
-            PutShapeInNewLocation(newCentreOfShape: CentreOfShape);
             MoveAllShapeSquares(newTopLeftCorner: TopLeftCorner);
         }
 
@@ -414,23 +273,8 @@ namespace SquareFillDomain.Models
             DealWithNegativeNumbersOfSquares();
         }
 
-        private void CalculateNumSquaresAroundCentre()
-        {
-            foreach (var square in Squares) {
-                NumSquaresLeftOfShapeCentre = Math.Min(NumSquaresLeftOfShapeCentre, square.PositionRelativeToParent.X);
-                NumSquaresRightOfShapeCentre = Math.Max(NumSquaresRightOfShapeCentre, square.PositionRelativeToParent.X);
-                NumSquaresAboveShapeCentre = Math.Min(NumSquaresAboveShapeCentre, square.PositionRelativeToParent.Y);
-                NumSquaresBelowShapeCentre = Math.Max(NumSquaresBelowShapeCentre, square.PositionRelativeToParent.Y);
-            }
-        
-            DealWithNegativeNumbersOfSquares();
-        }
-
         private void DealWithNegativeNumbersOfSquares()
         {
-            NumSquaresLeftOfShapeCentre = Math.Abs(NumSquaresLeftOfShapeCentre);
-            NumSquaresAboveShapeCentre = Math.Abs(NumSquaresAboveShapeCentre);
-
             NumSquaresLeftOfTopLeftCorner = Math.Abs(NumSquaresLeftOfTopLeftCorner);
             NumSquaresAboveTopLeftCorner = Math.Abs(NumSquaresAboveTopLeftCorner);
         }
