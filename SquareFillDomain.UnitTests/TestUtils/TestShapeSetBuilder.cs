@@ -8,15 +8,11 @@ namespace SquareFillDomain.UnitTests.TestUtils
 {
     public class TestShapeSetBuilder : IShapeSetBuilder
     {
-        public Shape RightHydrantShape01 { get { return _rightHydrantShape01; } }
-        public Shape RightHydrantShape02 { get { return _rightHydrantShape02; } }
-        public Shape RightHydrantShape03 { get { return _rightHydrantShape03; } }
+        public Shape RightHydrantShape { get { return _rightHydrantShape; } }
         public Shape SevenShape { get { return _sevenShape; } }
-        public Shape FourSquareShape01 { get { return _fourSquareShape01; } }
-        public Shape FourSquareShape02 { get { return _fourSquareShape02; } }
+        public Shape FourSquareShape { get { return _fourSquareShape; } }
         public Shape LeftCornerShape { get { return _leftCornerShape; } }
-        public Shape UpsideDownTShape01 { get { return _upsideDownTShape01; } }
-        public Shape UpsideDownTShape02 { get { return _upsideDownTShape02; } }
+        public Shape UpsideDownTShape { get { return _upsideDownTShape; } }
         public Shape ThreePoleShape { get { return _threePoleShape; } }
         public Shape TwoPoleShape { get { return _twoPoleShape; } }
         public Shape BackwardsLShape { get { return _backwardsLShape; } }
@@ -28,15 +24,11 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public readonly List<SquareFillPoint> BottomLeftBorderSquares = new List<SquareFillPoint>();
         public readonly List<SquareFillPoint> BottomRightBorderSquares = new List<SquareFillPoint>();
 
-        private Shape _rightHydrantShape01;
-        private Shape _rightHydrantShape02;
-        private Shape _rightHydrantShape03;
+        private Shape _rightHydrantShape;
         private Shape _sevenShape;
-        private Shape _fourSquareShape01;
-        private Shape _fourSquareShape02;
+        private Shape _fourSquareShape;
         private Shape _leftCornerShape;
-        private Shape _upsideDownTShape01;
-        private Shape _upsideDownTShape02;
+        private Shape _upsideDownTShape;
         private Shape _threePoleShape;
         private Shape _twoPoleShape;
         private Shape _backwardsLShape;
@@ -70,18 +62,14 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private ShapeSet MakeTestShapeSet()
         {
             return new ShapeSet(shapes: new List<Shape> {
-                _rightHydrantShape01,
+                _rightHydrantShape,
                 _sevenShape,
-                _fourSquareShape01,
+                _fourSquareShape,
                 _leftCornerShape,
-                _rightHydrantShape02,
-                _upsideDownTShape01,
+                _upsideDownTShape,
                 _threePoleShape,
                 _twoPoleShape,
-                _fourSquareShape02,
                 _backwardsLShape,
-                _rightHydrantShape03,
-                _upsideDownTShape02,
                 _singleSquareShape01,
                 _topLeftCornerOfContainingBorder,
                 _topRightCornerOfContainingBorder,
@@ -192,9 +180,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
             var originY = ShapeConstants.SquareWidth / 2;
 
             // 1:
-            _rightHydrantShape01 = new Shape(colour: SquareFillColour.Red,
-                centreOfShape: new SquareFillPoint(x: originX + 3 * ShapeConstants.SquareWidth,
-                    y: originY + 2 * ShapeConstants.SquareWidth),
+            _rightHydrantShape = new Shape(colour: SquareFillColour.Red,
+                centreOfShape: new SquareFillPoint(x: originX + 3 * ShapeConstants.SquareWidth, y: originY + 2 * ShapeConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 3 * ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth),
                 relativePoints: ShapeConstants.RightHydrantCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
@@ -210,7 +197,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 squareFactory: squareViewFactory);
 
             // 4:
-            _fourSquareShape01 = new Shape(colour: SquareFillColour.Orange,
+            _fourSquareShape = new Shape(colour: SquareFillColour.Orange,
                 centreOfShape: new SquareFillPoint(x: originX + 7 * ShapeConstants.SquareWidth,
                     y: originY + 2 * ShapeConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 6 * ShapeConstants.SquareWidth,
@@ -229,16 +216,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
                 squareFactory: squareViewFactory);
 
-            // 6:
-            _rightHydrantShape02 = new Shape(colour: SquareFillColour.Yellow,
-                centreOfShape: new SquareFillPoint(x: originX, y: originY + 2 * ShapeConstants.SquareWidth),
-                topLeftCorner: new SquareFillPoint(x: 0, y: ShapeConstants.SquareWidth),
-                relativePoints: ShapeConstants.RightHydrantCentrePoints,
-                relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
-                squareFactory: squareViewFactory);
-
             // 7:
-            _upsideDownTShape01 = new Shape(colour: SquareFillColour.Purple,
+            _upsideDownTShape = new Shape(colour: SquareFillColour.Purple,
                 centreOfShape: new SquareFillPoint(x: originX + 3 * ShapeConstants.SquareWidth,
                     y: originY + 18 * ShapeConstants.SquareWidth),
                 topLeftCorner: new SquareFillPoint(x: 3 * ShapeConstants.SquareWidth,
@@ -265,15 +244,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 relativePointsTopLeftCorner: ShapeConstants.TwoPolePoints,
                 squareFactory: squareViewFactory);
 
-            // 10:
-            _fourSquareShape02 = new Shape(colour: SquareFillColour.Cyan,
-                centreOfShape: new SquareFillPoint(x: originX + ShapeConstants.SquareWidth,
-                    y: originY + 9 * ShapeConstants.SquareWidth),
-                topLeftCorner: new SquareFillPoint(x: 0, y: 9 * ShapeConstants.SquareWidth),
-                relativePoints: ShapeConstants.FourSquareCentrePoints,
-                relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
-                squareFactory: squareViewFactory);
-
             // 11:
             _backwardsLShape = new Shape(colour: SquareFillColour.DarkGrey,
                 centreOfShape: new SquareFillPoint(x: originX + ShapeConstants.SquareWidth,
@@ -281,24 +251,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 topLeftCorner: new SquareFillPoint(x: ShapeConstants.SquareWidth, y: 5 * ShapeConstants.SquareWidth),
                 relativePoints: ShapeConstants.BackwardsLCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.BackwardsLPoints,
-                squareFactory: squareViewFactory);
-
-            // 12:
-            _rightHydrantShape03 = new Shape(colour: SquareFillColour.Grey,
-                centreOfShape: new SquareFillPoint(x: originX, y: originY + 13 * ShapeConstants.SquareWidth),
-                topLeftCorner: new SquareFillPoint(x: 0, y: 12 * ShapeConstants.SquareWidth),
-                relativePoints: ShapeConstants.RightHydrantCentrePoints,
-                relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
-                squareFactory: squareViewFactory);
-
-            // 13:
-            _upsideDownTShape02 = new Shape(colour: SquareFillColour.White,
-                centreOfShape: new SquareFillPoint(x: originX + 11 * ShapeConstants.SquareWidth,
-                    y: originY + 16 * ShapeConstants.SquareWidth),
-                topLeftCorner: new SquareFillPoint(x: 11 * ShapeConstants.SquareWidth,
-                    y: 15 * ShapeConstants.SquareWidth),
-                relativePoints: ShapeConstants.UpsideDownTCentrePoints,
-                relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
                 squareFactory: squareViewFactory);
 
             // 14:
