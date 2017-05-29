@@ -8,14 +8,11 @@ namespace SquareFillDomain.Utils
     {
         public Shape ShapeToMove { get; private set; }
 
-        private readonly SquareFillPoint _shapeCentreRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
         private readonly SquareFillPoint _topLeftCornerRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
         public void StartMove(SquareFillPoint cursorPositionAtStart, Shape shapeToMove)
         {
             ShapeToMove = shapeToMove;
-            _shapeCentreRelativeToCursorPosition.X = ShapeToMove.CentreOfShape.X - cursorPositionAtStart.X;
-            _shapeCentreRelativeToCursorPosition.Y = ShapeToMove.CentreOfShape.Y - cursorPositionAtStart.Y;
             CalculateTopLeftCornerRelativeToCursorPosition(cursorPositionAtStart);
         }
 
@@ -24,13 +21,6 @@ namespace SquareFillDomain.Utils
             return new SquareFillPoint(
                 x: newCursorPosition.X + _topLeftCornerRelativeToCursorPosition.X,
                 y: newCursorPosition.Y + _topLeftCornerRelativeToCursorPosition.Y);
-        }
-
-        public SquareFillPoint CalculateShapeCentre(SquareFillPoint newCursorPosition)
-        {
-            return new SquareFillPoint(
-                x: newCursorPosition.X + _shapeCentreRelativeToCursorPosition.X,
-                y: newCursorPosition.Y + _shapeCentreRelativeToCursorPosition.Y);
         }
 
         public SquareFillPoint CalculateCursorPosition(SquareFillPoint topLeftCorner)
@@ -44,9 +34,7 @@ namespace SquareFillDomain.Utils
         {
             if (ShapeToMove != null)
             {
-                var newShapeCentre = CalculateShapeCentre(newCursorPosition: newCursorPosition);
                 var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
-                ShapeToMove.PutShapeInNewLocation(newCentreOfShape: newShapeCentre);
                 ShapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
             }
         }
@@ -55,14 +43,6 @@ namespace SquareFillDomain.Utils
         {
             if (ShapeToMove != null)
             {
-                var shapeCentreTakingRelativePositionIntoAccount =
-                    CalculateShapeCentre(newCursorPosition: newCursorPosition);
-                var newShapeCentre = new SquareFillPoint(
-                    x: CalculateSnappedX1(newShapeCentreX: shapeCentreTakingRelativePositionIntoAccount.X),
-                    y: CalculateSnappedY1(newShapeCentreY: shapeCentreTakingRelativePositionIntoAccount.Y));
-                ShapeToMove.PutShapeInNewLocation(newCentreOfShape: newShapeCentre);
-                ShapeToMove.CalculateOrigins(newCentreOfShape: newShapeCentre);
-
                 var topLeftCornerTakingRelativePositionIntoAccount = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
                 var newTopLeftCorner = new SquareFillPoint(
                     x: CalculateSnappedX(newTopLeftCornerX: topLeftCornerTakingRelativePositionIntoAccount.X),
@@ -73,16 +53,6 @@ namespace SquareFillDomain.Utils
             }
         }
 
-        public int CalculateSnappedX1(int newShapeCentreX)
-        {
-            return CalculateSnappedCoordinate1(
-                newShapeCentreCoord: newShapeCentreX,
-                boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeConstants.ScreenWidth,
-                numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfShapeCentre,
-                numSquaresOnLargestSide:  ShapeToMove.NumSquaresRightOfShapeCentre);
-        }
-
         public int CalculateSnappedX(int newTopLeftCornerX)
         {
             return CalculateSnappedCoordinate(
@@ -91,16 +61,6 @@ namespace SquareFillDomain.Utils
                 boundaryRectangleDimension: ShapeConstants.ScreenWidth,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfTopLeftCorner,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresRightOfTopLeftCorner);
-        }
-
-        public int CalculateSnappedY1(int newShapeCentreY)
-        {
-            return CalculateSnappedCoordinate1(
-                newShapeCentreCoord: newShapeCentreY,
-                boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeConstants.ScreenHeight,
-                numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveShapeCentre,
-                numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowShapeCentre);
         }
 
         public int CalculateSnappedY(int newTopLeftCornerY)
@@ -117,48 +77,6 @@ namespace SquareFillDomain.Utils
         {
             _topLeftCornerRelativeToCursorPosition.X = ShapeToMove.TopLeftCorner.X - cursorPositionAtStart.X;
             _topLeftCornerRelativeToCursorPosition.Y = ShapeToMove.TopLeftCorner.Y - cursorPositionAtStart.Y;
-        }
-
-        private int CalculateSnappedCoordinate1(
-            int newShapeCentreCoord, 
-            int boundaryRectangleOriginCoord, 
-            int boundaryRectangleDimension, 
-            int numSquaresOnSmallestSide, 
-            int numSquaresOnLargestSide)
-        {
-            var squareWidth = ShapeConstants.SquareWidth;
-
-            int shapeCentreCoord = newShapeCentreCoord;
-            int numberOfSquaresFromEdgeOfScreen = shapeCentreCoord / squareWidth;
-
-            var potentialNewSquareCentre = numberOfSquaresFromEdgeOfScreen * squareWidth +
-                                           (squareWidth/2) ;
-
-            var squareCentreAtOneEndOfContainer = boundaryRectangleOriginCoord + squareWidth/2;
-
-            var squareCentreAtOtherEndOfContainer =
-                boundaryRectangleOriginCoord + boundaryRectangleDimension - squareWidth/2;
-
-            var potentialCentreOfShapeEdgeOnOneSide =
-                potentialNewSquareCentre - numSquaresOnSmallestSide * squareWidth;
-
-            var centreOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
-                Math.Max(potentialCentreOfShapeEdgeOnOneSide, squareCentreAtOneEndOfContainer);
-
-            var shapeCentreAdjustedForSmallestContainerEdge =
-                centreOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
-                + (numSquaresOnSmallestSide * squareWidth);
-
-            var potentialCentreOfShapeEdgeOnOtherSide = shapeCentreAdjustedForSmallestContainerEdge +
-                                                        (numSquaresOnLargestSide * squareWidth);
-
-            var centreOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
-                Math.Min(potentialCentreOfShapeEdgeOnOtherSide, squareCentreAtOtherEndOfContainer);
-
-            int actualSquareCentre = centreOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
-                                     - (numSquaresOnLargestSide * squareWidth);
-
-            return actualSquareCentre;
         }
 
         private int CalculateSnappedCoordinate(

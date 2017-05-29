@@ -12,12 +12,16 @@ namespace SquareFillDomain.UnitTests.TestUtils
         {
             _centre.X = newX;
             _centre.Y = newY;
+            _topLeftCorner.X = newX - TestConstants.SquareWidth/2;
+            _topLeftCorner.Y = newY - TestConstants.SquareWidth / 2;
         }
 
         public void MoveTopLeftCorner(int newX, int newY)
         {
             _topLeftCorner.X = newX;
             _topLeftCorner.Y = newY;
+            _centre.X = newX + TestConstants.SquareWidth / 2;
+            _centre.Y = newY + TestConstants.SquareWidth / 2;
         }
 
         public SquareFillPoint Centre()
