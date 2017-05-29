@@ -327,19 +327,19 @@ namespace SquareFillDomain.UnitTests
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xOffset = 12;
             int yOffset = 13;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
-            var insideObstacleToRightOfFourSquare = new SquareFillPoint(
-                x: topLeftCornerOfFourSquare.X + 4*ShapeConstants.SquareWidth + relativeCursorPosition.X + xOffset,
-                y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y + yOffset);
-            var toLeftOfObstacle = new SquareFillPoint(
-                x: insideObstacleToRightOfFourSquare.X - 2*ShapeConstants.SquareWidth,
-                y: insideObstacleToRightOfFourSquare.Y);
             var directlyToLeftOfObstacle = new SquareFillPoint(
-                x: topLeftCornerOfFourSquare.X + 2*ShapeConstants.SquareWidth,
-                y: topLeftCornerOfFourSquare.Y);
+                x: (_shapeSetBuilder.RightWallBorderSquares[2].X * ShapeConstants.SquareWidth) - 2 * ShapeConstants.SquareWidth,
+                y: (_shapeSetBuilder.RightWallBorderSquares[2].Y * ShapeConstants.SquareWidth));
+            var insideObstacleToRightOfFourSquare = new SquareFillPoint(
+                x: directlyToLeftOfObstacle.X + ShapeConstants.SquareWidth + relativeCursorPosition.X + xOffset,
+                y: directlyToLeftOfObstacle.Y + relativeCursorPosition.Y + yOffset);
+            var toLeftOfObstacle = new SquareFillPoint(
+                x: directlyToLeftOfObstacle.X + relativeCursorPosition.X - xOffset,
+                y: directlyToLeftOfObstacle.Y + relativeCursorPosition.Y + yOffset);
             var snappedToRightHandBorderWithObstacle = new SquareFillPoint(
                 x: directlyToLeftOfObstacle.X,
                 y: directlyToLeftOfObstacle.Y + yOffset);
@@ -364,7 +364,7 @@ namespace SquareFillDomain.UnitTests
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xOffset = 12;
             int yOffset = 13;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyToRightOfObstacle = new SquareFillPoint(
                 x: 5 * ShapeConstants.SquareWidth,
                 y: 2 * ShapeConstants.SquareWidth);
@@ -401,7 +401,7 @@ namespace SquareFillDomain.UnitTests
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xOffset = 10;
             int yOffset = 11;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyBelowObstacle = new SquareFillPoint(
                 x: 6*ShapeConstants.SquareWidth,
                 y: 6*ShapeConstants.SquareWidth);
@@ -438,7 +438,7 @@ namespace SquareFillDomain.UnitTests
             int xOffset = 12;
             int yOffset = 13;
 
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);
@@ -473,7 +473,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xAndYOffset = 10;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyBottomRightOfObstacle = new SquareFillPoint(
                 x: 4*ShapeConstants.SquareWidth,
                 y: 6*ShapeConstants.SquareWidth);
@@ -512,7 +512,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xAndYOffset = 10;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyBottomLeftOfObstacle = new SquareFillPoint(
                 x: 8*ShapeConstants.SquareWidth,
                 y: 2*ShapeConstants.SquareWidth);
@@ -547,7 +547,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xAndYOffset = 10;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var directlyTopLeftOfObstacle = new SquareFillPoint(
                 x: (_shapeSetBuilder.BottomRightBorderSquares[0].X * ShapeConstants.SquareWidth) - 2*ShapeConstants.SquareWidth,
                 y: (_shapeSetBuilder.BottomRightBorderSquares[0].Y * ShapeConstants.SquareWidth) - 2*ShapeConstants.SquareWidth);
@@ -582,7 +582,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var relativeCursorPosition = new SquareFillPoint(x: 1, y: 2);
             int xAndYOffset = 10;
-            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape03.TopLeftCorner;
+            var topLeftCornerOfFourSquare = _shapeSetBuilder.FourSquareShape01.TopLeftCorner;
             var insideFourSquare = new SquareFillPoint(
                 x: topLeftCornerOfFourSquare.X + relativeCursorPosition.X,
                 y: topLeftCornerOfFourSquare.Y + relativeCursorPosition.Y);

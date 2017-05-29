@@ -15,7 +15,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public Shape SevenShape { get { return _sevenShape; } }
         public Shape FourSquareShape01 { get { return _fourSquareShape01; } }
         public Shape FourSquareShape02 { get { return _fourSquareShape02; } }
-        public Shape FourSquareShape03 { get { return _fourSquareShape03; } }
         public Shape LeftCornerShape { get { return _leftCornerShape; } }
         public Shape UpsideDownTShape01 { get { return _upsideDownTShape01; } }
         public Shape UpsideDownTShape02 { get { return _upsideDownTShape02; } }
@@ -37,7 +36,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private Shape _sevenShape;
         private Shape _fourSquareShape01;
         private Shape _fourSquareShape02;
-        private Shape _fourSquareShape03;
         private Shape _leftCornerShape;
         private Shape _upsideDownTShape01;
         private Shape _upsideDownTShape02;
@@ -88,7 +86,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 _rightHydrantShape03,
                 _upsideDownTShape02,
                 _singleSquareShape01,
-                _fourSquareShape03,
                 _topLeftCornerOfContainingBorder,
                 _topRightCornerOfContainingBorder,
                 _bottomLeftCornerOfContainingBorder,
@@ -325,16 +322,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
                     y: 18 * ShapeConstants.SquareWidth),
                 relativePoints: ShapeConstants.SingleSquareCentrePoints,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
-                squareFactory: squareViewFactory);
-
-            // created purely for test:
-            _fourSquareShape03 = new Shape(colour: SquareFillColour.Cyan,
-                centreOfShape: new SquareFillPoint(
-                    x: originX + 7*ShapeConstants.SquareWidth,
-                    y: originY + 8*ShapeConstants.SquareWidth),
-                topLeftCorner: new SquareFillPoint(x: 6*ShapeConstants.SquareWidth, y: 8*ShapeConstants.SquareWidth),
-                relativePoints: ShapeConstants.FourSquareCentrePoints,
-                relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
