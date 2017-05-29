@@ -73,8 +73,7 @@ namespace SquareFillDomain.Controllers
 
                         SnapToGridInRelevantDimensionsIfPossible(
                             movementResult: movementResult,
-                            previousTopLeftCorner: ShapeToMove.TopLeftCorner,
-                            shapeToMove: ShapeToMove);
+                            previousTopLeftCorner: ShapeToMove.TopLeftCorner);
                         ShapeToMove.CalculateTopLeftCorners(newTopLeftCorner: ShapeToMove.TopLeftCorner);
 
                         LogMessagePlusOrigins(logger: logger, message: "Blocked. ");
@@ -97,7 +96,6 @@ namespace SquareFillDomain.Controllers
         {
             if (ShapeToMove != null)
             {
-                // corner stuff
                 SquareFillPoint newTopLeftCorner = _shapeMover.CalculateTopLeftCorner(newCursorPosition: finalLocation);
                 MovementResult movementResult = ShapeToMove.AttemptToUpdateOrigins(
                     occupiedGridSquares: OccupiedGridSquares,
@@ -121,17 +119,6 @@ namespace SquareFillDomain.Controllers
             }
         }
 
-        private MovementResult CheckWhetherMovementIsPossible1(SquareFillPoint newShapeCentre, Logger logger)
-        {
-            logger.Clear().Plus(desc: "Origins1", squares: ShapeToMove.Squares).Log();
-            var movementResult = ShapeToMove.AttemptToUpdateOrigins1(
-                occupiedGridSquares: OccupiedGridSquares,
-                newShapeCentre: newShapeCentre);
-            logger.Clear().Plus(desc: "Origins2", squares: ShapeToMove.Squares).Log();
-
-            return movementResult;
-        }
-
         private MovementResult CheckWhetherMovementIsPossible(SquareFillPoint newTopLeftCorner, Logger logger)
         {
             logger.Clear().Plus(desc: "Origins1", squares: ShapeToMove.Squares).Log();
@@ -141,13 +128,6 @@ namespace SquareFillDomain.Controllers
             logger.Clear().Plus(desc: "Origins2", squares: ShapeToMove.Squares).Log();
 
             return movementResult;
-        }
-
-        private SquareFillPoint CalculateGridPosition1(SquareFillPoint shapeCentre)
-        {
-            return new SquareFillPoint(
-                x: (shapeCentre.X - ShapeConstants.SquareWidth/2)/ShapeConstants.SquareWidth,
-                y: (shapeCentre.Y - ShapeConstants.SquareWidth/2)/ShapeConstants.SquareWidth);
         }
 
         private SquareFillPoint CalculateGridPosition(SquareFillPoint topLeftCorner)
@@ -180,37 +160,9 @@ namespace SquareFillDomain.Controllers
             }
         }
 
-        private void SnapToGridInRelevantDimensionsIfPossible1(
-            MovementResult movementResult, 
-            SquareFillPoint previousShapeCentre, 
-            Shape shapeToMove)
-        {
-            var newShapeCentre = new SquareFillPoint(x: previousShapeCentre.X, y: previousShapeCentre.Y);
-        
-            if (movementResult.ShapeHasCrossedAHorizontalGridBoundary)
-            {
-                newShapeCentre.X = _shapeMover.CalculateSnappedX1(newShapeCentreX: newShapeCentre.X);
-            }
-        
-            if (movementResult.ShapeHasCrossedAVerticalGridBoundary)
-            {
-                newShapeCentre.Y = _shapeMover.CalculateSnappedY1(newShapeCentreY: newShapeCentre.Y);
-            }
-
-            MovementResult newMovementResult = ShapeToMove.AttemptToUpdateOrigins1(
-                occupiedGridSquares: OccupiedGridSquares,
-                newShapeCentre: newShapeCentre);
-        
-            if (newMovementResult.NoShapesAreInTheWay) {
-                ShapeToMove.PutShapeInNewLocation(newCentreOfShape: newShapeCentre);
-                ShapeToMove.CalculateOrigins(newCentreOfShape: newShapeCentre);
-            }
-        }
-
         private void SnapToGridInRelevantDimensionsIfPossible(
             MovementResult movementResult,
-            SquareFillPoint previousTopLeftCorner,
-            Shape shapeToMove)
+            SquareFillPoint previousTopLeftCorner)
         {
             var newTopLeftCorner = new SquareFillPoint(x: previousTopLeftCorner.X, y: previousTopLeftCorner.Y);
 
