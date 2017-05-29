@@ -17,8 +17,8 @@ namespace SquareFillXamarin.UIComponents
             _imageView.Frame = new CGRect(
                 x: 0,
                 y: 0,
-                width: ShapeSetBuilder.SquareWidth,
-                height: ShapeSetBuilder.SquareWidth);
+                width: ShapeConstants.SquareWidth,
+                height: ShapeConstants.SquareWidth);
             _imageView.BackgroundColor = ConvertColour(colour: colour);
             view.AddSubview(_imageView);
             _imageView.Layer.BorderColor = UIColor.Black.CGColor;

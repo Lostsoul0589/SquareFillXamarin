@@ -5,7 +5,7 @@ using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.Builders
 {
-	public class ShapeSetBuilder
+	public class ShapeConstants
 	{
         public static int SquareWidth = 32;
 
@@ -31,8 +31,8 @@ namespace SquareFillDomain.Builders
 
         private int RoundDimensionDownToMultipleOfSquareWidth(int screenDimension)
         {
-            var maxNumberOfGridSquaresInDimension = screenDimension / ShapeSetBuilder.SquareWidth;
-            return maxNumberOfGridSquaresInDimension * ShapeSetBuilder.SquareWidth;
+            var maxNumberOfGridSquaresInDimension = screenDimension / ShapeConstants.SquareWidth;
+            return maxNumberOfGridSquaresInDimension * ShapeConstants.SquareWidth;
         }
 
         private static readonly List<SquareFillPoint> BorderSquares = new List<SquareFillPoint>();

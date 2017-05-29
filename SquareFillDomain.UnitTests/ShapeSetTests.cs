@@ -29,15 +29,15 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenUserClicksInAreaOfScreenWithNoShapeThenNoShapeIsSelected() {
 			// Arrange
 			var centreOfShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
 				centreOfShape: centreOfShape,
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
-			var selectedPoint = new SquareFillPoint(x:ShapeSetBuilder.SquareWidth*3 + 10, y:ShapeSetBuilder.SquareWidth*3 + 10);
+			var selectedPoint = new SquareFillPoint(x:ShapeConstants.SquareWidth*3 + 10, y:ShapeConstants.SquareWidth*3 + 10);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
@@ -51,8 +51,8 @@ namespace SquareFillDomain.UnitTests
 		{
 			// Arrange
 			var centreOfShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth/2);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
 				centreOfShape: centreOfShape,
@@ -74,15 +74,15 @@ namespace SquareFillDomain.UnitTests
 		{
 			// Arrange
 			var centreOfFirstShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth/2);
 			var centreOfSecondShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
             var topLeftSecondShape = new SquareFillPoint(
-                x: ShapeSetBuilder.SquareWidth,
-                y: ShapeSetBuilder.SquareWidth);
+                x: ShapeConstants.SquareWidth,
+                y: ShapeConstants.SquareWidth);
             var firstSquareShape = new Shape(
 				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
@@ -108,15 +108,15 @@ namespace SquareFillDomain.UnitTests
 		{
 			// Arrange
 			var centreOfFirstShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth/2);
             var centreOfSecondShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth*2 + ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth*2 + ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth*2 + ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth*2 + ShapeConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
             var topLeftSecondShape = new SquareFillPoint(
-                x: ShapeSetBuilder.SquareWidth*2,
-                y: ShapeSetBuilder.SquareWidth*2);
+                x: ShapeConstants.SquareWidth*2,
+                y: ShapeConstants.SquareWidth*2);
             var firstSquareShape = new Shape(
 				centreOfShape: centreOfFirstShape,
                 topLeftCorner: topLeftFirstShape,
@@ -142,16 +142,16 @@ namespace SquareFillDomain.UnitTests
 		{
 			// Arrange
 			var centreOfFirstShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth/2);
 			var centreOfSecondShape = new SquareFillPoint(
-				x: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2, 
-				y: ShapeSetBuilder.SquareWidth + ShapeSetBuilder.SquareWidth/2);
+				x: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth/2, 
+				y: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(
                 x: 0, 
-                y: ShapeSetBuilder.SquareWidth);
+                y: ShapeConstants.SquareWidth);
             var topLeftSecondShape = new SquareFillPoint(
-                x: ShapeSetBuilder.SquareWidth,
+                x: ShapeConstants.SquareWidth,
                 y: 0);
             var firstShape = new Shape(
 				centreOfShape: centreOfFirstShape,
@@ -163,7 +163,7 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _rightHydrantSquareList);
 			var shapeList = new List<Shape>{firstShape, secondShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
-			var selectedPoint = new SquareFillPoint(x: centreOfSecondShape.X + ShapeSetBuilder.SquareWidth + 10, y: centreOfSecondShape.Y + 10);
+			var selectedPoint = new SquareFillPoint(x: centreOfSecondShape.X + ShapeConstants.SquareWidth + 10, y: centreOfSecondShape.Y + 10);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);

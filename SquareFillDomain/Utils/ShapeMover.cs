@@ -78,7 +78,7 @@ namespace SquareFillDomain.Utils
             return CalculateSnappedCoordinate1(
                 newShapeCentreCoord: newShapeCentreX,
                 boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeSetBuilder.ScreenWidth,
+                boundaryRectangleDimension: ShapeConstants.ScreenWidth,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfShapeCentre,
                 numSquaresOnLargestSide:  ShapeToMove.NumSquaresRightOfShapeCentre);
         }
@@ -88,7 +88,7 @@ namespace SquareFillDomain.Utils
             return CalculateSnappedCoordinate(
                 newTopLeftCornerCoord: newTopLeftCornerX,
                 boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeSetBuilder.ScreenWidth,
+                boundaryRectangleDimension: ShapeConstants.ScreenWidth,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresLeftOfTopLeftCorner,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresRightOfTopLeftCorner);
         }
@@ -98,7 +98,7 @@ namespace SquareFillDomain.Utils
             return CalculateSnappedCoordinate1(
                 newShapeCentreCoord: newShapeCentreY,
                 boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeSetBuilder.ScreenHeight,
+                boundaryRectangleDimension: ShapeConstants.ScreenHeight,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveShapeCentre,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowShapeCentre);
         }
@@ -108,7 +108,7 @@ namespace SquareFillDomain.Utils
             return CalculateSnappedCoordinate(
                 newTopLeftCornerCoord: newTopLeftCornerY,
                 boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeSetBuilder.ScreenHeight,
+                boundaryRectangleDimension: ShapeConstants.ScreenHeight,
                 numSquaresOnSmallestSide: ShapeToMove.NumSquaresAboveTopLeftCorner,
                 numSquaresOnLargestSide: ShapeToMove.NumSquaresBelowTopLeftCorner);
         }
@@ -126,7 +126,7 @@ namespace SquareFillDomain.Utils
             int numSquaresOnSmallestSide, 
             int numSquaresOnLargestSide)
         {
-            var squareWidth = ShapeSetBuilder.SquareWidth;
+            var squareWidth = ShapeConstants.SquareWidth;
 
             int shapeCentreCoord = newShapeCentreCoord;
             int numberOfSquaresFromEdgeOfScreen = shapeCentreCoord / squareWidth;
@@ -168,7 +168,7 @@ namespace SquareFillDomain.Utils
             int numSquaresOnSmallestSide,
             int numSquaresOnLargestSide)
         {
-            var squareWidth = ShapeSetBuilder.SquareWidth;
+            var squareWidth = ShapeConstants.SquareWidth;
 
             int topLeftCornerCoord = newTopLeftCornerCoord;
             int numberOfSquaresFromEdgeOfScreen = newTopLeftCornerCoord / squareWidth;

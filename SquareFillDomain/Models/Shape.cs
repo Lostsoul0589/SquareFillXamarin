@@ -79,8 +79,8 @@ namespace SquareFillDomain.Models
                 if (square.Sprite != null)
                 {
                     square.Sprite.MoveSquare(
-                        newX: CentreOfShape.X + (square.PositionRelativeToParent.X * ShapeSetBuilder.SquareWidth),
-                        newY: CentreOfShape.Y + (square.PositionRelativeToParent.Y * ShapeSetBuilder.SquareWidth));
+                        newX: CentreOfShape.X + (square.PositionRelativeToParent.X * ShapeConstants.SquareWidth),
+                        newY: CentreOfShape.Y + (square.PositionRelativeToParent.Y * ShapeConstants.SquareWidth));
                 }
             }
         }
@@ -93,8 +93,8 @@ namespace SquareFillDomain.Models
                 if (square.Sprite != null)
                 {
                     square.Sprite.MoveTopLeftCorner(
-                        newX: TopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeSetBuilder.SquareWidth),
-                        newY: TopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeSetBuilder.SquareWidth));
+                        newX: TopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
+                        newY: TopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
                 }
             }
         }
@@ -129,19 +129,19 @@ namespace SquareFillDomain.Models
                 List<int> newGridXCoords = new List<int>();
                 List<int> newGridYCoords = new List<int>();
 
-                int oldGridXCoord = square.TopLeftCorner.X/ShapeSetBuilder.SquareWidth;
-                int oldGridYCoord = square.TopLeftCorner.Y/ShapeSetBuilder.SquareWidth;
+                int oldGridXCoord = square.TopLeftCorner.X/ShapeConstants.SquareWidth;
+                int oldGridYCoord = square.TopLeftCorner.Y/ShapeConstants.SquareWidth;
                 SquareFillPoint oldGridOrigin = new SquareFillPoint(
                     x: oldGridXCoord,
                     y: oldGridYCoord);
 
                 bool oldXDivisibleBySquareWidth = 
-                    square.TopLeftCorner.X % ShapeSetBuilder.SquareWidth == 0;
+                    square.TopLeftCorner.X % ShapeConstants.SquareWidth == 0;
                 bool oldYDivisibleBySquareWidth = 
-                    square.TopLeftCorner.Y % ShapeSetBuilder.SquareWidth == 0;
+                    square.TopLeftCorner.Y % ShapeConstants.SquareWidth == 0;
             
-                int newGridXCoord = newOrigin.X/ShapeSetBuilder.SquareWidth;
-                int newGridYCoord = newOrigin.Y/ShapeSetBuilder.SquareWidth;
+                int newGridXCoord = newOrigin.X/ShapeConstants.SquareWidth;
+                int newGridYCoord = newOrigin.Y/ShapeConstants.SquareWidth;
 
                 var newGridOrigin = new SquareFillPoint(
                     x: newGridXCoord,
@@ -158,9 +158,9 @@ namespace SquareFillDomain.Models
                 }
 
                 bool newXDivisibleBySquareWidth = 
-                    newOrigin.X % ShapeSetBuilder.SquareWidth == 0;
+                    newOrigin.X % ShapeConstants.SquareWidth == 0;
                 bool newYDivisibleBySquareWidth = 
-                    newOrigin.Y % ShapeSetBuilder.SquareWidth == 0;
+                    newOrigin.Y % ShapeConstants.SquareWidth == 0;
             
                 if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
                     || oldGridOrigin.X != newGridOrigin.X)
@@ -244,19 +244,19 @@ namespace SquareFillDomain.Models
                 List<int> newGridXCoords = new List<int>();
                 List<int> newGridYCoords = new List<int>();
 
-                int oldGridXCoord = square.TopLeftCorner.X / ShapeSetBuilder.SquareWidth;
-                int oldGridYCoord = square.TopLeftCorner.Y / ShapeSetBuilder.SquareWidth;
+                int oldGridXCoord = square.TopLeftCorner.X / ShapeConstants.SquareWidth;
+                int oldGridYCoord = square.TopLeftCorner.Y / ShapeConstants.SquareWidth;
                 SquareFillPoint oldGridOrigin = new SquareFillPoint(
                     x: oldGridXCoord,
                     y: oldGridYCoord);
 
                 bool oldXDivisibleBySquareWidth =
-                    square.TopLeftCorner.X % ShapeSetBuilder.SquareWidth == 0;
+                    square.TopLeftCorner.X % ShapeConstants.SquareWidth == 0;
                 bool oldYDivisibleBySquareWidth =
-                    square.TopLeftCorner.Y % ShapeSetBuilder.SquareWidth == 0;
+                    square.TopLeftCorner.Y % ShapeConstants.SquareWidth == 0;
 
-                int newGridXCoord = newOrigin.X / ShapeSetBuilder.SquareWidth;
-                int newGridYCoord = newOrigin.Y / ShapeSetBuilder.SquareWidth;
+                int newGridXCoord = newOrigin.X / ShapeConstants.SquareWidth;
+                int newGridYCoord = newOrigin.Y / ShapeConstants.SquareWidth;
 
                 var newGridOrigin = new SquareFillPoint(
                     x: newGridXCoord,
@@ -273,9 +273,9 @@ namespace SquareFillDomain.Models
                 }
 
                 bool newXDivisibleBySquareWidth =
-                    newOrigin.X % ShapeSetBuilder.SquareWidth == 0;
+                    newOrigin.X % ShapeConstants.SquareWidth == 0;
                 bool newYDivisibleBySquareWidth =
-                    newOrigin.Y % ShapeSetBuilder.SquareWidth == 0;
+                    newOrigin.Y % ShapeConstants.SquareWidth == 0;
 
                 if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
                     || oldGridOrigin.X != newGridOrigin.X)
@@ -351,8 +351,8 @@ namespace SquareFillDomain.Models
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = square.TopLeftCorner.X/ShapeSetBuilder.SquareWidth;
-                int occupiedYCoordinate = square.TopLeftCorner.Y/ShapeSetBuilder.SquareWidth;
+                int occupiedXCoordinate = square.TopLeftCorner.X/ShapeConstants.SquareWidth;
+                int occupiedYCoordinate = square.TopLeftCorner.Y/ShapeConstants.SquareWidth;
             
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = false;
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = null;
@@ -363,8 +363,8 @@ namespace SquareFillDomain.Models
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = square.TopLeftCorner.X / ShapeSetBuilder.SquareWidth;
-                int occupiedYCoordinate = square.TopLeftCorner.Y / ShapeSetBuilder.SquareWidth;
+                int occupiedXCoordinate = square.TopLeftCorner.X / ShapeConstants.SquareWidth;
+                int occupiedYCoordinate = square.TopLeftCorner.Y / ShapeConstants.SquareWidth;
 
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = true;
                 occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = this;
@@ -373,15 +373,15 @@ namespace SquareFillDomain.Models
 
         public bool WeStartedWithinTheContainingRectangle()
         {
-            var leftEdge = TopLeftCorner.X - NumSquaresLeftOfTopLeftCorner * ShapeSetBuilder.SquareWidth;
-            var topEdge = TopLeftCorner.Y - NumSquaresAboveTopLeftCorner * ShapeSetBuilder.SquareWidth;
-            var rightEdge = TopLeftCorner.X + NumSquaresRightOfTopLeftCorner * ShapeSetBuilder.SquareWidth;
-            var bottomEdge = TopLeftCorner.Y + NumSquaresBelowTopLeftCorner * ShapeSetBuilder.SquareWidth;
+            var leftEdge = TopLeftCorner.X - NumSquaresLeftOfTopLeftCorner * ShapeConstants.SquareWidth;
+            var topEdge = TopLeftCorner.Y - NumSquaresAboveTopLeftCorner * ShapeConstants.SquareWidth;
+            var rightEdge = TopLeftCorner.X + NumSquaresRightOfTopLeftCorner * ShapeConstants.SquareWidth;
+            var bottomEdge = TopLeftCorner.Y + NumSquaresBelowTopLeftCorner * ShapeConstants.SquareWidth;
 
-            return leftEdge >= ShapeSetBuilder.ContainingRectangle.X
-                && topEdge >= ShapeSetBuilder.ContainingRectangle.Y
-                && rightEdge <= (ShapeSetBuilder.ContainingRectangle.X + ShapeSetBuilder.ContainingRectangle.Width)
-                && bottomEdge <= (ShapeSetBuilder.ContainingRectangle.Y + ShapeSetBuilder.ContainingRectangle.Height);
+            return leftEdge >= ShapeConstants.ContainingRectangle.X
+                && topEdge >= ShapeConstants.ContainingRectangle.Y
+                && rightEdge <= (ShapeConstants.ContainingRectangle.X + ShapeConstants.ContainingRectangle.Width)
+                && bottomEdge <= (ShapeConstants.ContainingRectangle.Y + ShapeConstants.ContainingRectangle.Height);
         }
 
         private void Initialise()

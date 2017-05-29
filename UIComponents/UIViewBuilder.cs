@@ -8,40 +8,40 @@ namespace SquareFillXamarin.UIComponents
     public class UIViewBuilder
 	{
         private static CGRect _containingRectangle = new CGRect(
-        x: ShapeSetBuilder.ContainingRectangle.X,
-        y: ShapeSetBuilder.ContainingRectangle.Y,
-        width: ShapeSetBuilder.ContainingRectangle.Width,
-        height: ShapeSetBuilder.ContainingRectangle.Height);
+        x: ShapeConstants.ContainingRectangle.X,
+        y: ShapeConstants.ContainingRectangle.Y,
+        width: ShapeConstants.ContainingRectangle.Width,
+        height: ShapeConstants.ContainingRectangle.Height);
 
         private static readonly CGRect TopGridBorder = new CGRect(
-			x: 3 * ShapeSetBuilder.SquareWidth,
-			y: 5 * ShapeSetBuilder.SquareWidth,
-			width: 9 * ShapeSetBuilder.SquareWidth,
-			height: ShapeSetBuilder.SquareWidth);
+			x: 3 * ShapeConstants.SquareWidth,
+			y: 5 * ShapeConstants.SquareWidth,
+			width: 9 * ShapeConstants.SquareWidth,
+			height: ShapeConstants.SquareWidth);
 
         private static readonly CGRect LeftGridBorder = new CGRect(
-			x: 3 * ShapeSetBuilder.SquareWidth,
-			y: 6 * ShapeSetBuilder.SquareWidth,
-			width: ShapeSetBuilder.SquareWidth,
-			height: 7 * ShapeSetBuilder.SquareWidth);
+			x: 3 * ShapeConstants.SquareWidth,
+			y: 6 * ShapeConstants.SquareWidth,
+			width: ShapeConstants.SquareWidth,
+			height: 7 * ShapeConstants.SquareWidth);
 
         private static readonly CGRect RightGridBorder = new CGRect(
-			x: 11 * ShapeSetBuilder.SquareWidth,
-			y: 6 * ShapeSetBuilder.SquareWidth,
-			width: ShapeSetBuilder.SquareWidth,
-			height: 7 * ShapeSetBuilder.SquareWidth);
+			x: 11 * ShapeConstants.SquareWidth,
+			y: 6 * ShapeConstants.SquareWidth,
+			width: ShapeConstants.SquareWidth,
+			height: 7 * ShapeConstants.SquareWidth);
 
         private static readonly CGRect BottomLeftGridBorder = new CGRect(
-			x: 3 * ShapeSetBuilder.SquareWidth,
-			y: 13 * ShapeSetBuilder.SquareWidth,
-			width: 2 * ShapeSetBuilder.SquareWidth,
-			height: ShapeSetBuilder.SquareWidth);
+			x: 3 * ShapeConstants.SquareWidth,
+			y: 13 * ShapeConstants.SquareWidth,
+			width: 2 * ShapeConstants.SquareWidth,
+			height: ShapeConstants.SquareWidth);
 
         private static readonly CGRect BottomRightGridBorder = new CGRect(
-			x: 10 * ShapeSetBuilder.SquareWidth,
-			y: 13 * ShapeSetBuilder.SquareWidth,
-			width: 2 * ShapeSetBuilder.SquareWidth,
-			height: ShapeSetBuilder.SquareWidth);
+			x: 10 * ShapeConstants.SquareWidth,
+			y: 13 * ShapeConstants.SquareWidth,
+			width: 2 * ShapeConstants.SquareWidth,
+			height: ShapeConstants.SquareWidth);
     
         public static ISquareViewFactory InitialiseUIComponents(UIKit.UIView view)
         {

@@ -19,9 +19,9 @@ namespace SquareFillDomain.Controllers
 
         public ShapeController(ISquareViewFactory squareViewFactory)
         {
-            OccupiedGridSquares = ShapeSetBuilder.MakeGridSquares();
-            ShapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
-            ShapeSet = ShapeSetBuilder.MakeHardCodedShapeSet(squareViewFactory: squareViewFactory);
+            OccupiedGridSquares = ShapeConstants.MakeGridSquares();
+            ShapeConstants.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
+            ShapeSet = ShapeConstants.MakeHardCodedShapeSet(squareViewFactory: squareViewFactory);
             PutAllShapesIntoGrid();
 
             _shapeMover = new ShapeMover();
@@ -146,15 +146,15 @@ namespace SquareFillDomain.Controllers
         private SquareFillPoint CalculateGridPosition1(SquareFillPoint shapeCentre)
         {
             return new SquareFillPoint(
-                x: (shapeCentre.X - ShapeSetBuilder.SquareWidth/2)/ShapeSetBuilder.SquareWidth,
-                y: (shapeCentre.Y - ShapeSetBuilder.SquareWidth/2)/ShapeSetBuilder.SquareWidth);
+                x: (shapeCentre.X - ShapeConstants.SquareWidth/2)/ShapeConstants.SquareWidth,
+                y: (shapeCentre.Y - ShapeConstants.SquareWidth/2)/ShapeConstants.SquareWidth);
         }
 
         private SquareFillPoint CalculateGridPosition(SquareFillPoint topLeftCorner)
         {
             return new SquareFillPoint(
-                x: topLeftCorner.X / ShapeSetBuilder.SquareWidth,
-                y: topLeftCorner.Y / ShapeSetBuilder.SquareWidth);
+                x: topLeftCorner.X / ShapeConstants.SquareWidth,
+                y: topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
 
         private void LogMessagePlusOrigins(Logger logger, string message)
