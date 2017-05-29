@@ -9,5 +9,7 @@ namespace SquareFillDomain.Builders
         void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares);
 
         ShapeSet GetShapeSet();
+
+        List<List<GridSquare>> MakeGridSquares();
     }
 }

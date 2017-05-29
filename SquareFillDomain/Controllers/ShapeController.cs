@@ -19,7 +19,7 @@ namespace SquareFillDomain.Controllers
 
         public ShapeController(IShapeSetBuilder shapeSetBuilder)
         {
-            OccupiedGridSquares = ShapeConstants.MakeGridSquares();
+            OccupiedGridSquares = shapeSetBuilder.MakeGridSquares();
             shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
             ShapeSet = shapeSetBuilder.GetShapeSet();
             PutAllShapesIntoGrid();

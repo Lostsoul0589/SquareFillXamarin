@@ -7,8 +7,6 @@ namespace SquareFillDomain.Builders
 {
     public class ShapeSetBuilder : IShapeSetBuilder
     {
-        private static readonly List<SquareFillPoint> _borderSquares = new List<SquareFillPoint>();
-
         private static Shape _rightHydrantShape01;
         private static Shape _rightHydrantShape02;
         private static Shape _rightHydrantShape03;
@@ -24,9 +22,12 @@ namespace SquareFillDomain.Builders
         private static Shape _backwardsLShape;
         private static Shape _singleSquareShape01;
 
+        private readonly BorderBuilder _borderBuilder = new BorderBuilder();
+
         public ShapeSetBuilder(ISquareViewFactory squareViewFactory)
         {
             MakeShapes(squareViewFactory: squareViewFactory);
+            _borderBuilder.BuildBorderSquares(squareWidth: ShapeConstants.SquareWidth, containingRectangle: ShapeConstants.ContainingRectangle);
         }
 
         public ShapeSet GetShapeSet()
@@ -36,11 +37,7 @@ namespace SquareFillDomain.Builders
 
         public void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
         {
-            BuildBorderSquares();
-            foreach (var borderSquare in _borderSquares)
-            {
-                occupiedGridSquares[borderSquare.X][borderSquare.Y].Occupied = true;
-            }
+            _borderBuilder.OccupyBorderSquares(occupiedGridSquares: occupiedGridSquares);
         }
 
         private ShapeSet MakeHardCodedShapeSet()
@@ -63,35 +60,9 @@ namespace SquareFillDomain.Builders
             });
         }
 
-        private static void BuildBorderSquares()
+        public List<List<GridSquare>> MakeGridSquares()
         {
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 4, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 5, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 6, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 7, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 8, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 9, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 10, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 5));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 6));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 7));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 8));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 9));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 10));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 11));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 12));
-            _borderSquares.Add(new SquareFillPoint(x: 11, y: 13));
-            _borderSquares.Add(new SquareFillPoint(x: 10, y: 13));
-            _borderSquares.Add(new SquareFillPoint(x: 4, y: 13));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 13));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 12));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 11));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 10));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 9));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 8));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 7));
-            _borderSquares.Add(new SquareFillPoint(x: 3, y: 6));
+            return ShapeConstants.MakeGridSquares();
         }
 
         private void MakeShapes(ISquareViewFactory squareViewFactory)

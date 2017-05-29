@@ -65,11 +65,11 @@ namespace SquareFillDomain.Utils
         {
             var occupiedGridSquares = new List<List<GridSquare>>();
 
-            for (int xCoord = 0; xCoord < GridWidth; xCoord++)
+            for (int xCoord = 0; xCoord < ShapeConstants.GridWidth; xCoord++)
             {
                 occupiedGridSquares.Add(new List<GridSquare>());
 
-                for (int yCoord = 0; yCoord < GridHeight; yCoord++)
+                for (int yCoord = 0; yCoord < ShapeConstants.GridHeight; yCoord++)
                 {
                     occupiedGridSquares[xCoord].Add(new GridSquare());
                 }

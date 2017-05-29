@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SquareTests.cs" />
+    <Compile Include="TestUtils\TestConstants.cs" />
     <Compile Include="TestUtils\TestShapeSetBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
