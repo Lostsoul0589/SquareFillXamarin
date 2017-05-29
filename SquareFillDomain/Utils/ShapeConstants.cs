@@ -46,6 +46,12 @@ namespace SquareFillDomain.Utils
 
         public static List<SquareFillPoint> LeftHydrantCentrePoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: -1), new SquareFillPoint(x: -1, y: 0), new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 0, y: 1) };
         public static List<SquareFillPoint> RightWayUpTCentrePoints = new List<SquareFillPoint> { new SquareFillPoint(x: -1, y: 0), new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 1, y: 0), new SquareFillPoint(x: 0, y: 1) };
+        public static List<SquareFillPoint> NineSquareCentrePoints = new List<SquareFillPoint>
+        {
+            new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 1, y: 0), new SquareFillPoint(x: 2, y: 0), 
+            new SquareFillPoint(x: 0, y: 1), new SquareFillPoint(x: 1, y: 1), new SquareFillPoint(x: 2, y: 1), 
+            new SquareFillPoint(x: 0, y: 2), new SquareFillPoint(x: 1, y: 2), new SquareFillPoint(x: 2, y: 2)
+        };
 
         public static List<SquareFillPoint> RightHydrantPoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 0, y: 1), new SquareFillPoint(x: 0, y: 2), new SquareFillPoint(x: 1, y: 1) };
         public static List<SquareFillPoint> FourBarPoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 1, y: 0), new SquareFillPoint(x: 2, y: 0), new SquareFillPoint(x: 3, y: 0) };
@@ -60,6 +66,12 @@ namespace SquareFillDomain.Utils
 
         public static List<SquareFillPoint> LeftHydrantPoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: -1, y: 1), new SquareFillPoint(x: 0, y: 1), new SquareFillPoint(x: 0, y: 2) };
         public static List<SquareFillPoint> RightWayUpTPoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 1, y: 0), new SquareFillPoint(x: 2, y: 0), new SquareFillPoint(x: 1, y: 1) };
+        public static List<SquareFillPoint> NineSquarePoints = new List<SquareFillPoint>
+        {
+            new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 1, y: 0), new SquareFillPoint(x: 2, y: 0), 
+            new SquareFillPoint(x: 0, y: 1), new SquareFillPoint(x: 1, y: 1), new SquareFillPoint(x: 2, y: 1), 
+            new SquareFillPoint(x: 0, y: 2), new SquareFillPoint(x: 1, y: 2), new SquareFillPoint(x: 2, y: 2)
+        };
 
         public static List<List<GridSquare>> MakeGridSquares()
         {

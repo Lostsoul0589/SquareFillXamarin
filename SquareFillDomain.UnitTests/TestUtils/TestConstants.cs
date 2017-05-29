@@ -36,6 +36,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
         public static List<SquareFillPoint> LeftHydrantCentrePoints = ShapeConstants.LeftHydrantCentrePoints;
         public static List<SquareFillPoint> RightWayUpTCentrePoints = ShapeConstants.RightWayUpTCentrePoints;
+        public static List<SquareFillPoint> NineSquareCentrePoints = ShapeConstants.NineSquareCentrePoints;
 
         public static List<SquareFillPoint> RightHydrantPoints = ShapeConstants.RightHydrantPoints;
         public static List<SquareFillPoint> FourBarPoints = ShapeConstants.FourBarPoints;
@@ -49,6 +50,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public static List<SquareFillPoint> SingleSquarePoints = ShapeConstants.SingleSquarePoints;
 
         public static List<SquareFillPoint> LeftHydrantPoints = ShapeConstants.LeftHydrantPoints;
-        public static List<SquareFillPoint> RightWayUpTPoints = ShapeConstants.RightWayUpTPoints;			
+        public static List<SquareFillPoint> RightWayUpTPoints = ShapeConstants.RightWayUpTPoints;
+        public static List<SquareFillPoint> NineSquarePoints = ShapeConstants.NineSquarePoints;
     }
 }
