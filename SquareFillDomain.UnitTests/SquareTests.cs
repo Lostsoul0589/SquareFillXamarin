@@ -13,10 +13,11 @@ namespace SquareFillDomain.UnitTests
 		public void TestCentreOfSquareIsDefinedAsInsideSquare() {
 			// Arrange
 			var centreOfSquare = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
+				x: TestConstants.SquareWidth/2,
+                y: TestConstants.SquareWidth/2);
+		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
 			var square = new Square();
-			square.CalculateOrigin(parentShapeCentre: centreOfSquare);
+            square.CalculateTopLeftCorner(parentTopLeftCorner: topLeftCorner);
 			
 			// Act
 			var isInSquare = square.IsInSquare(point: centreOfSquare);
@@ -28,12 +29,10 @@ namespace SquareFillDomain.UnitTests
 		[Test]
 		public void TestAnyLocationInSquareIsDefinedAsInsideSquare() {
 			// Arrange
-			var centreOfSquare = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
-			var square = new Square();
-			square.CalculateOrigin(parentShapeCentre: centreOfSquare);
-			var pointInQuestion = new SquareFillPoint(x: centreOfSquare.X + 10, y: centreOfSquare.Y - 10);
+		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var square = new Square();
+		    square.CalculateTopLeftCorner(parentTopLeftCorner: topLeftCorner);
+            var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
 			
 			// Act
 			var isInSquare = square.IsInSquare(point: pointInQuestion);
@@ -45,37 +44,16 @@ namespace SquareFillDomain.UnitTests
 		[Test]
 		public void TestAnyLocationOutsideSquareIsNotDefinedAsInsideSquare() {
 			// Arrange
-			var centreOfSquare = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
+		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
 			var square = new Square();
-			square.CalculateOrigin(parentShapeCentre: centreOfSquare);
-			var pointInQuestion = new SquareFillPoint(x: centreOfSquare.X + 50, y: centreOfSquare.Y - 10);
+		    square.CalculateTopLeftCorner(parentTopLeftCorner: topLeftCorner);
+            var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 50, y: topLeftCorner.Y - 10);
 			
 			// Act
 			var isInSquare = square.IsInSquare(point: pointInQuestion);
 			
 			// Assert
 			Asserter.AreEqual(isInSquare, false);
-		}
-		
-		[Test]
-		public void TestOriginIsCalculatedAsParentCentreAdjustedByRelativePositionAndSquareWidth() {
-			// Arrange
-			var parentShapeCentre = new SquareFillPoint(
-				x: 4*TestConstants.SquareWidth + TestConstants.SquareWidth/2, 
-				y: 4*TestConstants.SquareWidth + TestConstants.SquareWidth/2);
-			var square = new Square();
-			square.PositionRelativeToParent = new SquareFillPoint(x: -2, y: -3);
-			
-			// Act
-			square.CalculateOrigin(parentShapeCentre: parentShapeCentre);
-			
-			// Assert
-			Asserter.AreEqual(square.TopLeftCorner.X, parentShapeCentre.X
-				+ (square.PositionRelativeToParent.X * TestConstants.SquareWidth) - TestConstants.SquareWidth/2);
-			Asserter.AreEqual(square.TopLeftCorner.Y, parentShapeCentre.Y
-				+ (square.PositionRelativeToParent.Y * TestConstants.SquareWidth) - TestConstants.SquareWidth/2);
 		}
 
         [Test]
