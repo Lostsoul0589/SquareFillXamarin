@@ -42,5 +42,63 @@ namespace SquareFillDomain.Models
                    && TopLeftCorner.Y <= point.Y
                    && point.Y <= (TopLeftCorner.Y + ShapeConstants.SquareWidth);
         }
+
+        public SquareFillPoint GetGridOrigin()
+        {
+            return new SquareFillPoint(
+                x: TopLeftCorner.X / ShapeConstants.SquareWidth,
+                y: TopLeftCorner.Y / ShapeConstants.SquareWidth);
+        }
+
+        public SquareFillPoint CalculateNewGridOrigin(SquareFillPoint newOrigin)
+        {
+            int newGridXCoord = newOrigin.X / ShapeConstants.SquareWidth;
+            int newGridYCoord = newOrigin.Y / ShapeConstants.SquareWidth;
+
+            var newGridOrigin = new SquareFillPoint(
+                x: newGridXCoord,
+                y: newGridYCoord);
+
+            if (newOrigin.X < 0)
+            {
+                newGridOrigin.X = newGridOrigin.X - 1;
+            }
+
+            if (newOrigin.Y < 0)
+            {
+                newGridOrigin.Y = newGridOrigin.Y - 1;
+            }
+
+            return newGridOrigin;
+        }
+
+        public IsDivisibleBySquareWidth HasCrossedBoundaries(
+            MovementResult movementResult, 
+            SquareFillPoint newPixels, 
+            SquareFillPoint oldGridVal, 
+            SquareFillPoint newGridVal)
+        {
+            bool newXDivisibleBySquareWidth = newPixels.X % ShapeConstants.SquareWidth == 0;
+            bool oldXDivisibleBySquareWidth = TopLeftCorner.X % ShapeConstants.SquareWidth == 0;
+            if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
+                || oldGridVal.X != newGridVal.X)
+            {
+                movementResult.ShapeHasCrossedAHorizontalGridBoundary = true;
+            }
+
+            bool newYDivisibleBySquareWidth = newPixels.Y % ShapeConstants.SquareWidth == 0;
+            bool oldYDivisibleBySquareWidth = TopLeftCorner.Y % ShapeConstants.SquareWidth == 0;
+            if (oldYDivisibleBySquareWidth != newYDivisibleBySquareWidth
+                || oldGridVal.Y != newGridVal.Y)
+            {
+                movementResult.ShapeHasCrossedAVerticalGridBoundary = true;
+            }
+
+            return new IsDivisibleBySquareWidth
+            {
+                X = newXDivisibleBySquareWidth,
+                Y = newYDivisibleBySquareWidth
+            };
+        }
     }
 }
