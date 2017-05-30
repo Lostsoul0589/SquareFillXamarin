@@ -28,19 +28,12 @@ namespace SquareFillDomain.UnitTests
                 new Square(positionRelativeToParentCorner: new SquareFillPoint(x:1, y:1), sprite: new MockSquareView()),
                 new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:2), sprite: new MockSquareView())
             };
-        private readonly Linq.List<Linq.List<GridSquare>> _occupiedGridSquares = TestConstants.MakeGridSquares();
+        private readonly Grid _occupiedGridSquares = TestConstants.MakeGridSquares();
 
         [SetUp]
         public void Setup()
         {
-            foreach (var gridSquareArray in _occupiedGridSquares)
-            {
-                foreach(var gridSquare in gridSquareArray)
-                {
-                    gridSquare.Occupied = false;
-                    gridSquare.ShapeInSquare = null;
-                }
-            }
+            _occupiedGridSquares.VacateAllSquares();
         }
 
         [Test]
@@ -337,30 +330,29 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
             foreach (var relativePoint in TestConstants.RightHydrantPoints)
             {
-                _occupiedGridSquares[relativePoint.X][relativePoint.Y].Occupied = true;
-                _occupiedGridSquares[relativePoint.X][relativePoint.Y].ShapeInSquare = shape;
+                _occupiedGridSquares.OccupyGridSquareUsingGridCoords(gridReference: relativePoint, shapeInSquare: shape);
             }
             // Occupy some other squares too, so we can check they're still occupied afterwards
-            for (int count = 0; count <= (_occupiedGridSquares[_occupiedGridSquares.Count - 1].Count - 1); count++)
+            for (int count = 0; count < _occupiedGridSquares.Height(); count++)
             {
-                _occupiedGridSquares[_occupiedGridSquares.Count - 1][count].Occupied = true;
+                _occupiedGridSquares.OccupyGridSquare(x: _occupiedGridSquares.Width() - 1, y: count);
             }
 
             // Act
             shape.VacateGridSquares(occupiedGridSquares: _occupiedGridSquares);
 
             // Assert
-            for (int xCount = 0; xCount <= (_occupiedGridSquares.Count - 2); xCount++)
+            for (int xCount = 0; xCount < _occupiedGridSquares.Width() - 1; xCount++)
             {
-                for (int yCount = 0; yCount <= (_occupiedGridSquares[xCount].Count - 1); yCount++)
+                for (int yCount = 0; yCount < _occupiedGridSquares.Height(); yCount++)
                 {
-                    Asserter.AreEqual(_occupiedGridSquares[xCount][yCount].Occupied, false);
+                    Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: xCount, y: yCount), false);
                 }
             }
             // Check the other occupied squares are still occupied
-            for (int count = 0; count <= (_occupiedGridSquares[_occupiedGridSquares.Count - 1].Count - 1); count++)
+            for (int count = 0; count < _occupiedGridSquares.Height(); count++)
             {
-                Asserter.AreEqual(_occupiedGridSquares[_occupiedGridSquares.Count - 1][count].Occupied, true);
+                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: _occupiedGridSquares.Width() - 1, y: count), true);
             }
         }
 
@@ -380,17 +372,17 @@ namespace SquareFillDomain.UnitTests
             // Assert
             foreach (var relativePoint in TestConstants.ThreePolePoints)
             {
-                Asserter.AreEqual(_occupiedGridSquares[relativePoint.X][relativePoint.Y].Occupied, true);
+                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: relativePoint.X, y: relativePoint.Y), true);
             }
-            for (int yCount = 3; yCount <= (_occupiedGridSquares[0].Count - 1); yCount++)
+            for (int yCount = 3; yCount < _occupiedGridSquares.Height(); yCount++)
             {
-                Asserter.AreEqual(_occupiedGridSquares[0][yCount].Occupied, false);
+                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0, y: yCount), false);
             }
-            for (int xCount = 1; xCount <= (_occupiedGridSquares.Count - 1); xCount++)
+            for (int xCount = 1; xCount < _occupiedGridSquares.Width(); xCount++)
             {
-                for (int yCount = 0; yCount <= (_occupiedGridSquares[xCount].Count - 1); yCount++)
+                for (int yCount = 0; yCount < _occupiedGridSquares.Height(); yCount++)
                 {
-                    Asserter.AreEqual(_occupiedGridSquares[xCount][yCount].Occupied, false);
+                    Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: xCount, y: yCount), false);
                 }
             }
         }
@@ -576,9 +568,9 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[TestConstants.ThreePolePoints[0].X][TestConstants.ThreePolePoints[0].X].Occupied = true;
-            _occupiedGridSquares[TestConstants.ThreePolePoints[1].X][TestConstants.ThreePolePoints[1].X].Occupied = true;
-            _occupiedGridSquares[TestConstants.ThreePolePoints[2].X][TestConstants.ThreePolePoints[2].X].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[0].X, y: TestConstants.ThreePolePoints[0].X);
+            _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[1].X, y: TestConstants.ThreePolePoints[1].X);
+            _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[2].X, y: TestConstants.ThreePolePoints[2].X);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -611,9 +603,9 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[1 + TestConstants.ThreePolePoints[0].X][TestConstants.ThreePolePoints[0].Y].Occupied = true;
-            _occupiedGridSquares[1 + TestConstants.ThreePolePoints[1].X][TestConstants.ThreePolePoints[1].Y].Occupied = true;
-            _occupiedGridSquares[1 + TestConstants.ThreePolePoints[2].X][TestConstants.ThreePolePoints[2].Y].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[0].X, y: TestConstants.ThreePolePoints[0].Y);
+            _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[1].X, y: TestConstants.ThreePolePoints[1].Y);
+            _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[2].X, y: TestConstants.ThreePolePoints[2].Y);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -646,7 +638,7 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[0][3].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -679,7 +671,7 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[0][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -712,7 +704,7 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[0][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -745,7 +737,7 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[1][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -778,7 +770,7 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[0][3].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -811,7 +803,7 @@ namespace SquareFillDomain.UnitTests
             {
                 originalSquareOrigins.Add(new SquareFillPoint(x: square.TopLeftCorner.X, y: square.TopLeftCorner.Y));
             }
-            _occupiedGridSquares[1][3].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 3);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1138,7 +1130,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[0][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1161,7 +1153,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.TwoPolePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[1][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1184,7 +1176,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[0][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1207,7 +1199,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.ThreePolePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[1][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1230,7 +1222,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.FourBarPoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[2][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 2, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1253,7 +1245,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.FourBarPoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[2][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 2, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1276,7 +1268,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.NineSquarePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[4][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 4, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1299,7 +1291,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.LeftHydrantPoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[0][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1322,7 +1314,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.RightHydrantPoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[2][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 2, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1345,7 +1337,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.UpsideDownTPoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[1][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1368,7 +1360,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.RightWayUpTPoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[1][2].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 2);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1404,7 +1396,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X,
-                y: topLeftCorner.Y + _occupiedGridSquares[0].Count * TestConstants.SquareWidth);
+                y: topLeftCorner.Y + _occupiedGridSquares.Height() * TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
@@ -1443,7 +1435,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
-                x: topLeftCorner.X + _occupiedGridSquares.Count * TestConstants.SquareWidth,
+                x: topLeftCorner.X + _occupiedGridSquares.Width() * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
                               topLeftCorner: topLeftCorner,
@@ -1469,7 +1461,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[1][0].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1490,7 +1482,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[0][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
@@ -1511,7 +1503,7 @@ namespace SquareFillDomain.UnitTests
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
                               squareFactory: new MockSquareFactory());
-            _occupiedGridSquares[1][1].Occupied = true;
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y:1);
 
             // Act
             var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);

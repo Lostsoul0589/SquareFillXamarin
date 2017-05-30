@@ -6,10 +6,10 @@ namespace SquareFillDomain.Builders
 {
     public interface IShapeSetBuilder
     {
-        void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares);
+        void OccupyBorderSquares(Grid occupiedGridSquares);
 
         ShapeSet GetShapeSet();
 
-        List<List<GridSquare>> MakeGridSquares();
+        Grid MakeGridSquares();
     }
 }

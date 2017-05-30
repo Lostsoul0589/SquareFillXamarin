@@ -39,7 +39,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
             return MakeTestShapeSet();
         }
 
-        public void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
+        public void OccupyBorderSquares(Grid occupiedGridSquares)
         {
             _borderBuilder.OccupyBorderSquares(occupiedGridSquares: occupiedGridSquares);
         }
@@ -57,7 +57,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
 			});
         }
 
-        public List<List<GridSquare>> MakeGridSquares()
+        public Grid MakeGridSquares()
         {
             return TestConstants.MakeGridSquares();
         }

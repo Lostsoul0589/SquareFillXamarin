@@ -15,7 +15,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public static int ScreenWidth = ShapeConstants.ScreenWidth;
         public static int ScreenHeight = ShapeConstants.ScreenHeight;
 
-        public static List<List<GridSquare>> MakeGridSquares()
+        public static Grid MakeGridSquares()
         {
             return ShapeConstants.MakeGridSquares();
         }

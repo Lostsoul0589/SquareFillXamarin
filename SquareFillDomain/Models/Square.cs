@@ -1,4 +1,5 @@
-﻿using SquareFillDomain.Builders;
+﻿using System.Collections.Generic;
+using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
 using SquareFillDomain.Utils;
 
@@ -99,6 +100,16 @@ namespace SquareFillDomain.Models
                 X = newXDivisibleBySquareWidth,
                 Y = newYDivisibleBySquareWidth
             };
+        }
+
+        public void VacateGridSquare(Grid occupiedGridSquares)
+        {
+            occupiedGridSquares.VacateGridSquare(gridReferenceInPixels: TopLeftCorner);
+        }
+
+        public void OccupyGridSquare(Grid occupiedGridSquares, Shape shapeInSquare)
+        {
+            occupiedGridSquares.OccupyGridSquare(gridReferenceInPixels: TopLeftCorner, shapeInSquare: shapeInSquare);
         }
     }
 }

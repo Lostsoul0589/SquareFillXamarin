@@ -50,20 +50,9 @@ namespace SquareFillDomain.Utils
             new SquareFillPoint(x: 0, y: 2), new SquareFillPoint(x: 1, y: 2), new SquareFillPoint(x: 2, y: 2)
         };
 
-        public static List<List<GridSquare>> MakeGridSquares()
+        public static Grid MakeGridSquares()
         {
-            var occupiedGridSquares = new List<List<GridSquare>>();
-
-            for (int xCoord = 0; xCoord < ShapeConstants.GridWidth; xCoord++)
-            {
-                occupiedGridSquares.Add(new List<GridSquare>());
-
-                for (int yCoord = 0; yCoord < ShapeConstants.GridHeight; yCoord++)
-                {
-                    occupiedGridSquares[xCoord].Add(new GridSquare());
-                }
-            }
-
+            var occupiedGridSquares = new Grid(width: GridWidth, height: GridHeight);
             return occupiedGridSquares;
         }
     }

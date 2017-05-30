@@ -2,7 +2,7 @@
 
 namespace SquareFillDomain.Models
 {
-	public class ShapeSet
+    public class ShapeSet
     {
         public IEnumerable<Shape> Shapes { get; private set; }
 

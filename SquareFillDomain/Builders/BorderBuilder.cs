@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Linq;
 using SquareFillDomain.Models;
 using SquareFillDomain.Utils;
 
@@ -14,11 +15,11 @@ namespace SquareFillDomain.Builders
 
         private readonly List<SquareFillPoint> _borderSquares = new List<SquareFillPoint>();
 
-        public void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
+        public void OccupyBorderSquares(Grid occupiedGridSquares)
         {
             foreach (var borderSquare in _borderSquares)
             {
-                occupiedGridSquares[borderSquare.X][borderSquare.Y].Occupied = true;
+                occupiedGridSquares.OccupyGridSquare(x: borderSquare.X, y:borderSquare.Y);
             }
         }
 

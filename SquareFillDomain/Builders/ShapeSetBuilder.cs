@@ -35,7 +35,7 @@ namespace SquareFillDomain.Builders
             return MakeHardCodedShapeSet();
         }
 
-        public void OccupyBorderSquares(List<List<GridSquare>> occupiedGridSquares)
+        public void OccupyBorderSquares(Grid occupiedGridSquares)
         {
             _borderBuilder.OccupyBorderSquares(occupiedGridSquares: occupiedGridSquares);
         }
@@ -60,7 +60,7 @@ namespace SquareFillDomain.Builders
             });
         }
 
-        public List<List<GridSquare>> MakeGridSquares()
+        public Grid MakeGridSquares()
         {
             return ShapeConstants.MakeGridSquares();
         }

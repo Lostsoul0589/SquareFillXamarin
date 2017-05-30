@@ -107,7 +107,7 @@ namespace SquareFillDomain.Models
         }
 
         public MovementResult AttemptToUpdateOrigins(
-            List<List<GridSquare>> occupiedGridSquares,
+            Grid occupiedGridSquares,
             SquareFillPoint newTopLeftCorner)
         {
             bool somethingIsInTheWay = false;
@@ -131,7 +131,7 @@ namespace SquareFillDomain.Models
                     somethingIsInTheWay = IsSomethingInTheWay(
                         isDivisibleBySquareWidth: isDivisibleBySquareWidth,
                         newGridOrigin: newGridOrigin,
-                        somethingWasAlreadyIntheWay: somethingIsInTheWay,
+                        somethingWasAlreadyInTheWay: somethingIsInTheWay,
                         occupiedGridSquares: occupiedGridSquares);
                 }
             }
@@ -148,10 +148,10 @@ namespace SquareFillDomain.Models
 	    private bool IsSomethingInTheWay(
             IsDivisibleBySquareWidth isDivisibleBySquareWidth, 
             SquareFillPoint newGridOrigin, 
-            bool somethingWasAlreadyIntheWay, 
-            List<List<GridSquare>> occupiedGridSquares)
+            bool somethingWasAlreadyInTheWay, 
+            Grid occupiedGridSquares)
 	    {
-            bool somethingIsInTheWay = somethingWasAlreadyIntheWay;
+            bool somethingIsInTheWay = somethingWasAlreadyInTheWay;
 
 	        List<int> newGridXCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.X, newGridCoord: newGridOrigin.X);
 	        List<int> newGridYCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.Y, newGridCoord: newGridOrigin.Y);
@@ -161,8 +161,8 @@ namespace SquareFillDomain.Models
 	        {
 	            foreach (var yCoord in newGridYCoords)
 	            {
-	                if (xCoord >= occupiedGridSquares.Count
-	                    || yCoord >= occupiedGridSquares[0].Count
+	                if (xCoord >= occupiedGridSquares.Width()
+	                    || yCoord >= occupiedGridSquares.Height()
 	                    || xCoord < 0
 	                    || yCoord < 0)
 	                {
@@ -170,7 +170,7 @@ namespace SquareFillDomain.Models
 	                }
 	                else
 	                {
-                        somethingIsInTheWay = somethingWasAlreadyIntheWay || occupiedGridSquares[xCoord][yCoord].Occupied;
+                        somethingIsInTheWay = somethingIsInTheWay || occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord);
 	                }
 	            }
 	        }
@@ -195,27 +195,19 @@ namespace SquareFillDomain.Models
 	        return newGridCoords;
 	    }
 
-	    public void VacateGridSquares(List<List<GridSquare>>occupiedGridSquares) 
+	    public void VacateGridSquares(Grid occupiedGridSquares) 
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = square.TopLeftCorner.X/ShapeConstants.SquareWidth;
-                int occupiedYCoordinate = square.TopLeftCorner.Y/ShapeConstants.SquareWidth;
-            
-                occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = false;
-                occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = null;
+                square.VacateGridSquare(occupiedGridSquares: occupiedGridSquares);
             }
         }
 
-        public void OccupyGridSquares(List<List<GridSquare>> occupiedGridSquares)
+        public void OccupyGridSquares(Grid occupiedGridSquares)
         {
             foreach (var square in Squares)
             {
-                int occupiedXCoordinate = square.TopLeftCorner.X / ShapeConstants.SquareWidth;
-                int occupiedYCoordinate = square.TopLeftCorner.Y / ShapeConstants.SquareWidth;
-
-                occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].Occupied = true;
-                occupiedGridSquares[occupiedXCoordinate][occupiedYCoordinate].ShapeInSquare = this;
+                square.OccupyGridSquare(occupiedGridSquares: occupiedGridSquares, shapeInSquare: this);
             }
         }
 

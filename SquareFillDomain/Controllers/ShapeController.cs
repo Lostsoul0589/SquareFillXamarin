@@ -10,7 +10,7 @@ namespace SquareFillDomain.Controllers
     public class ShapeController
     {
         public Shape ShapeToMove = null;
-        public List<List<GridSquare>> OccupiedGridSquares;
+        public Grid OccupiedGridSquares;
         public ShapeSet ShapeSet = null;
     
         private readonly ShapeMover _shapeMover;
@@ -20,9 +20,8 @@ namespace SquareFillDomain.Controllers
         public ShapeController(IShapeSetBuilder shapeSetBuilder)
         {
             OccupiedGridSquares = shapeSetBuilder.MakeGridSquares();
-            shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
             ShapeSet = shapeSetBuilder.GetShapeSet();
-            PutAllShapesIntoGrid();
+            PutAllShapesIntoGrid(shapeSetBuilder);
 
             _shapeMover = new ShapeMover();
             _lastGoodLocation = new SquareFillPoint(x:0, y:0);
@@ -152,8 +151,9 @@ namespace SquareFillDomain.Controllers
             Debug.WriteLine(message + " " + locationName + "(x:" + xCoord + ",y:" + yCoord + ")");
         }
 
-        private void PutAllShapesIntoGrid()
+        private void PutAllShapesIntoGrid(IShapeSetBuilder shapeSetBuilder)
         {
+            shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
             foreach (var shape in ShapeSet.Shapes)
             {
                 shape.OccupyGridSquares(occupiedGridSquares: OccupiedGridSquares);
