@@ -68,13 +68,10 @@ namespace SquareFillDomain.Controllers
                     else
                     {
                         _colliding = true;
-                        _lastGoodLocation = _shapeMover.CalculateCursorPosition(topLeftCorner: ShapeToMove.TopLeftCorner);
-
-                        SnapToGridInRelevantDimensionsIfPossible(
+                        _lastGoodLocation = _shapeMover.CalculateCursorPosition();
+                        _shapeMover.SnapToGridInRelevantDimensionsIfPossible(
                             movementResult: movementResult,
-                            previousTopLeftCorner: ShapeToMove.TopLeftCorner);
-                        ShapeToMove.CalculateTopLeftCorners(newTopLeftCorner: ShapeToMove.TopLeftCorner);
-
+                            occupiedGridSquares: OccupiedGridSquares);
                         LogMessagePlusOrigins(logger: logger, message: "Blocked. ");
                     }
                 }
@@ -157,33 +154,6 @@ namespace SquareFillDomain.Controllers
             foreach (var shape in ShapeSet.Shapes)
             {
                 shape.OccupyGridSquares(occupiedGridSquares: OccupiedGridSquares);
-            }
-        }
-
-        private void SnapToGridInRelevantDimensionsIfPossible(
-            MovementResult movementResult,
-            SquareFillPoint previousTopLeftCorner)
-        {
-            var newTopLeftCorner = new SquareFillPoint(x: previousTopLeftCorner.X, y: previousTopLeftCorner.Y);
-
-            if (movementResult.ShapeHasCrossedAHorizontalGridBoundary)
-            {
-                newTopLeftCorner.X = _shapeMover.CalculateSnappedX(newTopLeftCornerX: newTopLeftCorner.X);
-            }
-
-            if (movementResult.ShapeHasCrossedAVerticalGridBoundary)
-            {
-                newTopLeftCorner.Y = _shapeMover.CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y);
-            }
-
-            MovementResult newMovementResult = ShapeToMove.AttemptToUpdateOrigins(
-                occupiedGridSquares: OccupiedGridSquares,
-                newTopLeftCorner: newTopLeftCorner);
-
-            if (newMovementResult.NoShapesAreInTheWay)
-            {
-                ShapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
-                ShapeToMove.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
             }
         }
     }
