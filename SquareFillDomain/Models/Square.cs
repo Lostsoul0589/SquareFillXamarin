@@ -7,48 +7,51 @@ namespace SquareFillDomain.Models
 {
     public class Square
     {
-        public SquareFillPoint PositionRelativeToParentCorner { get; set; }
-        public ISquareView Sprite { get; private set; }
-        public SquareFillPoint TopLeftCorner { get; private set; }
+        private SquareFillPoint _positionRelativeToParentCorner;
+        private ISquareView _sprite;
+        private SquareFillPoint _topLeftCorner;
+
+        public int XRelativeToParentCorner { get { return _positionRelativeToParentCorner.X; } }
+        public int YRelativeToParentCorner { get { return _positionRelativeToParentCorner.Y; } }
 
         public Square()
         {
-            TopLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            PositionRelativeToParentCorner = new SquareFillPoint(x: 0, y: 0);
+            _topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            _positionRelativeToParentCorner = new SquareFillPoint(x: 0, y: 0);
         }
 
         public Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
-            PositionRelativeToParentCorner = positionRelativeToParentCorner;
-            Sprite = sprite;
-            TopLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            _positionRelativeToParentCorner = positionRelativeToParentCorner;
+            _sprite = sprite;
+            _topLeftCorner = new SquareFillPoint(x: 0, y: 0);
         }
 
         public void CalculateTopLeftCorner(SquareFillPoint parentTopLeftCorner)
         {
-            TopLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
+            _topLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
         }
 
         public SquareFillPoint CalculatePotentialTopLeftCorner(SquareFillPoint parentTopLeftCorner)
         {
             return new SquareFillPoint(
-                x: parentTopLeftCorner.X + (PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
-                y: parentTopLeftCorner.Y + (PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
+                x: parentTopLeftCorner.X + (_positionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
+                y: parentTopLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
         }
 
         public bool IsInSquare(SquareFillPoint point)
         {
-            return TopLeftCorner.X <= point.X
-                   && point.X <= (TopLeftCorner.X + ShapeConstants.SquareWidth)
-                   && TopLeftCorner.Y <= point.Y
-                   && point.Y <= (TopLeftCorner.Y + ShapeConstants.SquareWidth);
+            return _topLeftCorner.X <= point.X
+                   && point.X <= (_topLeftCorner.X + ShapeConstants.SquareWidth)
+                   && _topLeftCorner.Y <= point.Y
+                   && point.Y <= (_topLeftCorner.Y + ShapeConstants.SquareWidth);
         }
 
         public SquareFillPoint GetGridOrigin()
         {
             return new SquareFillPoint(
-                x: TopLeftCorner.X / ShapeConstants.SquareWidth,
-                y: TopLeftCorner.Y / ShapeConstants.SquareWidth);
+                x: _topLeftCorner.X / ShapeConstants.SquareWidth,
+                y: _topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
 
         public SquareFillPoint CalculateNewGridOrigin(SquareFillPoint newOrigin)
@@ -80,7 +83,7 @@ namespace SquareFillDomain.Models
             SquareFillPoint newGridVal)
         {
             bool newXDivisibleBySquareWidth = newPixels.X % ShapeConstants.SquareWidth == 0;
-            bool oldXDivisibleBySquareWidth = TopLeftCorner.X % ShapeConstants.SquareWidth == 0;
+            bool oldXDivisibleBySquareWidth = _topLeftCorner.X % ShapeConstants.SquareWidth == 0;
             if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
                 || oldGridVal.X != newGridVal.X)
             {
@@ -88,7 +91,7 @@ namespace SquareFillDomain.Models
             }
 
             bool newYDivisibleBySquareWidth = newPixels.Y % ShapeConstants.SquareWidth == 0;
-            bool oldYDivisibleBySquareWidth = TopLeftCorner.Y % ShapeConstants.SquareWidth == 0;
+            bool oldYDivisibleBySquareWidth = _topLeftCorner.Y % ShapeConstants.SquareWidth == 0;
             if (oldYDivisibleBySquareWidth != newYDivisibleBySquareWidth
                 || oldGridVal.Y != newGridVal.Y)
             {
@@ -104,12 +107,30 @@ namespace SquareFillDomain.Models
 
         public void VacateGridSquare(Grid occupiedGridSquares)
         {
-            occupiedGridSquares.VacateGridSquare(gridReferenceInPixels: TopLeftCorner);
+            occupiedGridSquares.VacateGridSquare(gridReferenceInPixels: _topLeftCorner);
         }
 
         public void OccupyGridSquare(Grid occupiedGridSquares, Shape shapeInSquare)
         {
-            occupiedGridSquares.OccupyGridSquare(gridReferenceInPixels: TopLeftCorner, shapeInSquare: shapeInSquare);
+            occupiedGridSquares.OccupyGridSquare(gridReferenceInPixels: _topLeftCorner, shapeInSquare: shapeInSquare);
+        }
+
+        public string TopLeftCornerAsString()
+        {
+            string originX = _topLeftCorner.X.ToString();
+            string originY = _topLeftCorner.Y.ToString();
+
+            return originX + "," + originY + " ";
+        }
+
+        public void MoveTopLeftCorner(SquareFillPoint newTopLeftCorner)
+        {
+            if (_sprite != null)
+            {
+                _sprite.MoveTopLeftCorner(
+                    newX: _topLeftCorner.X + (_positionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
+                    newY: _topLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
+            }
         }
     }
 }

@@ -120,11 +120,11 @@ namespace SquareFillDomain.Controllers
 
         private MovementResult CheckWhetherMovementIsPossible(SquareFillPoint newTopLeftCorner, Logger logger)
         {
-            logger.Clear().Plus(desc: "Origins1", squares: ShapeToMove.Squares).Log();
+            logger.Clear().Plus(desc: "Origins1", shape: ShapeToMove).Log();
             var movementResult = ShapeToMove.AttemptToUpdateOrigins(
                 occupiedGridSquares: OccupiedGridSquares,
                 newTopLeftCorner: newTopLeftCorner);
-            logger.Clear().Plus(desc: "Origins2", squares: ShapeToMove.Squares).Log();
+            logger.Clear().Plus(desc: "Origins2", shape: ShapeToMove).Log();
 
             return movementResult;
         }
@@ -139,7 +139,7 @@ namespace SquareFillDomain.Controllers
         private void LogMessagePlusOrigins(Logger logger, string message)
         {
             logger
-                .Plus(desc: "Origins", squares: ShapeToMove.Squares)
+                .Plus(desc: "Origins", shape: ShapeToMove)
                 .Make(message: message)
                 .Log();
         }

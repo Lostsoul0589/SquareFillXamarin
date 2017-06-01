@@ -89,12 +89,7 @@ namespace SquareFillDomain.Models
             TopLeftCorner = newTopLeftCorner;
             foreach (var square in Squares)
             {
-                if (square.Sprite != null)
-                {
-                    square.Sprite.MoveTopLeftCorner(
-                        newX: TopLeftCorner.X + (square.PositionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
-                        newY: TopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
-                }
+                square.MoveTopLeftCorner(newTopLeftCorner: newTopLeftCorner);
             }
         }
 
@@ -239,10 +234,10 @@ namespace SquareFillDomain.Models
         {
             foreach (var square in Squares)
             {
-                NumSquaresLeftOfTopLeftCorner = Math.Min(NumSquaresLeftOfTopLeftCorner, square.PositionRelativeToParentCorner.X);
-                NumSquaresRightOfTopLeftCorner = Math.Max(NumSquaresRightOfTopLeftCorner, square.PositionRelativeToParentCorner.X);
-                NumSquaresAboveTopLeftCorner = Math.Min(NumSquaresAboveTopLeftCorner, square.PositionRelativeToParentCorner.Y);
-                NumSquaresBelowTopLeftCorner = Math.Max(NumSquaresBelowTopLeftCorner, square.PositionRelativeToParentCorner.Y);
+                NumSquaresLeftOfTopLeftCorner = Math.Min(NumSquaresLeftOfTopLeftCorner, square.XRelativeToParentCorner);
+                NumSquaresRightOfTopLeftCorner = Math.Max(NumSquaresRightOfTopLeftCorner, square.XRelativeToParentCorner);
+                NumSquaresAboveTopLeftCorner = Math.Min(NumSquaresAboveTopLeftCorner, square.YRelativeToParentCorner);
+                NumSquaresBelowTopLeftCorner = Math.Max(NumSquaresBelowTopLeftCorner, square.YRelativeToParentCorner);
             }
 
             DealWithNegativeNumbersOfSquares();
@@ -252,6 +247,16 @@ namespace SquareFillDomain.Models
         {
             NumSquaresLeftOfTopLeftCorner = Math.Abs(NumSquaresLeftOfTopLeftCorner);
             NumSquaresAboveTopLeftCorner = Math.Abs(NumSquaresAboveTopLeftCorner);
+        }
+
+	    public string TopLeftCornersAsString()
+        {
+            string origins = String.Empty;
+            foreach (var square in Squares)
+            {
+                origins = origins + square.TopLeftCornerAsString();
+            }
+            return origins;
         }
 	}
 }

@@ -24,15 +24,10 @@ namespace SquareFillDomain.Utils
             return this;
         }
 
-        public Logger Plus(string desc, List<Square> squares)
+        public Logger Plus(string desc, Shape shape)
         {
             _message = _message + desc + ": ";
-            foreach(var square in squares)
-            {
-                string originX = square.TopLeftCorner.X.ToString();
-                string originY = square.TopLeftCorner.Y.ToString();
-                _message = _message + originX + "," + originY + " ";
-            }
+            _message = _message + shape.TopLeftCornersAsString();
             _message = _message + "; ";
 
             return this;

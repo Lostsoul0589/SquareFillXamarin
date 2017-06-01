@@ -40,7 +40,7 @@
     <Compile Include="Builders\BorderBuilder.cs" />
     <Compile Include="Builders\IShapeSetBuilder.cs" />
     <Compile Include="Models\DivisibleBySquareWidths.cs" />
-    <Compile Include="Models\GridSquares.cs" />
+    <Compile Include="Models\Grid.cs" />
     <Compile Include="Utils\ShapeConstants.cs" />
     <Compile Include="Builders\ShapeSetBuilder.cs" />
     <Compile Include="Class1.cs" />
