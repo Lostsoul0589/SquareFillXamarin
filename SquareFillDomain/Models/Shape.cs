@@ -8,6 +8,10 @@ namespace SquareFillDomain.Models
 {
     public class Shape
     {
+        public SquareFillPoint TopLeftCorner {
+            get { return _topLeftCorner; }
+        }
+
         private SquareFillPoint _topLeftCorner;
         private List<Square> _squares;
 
@@ -385,6 +389,11 @@ namespace SquareFillDomain.Models
             }
 
             CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
+        }
+
+        public SquareFillPoint SquareCentre(int squareIndex)
+        {
+            return _squares[0].Centre;
         }
     }
 }

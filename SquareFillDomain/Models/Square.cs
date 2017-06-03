@@ -7,6 +7,11 @@ namespace SquareFillDomain.Models
 {
     public class Square
     {
+        public SquareFillPoint Centre
+        {
+            get { return _sprite.Centre(); }
+        }
+
         private SquareFillPoint _positionRelativeToParentCorner;
         private ISquareView _sprite;
         private SquareFillPoint _topLeftCorner;
