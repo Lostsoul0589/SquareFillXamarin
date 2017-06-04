@@ -42,6 +42,7 @@ namespace SquareFillDomain.Utils
         public static List<SquareFillPoint> SingleSquarePoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0) };
 
         public static List<SquareFillPoint> LeftHydrantPoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: -1, y: 1), new SquareFillPoint(x: 0, y: 1), new SquareFillPoint(x: 0, y: 2) };
+        public static List<SquareFillPoint> CrossShapePoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: -1, y: 1), new SquareFillPoint(x: 0, y: 1), new SquareFillPoint(x: 1, y: 1), new SquareFillPoint(x: 0, y: 2) };
         public static List<SquareFillPoint> RightWayUpTPoints = new List<SquareFillPoint> { new SquareFillPoint(x: 0, y: 0), new SquareFillPoint(x: 1, y: 0), new SquareFillPoint(x: 2, y: 0), new SquareFillPoint(x: 1, y: 1) };
         public static List<SquareFillPoint> NineSquarePoints = new List<SquareFillPoint>
         {
