@@ -10,25 +10,11 @@ namespace SquareFillDomain.Models
     {
         public int NumSquares { get { return _squares.Count; } }
 
-        public SquareFillPoint TopLeftCorner {
-            get { return _topLeftCorner; }
-        }
-        public int NumSquaresLeftOfTopLeftCorner
-        {
-            get { return _numSquaresLeftOfTopLeftCorner; }
-        }
-        public int NumSquaresRightOfTopLeftCorner
-        {
-            get { return _numSquaresRightOfTopLeftCorner; }
-        }
-        public int NumSquaresAboveTopLeftCorner
-        {
-            get { return _numSquaresAboveTopLeftCorner; }
-        }
-        public int NumSquaresBelowTopLeftCorner
-        {
-            get { return _numSquaresBelowTopLeftCorner; }
-        }
+        public SquareFillPoint TopLeftCorner { get { return _topLeftCorner; } }
+        public int NumSquaresLeftOfTopLeftCorner { get { return _numSquaresLeftOfTopLeftCorner; } }
+        public int NumSquaresRightOfTopLeftCorner { get { return _numSquaresRightOfTopLeftCorner; } }
+        public int NumSquaresAboveTopLeftCorner { get { return _numSquaresAboveTopLeftCorner; } }
+        public int NumSquaresBelowTopLeftCorner { get { return _numSquaresBelowTopLeftCorner; } }
 
         private SquareFillPoint _topLeftCorner;
         private List<Square> _squares;
@@ -411,12 +397,17 @@ namespace SquareFillDomain.Models
 
         public SquareFillPoint SquareCentre(int squareIndex)
         {
-            return _squares[0].Centre;
+            return _squares[squareIndex].Centre;
         }
 
         public SquareFillPoint SquareCorner(int squareIndex)
         {
-            return _squares[0].TopLeftCorner;
+            return _squares[squareIndex].TopLeftCorner;
+        }
+
+        public SquareFillPoint SpriteCorner(int squareIndex)
+        {
+            return _squares[squareIndex].SpriteCorner;
         }
     }
 }

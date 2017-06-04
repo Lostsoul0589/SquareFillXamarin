@@ -7,13 +7,13 @@ namespace SquareFillDomain.Models
 {
     public class Square
     {
-        public SquareFillPoint Centre
-        {
-            get { return _sprite.Centre(); }
-        }
-        public SquareFillPoint TopLeftCorner
-        {
-            get { return _topLeftCorner; }
+        public SquareFillPoint Centre { get { return _sprite.Centre(); } }
+        public SquareFillPoint TopLeftCorner { get { return _topLeftCorner; } }
+        public SquareFillPoint SpriteCorner {
+            get { return new SquareFillPoint (
+                x: _sprite.TopLeftCorner().X,
+                y: _sprite.TopLeftCorner().Y
+            );}
         }
 
         private SquareFillPoint _positionRelativeToParentCorner;
@@ -137,8 +137,8 @@ namespace SquareFillDomain.Models
             if (_sprite != null)
             {
                 _sprite.MoveTopLeftCorner(
-                    newX: _topLeftCorner.X + (_positionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
-                    newY: _topLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
+                    newX: newTopLeftCorner.X + (_positionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
+                    newY: newTopLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
             }
         }
     }

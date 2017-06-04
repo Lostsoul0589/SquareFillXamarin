@@ -147,9 +147,9 @@ namespace SquareFillDomain.UnitTests
             // Assert
             for (int squareCount = 0; squareCount < _crossShapeSquareList.Count; squareCount++)
             {
-                Asserter.AreEqual(shape.SquareCorner(squareCount).X,
+                Asserter.AreEqual(shape.SpriteCorner(squareCount).X,
                                newTopLeftCorner.X + (ShapeConstants.CrossShapePoints[squareCount].X * TestConstants.SquareWidth));
-                Asserter.AreEqual(shape.SquareCorner(squareCount).Y,
+                Asserter.AreEqual(shape.SpriteCorner(squareCount).Y,
                                newTopLeftCorner.Y + (ShapeConstants.CrossShapePoints[squareCount].Y * TestConstants.SquareWidth));
             }
         }
