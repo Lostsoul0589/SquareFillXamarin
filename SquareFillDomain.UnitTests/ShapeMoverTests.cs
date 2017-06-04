@@ -50,7 +50,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.MoveToNewCursorPosition(newCursorPosition: newCursorPosition);
 
             // Act
-            SquareFillPoint calculatedCursorPosition = _shapeMover.CalculateCursorPosition(topLeftCorner:_defaultSingleSquareShape.TopLeftCorner);
+            SquareFillPoint calculatedCursorPosition = _shapeMover.CalculateCursorPosition();
 
             // Assert
             Asserter.AreEqual(calculatedCursorPosition.X, newCursorPosition.X);
@@ -512,12 +512,14 @@ namespace SquareFillDomain.UnitTests
 			
 			// Act
 			_shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: _defaultSingleSquareShape);
-			var originalOrigin = _defaultSingleSquareShape.Squares[0].TopLeftCorner;
+			var originalOrigin = new SquareFillPoint(
+                x: _defaultSingleSquareShape.TopLeftCorner.X,
+                y: _defaultSingleSquareShape.TopLeftCorner.Y);
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeMover.ShapeToMove.Squares[0].TopLeftCorner.X, originalOrigin.X + horizontalMovement);
-			Asserter.AreEqual(_shapeMover.ShapeToMove.Squares[0].TopLeftCorner.Y, originalOrigin.Y + verticalMovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.TopLeftCorner.X, originalOrigin.X + horizontalMovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.TopLeftCorner.Y, originalOrigin.Y + verticalMovement);
 		}
 	}
 }

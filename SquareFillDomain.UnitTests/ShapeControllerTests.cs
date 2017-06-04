@@ -108,10 +108,10 @@ namespace SquareFillDomain.UnitTests
             // Assert
             foreach (var shape in shapeController.ShapeSet.Shapes)
             {
-                foreach (var square in shape.Squares)
+                for (int squareCount = 0; squareCount < shape.NumSquares; squareCount++)
                 {
-                    var xCoord = square.TopLeftCorner.X/TestConstants.SquareWidth;
-                    var yCoord = square.TopLeftCorner.Y/TestConstants.SquareWidth;
+                    var xCoord = shape.SquareCorner(squareCount).X / TestConstants.SquareWidth;
+                    var yCoord = shape.SquareCorner(squareCount).Y / TestConstants.SquareWidth;
                     Asserter.AreEqual(shapeController.OccupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord), true);
                 }
             }

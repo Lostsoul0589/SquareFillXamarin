@@ -63,17 +63,16 @@ namespace SquareFillDomain.UnitTests
             var parentTopLeftCorner = new SquareFillPoint(
                 x: 4 * TestConstants.SquareWidth,
                 y: 4 * TestConstants.SquareWidth);
-            var square = new Square();
-            square.PositionRelativeToParentCorner = new SquareFillPoint(x: -2, y: -3);
+            var square = new Square(positionRelativeToParentCorner: new SquareFillPoint(x: -2, y: -3), sprite: null);
 
             // Act
             square.CalculateTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(square.TopLeftCorner.X, parentTopLeftCorner.X
-                + (square.PositionRelativeToParentCorner.X * TestConstants.SquareWidth));
+                + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
             Asserter.AreEqual(square.TopLeftCorner.Y, parentTopLeftCorner.Y
-                + (square.PositionRelativeToParentCorner.Y * TestConstants.SquareWidth));
+                + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
 
         [Test]
@@ -83,15 +82,14 @@ namespace SquareFillDomain.UnitTests
             var parentTopLeftCorner = new SquareFillPoint(
                 x: 4 * TestConstants.SquareWidth,
                 y: 4 * TestConstants.SquareWidth);
-            var square = new Square();
-            square.PositionRelativeToParentCorner = new SquareFillPoint(x: -2, y: -3);
+            var square = new Square(positionRelativeToParentCorner: new SquareFillPoint(x: -2, y: -3), sprite: null);
 
             // Act
             SquareFillPoint result = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.X, parentTopLeftCorner.X + (square.PositionRelativeToParentCorner.X * TestConstants.SquareWidth));
-            Asserter.AreEqual(result.Y, parentTopLeftCorner.Y + (square.PositionRelativeToParentCorner.Y * TestConstants.SquareWidth));
+            Asserter.AreEqual(result.X, parentTopLeftCorner.X + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
+            Asserter.AreEqual(result.Y, parentTopLeftCorner.Y + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
 	}
 }

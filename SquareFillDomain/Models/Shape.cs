@@ -8,6 +8,8 @@ namespace SquareFillDomain.Models
 {
     public class Shape
     {
+        public int NumSquares { get { return _squares.Count; } }
+
         public SquareFillPoint TopLeftCorner {
             get { return _topLeftCorner; }
         }
