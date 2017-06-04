@@ -1,5 +1,5 @@
 using System;
-//using NUnit.Framework;
+using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Controllers;
 using SquareFillDomain.Models;
@@ -823,17 +823,5 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeToMove.TopLeftCorner.X, topLeftCornerLastValidLocation.X);
             Asserter.AreEqual(shapeToMove.TopLeftCorner.Y, topLeftCornerLastValidLocation.Y);
         }
-    }
-
-    public class TestAttribute : Attribute
-    {
-    }
-
-    public class SetUpAttribute : Attribute
-    {
-    }
-
-    public class TestFixtureAttribute : Attribute
-    {
     }
 }

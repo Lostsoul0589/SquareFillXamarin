@@ -1,4 +1,4 @@
-//using NUnit.Framework;
+using NUnit.Framework;
 
 using System.Security.Cryptography.X509Certificates;
 using SquareFillDomain.Builders;
