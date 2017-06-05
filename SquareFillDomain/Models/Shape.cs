@@ -398,32 +398,32 @@ namespace SquareFillDomain.Models
 
         public int SquareCentreX(int squareIndex)
         {
-            return _squares[squareIndex].Centre.X;
+            return _squares[squareIndex].CentreX;
         }
 
         public int SquareCentreY(int squareIndex)
         {
-            return _squares[squareIndex].Centre.Y;
+            return _squares[squareIndex].CentreY;
         }
 
         public int SquareCornerX(int squareIndex)
         {
-            return _squares[squareIndex].TopLeftCorner.X;
+            return _squares[squareIndex].TopLeftCornerX;
         }
 
         public int SquareCornerY(int squareIndex)
         {
-            return _squares[squareIndex].TopLeftCorner.Y;
+            return _squares[squareIndex].TopLeftCornerY;
         }
 
         public int SpriteCornerX(int squareIndex)
         {
-            return _squares[squareIndex].SpriteCorner.X;
+            return _squares[squareIndex].SpriteCornerX;
         }
 
         public int SpriteCornerY(int squareIndex)
         {
-            return _squares[squareIndex].SpriteCorner.Y;
+            return _squares[squareIndex].SpriteCornerY;
         }
     }
 }

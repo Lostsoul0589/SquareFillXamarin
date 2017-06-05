@@ -69,9 +69,9 @@ namespace SquareFillDomain.UnitTests
             square.CalculateTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(square.TopLeftCorner.X, parentTopLeftCorner.X
+            Asserter.AreEqual(square.TopLeftCornerX, parentTopLeftCorner.X
                 + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
-            Asserter.AreEqual(square.TopLeftCorner.Y, parentTopLeftCorner.Y
+            Asserter.AreEqual(square.TopLeftCornerY, parentTopLeftCorner.Y
                 + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
 

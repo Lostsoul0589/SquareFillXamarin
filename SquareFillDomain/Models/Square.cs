@@ -7,14 +7,12 @@ namespace SquareFillDomain.Models
 {
     public class Square
     {
-        public SquareFillPoint Centre { get { return _sprite.Centre(); } }
-        public SquareFillPoint TopLeftCorner { get { return _topLeftCorner; } }
-        public SquareFillPoint SpriteCorner {
-            get { return new SquareFillPoint (
-                x: _sprite.TopLeftCorner().X,
-                y: _sprite.TopLeftCorner().Y
-            );}
-        }
+        public int CentreX { get { return _sprite.Centre().X; } }
+        public int CentreY { get { return _sprite.Centre().Y; } }
+        public int TopLeftCornerX { get { return _topLeftCorner.X; } }
+        public int TopLeftCornerY { get { return _topLeftCorner.Y; } }
+        public int SpriteCornerX { get { return _sprite.TopLeftCorner().X; } }
+        public int SpriteCornerY { get { return _sprite.TopLeftCorner().Y; } }
 
         private SquareFillPoint _positionRelativeToParentCorner;
         private ISquareView _sprite;
