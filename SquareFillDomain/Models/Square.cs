@@ -14,8 +14,8 @@ namespace SquareFillDomain.Models
         public int SpriteCornerX { get { return _sprite.TopLeftCorner().X; } }
         public int SpriteCornerY { get { return _sprite.TopLeftCorner().Y; } }
 
-        private SquareFillPoint _positionRelativeToParentCorner;
-        private ISquareView _sprite;
+        private readonly SquareFillPoint _positionRelativeToParentCorner;
+        private readonly ISquareView _sprite;
         private SquareFillPoint _topLeftCorner;
 
         public int XRelativeToParentCorner { get { return _positionRelativeToParentCorner.X; } }

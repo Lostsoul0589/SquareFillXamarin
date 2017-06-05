@@ -6,13 +6,15 @@ namespace SquareFillDomain.Utils
 {
     public class ShapeMover
     {
-        public Shape ShapeToMove { get; private set; }
+        public int TopLeftCornerX { get { return _shapeToMove.TopLeftCornerX; } }
+        public int TopLeftCornerY { get { return _shapeToMove.TopLeftCornerY; } }
 
+        private Shape _shapeToMove;
         private SquareFillPoint _topLeftCornerRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
         public void StartMove(SquareFillPoint cursorPositionAtStart, Shape shapeToMove)
         {
-            ShapeToMove = shapeToMove;
+            _shapeToMove = shapeToMove;
             CalculateTopLeftCornerRelativeToCursorPosition(cursorPositionAtStart);
         }
 
@@ -25,18 +27,18 @@ namespace SquareFillDomain.Utils
 
         public void MoveToNewCursorPosition(SquareFillPoint newCursorPosition)
         {
-            if (ShapeToMove != null)
+            if (_shapeToMove != null)
             {
                 var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
-                ShapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
+                _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
             }
         }
 
         public void SnapToGrid(SquareFillPoint newCursorPosition)
         {
-            if (ShapeToMove != null)
+            if (_shapeToMove != null)
             {
-                ShapeToMove.SnapToGrid(
+                _shapeToMove.SnapToGrid(
                     newCursorPosition: newCursorPosition,
                     topLeftCornerRelativeToCursorPosition: _topLeftCornerRelativeToCursorPosition);
             }
@@ -44,20 +46,30 @@ namespace SquareFillDomain.Utils
 
         private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
         {
-            _topLeftCornerRelativeToCursorPosition = ShapeToMove.CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: cursorPosition);
+            _topLeftCornerRelativeToCursorPosition = _shapeToMove.CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: cursorPosition);
         }
 
         public SquareFillPoint CalculateCursorPosition()
         {
-            return ShapeToMove.CalculateCursorPosition(
+            return _shapeToMove.CalculateCursorPosition(
                 topLeftCornerRelativeToCursorPosition: _topLeftCornerRelativeToCursorPosition);
         }
 
         public void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult, Grid occupiedGridSquares)
         {
-            ShapeToMove.SnapToGridInRelevantDimensionsIfPossible(
+            _shapeToMove.SnapToGridInRelevantDimensionsIfPossible(
                 movementResult: movementResult,
                 occupiedGridSquares: occupiedGridSquares);
+        }
+
+        public int SquareCentreX(int squareIndex)
+        {
+            return _shapeToMove.SquareCentreX(squareIndex: squareIndex);
+        }
+
+        public int SquareCentreY(int squareIndex)
+        {
+            return _shapeToMove.SquareCentreY(squareIndex: squareIndex);
         }
     }
 }
