@@ -10,7 +10,8 @@ namespace SquareFillDomain.Models
     {
         public int NumSquares { get { return _squares.Count; } }
 
-        public SquareFillPoint TopLeftCorner { get { return _topLeftCorner; } }
+        public int TopLeftCornerX { get { return _topLeftCorner.X; } }
+        public int TopLeftCornerY { get { return _topLeftCorner.Y; } }
         public int NumSquaresLeftOfTopLeftCorner { get { return _numSquaresLeftOfTopLeftCorner; } }
         public int NumSquaresRightOfTopLeftCorner { get { return _numSquaresRightOfTopLeftCorner; } }
         public int NumSquaresAboveTopLeftCorner { get { return _numSquaresAboveTopLeftCorner; } }

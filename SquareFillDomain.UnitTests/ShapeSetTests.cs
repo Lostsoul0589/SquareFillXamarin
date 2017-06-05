@@ -62,8 +62,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-            Asserter.AreEqual(selectedShape.TopLeftCorner.X, singleSquareShape.TopLeftCorner.X);
-            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, singleSquareShape.TopLeftCorner.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, singleSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, singleSquareShape.TopLeftCornerY);
 		}
 		
 		[Test]
@@ -91,8 +91,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondSquareShape.TopLeftCorner.X);
-            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondSquareShape.TopLeftCorner.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
 		}
 		
 		[Test]
@@ -117,8 +117,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondSquareShape.TopLeftCorner.X);
-            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondSquareShape.TopLeftCorner.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
 		}
 		
 		[Test]
@@ -145,8 +145,8 @@ namespace SquareFillDomain.UnitTests
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
-            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondShape.TopLeftCorner.X);
-            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondShape.TopLeftCorner.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondShape.TopLeftCornerY);
 		}
 
         [Test]
@@ -175,8 +175,8 @@ namespace SquareFillDomain.UnitTests
             var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 
             // Assert
-            Asserter.AreEqual(selectedShape.TopLeftCorner.X, secondShape.TopLeftCorner.X);
-            Asserter.AreEqual(selectedShape.TopLeftCorner.Y, secondShape.TopLeftCorner.Y);
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondShape.TopLeftCornerY);
         }
 	}
 }

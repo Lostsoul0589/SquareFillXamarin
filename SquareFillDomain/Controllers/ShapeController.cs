@@ -10,11 +10,11 @@ namespace SquareFillDomain.Controllers
 {
     public class ShapeController
     {
-        public int CurrentShapeCornerX { get { return _shapeToMove.TopLeftCorner.X; } }
-        public int CurrentShapeCornerY { get { return _shapeToMove.TopLeftCorner.Y; } }
+        public int CurrentShapeCornerX { get { return _shapeToMove.TopLeftCornerX; } }
+        public int CurrentShapeCornerY { get { return _shapeToMove.TopLeftCornerY; } }
         public int GameGridWidth { get { return _occupiedGridSquares.Width(); } }
         public int GameGridHeight { get { return _occupiedGridSquares.Height(); } }
-        public int NumShapes { get { return _shapeSet.Shapes.Count(); } }
+        public int NumShapes { get { return _shapeSet.NumShapes; } }
 
         private Shape _shapeToMove = null;
         private readonly Grid _occupiedGridSquares;
@@ -160,10 +160,7 @@ namespace SquareFillDomain.Controllers
         private void PutAllShapesIntoGrid(IShapeSetBuilder shapeSetBuilder)
         {
             shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: _occupiedGridSquares);
-            foreach (var shape in _shapeSet.Shapes)
-            {
-                shape.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
-            }
+            _shapeSet.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
         }
 
         public void OccupyAllGridSquares()
@@ -178,17 +175,17 @@ namespace SquareFillDomain.Controllers
 
         public int NumSquares(int shapeIndex)
         {
-            return _shapeSet.Shapes.ElementAt(shapeIndex).NumSquares;
+            return _shapeSet.NumSquares(shapeIndex: shapeIndex);
         }
 
         public int SquareCornerX(int shapeIndex, int squareIndex)
         {
-            return _shapeSet.Shapes.ElementAt(shapeIndex).SquareCornerX(squareIndex: squareIndex);
+            return _shapeSet.SquareCornerX(shapeIndex: shapeIndex, squareIndex: squareIndex);
         }
 
         public int SquareCornerY(int shapeIndex, int squareIndex)
         {
-            return _shapeSet.Shapes.ElementAt(shapeIndex).SquareCornerY(squareIndex: squareIndex);
+            return _shapeSet.SquareCornerY(shapeIndex: shapeIndex, squareIndex: squareIndex);
         }
     }
 }
