@@ -72,9 +72,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.MoveToNewCursorPosition(newCursorPosition:newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -95,9 +94,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.MoveToNewCursorPosition(newCursorPosition:newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, originalCentreOfShape.X + horizontalMovement);
-			Asserter.AreEqual(newShapeCentre.Y, originalCentreOfShape.Y + verticalmovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), originalCentreOfShape.X + horizontalMovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), originalCentreOfShape.Y + verticalmovement);
 		}
 		
 		[Test]
@@ -118,9 +116,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.MoveToNewCursorPosition(newCursorPosition:newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, originalCentreOfShape.X + horizontalMovement);
-			Asserter.AreEqual(newShapeCentre.Y, originalCentreOfShape.Y + verticalmovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), originalCentreOfShape.X + horizontalMovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), originalCentreOfShape.Y + verticalmovement);
 		}
 		
 		[Test]
@@ -141,9 +138,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.MoveToNewCursorPosition(newCursorPosition:newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, originalCentreOfShape.X + horizontalMovement);
-			Asserter.AreEqual(newShapeCentre.Y, originalCentreOfShape.Y + verticalmovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), originalCentreOfShape.X + horizontalMovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), originalCentreOfShape.Y + verticalmovement);
 		}
 		
 		[Test]
@@ -164,9 +160,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.MoveToNewCursorPosition(newCursorPosition:newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, originalCentreOfShape.X + horizontalMovement);
-			Asserter.AreEqual(newShapeCentre.Y, originalCentreOfShape.Y + verticalmovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), originalCentreOfShape.X + horizontalMovement);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), originalCentreOfShape.Y + verticalmovement);
 		}
 		
 		[Test]
@@ -180,9 +175,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 
             // Assert
-            var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-            Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+            Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -198,9 +192,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -219,9 +212,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X + shapeCentreRelativeToCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y + shapeCentreRelativeToCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X + shapeCentreRelativeToCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y + shapeCentreRelativeToCursorPosition.Y);
 		}
 
         [Test]
@@ -237,9 +229,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -260,9 +251,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, centreOfNearestSquare.X);
-			Asserter.AreEqual(newShapeCentre.Y, centreOfNearestSquare.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), centreOfNearestSquare.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), centreOfNearestSquare.Y);
 		}
 		
 		[Test]
@@ -278,10 +268,9 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, TestConstants.ContainingRectangle.X
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), TestConstants.ContainingRectangle.X
 				+ TestConstants.SquareWidth + TestConstants.SquareWidth/2);
-			Asserter.AreEqual(newShapeCentre.Y, TestConstants.ContainingRectangle.Y
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), TestConstants.ContainingRectangle.Y
 				+ 2*TestConstants.SquareWidth + TestConstants.SquareWidth/2);
 		}
 		
@@ -298,9 +287,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -316,9 +304,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -335,9 +322,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]
@@ -354,9 +340,8 @@ namespace SquareFillDomain.UnitTests
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			var newShapeCentre = _shapeMover.ShapeToMove.SquareCentre(0);
-			Asserter.AreEqual(newShapeCentre.X, newCursorPosition.X);
-			Asserter.AreEqual(newShapeCentre.Y, newCursorPosition.Y);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreX(squareIndex: 0), newCursorPosition.X);
+			Asserter.AreEqual(_shapeMover.ShapeToMove.SquareCentreY(squareIndex: 0), newCursorPosition.Y);
 		}
 		
 		[Test]

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
@@ -9,9 +10,15 @@ namespace SquareFillDomain.Controllers
 {
     public class ShapeController
     {
-        public Shape ShapeToMove = null;
-        public Grid OccupiedGridSquares;
-        public ShapeSet ShapeSet = null;
+        public int CurrentShapeCornerX { get { return _shapeToMove.TopLeftCorner.X; } }
+        public int CurrentShapeCornerY { get { return _shapeToMove.TopLeftCorner.Y; } }
+        public int GameGridWidth { get { return _occupiedGridSquares.Width(); } }
+        public int GameGridHeight { get { return _occupiedGridSquares.Height(); } }
+        public int NumShapes { get { return _shapeSet.Shapes.Count(); } }
+
+        private Shape _shapeToMove = null;
+        private readonly Grid _occupiedGridSquares;
+        private readonly ShapeSet _shapeSet = null;
     
         private readonly ShapeMover _shapeMover;
         private SquareFillPoint _lastGoodLocation;
@@ -19,35 +26,37 @@ namespace SquareFillDomain.Controllers
 
         public ShapeController(IShapeSetBuilder shapeSetBuilder)
         {
-            OccupiedGridSquares = shapeSetBuilder.MakeGridSquares();
-            ShapeSet = shapeSetBuilder.GetShapeSet();
+            _occupiedGridSquares = shapeSetBuilder.MakeGridSquares();
+            _shapeSet = shapeSetBuilder.GetShapeSet();
             PutAllShapesIntoGrid(shapeSetBuilder);
 
             _shapeMover = new ShapeMover();
             _lastGoodLocation = new SquareFillPoint(x:0, y:0);
         }
 
-        public void StartMove(SquareFillPoint cursorPositionAtStart)
+        public Shape StartMove(SquareFillPoint cursorPositionAtStart)
         {
-            ShapeToMove = ShapeSet.SelectShape(selectedPoint: cursorPositionAtStart);
+            _shapeToMove = _shapeSet.SelectShape(selectedPoint: cursorPositionAtStart);
         
-            if (ShapeToMove != null) 
+            if (_shapeToMove != null) 
             {
-                ShapeToMove.VacateGridSquares(occupiedGridSquares: OccupiedGridSquares);
-                _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart, shapeToMove: ShapeToMove);
+                _shapeToMove.VacateGridSquares(occupiedGridSquares: _occupiedGridSquares);
+                _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart, shapeToMove: _shapeToMove);
                 _lastGoodLocation = cursorPositionAtStart;
             }
+
+            return _shapeToMove;
         }
 
         public void ContinueMove(SquareFillPoint newLocation) 
         {
-            if (ShapeToMove != null)
+            if (_shapeToMove != null)
             {
                 SquareFillPoint newTopLeftCorner = _shapeMover.CalculateTopLeftCorner(newCursorPosition: newLocation);
                 SquareFillPoint positionInGrid = CalculateGridPosition(topLeftCorner: newTopLeftCorner);
                 var logger = new Logger();
 
-                bool cursorIsInShape = ShapeToMove.IsInShape(point: newLocation);
+                bool cursorIsInShape = _shapeToMove.IsInShape(point: newLocation);
                 MovementResult movementResult = CheckWhetherMovementIsPossible(
                     newTopLeftCorner: newTopLeftCorner,
                     logger: logger);
@@ -71,7 +80,7 @@ namespace SquareFillDomain.Controllers
                         _lastGoodLocation = _shapeMover.CalculateCursorPosition();
                         _shapeMover.SnapToGridInRelevantDimensionsIfPossible(
                             movementResult: movementResult,
-                            occupiedGridSquares: OccupiedGridSquares);
+                            occupiedGridSquares: _occupiedGridSquares);
                         LogMessagePlusOrigins(logger: logger, message: "Blocked. ");
                     }
                 }
@@ -79,7 +88,7 @@ namespace SquareFillDomain.Controllers
                 {
                     if (cursorIsInShape)
                     {
-                        _shapeMover.StartMove(cursorPositionAtStart: newLocation, shapeToMove: ShapeToMove);
+                        _shapeMover.StartMove(cursorPositionAtStart: newLocation, shapeToMove: _shapeToMove);
                         _lastGoodLocation = newLocation;
                         _colliding = false;
                         LogMessagePlusOrigins(logger: logger, message: "Moving again. ");
@@ -90,11 +99,11 @@ namespace SquareFillDomain.Controllers
     
         public void EndMove(SquareFillPoint finalLocation) 
         {
-            if (ShapeToMove != null)
+            if (_shapeToMove != null)
             {
                 SquareFillPoint newTopLeftCorner = _shapeMover.CalculateTopLeftCorner(newCursorPosition: finalLocation);
-                MovementResult movementResult = ShapeToMove.AttemptToUpdateOrigins(
-                    occupiedGridSquares: OccupiedGridSquares,
+                MovementResult movementResult = _shapeToMove.AttemptToUpdateOrigins(
+                    occupiedGridSquares: _occupiedGridSquares,
                     newTopLeftCorner: newTopLeftCorner);
             
                 if(movementResult.NoShapesAreInTheWay && !_colliding)
@@ -109,19 +118,19 @@ namespace SquareFillDomain.Controllers
                     _shapeMover.SnapToGrid(newCursorPosition: _lastGoodLocation);
                 }
             
-                ShapeToMove.OccupyGridSquares(occupiedGridSquares: OccupiedGridSquares);
-                ShapeToMove = null;
+                _shapeToMove.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
+                _shapeToMove = null;
                 _colliding = false;
             }
         }
 
         private MovementResult CheckWhetherMovementIsPossible(SquareFillPoint newTopLeftCorner, Logger logger)
         {
-            logger.Clear().Plus(desc: "Origins1", shape: ShapeToMove).Log();
-            var movementResult = ShapeToMove.AttemptToUpdateOrigins(
-                occupiedGridSquares: OccupiedGridSquares,
+            logger.Clear().Plus(desc: "Origins1", shape: _shapeToMove).Log();
+            var movementResult = _shapeToMove.AttemptToUpdateOrigins(
+                occupiedGridSquares: _occupiedGridSquares,
                 newTopLeftCorner: newTopLeftCorner);
-            logger.Clear().Plus(desc: "Origins2", shape: ShapeToMove).Log();
+            logger.Clear().Plus(desc: "Origins2", shape: _shapeToMove).Log();
 
             return movementResult;
         }
@@ -136,7 +145,7 @@ namespace SquareFillDomain.Controllers
         private void LogMessagePlusOrigins(Logger logger, string message)
         {
             logger
-                .Plus(desc: "Origins", shape: ShapeToMove)
+                .Plus(desc: "Origins", shape: _shapeToMove)
                 .Make(message: message)
                 .Log();
         }
@@ -150,11 +159,36 @@ namespace SquareFillDomain.Controllers
 
         private void PutAllShapesIntoGrid(IShapeSetBuilder shapeSetBuilder)
         {
-            shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: OccupiedGridSquares);
-            foreach (var shape in ShapeSet.Shapes)
+            shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: _occupiedGridSquares);
+            foreach (var shape in _shapeSet.Shapes)
             {
-                shape.OccupyGridSquares(occupiedGridSquares: OccupiedGridSquares);
+                shape.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
             }
+        }
+
+        public void OccupyAllGridSquares()
+        {
+            _occupiedGridSquares.OccupyAllSquares();
+        }
+
+        public bool IsSquareOccupied(int x, int y)
+        {
+            return _occupiedGridSquares.IsSquareOccupied(x: x, y: y);
+        }
+
+        public int NumSquares(int shapeIndex)
+        {
+            return _shapeSet.Shapes.ElementAt(shapeIndex).NumSquares;
+        }
+
+        public int SquareCornerX(int shapeIndex, int squareIndex)
+        {
+            return _shapeSet.Shapes.ElementAt(shapeIndex).SquareCornerX(squareIndex: squareIndex);
+        }
+
+        public int SquareCornerY(int shapeIndex, int squareIndex)
+        {
+            return _shapeSet.Shapes.ElementAt(shapeIndex).SquareCornerY(squareIndex: squareIndex);
         }
     }
 }

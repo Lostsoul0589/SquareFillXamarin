@@ -395,19 +395,34 @@ namespace SquareFillDomain.Models
             CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
         }
 
-        public SquareFillPoint SquareCentre(int squareIndex)
+        public int SquareCentreX(int squareIndex)
         {
-            return _squares[squareIndex].Centre;
+            return _squares[squareIndex].Centre.X;
         }
 
-        public SquareFillPoint SquareCorner(int squareIndex)
+        public int SquareCentreY(int squareIndex)
         {
-            return _squares[squareIndex].TopLeftCorner;
+            return _squares[squareIndex].Centre.Y;
         }
 
-        public SquareFillPoint SpriteCorner(int squareIndex)
+        public int SquareCornerX(int squareIndex)
         {
-            return _squares[squareIndex].SpriteCorner;
+            return _squares[squareIndex].TopLeftCorner.X;
+        }
+
+        public int SquareCornerY(int squareIndex)
+        {
+            return _squares[squareIndex].TopLeftCorner.Y;
+        }
+
+        public int SpriteCornerX(int squareIndex)
+        {
+            return _squares[squareIndex].SpriteCorner.X;
+        }
+
+        public int SpriteCornerY(int squareIndex)
+        {
+            return _squares[squareIndex].SpriteCorner.Y;
         }
     }
 }
