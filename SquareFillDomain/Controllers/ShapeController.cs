@@ -12,7 +12,6 @@ namespace SquareFillDomain.Controllers
     {
         public int CurrentShapeCornerX { get { return _shapeToMove.TopLeftCornerX; } }
         public int CurrentShapeCornerY { get { return _shapeToMove.TopLeftCornerY; } }
-        public int NumShapes { get { return _shapeSet.NumShapes; } }
 
         private Shape _shapeToMove = null;
         private readonly Grid _occupiedGridSquares;
@@ -21,6 +20,7 @@ namespace SquareFillDomain.Controllers
         private readonly ShapeMover _shapeMover;
         private SquareFillPoint _lastGoodLocation;
         private bool _colliding = false;
+        private readonly Logger _logger = new Logger();
 
         public ShapeController(ShapeSet shapeSet, Grid occupiedGridSquares)
         {
@@ -51,25 +51,18 @@ namespace SquareFillDomain.Controllers
             {
                 SquareFillPoint newTopLeftCorner = _shapeMover.CalculateTopLeftCorner(newCursorPosition: newLocation);
                 SquareFillPoint positionInGrid = CalculateGridPosition(topLeftCorner: newTopLeftCorner);
-                var logger = new Logger();
 
                 bool cursorIsInShape = _shapeToMove.IsInShape(point: newLocation);
-                MovementResult movementResult = CheckWhetherMovementIsPossible(
-                    newTopLeftCorner: newTopLeftCorner,
-                    logger: logger);
+                MovementResult movementResult = CheckWhetherMovementIsPossible(newTopLeftCorner: newTopLeftCorner);
 
-                logger = logger
-                    .Clear()
-                    .Plus(desc: "Cursor", point: newLocation)
-                    .Plus(desc: "NewCorner", point: newTopLeftCorner)
-                    .Plus(desc: "NewGrid", point: positionInGrid);
-            
-                if(_colliding == false) {
+                NoteLocation(cursor: newLocation, topLeftCorner: newTopLeftCorner, gridPosition: positionInGrid);
+
+                if (_colliding == false) {
                     if(movementResult.NoShapesAreInTheWay)
                     {
                         _shapeMover.MoveToNewCursorPosition(newCursorPosition: newLocation);
                         _lastGoodLocation = newLocation;
-                        LogMessagePlusOrigins(logger: logger, message: "Clear. ");
+                        LogMessagePlusOrigins(message: "Clear. ");
                     } 
                     else
                     {
@@ -78,7 +71,7 @@ namespace SquareFillDomain.Controllers
                         _shapeMover.SnapToGridInRelevantDimensionsIfPossible(
                             movementResult: movementResult,
                             occupiedGridSquares: _occupiedGridSquares);
-                        LogMessagePlusOrigins(logger: logger, message: "Blocked. ");
+                        LogMessagePlusOrigins(message: "Blocked. ");
                     }
                 }
                 else 
@@ -88,12 +81,12 @@ namespace SquareFillDomain.Controllers
                         _shapeMover.StartMove(cursorPositionAtStart: newLocation, shapeToMove: _shapeToMove);
                         _lastGoodLocation = newLocation;
                         _colliding = false;
-                        LogMessagePlusOrigins(logger: logger, message: "Moving again. ");
+                        LogMessagePlusOrigins(message: "Moving again. ");
                     }
                 }
             }
         }
-    
+
         public void EndMove(SquareFillPoint finalLocation) 
         {
             if (_shapeToMove != null)
@@ -110,8 +103,7 @@ namespace SquareFillDomain.Controllers
                 } 
                 else
                 {
-                    LogLocation(message: "End move with obstacles.", locationName: "LastGood",
-                        location: _lastGoodLocation);
+                    LogLocation(message: "End move with obstacles.", locationName: "LastGood", location: _lastGoodLocation);
                     _shapeMover.SnapToGrid(newCursorPosition: _lastGoodLocation);
                 }
             
@@ -121,13 +113,13 @@ namespace SquareFillDomain.Controllers
             }
         }
 
-        private MovementResult CheckWhetherMovementIsPossible(SquareFillPoint newTopLeftCorner, Logger logger)
+        private MovementResult CheckWhetherMovementIsPossible(SquareFillPoint newTopLeftCorner)
         {
-            logger.Clear().Plus(desc: "Origins1", shape: _shapeToMove).Log();
+            _logger.Clear().WithShape(desc: "Origins1", shape: _shapeToMove).Log();
             var movementResult = _shapeToMove.AttemptToUpdateOrigins(
                 occupiedGridSquares: _occupiedGridSquares,
                 newTopLeftCorner: newTopLeftCorner);
-            logger.Clear().Plus(desc: "Origins2", shape: _shapeToMove).Log();
+            _logger.Clear().WithShape(desc: "Origins2", shape: _shapeToMove).Log();
 
             return movementResult;
         }
@@ -139,19 +131,29 @@ namespace SquareFillDomain.Controllers
                 y: topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
 
-        private void LogMessagePlusOrigins(Logger logger, string message)
+        private void NoteLocation(SquareFillPoint cursor, SquareFillPoint topLeftCorner, SquareFillPoint gridPosition)
         {
-            logger
-                .Plus(desc: "Origins", shape: _shapeToMove)
-                .Make(message: message)
+            _logger
+                 .Clear()
+                 .WithPoint(desc: "Cursor", point: cursor)
+                 .WithPoint(desc: "NewCorner", point: topLeftCorner)
+                 .WithPoint(desc: "NewGrid", point: gridPosition);
+        }
+
+        private void LogMessagePlusOrigins(string message)
+        {
+            _logger
+                .WithShape(desc: "Origins", shape: _shapeToMove)
+                .WithMessage(message: message)
                 .Log();
         }
 
         private void LogLocation(string message, string locationName, SquareFillPoint location)
         {
-            string xCoord = location.X.ToString();
-            string yCoord = location.Y.ToString();
-            Debug.WriteLine(message + " " + locationName + "(x:" + xCoord + ",y:" + yCoord + ")");
+            _logger
+                .WithMessage(message: message)
+                .WithPoint(desc: locationName, point: location)
+                .Log();
         }
     }
 }

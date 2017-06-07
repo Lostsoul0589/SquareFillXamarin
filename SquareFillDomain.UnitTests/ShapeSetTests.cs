@@ -26,7 +26,7 @@ namespace SquareFillDomain.UnitTests
             new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[2], sprite: null),
             new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[3], sprite: null)
         };
-        Linq.List<Square> _crossShapeSquareList = new Linq.List<Square>
+        readonly Linq.List<Square> _crossShapeSquareList = new Linq.List<Square>
         {
             new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[0], sprite: new MockSquareView()),
             new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[1], sprite: new MockSquareView()),

@@ -44,11 +44,6 @@ namespace SquareFillDomain.Utils
             }
         }
 
-        private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
-        {
-            _topLeftCornerRelativeToCursorPosition = _shapeToMove.CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: cursorPosition);
-        }
-
         public SquareFillPoint CalculateCursorPosition()
         {
             return _shapeToMove.CalculateCursorPosition(
@@ -70,6 +65,11 @@ namespace SquareFillDomain.Utils
         public int SquareCentreY(int squareIndex)
         {
             return _shapeToMove.SquareCentreY(squareIndex: squareIndex);
+        }
+
+        private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
+        {
+            _topLeftCornerRelativeToCursorPosition = _shapeToMove.CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: cursorPosition);
         }
     }
 }
