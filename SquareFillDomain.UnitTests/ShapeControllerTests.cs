@@ -1,10 +1,8 @@
 using System;
-using NUnit.Framework;
-using SquareFillDomain.Builders;
+// using NUnit.Framework;
 using SquareFillDomain.Controllers;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
-using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.UnitTests
 {
@@ -12,6 +10,8 @@ namespace SquareFillDomain.UnitTests
     public class ShapeControllerTests
     {
         private TestShapeSetBuilder _shapeSetBuilder;
+        private Grid _occupiedGridSquares;
+        private ShapeSet _shapeSet;
 
         private int _outsideContainingRectangleButAtCornerOfRightHydrantX;
         private int _outsideContainingRectangleButAtCornerOfRightHydrantY;
@@ -24,6 +24,10 @@ namespace SquareFillDomain.UnitTests
         public void Setup()
         {
             _shapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
+            _occupiedGridSquares = _shapeSetBuilder.MakeGridSquares();
+            _shapeSet = _shapeSetBuilder.GetShapeSet();
+            _shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: _occupiedGridSquares);
+            _shapeSet.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
 
             _outsideContainingRectangleButAtCornerOfRightHydrantX = _shapeSetBuilder.RightHydrantShape.TopLeftCornerX;
             _outsideContainingRectangleButAtCornerOfRightHydrantY = _shapeSetBuilder.RightHydrantShape.TopLeftCornerY;
@@ -45,7 +49,7 @@ namespace SquareFillDomain.UnitTests
         public void TestPerformanceOfStartMove()
         {
             // Arrange
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
 
             // Assert
             /*self.measure()	{
@@ -62,7 +66,7 @@ namespace SquareFillDomain.UnitTests
             var insideContainingRectangle = new SquareFillPoint(
                 x: TestConstants.ContainingRectangle.X + TestConstants.SquareWidth/2,
                 y: TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth + TestConstants.SquareWidth/2);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Assert
@@ -81,43 +85,13 @@ namespace SquareFillDomain.UnitTests
             var insideContainingRectangle = new SquareFillPoint(
                 x: TestConstants.ContainingRectangle.X + TestConstants.SquareWidth/2,
                 y: TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth + TestConstants.SquareWidth/2);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Assert
             // self.measure()	{
             // shapeController.EndMove(finalLocation: insideContainingRectangle);
             // }
-        }
-
-        [Test]
-        public void TestOccupiedGridSquareMatrixIsCorrectSizeAtStartOfGame()
-        {
-            // Arrange & Act
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
-
-            // Assert
-            Asserter.AreEqual(shapeController.GameGridWidth, TestConstants.GridWidth);
-            Asserter.AreEqual(shapeController.GameGridHeight, TestConstants.GridHeight);
-        }
-
-        [Test]
-        public void TestAllShapesAreOccupyingGridSquaresAtStartOfGame()
-        {
-            // Arrange & Act
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
-
-            // Assert
-            for (int shapeCount = 0; shapeCount < shapeController.NumShapes; shapeCount++)
-            {
-                for (int squareCount = 0; squareCount < shapeController.NumSquares(shapeIndex: shapeCount); squareCount++)
-                {
-                    var xCoord = shapeController.SquareCornerX(shapeIndex: shapeCount, squareIndex: squareCount) / TestConstants.SquareWidth;
-                    var yCoord = shapeController.SquareCornerY(shapeIndex: shapeCount, squareIndex: squareCount) / TestConstants.SquareWidth;
-                    Asserter.AreEqual(shapeController.IsSquareOccupied(x: xCoord, y: yCoord), true);
-                }
-            }
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0, y: 0), false);
         }
 
         [Test]
@@ -131,21 +105,21 @@ namespace SquareFillDomain.UnitTests
             var topLeftVacatedGridY = _shapeSetBuilder.RightHydrantShape.TopLeftCornerY / TestConstants.SquareWidth;
             var topLeftOccupiedGridX = (_shapeSetBuilder.RightHydrantShape.TopLeftCornerX / TestConstants.SquareWidth) - 2;
             var topLeftOccupiedGridY = topLeftVacatedGridY;
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Act
             shapeController.EndMove(finalLocation: stillOutsideContainingRectangle);
 
             // Assert
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 1), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 2), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftVacatedGridX + 1, y: topLeftVacatedGridY + 1), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 1), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 2), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: topLeftOccupiedGridX + 1, y: topLeftOccupiedGridY + 1), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 1), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 2), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX + 1, y: topLeftVacatedGridY + 1), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 1), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 2), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX + 1, y: topLeftOccupiedGridY + 1), true);
         }
 
         [Test]
@@ -155,7 +129,7 @@ namespace SquareFillDomain.UnitTests
             var insideContainingRectangle = new SquareFillPoint(
                 x: TestConstants.ContainingRectangle.X + _relativeCursorPosition.X,
                 y: TestConstants.ContainingRectangle.Y + _relativeCursorPosition.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
             shapeController.EndMove(finalLocation: insideContainingRectangle);
 
@@ -165,18 +139,18 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
             var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), false);
         }
 
         [Test]
         public void TestSquaresAreStillVacatedIfShapeStartsOutsideGameGrid()
         {
             // Arrange
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
-            shapeController.OccupyAllGridSquares();
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
+            _occupiedGridSquares.OccupyAllSquares();
             var topLeftGridX = _shapeSetBuilder.RightHydrantShape.TopLeftCornerX / TestConstants.SquareWidth;
             var topLeftGridY = _shapeSetBuilder.RightHydrantShape.TopLeftCornerY / TestConstants.SquareWidth;
 
@@ -184,10 +158,10 @@ namespace SquareFillDomain.UnitTests
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Assert
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 1), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 2), false);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + topLeftGridX + 1, y: 0 + topLeftGridY + 1), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 1), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 2), false);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX + 1, y: 0 + topLeftGridY + 1), false);
         }
 
         [Test]
@@ -197,7 +171,7 @@ namespace SquareFillDomain.UnitTests
             var insideContainingRectangle = new SquareFillPoint(
                 x: TestConstants.ContainingRectangle.X + _relativeCursorPosition.X,
                 y: TestConstants.ContainingRectangle.Y + _relativeCursorPosition.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Act
@@ -206,10 +180,10 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
             var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
         }
 
         [Test]
@@ -219,7 +193,7 @@ namespace SquareFillDomain.UnitTests
             var insideContainingRectangleButNotAlignedWithGrid = new SquareFillPoint(
                 x: TestConstants.ContainingRectangle.X + _relativeCursorPosition.X + 5,
                 y: TestConstants.ContainingRectangle.Y + _relativeCursorPosition.Y + 6);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Act
@@ -228,17 +202,17 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var containingX = TestConstants.ContainingRectangle.X/TestConstants.SquareWidth;
             var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), true);
-            Asserter.AreEqual(shapeController.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), true);
+            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
         }
 
         [Test]
         public void TestShapeDoesNotMoveIfAnotherShapeIsInTheWay()
         {
             // Arrange
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             var shapeToMove = shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
             var originalX = shapeController.CurrentShapeCornerX;
             var originalY = shapeController.CurrentShapeCornerY;
@@ -258,7 +232,7 @@ namespace SquareFillDomain.UnitTests
             var cursorOutsideLatestShapePosition = new SquareFillPoint(
                 x: _insideBorder.X + 3 * TestConstants.SquareWidth,
                 y: _insideBorder.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
             var originalX = shapeController.CurrentShapeCornerX;
             var originalY = shapeController.CurrentShapeCornerY;
@@ -287,7 +261,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCornerImmediatelyToTheRightOfObstacle = new SquareFillPoint(
                 x: _topLeftCornerInsideBorder.X + TestConstants.SquareWidth,
                 y: _topLeftCornerInsideBorder.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Act
@@ -323,7 +297,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyToLeftOfObstacle.X,
                 y: directlyToLeftOfObstacle.Y + yOffset);
 
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -358,7 +332,7 @@ namespace SquareFillDomain.UnitTests
                 x: directlyToRightOfObstacle.X,
                 y: directlyToRightOfObstacle.Y + yOffset);
 
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -392,7 +366,7 @@ namespace SquareFillDomain.UnitTests
             var snappedToTopOfBorderWithObstacle = new SquareFillPoint(
                 x: directlyBelowObstacle.X + xOffset,
                 y: directlyBelowObstacle.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -427,7 +401,7 @@ namespace SquareFillDomain.UnitTests
             var snappedToBottomOfBorderWithObstacle = new SquareFillPoint(
                 x: directlyAboveObstacle.X + xOffset,
                 y: directlyAboveObstacle.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -460,7 +434,7 @@ namespace SquareFillDomain.UnitTests
             var snappedToTopLeftCornerByObstacle = new SquareFillPoint(
                 x: directlyBottomRightOfObstacle.X,
                 y: directlyBottomRightOfObstacle.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideLeftCornerShape);
 
             // Act
@@ -493,7 +467,7 @@ namespace SquareFillDomain.UnitTests
             var snappedToTopRightCornerByObstacle = new SquareFillPoint(
                 x: directlyBottomLeftOfObstacle.X,
                 y: directlyBottomLeftOfObstacle.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideLeftCornerShape);
 
             // Act
@@ -526,7 +500,7 @@ namespace SquareFillDomain.UnitTests
             var snappedToBottomRightCornerByObstacle = new SquareFillPoint(
                 x: directlyTopLeftOfObstacle.X,
                 y: directlyTopLeftOfObstacle.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -559,7 +533,7 @@ namespace SquareFillDomain.UnitTests
             var snappedToBottomLeftCornerByObstacle = new SquareFillPoint(
                 x: directlyTopRightOfObstacle.X,
                 y: directlyTopRightOfObstacle.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -591,7 +565,7 @@ namespace SquareFillDomain.UnitTests
             var cursorToTheRightOfObstacleWithLaterRelativeCursorPosition = new SquareFillPoint(
                 x: collidingWithSomething.X + TestConstants.SquareWidth + laterRelativeCursorPosition.X,
                 y: collidingWithSomething.Y + laterRelativeCursorPosition.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: startingInsideShape);
 
             // Act
@@ -630,7 +604,7 @@ namespace SquareFillDomain.UnitTests
             var cursorToTheRightOfUnoccupiedSpace = new SquareFillPoint(
                 x: cursorInAnUnoccupiedSpace.X + 10,
                 y: cursorInAnUnoccupiedSpace.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: startingInsideShape);
 
             // Act
@@ -661,7 +635,7 @@ namespace SquareFillDomain.UnitTests
             var cursorInAnUnoccupiedSpace = new SquareFillPoint(
                 x: _insideBorder.X + 3 * TestConstants.SquareWidth,
                 y: _insideBorder.Y + 3 * TestConstants.SquareWidth);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             var shapeToMove = shapeController.StartMove(cursorPositionAtStart: startingInsideShape);
 
             // Act
@@ -681,7 +655,7 @@ namespace SquareFillDomain.UnitTests
             var cursorPositionAtStart = new SquareFillPoint(
                 x: _outsideContainingRectangleButInsideRightHydrant.X,
                 y: _outsideContainingRectangleButInsideRightHydrant.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: cursorPositionAtStart);
             var originalTopLeftX = _shapeSetBuilder.RightHydrantShape.TopLeftCornerX;
 
@@ -710,7 +684,7 @@ namespace SquareFillDomain.UnitTests
             var insideObstacleToLeftOfFourSquare = new SquareFillPoint(
                 x: directlyToRightOfObstacle.X - TestConstants.SquareWidth + relativeCursorPosition.X + xOffset,
                 y: directlyToRightOfObstacle.Y + relativeCursorPosition.Y);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -740,7 +714,7 @@ namespace SquareFillDomain.UnitTests
             var insideObstacleAboveFourSquare = new SquareFillPoint(
                 x: directlyBelowObstacle.X + relativeCursorPosition.X,
                 y: directlyBelowObstacle.Y - TestConstants.SquareWidth + relativeCursorPosition.Y + yOffset);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: insideFourSquare);
 
             // Act
@@ -765,7 +739,7 @@ namespace SquareFillDomain.UnitTests
             var insideObstacleAboveFourSquare = new SquareFillPoint(
                 x: directlyBelowObstacle.X,
                 y: directlyBelowObstacle.Y - TestConstants.SquareWidth);
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeController.StartMove(cursorPositionAtStart: topLeftCornerOfFourSquare);
 
             // Act
@@ -781,7 +755,7 @@ namespace SquareFillDomain.UnitTests
         public void TestIfShapeEndsUpInAnAlreadyOccupiedLocationThenItWillSnapToTheLastValidLocation()
         {
             // Arrange
-            var shapeController = new ShapeController(shapeSetBuilder: _shapeSetBuilder);
+            var shapeController = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
             var lastValidLocation = new SquareFillPoint(
                 x: _insideBorder.X + 2*TestConstants.SquareWidth,
                 y: _insideBorder.Y);
@@ -798,5 +772,17 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftCornerLastValidLocation.X);
             Asserter.AreEqual(shapeToMove.TopLeftCornerY, topLeftCornerLastValidLocation.Y);
         }
+    }
+
+    public class TestAttribute : Attribute
+    {
+    }
+
+    public class SetUpAttribute : Attribute
+    {
+    }
+
+    public class TestFixtureAttribute : Attribute
+    {
     }
 }

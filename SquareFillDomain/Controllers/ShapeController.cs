@@ -12,8 +12,6 @@ namespace SquareFillDomain.Controllers
     {
         public int CurrentShapeCornerX { get { return _shapeToMove.TopLeftCornerX; } }
         public int CurrentShapeCornerY { get { return _shapeToMove.TopLeftCornerY; } }
-        public int GameGridWidth { get { return _occupiedGridSquares.Width(); } }
-        public int GameGridHeight { get { return _occupiedGridSquares.Height(); } }
         public int NumShapes { get { return _shapeSet.NumShapes; } }
 
         private Shape _shapeToMove = null;
@@ -24,11 +22,10 @@ namespace SquareFillDomain.Controllers
         private SquareFillPoint _lastGoodLocation;
         private bool _colliding = false;
 
-        public ShapeController(IShapeSetBuilder shapeSetBuilder)
+        public ShapeController(ShapeSet shapeSet, Grid occupiedGridSquares)
         {
-            _occupiedGridSquares = shapeSetBuilder.MakeGridSquares();
-            _shapeSet = shapeSetBuilder.GetShapeSet();
-            PutAllShapesIntoGrid(shapeSetBuilder);
+            _occupiedGridSquares = occupiedGridSquares;
+            _shapeSet = shapeSet;
 
             _shapeMover = new ShapeMover();
             _lastGoodLocation = new SquareFillPoint(x:0, y:0);
@@ -155,37 +152,6 @@ namespace SquareFillDomain.Controllers
             string xCoord = location.X.ToString();
             string yCoord = location.Y.ToString();
             Debug.WriteLine(message + " " + locationName + "(x:" + xCoord + ",y:" + yCoord + ")");
-        }
-
-        private void PutAllShapesIntoGrid(IShapeSetBuilder shapeSetBuilder)
-        {
-            shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: _occupiedGridSquares);
-            _shapeSet.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
-        }
-
-        public void OccupyAllGridSquares()
-        {
-            _occupiedGridSquares.OccupyAllSquares();
-        }
-
-        public bool IsSquareOccupied(int x, int y)
-        {
-            return _occupiedGridSquares.IsSquareOccupied(x: x, y: y);
-        }
-
-        public int NumSquares(int shapeIndex)
-        {
-            return _shapeSet.NumSquares(shapeIndex: shapeIndex);
-        }
-
-        public int SquareCornerX(int shapeIndex, int squareIndex)
-        {
-            return _shapeSet.SquareCornerX(shapeIndex: shapeIndex, squareIndex: squareIndex);
-        }
-
-        public int SquareCornerY(int shapeIndex, int squareIndex)
-        {
-            return _shapeSet.SquareCornerY(shapeIndex: shapeIndex, squareIndex: squareIndex);
         }
     }
 }

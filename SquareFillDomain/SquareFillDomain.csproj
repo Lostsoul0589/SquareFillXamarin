@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Builders\BorderBuilder.cs" />
     <Compile Include="Builders\IShapeSetBuilder.cs" />
+    <Compile Include="Utils\GameInitialiser.cs" />
     <Compile Include="Models\DivisibleBySquareWidths.cs" />
     <Compile Include="Models\Grid.cs" />
     <Compile Include="Utils\ShapeConstants.cs" />

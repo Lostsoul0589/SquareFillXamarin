@@ -1,4 +1,4 @@
-using NUnit.Framework;
+//using NUnit.Framework;
 
 using System.Security.Cryptography.X509Certificates;
 using SquareFillDomain.Builders;
@@ -14,22 +14,23 @@ namespace SquareFillDomain.UnitTests
     {
         Linq.List<Square> _simpleSingleSquareList = new Linq.List<Square>
         {
-            new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
+            new Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
         };
         Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
-            {
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
-            };
-        Linq.List<Square> _crossShapeSquareList = new Linq.List<Square> {
-                new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[0], sprite: new MockSquareView()),
-                new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[1], sprite: new MockSquareView()),
-                new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[2], sprite: new MockSquareView()),
-                new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[3], sprite: new MockSquareView()),
-                new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[4], sprite: new MockSquareView())
-            };
+        {
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[0], sprite: null),
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[1], sprite: null),
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[2], sprite: null),
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[3], sprite: null)
+        };
+        Linq.List<Square> _crossShapeSquareList = new Linq.List<Square>
+        {
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[0], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[1], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[2], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[3], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[4], sprite: new MockSquareView())
+        };
         private readonly Grid _occupiedGridSquares = TestConstants.MakeGridSquares();
 
         [SetUp]

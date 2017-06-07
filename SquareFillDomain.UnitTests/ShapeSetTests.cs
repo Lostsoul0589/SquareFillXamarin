@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+//using NUnit.Framework;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
@@ -12,20 +12,74 @@ namespace SquareFillDomain.UnitTests
     public class ShapeSetTests
     {
         private readonly Linq.List<Square> _singleSquareShapeSquareList1 = new Linq.List<Square>
-            {
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
-            };
+        {
+            new Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
+        };
         private readonly Linq.List<Square> _singleSquareShapeSquareList2 = new Linq.List<Square>
-            {
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null)
-            };
+        {
+            new Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
+        };
         readonly Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
+        {
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[0], sprite: null),
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[1], sprite: null),
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[2], sprite: null),
+            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[3], sprite: null)
+        };
+        Linq.List<Square> _crossShapeSquareList = new Linq.List<Square>
+        {
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[0], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[1], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[2], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[3], sprite: new MockSquareView()),
+            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[4], sprite: new MockSquareView())
+        };
+
+        [Test]
+        public void TestAllShapesArePutIntoGridSquares()
+        {
+            // Arrange
+            var topLeftSingleSquare = new SquareFillPoint(
+                x: 0,
+                y: TestConstants.SquareWidth);
+            var topLeftRightHydrant = new SquareFillPoint(
+                x: TestConstants.SquareWidth,
+                y: 0);
+            var topLeftCross = new SquareFillPoint(
+                x: TestConstants.SquareWidth * 5,
+                y: TestConstants.SquareWidth * 5);
+            var singleSquare = new Shape(
+                topLeftCorner: topLeftSingleSquare,
+                squareDefinitions: _singleSquareShapeSquareList1);
+            var rightHydrant = new Shape(
+                topLeftCorner: topLeftRightHydrant,
+                squareDefinitions: _rightHydrantSquareList);
+            var cross = new Shape(
+                topLeftCorner: topLeftCross,
+                squareDefinitions: _crossShapeSquareList);
+            var thirdShape = new Shape(
+                topLeftCorner: topLeftRightHydrant,
+                squareDefinitions: _rightHydrantSquareList);
+            var shapeList = new List<Shape> { singleSquare, rightHydrant, cross };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
+            var occupiedGridSquares = shapeSetBuilder.MakeGridSquares();
+
+            // Act
+            shapeSet.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
+
+            // Assert
+            for (int shapeCount = 0; shapeCount < shapeSet.NumShapes; shapeCount++)
             {
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), sprite: null),
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 1), sprite: null),
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 2), sprite: null),
-                new Square(positionRelativeToParentCorner: new SquareFillPoint(x: 1, y: 1), sprite: null)
-            };
+                for (int squareCount = 0; squareCount < shapeSet.NumSquares(shapeIndex: shapeCount); squareCount++)
+                {
+                    var xCoord = shapeSet.SquareCornerX(shapeIndex: shapeCount, squareIndex: squareCount) / TestConstants.SquareWidth;
+                    var yCoord = shapeSet.SquareCornerY(shapeIndex: shapeCount, squareIndex: squareCount) / TestConstants.SquareWidth;
+                    Asserter.AreEqual(occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord), true);
+                }
+            }
+            Asserter.AreEqual(occupiedGridSquares.IsSquareOccupied(x: 0, y: 0), false);
+        }
 
         [Test]
 		public void TestWhenUserClicksInAreaOfScreenWithNoShapeThenNoShapeIsSelected() {
