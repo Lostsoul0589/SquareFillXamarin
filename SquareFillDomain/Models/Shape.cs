@@ -165,8 +165,8 @@ namespace SquareFillDomain.Models
 	        {
 	            foreach (var yCoord in newGridYCoords)
 	            {
-	                if (xCoord >= occupiedGridSquares.Width()
-	                    || yCoord >= occupiedGridSquares.Height()
+	                if (xCoord >= occupiedGridSquares.Width
+	                    || yCoord >= occupiedGridSquares.Height
 	                    || xCoord < 0
 	                    || yCoord < 0)
 	                {

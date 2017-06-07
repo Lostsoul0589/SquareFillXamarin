@@ -333,29 +333,30 @@ namespace SquareFillDomain.UnitTests
                               squareFactory: new MockSquareFactory());
             foreach (var relativePoint in TestConstants.RightHydrantPoints)
             {
-                _occupiedGridSquares.OccupyGridSquareUsingGridCoords(gridReference: relativePoint, shapeInSquare: shape);
+                _occupiedGridSquares.OccupyGridSquare(x: relativePoint.X, y: relativePoint.Y);
+                _occupiedGridSquares.PlaceShapeInSquare(x: relativePoint.X, y: relativePoint.Y, shapeInSquare: shape);
             }
             // Occupy some other squares too, so we can check they're still occupied afterwards
-            for (int count = 0; count < _occupiedGridSquares.Height(); count++)
+            for (int count = 0; count < _occupiedGridSquares.Height; count++)
             {
-                _occupiedGridSquares.OccupyGridSquare(x: _occupiedGridSquares.Width() - 1, y: count);
+                _occupiedGridSquares.OccupyGridSquare(x: _occupiedGridSquares.Width - 1, y: count);
             }
 
             // Act
             shape.VacateGridSquares(occupiedGridSquares: _occupiedGridSquares);
 
             // Assert
-            for (int xCount = 0; xCount < _occupiedGridSquares.Width() - 1; xCount++)
+            for (int xCount = 0; xCount < _occupiedGridSquares.Width - 1; xCount++)
             {
-                for (int yCount = 0; yCount < _occupiedGridSquares.Height(); yCount++)
+                for (int yCount = 0; yCount < _occupiedGridSquares.Height; yCount++)
                 {
                     Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: xCount, y: yCount), false);
                 }
             }
             // Check the other occupied squares are still occupied
-            for (int count = 0; count < _occupiedGridSquares.Height(); count++)
+            for (int count = 0; count < _occupiedGridSquares.Height; count++)
             {
-                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: _occupiedGridSquares.Width() - 1, y: count), true);
+                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: _occupiedGridSquares.Width - 1, y: count), true);
             }
         }
 
@@ -377,13 +378,13 @@ namespace SquareFillDomain.UnitTests
             {
                 Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: relativePoint.X, y: relativePoint.Y), true);
             }
-            for (int yCount = 3; yCount < _occupiedGridSquares.Height(); yCount++)
+            for (int yCount = 3; yCount < _occupiedGridSquares.Height; yCount++)
             {
                 Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0, y: yCount), false);
             }
-            for (int xCount = 1; xCount < _occupiedGridSquares.Width(); xCount++)
+            for (int xCount = 1; xCount < _occupiedGridSquares.Width; xCount++)
             {
-                for (int yCount = 0; yCount < _occupiedGridSquares.Height(); yCount++)
+                for (int yCount = 0; yCount < _occupiedGridSquares.Height; yCount++)
                 {
                     Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: xCount, y: yCount), false);
                 }
@@ -1404,7 +1405,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
                 x: topLeftCorner.X,
-                y: topLeftCorner.Y + _occupiedGridSquares.Height() * TestConstants.SquareWidth);
+                y: topLeftCorner.Y + _occupiedGridSquares.Height * TestConstants.SquareWidth);
             var shape = new Shape(colour: SquareFillColour.Red,
                               topLeftCorner: topLeftCorner,
                               relativePointsTopLeftCorner: TestConstants.SingleSquarePoints,
@@ -1443,7 +1444,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = new SquareFillPoint(
-                x: topLeftCorner.X + _occupiedGridSquares.Width() * TestConstants.SquareWidth,
+                x: topLeftCorner.X + _occupiedGridSquares.Width * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(colour: SquareFillColour.Red,
                               topLeftCorner: topLeftCorner,

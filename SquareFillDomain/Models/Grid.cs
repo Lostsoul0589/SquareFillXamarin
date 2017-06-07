@@ -5,21 +5,14 @@ namespace SquareFillDomain.Models
 {
     public class Grid
     {
+        public int Width { get { return _gridSquares.Count; } }
+        public int Height { get { return _gridSquares[0].Count; } }
+
         private readonly List<List<GridSquare>> _gridSquares = new List<List<GridSquare>>();
 
         public Grid(int width, int height)
         {
             Initialise(width: width, height: height);
-        }
-
-        public int Width()
-        {
-            return _gridSquares.Count;
-        }
-
-        public int Height()
-        {
-            return _gridSquares[0].Count;
         }
 
         private void Initialise(int width, int height)
@@ -35,7 +28,7 @@ namespace SquareFillDomain.Models
             }
         }
 
-        public void VacateGridSquare(SquareFillPoint gridReferenceInPixels)
+        public void VacateGridSquareUsingPixels(SquareFillPoint gridReferenceInPixels)
         {
             ChangeGridSquareOccupation(
                 gridReferenceInPixels: gridReferenceInPixels,
@@ -43,7 +36,7 @@ namespace SquareFillDomain.Models
                 occupied: false);
         }
 
-        public void OccupyGridSquare(SquareFillPoint gridReferenceInPixels, Shape shapeInSquare)
+        public void OccupyGridSquareUsingPixels(SquareFillPoint gridReferenceInPixels, Shape shapeInSquare)
         {
             ChangeGridSquareOccupation(
                 gridReferenceInPixels: gridReferenceInPixels, 
@@ -51,10 +44,16 @@ namespace SquareFillDomain.Models
                 occupied: true);
         }
 
-        public void OccupyGridSquareUsingGridCoords(SquareFillPoint gridReference, Shape shapeInSquare)
+        private void ChangeGridSquareOccupation(
+            SquareFillPoint gridReferenceInPixels,
+            Shape shapeInSquare,
+            bool occupied)
         {
-            OccupyGridSquare(x: gridReference.X, y: gridReference.Y);
-            PlaceShapeInSquare(x: gridReference.X, y: gridReference.Y, shapeInSquare: shapeInSquare);
+            int occupiedXCoordinate = gridReferenceInPixels.X / ShapeConstants.SquareWidth;
+            int occupiedYCoordinate = gridReferenceInPixels.Y / ShapeConstants.SquareWidth;
+
+            OccupyGridSquare(x: occupiedXCoordinate, y: occupiedYCoordinate, occupied: occupied);
+            PlaceShapeInSquare(x: occupiedXCoordinate, y: occupiedYCoordinate, shapeInSquare: shapeInSquare);
         }
 
         public void OccupyGridSquare(int x, int y, bool occupied = true)
@@ -65,18 +64,6 @@ namespace SquareFillDomain.Models
         public void PlaceShapeInSquare(int x, int y, Shape shapeInSquare)
         {
             _gridSquares[x][y].ShapeInSquare = shapeInSquare;
-        }
-
-        private void ChangeGridSquareOccupation(
-            SquareFillPoint gridReferenceInPixels, 
-            Shape shapeInSquare,
-            bool occupied)
-        {
-            int occupiedXCoordinate = gridReferenceInPixels.X / ShapeConstants.SquareWidth;
-            int occupiedYCoordinate = gridReferenceInPixels.Y / ShapeConstants.SquareWidth;
-
-            OccupyGridSquare(x: occupiedXCoordinate, y: occupiedYCoordinate, occupied: occupied);
-            PlaceShapeInSquare(x: occupiedXCoordinate, y: occupiedYCoordinate, shapeInSquare: shapeInSquare);
         }
 
         public bool IsSquareOccupied(int x, int y)

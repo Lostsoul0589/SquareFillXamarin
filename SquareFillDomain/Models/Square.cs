@@ -114,12 +114,12 @@ namespace SquareFillDomain.Models
 
         public void VacateGridSquare(Grid occupiedGridSquares)
         {
-            occupiedGridSquares.VacateGridSquare(gridReferenceInPixels: _topLeftCorner);
+            occupiedGridSquares.VacateGridSquareUsingPixels(gridReferenceInPixels: _topLeftCorner);
         }
 
         public void OccupyGridSquare(Grid occupiedGridSquares, Shape shapeInSquare)
         {
-            occupiedGridSquares.OccupyGridSquare(gridReferenceInPixels: _topLeftCorner, shapeInSquare: shapeInSquare);
+            occupiedGridSquares.OccupyGridSquareUsingPixels(gridReferenceInPixels: _topLeftCorner, shapeInSquare: shapeInSquare);
         }
 
         public string TopLeftCornerAsString()
