@@ -68,102 +68,136 @@ namespace SquareFillDomain.Builders
         private void MakeShapes(ISquareViewFactory squareViewFactory)
         {
             // 1:
-            _rightHydrantShape01 = new Shape(colour: SquareFillColour.Red,
+            _rightHydrantShape01 = MakeShape(colour: SquareFillColour.Red,
                 topLeftCorner: new SquareFillPoint(x: 3, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 2:
-            _fourBarShape = new Shape(colour: SquareFillColour.Blue,
+            _fourBarShape = MakeShape(colour: SquareFillColour.Blue,
                 topLeftCorner: new SquareFillPoint(x: 2, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.FourBarPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 3:
-            _sevenShape = new Shape(colour: SquareFillColour.Black,
+            _sevenShape = MakeShape(colour: SquareFillColour.Black,
                 topLeftCorner: new SquareFillPoint(x: 9, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.SevenPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 4:
-            _fourSquareShape01 = new Shape(colour: SquareFillColour.Orange,
+            _fourSquareShape01 = MakeShape(colour: SquareFillColour.Orange,
                 topLeftCorner: new SquareFillPoint(x: 6, y: 2),
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 5:
-            _leftCornerShape = new Shape(colour: SquareFillColour.Green,
+            _leftCornerShape = MakeShape(colour: SquareFillColour.Green,
                 topLeftCorner: new SquareFillPoint(x: 7, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 6:
-            _rightHydrantShape02 = new Shape(colour: SquareFillColour.Yellow,
+            _rightHydrantShape02 = MakeShape(colour: SquareFillColour.Yellow,
                 topLeftCorner: new SquareFillPoint(x: 0, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 7:
-            _upsideDownTShape01 = new Shape(colour: SquareFillColour.Purple,
+            _upsideDownTShape01 = MakeShape(colour: SquareFillColour.Purple,
                 topLeftCorner: new SquareFillPoint(x: 3, y: 17),
                 relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 8:
-            _threePoleShape = new Shape(colour: SquareFillColour.Magenta,
+            _threePoleShape = MakeShape(colour: SquareFillColour.Magenta,
                 topLeftCorner: new SquareFillPoint(x: 0, y: 16),
                 relativePointsTopLeftCorner: ShapeConstants.ThreePolePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 9:
-            _twoPoleShape = new Shape(colour: SquareFillColour.Brown,
+            _twoPoleShape = MakeShape(colour: SquareFillColour.Brown,
                 topLeftCorner: new SquareFillPoint(x: 6, y: 17),
                 relativePointsTopLeftCorner: ShapeConstants.TwoPolePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 10:
-            _fourSquareShape02 = new Shape(colour: SquareFillColour.Cyan,
+            _fourSquareShape02 = MakeShape(colour: SquareFillColour.Cyan,
                 topLeftCorner: new SquareFillPoint(x: 0, y: 9),
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 11:
-            _backwardsLShape = new Shape(colour: SquareFillColour.DarkGrey,
+            _backwardsLShape = MakeShape(colour: SquareFillColour.DarkGrey,
                 topLeftCorner: new SquareFillPoint(x: 1, y: 5),
                 relativePointsTopLeftCorner: ShapeConstants.BackwardsLPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 12:
-            _rightHydrantShape03 = new Shape(colour: SquareFillColour.Grey,
+            _rightHydrantShape03 = MakeShape(colour: SquareFillColour.Grey,
                 topLeftCorner: new SquareFillPoint(x: 0, y: 12),
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 13:
-            _upsideDownTShape02 = new Shape(colour: SquareFillColour.White,
+            _upsideDownTShape02 = MakeShape(colour: SquareFillColour.White,
                 topLeftCorner: new SquareFillPoint(x: 11, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 14:
-            _singleSquareShape01 = new Shape(colour: SquareFillColour.LightGrey,
+            _singleSquareShape01 = MakeShape(colour: SquareFillColour.LightGrey,
                 topLeftCorner: new SquareFillPoint(x: 9, y: 18),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
+        }
+
+        private Shape MakeShape(
+            SquareFillColour colour,
+            SquareFillPoint topLeftCorner,
+            List<SquareFillPoint> relativePointsTopLeftCorner,
+            ISquareViewFactory squareFactory,
+            bool topLeftCornerIsInPixels)
+        {
+            var squares = MakeSquares(
+                colour: colour,
+                relativePointsTopLeftCorner: relativePointsTopLeftCorner,
+                squareFactory: squareFactory);
+
+            return new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: squares,
+                topLeftCornerIsInPixels: topLeftCornerIsInPixels);
+        }
+
+        private List<Square> MakeSquares(
+            SquareFillColour colour,
+            List<SquareFillPoint> relativePointsTopLeftCorner,
+            ISquareViewFactory squareFactory)
+        {
+            List<Square> squares = new List<Square>();
+            foreach (var point in relativePointsTopLeftCorner)
+            {
+                squares.Add(new Square(
+                    positionRelativeToParentCorner: point,
+                    sprite: squareFactory.MakeSquare(colour: colour)));
+            }
+
+            return squares;
         }
     }
 }

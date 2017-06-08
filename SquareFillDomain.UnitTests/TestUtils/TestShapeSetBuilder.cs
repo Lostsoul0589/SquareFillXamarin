@@ -65,35 +65,35 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private void MakeShapes(ISquareViewFactory squareViewFactory)
         {
             // 1:
-            _rightHydrantShape = new Shape(colour: SquareFillColour.Red,
+            _rightHydrantShape = MakeShape(colour: SquareFillColour.Red,
                 topLeftCorner: new SquareFillPoint(x: 3, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 4:
-            _fourSquareShape = new Shape(colour: SquareFillColour.Orange,
+            _fourSquareShape = MakeShape(colour: SquareFillColour.Orange,
                 topLeftCorner: new SquareFillPoint(x: 6, y: 2),
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // 5:
-            _leftCornerShape = new Shape(colour: SquareFillColour.Green,
+            _leftCornerShape = MakeShape(colour: SquareFillColour.Green,
                 topLeftCorner: new SquareFillPoint(x: 7, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // created purely for test:
-            _topLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+            _topLeftCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
                 topLeftCorner: new SquareFillPoint(x: TopRowBorderSquares[0].X, y: TopRowBorderSquares[0].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // created purely for test:
-            _topRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+            _topRightCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
                 topLeftCorner: new SquareFillPoint(
                     x: TopRowBorderSquares[TopRowBorderSquares.Count - 1].X, 
                     y: TopRowBorderSquares[TopRowBorderSquares.Count - 1].Y),
@@ -102,20 +102,54 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 topLeftCornerIsInPixels: false);
 
             // created purely for test:
-            _bottomLeftCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+            _bottomLeftCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
                 topLeftCorner: new SquareFillPoint(x: BottomLeftBorderSquares[0].X, y: BottomLeftBorderSquares[0].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 
             // created purely for test:
-            _bottomRightCornerOfContainingBorder = new Shape(colour: SquareFillColour.LightGrey,
+            _bottomRightCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
                 topLeftCorner: new SquareFillPoint(
                     x: BottomRightBorderSquares[BottomRightBorderSquares.Count - 1].X, 
                     y: BottomRightBorderSquares[BottomRightBorderSquares.Count - 1].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
+        }
+
+        private Shape MakeShape(
+            SquareFillColour colour,
+            SquareFillPoint topLeftCorner,
+            List<SquareFillPoint> relativePointsTopLeftCorner,
+            ISquareViewFactory squareFactory,
+            bool topLeftCornerIsInPixels)
+        {
+            var squares = MakeSquares(
+                colour: colour,
+                relativePointsTopLeftCorner: relativePointsTopLeftCorner,
+                squareFactory: squareFactory);
+
+            return new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: squares,
+                topLeftCornerIsInPixels: topLeftCornerIsInPixels);
+        }
+
+        public static List<Square> MakeSquares(
+            SquareFillColour colour,
+            List<SquareFillPoint> relativePointsTopLeftCorner,
+            ISquareViewFactory squareFactory)
+        {
+            List<Square> squares = new List<Square>();
+            foreach (var point in relativePointsTopLeftCorner)
+            {
+                squares.Add(new Square(
+                    positionRelativeToParentCorner: point,
+                    sprite: squareFactory.MakeSquare(colour: colour)));
+            }
+
+            return squares;
         }
     }
 }

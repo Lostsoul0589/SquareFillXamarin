@@ -18,33 +18,12 @@ namespace SquareFillDomain.Models
         public int NumSquaresBelowTopLeftCorner { get { return _numSquaresBelowTopLeftCorner; } }
 
         private SquareFillPoint _topLeftCorner;
-        private List<Square> _squares;
+        private readonly List<Square> _squares;
 
         private int _numSquaresLeftOfTopLeftCorner;
         private int _numSquaresRightOfTopLeftCorner;
         private int _numSquaresAboveTopLeftCorner;
         private int _numSquaresBelowTopLeftCorner;
-
-        public Shape(
-            SquareFillColour colour,
-            SquareFillPoint topLeftCorner,
-            List<SquareFillPoint> relativePointsTopLeftCorner,
-            ISquareViewFactory squareFactory,
-            bool topLeftCornerIsInPixels = true)
-        {
-            InitialiseTopLeftCorner(topLeftCorner, topLeftCornerIsInPixels);
-
-            List<Square> squares = new List<Square>();
-            foreach(var point in relativePointsTopLeftCorner)
-            {
-                squares.Add(new Square(
-                    positionRelativeToParentCorner: point,
-                    sprite: squareFactory.MakeSquare(colour: colour)));
-            }
-            _squares = squares;
-        
-            Initialise();
-		}
 
         public Shape(
             SquareFillPoint topLeftCorner,
