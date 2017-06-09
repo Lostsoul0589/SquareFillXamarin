@@ -6,9 +6,6 @@ namespace SquareFillDomain.Utils
 {
     public class ShapeMover
     {
-        public int TopLeftCornerX { get { return _shapeToMove.TopLeftCornerX; } }
-        public int TopLeftCornerY { get { return _shapeToMove.TopLeftCornerY; } }
-
         private Shape _shapeToMove;
         private SquareFillPoint _topLeftCornerRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
@@ -55,16 +52,6 @@ namespace SquareFillDomain.Utils
             _shapeToMove.SnapToGridInRelevantDimensionsIfPossible(
                 movementResult: movementResult,
                 occupiedGridSquares: occupiedGridSquares);
-        }
-
-        public int SquareCentreX(int squareIndex)
-        {
-            return _shapeToMove.SquareCentreX(squareIndex: squareIndex);
-        }
-
-        public int SquareCentreY(int squareIndex)
-        {
-            return _shapeToMove.SquareCentreY(squareIndex: squareIndex);
         }
 
         private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)

@@ -8,8 +8,8 @@ namespace SquareFillDomain.Models
 {
     public class Shape
     {
-        public int NumSquares { get { return _squares.Count; } }
-
+        public int CentreOfShapeX { get { return _topLeftCorner.X + ShapeConstants.SquareWidth / 2; } }
+        public int CentreOfShapeY { get { return _topLeftCorner.Y + ShapeConstants.SquareWidth / 2; } }
         public int TopLeftCornerX { get { return _topLeftCorner.X; } }
         public int TopLeftCornerY { get { return _topLeftCorner.Y; } }
         public int NumSquaresLeftOfTopLeftCorner { get { return _numSquaresLeftOfTopLeftCorner; } }
@@ -35,30 +35,6 @@ namespace SquareFillDomain.Models
         
             Initialise();
         }
-
-	    private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)
-	    {
-            if (topLeftCornerIsInPixels)
-	        {
-	            _topLeftCorner = topLeftCorner;
-	        }
-	        else
-	        {
-	            _topLeftCorner = new SquareFillPoint(
-                    x: topLeftCorner.X * ShapeConstants.SquareWidth,
-                    y: topLeftCorner.Y * ShapeConstants.SquareWidth);
-	        }
-	    }
-
-	    public SquareFillPoint CentreOfShape
-	    {
-	        get
-	        {
-	            return new SquareFillPoint(
-	                x: _topLeftCorner.X + ShapeConstants.SquareWidth / 2,
-	                y: _topLeftCorner.Y + ShapeConstants.SquareWidth / 2);
-	        }
-	    }
 
         public bool IsInShape(SquareFillPoint point)
         {
@@ -128,56 +104,6 @@ namespace SquareFillDomain.Models
             return movementResult;
         }
 
-	    private bool IsSomethingInTheWay(
-            IsDivisibleBySquareWidth isDivisibleBySquareWidth, 
-            SquareFillPoint newGridOrigin, 
-            bool somethingWasAlreadyInTheWay, 
-            Grid occupiedGridSquares)
-	    {
-            bool somethingIsInTheWay = somethingWasAlreadyInTheWay;
-
-	        List<int> newGridXCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.X, newGridCoord: newGridOrigin.X);
-	        List<int> newGridYCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.Y, newGridCoord: newGridOrigin.Y);
-
-	        // These nested for loops work because at the moment we are just considering one square, not the whole shape.
-	        foreach (var xCoord in newGridXCoords)
-	        {
-	            foreach (var yCoord in newGridYCoords)
-	            {
-	                if (xCoord >= occupiedGridSquares.Width
-	                    || yCoord >= occupiedGridSquares.Height
-	                    || xCoord < 0
-	                    || yCoord < 0)
-	                {
-	                    somethingIsInTheWay = true;
-	                }
-	                else
-	                {
-                        somethingIsInTheWay = somethingIsInTheWay || occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord);
-	                }
-	            }
-	        }
-
-	        return somethingIsInTheWay;
-	    }
-
-	    private List<int> GetNewGridCoordinates(bool isDivisibleBySquareWidth, int newGridCoord)
-	    {
-	        List<int> newGridCoords = new List<int>();
-
-	        if (isDivisibleBySquareWidth)
-	        {
-	            newGridCoords.Add(newGridCoord);
-	        }
-	        else
-	        {
-	            newGridCoords.Add(newGridCoord);
-	            newGridCoords.Add(newGridCoord + 1);
-	        }
-
-	        return newGridCoords;
-	    }
-
 	    public void VacateGridSquares(Grid occupiedGridSquares) 
         {
             foreach (var square in _squares)
@@ -205,36 +131,6 @@ namespace SquareFillDomain.Models
                 && topEdge >= ShapeConstants.ContainingRectangle.Y
                 && rightEdge <= (ShapeConstants.ContainingRectangle.X + ShapeConstants.ContainingRectangle.Width)
                 && bottomEdge <= (ShapeConstants.ContainingRectangle.Y + ShapeConstants.ContainingRectangle.Height);
-        }
-
-        private void Initialise()
-        {
-            foreach (var square in _squares)
-            {
-                square.CalculateTopLeftCorner(parentTopLeftCorner: _topLeftCorner);
-            }
-        
-            CalculateNumSquaresAroundTopLeftCorner();
-            MoveAllShapeSquares(newTopLeftCorner: _topLeftCorner);
-        }
-
-        private void CalculateNumSquaresAroundTopLeftCorner()
-        {
-            foreach (var square in _squares)
-            {
-                _numSquaresLeftOfTopLeftCorner = Math.Min(_numSquaresLeftOfTopLeftCorner, square.XRelativeToParentCorner);
-                _numSquaresRightOfTopLeftCorner = Math.Max(_numSquaresRightOfTopLeftCorner, square.XRelativeToParentCorner);
-                _numSquaresAboveTopLeftCorner = Math.Min(_numSquaresAboveTopLeftCorner, square.YRelativeToParentCorner);
-                _numSquaresBelowTopLeftCorner = Math.Max(_numSquaresBelowTopLeftCorner, square.YRelativeToParentCorner);
-            }
-
-            DealWithNegativeNumbersOfSquares();
-        }
-
-        private void DealWithNegativeNumbersOfSquares()
-        {
-            _numSquaresLeftOfTopLeftCorner = Math.Abs(_numSquaresLeftOfTopLeftCorner);
-            _numSquaresAboveTopLeftCorner = Math.Abs(_numSquaresAboveTopLeftCorner);
         }
 
 	    public string TopLeftCornersAsString()
@@ -265,49 +161,6 @@ namespace SquareFillDomain.Models
                 boundaryRectangleDimension: ShapeConstants.ScreenHeight,
                 numSquaresOnSmallestSide: _numSquaresAboveTopLeftCorner,
                 numSquaresOnLargestSide: _numSquaresBelowTopLeftCorner);
-        }
-
-        private int CalculateSnappedCoordinate(
-            int newTopLeftCornerCoord,
-            int boundaryRectangleOriginCoord,
-            int boundaryRectangleDimension,
-            int numSquaresOnSmallestSide,
-            int numSquaresOnLargestSide)
-        {
-            var squareWidth = ShapeConstants.SquareWidth;
-
-            int topLeftCornerCoord = newTopLeftCornerCoord;
-            int numberOfSquaresFromEdgeOfScreen = topLeftCornerCoord / squareWidth;
-            if (newTopLeftCornerCoord % squareWidth > squareWidth / 2)
-            {
-                numberOfSquaresFromEdgeOfScreen++;
-            }
-
-            var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
-
-            var topLeftCornerAtOneEndOfContainer = boundaryRectangleOriginCoord;
-
-            var topLeftCornerAtOtherEndOfContainer = boundaryRectangleOriginCoord + boundaryRectangleDimension;
-
-            var potentialTopLeftCornerOfShapeEdgeOnOneSide = potentialNewTopLeftCorner - (numSquaresOnSmallestSide * squareWidth);
-
-            var topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
-                Math.Max(potentialTopLeftCornerOfShapeEdgeOnOneSide, topLeftCornerAtOneEndOfContainer);
-
-            var topLeftCornerAdjustedForSmallestContainerEdge =
-                topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
-                + (numSquaresOnSmallestSide * squareWidth);
-
-            var potentialTopLeftCornerOfShapeEdgeOnOtherSide = topLeftCornerAdjustedForSmallestContainerEdge +
-                                                        (numSquaresOnLargestSide * squareWidth);
-
-            var topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
-                Math.Min(potentialTopLeftCornerOfShapeEdgeOnOtherSide, topLeftCornerAtOtherEndOfContainer);
-
-            int actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
-                                     - (numSquaresOnLargestSide * squareWidth);
-
-            return actualTopLeftCorner;
         }
 
         public SquareFillPoint CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
@@ -375,34 +228,141 @@ namespace SquareFillDomain.Models
             CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
         }
 
-        public int SquareCentreX(int squareIndex)
+        private void Initialise()
         {
-            return _squares[squareIndex].CentreX;
+            foreach (var square in _squares)
+            {
+                square.CalculateTopLeftCorner(parentTopLeftCorner: _topLeftCorner);
+            }
+
+            CalculateNumSquaresAroundTopLeftCorner();
+            MoveAllShapeSquares(newTopLeftCorner: _topLeftCorner);
         }
 
-        public int SquareCentreY(int squareIndex)
+        private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)
         {
-            return _squares[squareIndex].CentreY;
+            if (topLeftCornerIsInPixels)
+            {
+                _topLeftCorner = topLeftCorner;
+            }
+            else
+            {
+                _topLeftCorner = new SquareFillPoint(
+                    x: topLeftCorner.X * ShapeConstants.SquareWidth,
+                    y: topLeftCorner.Y * ShapeConstants.SquareWidth);
+            }
         }
 
-        public int SquareCornerX(int squareIndex)
+        private bool IsSomethingInTheWay(
+            IsDivisibleBySquareWidth isDivisibleBySquareWidth,
+            SquareFillPoint newGridOrigin,
+            bool somethingWasAlreadyInTheWay,
+            Grid occupiedGridSquares)
         {
-            return _squares[squareIndex].TopLeftCornerX;
+            bool somethingIsInTheWay = somethingWasAlreadyInTheWay;
+
+            List<int> newGridXCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.X, newGridCoord: newGridOrigin.X);
+            List<int> newGridYCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.Y, newGridCoord: newGridOrigin.Y);
+
+            // These nested for loops work because at the moment we are just considering one square, not the whole shape.
+            foreach (var xCoord in newGridXCoords)
+            {
+                foreach (var yCoord in newGridYCoords)
+                {
+                    if (xCoord >= occupiedGridSquares.Width
+                        || yCoord >= occupiedGridSquares.Height
+                        || xCoord < 0
+                        || yCoord < 0)
+                    {
+                        somethingIsInTheWay = true;
+                    }
+                    else
+                    {
+                        somethingIsInTheWay = somethingIsInTheWay || occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord);
+                    }
+                }
+            }
+
+            return somethingIsInTheWay;
         }
 
-        public int SquareCornerY(int squareIndex)
+        private List<int> GetNewGridCoordinates(bool isDivisibleBySquareWidth, int newGridCoord)
         {
-            return _squares[squareIndex].TopLeftCornerY;
+            List<int> newGridCoords = new List<int>();
+
+            if (isDivisibleBySquareWidth)
+            {
+                newGridCoords.Add(newGridCoord);
+            }
+            else
+            {
+                newGridCoords.Add(newGridCoord);
+                newGridCoords.Add(newGridCoord + 1);
+            }
+
+            return newGridCoords;
         }
 
-        public int SpriteCornerX(int squareIndex)
+        private void CalculateNumSquaresAroundTopLeftCorner()
         {
-            return _squares[squareIndex].SpriteCornerX;
+            foreach (var square in _squares)
+            {
+                _numSquaresLeftOfTopLeftCorner = Math.Min(_numSquaresLeftOfTopLeftCorner, square.XRelativeToParentCorner);
+                _numSquaresRightOfTopLeftCorner = Math.Max(_numSquaresRightOfTopLeftCorner, square.XRelativeToParentCorner);
+                _numSquaresAboveTopLeftCorner = Math.Min(_numSquaresAboveTopLeftCorner, square.YRelativeToParentCorner);
+                _numSquaresBelowTopLeftCorner = Math.Max(_numSquaresBelowTopLeftCorner, square.YRelativeToParentCorner);
+            }
+
+            DealWithNegativeNumbersOfSquares();
         }
 
-        public int SpriteCornerY(int squareIndex)
+        private void DealWithNegativeNumbersOfSquares()
         {
-            return _squares[squareIndex].SpriteCornerY;
+            _numSquaresLeftOfTopLeftCorner = Math.Abs(_numSquaresLeftOfTopLeftCorner);
+            _numSquaresAboveTopLeftCorner = Math.Abs(_numSquaresAboveTopLeftCorner);
+        }
+
+        private int CalculateSnappedCoordinate(
+            int newTopLeftCornerCoord,
+            int boundaryRectangleOriginCoord,
+            int boundaryRectangleDimension,
+            int numSquaresOnSmallestSide,
+            int numSquaresOnLargestSide)
+        {
+            var squareWidth = ShapeConstants.SquareWidth;
+
+            int topLeftCornerCoord = newTopLeftCornerCoord;
+            int numberOfSquaresFromEdgeOfScreen = topLeftCornerCoord / squareWidth;
+            if (newTopLeftCornerCoord % squareWidth > squareWidth / 2)
+            {
+                numberOfSquaresFromEdgeOfScreen++;
+            }
+
+            var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
+
+            var topLeftCornerAtOneEndOfContainer = boundaryRectangleOriginCoord;
+
+            var topLeftCornerAtOtherEndOfContainer = boundaryRectangleOriginCoord + boundaryRectangleDimension;
+
+            var potentialTopLeftCornerOfShapeEdgeOnOneSide = potentialNewTopLeftCorner - (numSquaresOnSmallestSide * squareWidth);
+
+            var topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
+                Math.Max(potentialTopLeftCornerOfShapeEdgeOnOneSide, topLeftCornerAtOneEndOfContainer);
+
+            var topLeftCornerAdjustedForSmallestContainerEdge =
+                topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
+                + (numSquaresOnSmallestSide * squareWidth);
+
+            var potentialTopLeftCornerOfShapeEdgeOnOtherSide = topLeftCornerAdjustedForSmallestContainerEdge +
+                                                        (numSquaresOnLargestSide * squareWidth);
+
+            var topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
+                Math.Min(potentialTopLeftCornerOfShapeEdgeOnOtherSide, topLeftCornerAtOtherEndOfContainer);
+
+            int actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
+                                     - (numSquaresOnLargestSide * squareWidth);
+
+            return actualTopLeftCorner;
         }
     }
 }

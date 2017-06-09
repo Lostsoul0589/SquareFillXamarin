@@ -60,6 +60,12 @@ namespace SquareFillDomain.UnitTests
             var thirdShape = new Shape(
                 topLeftCorner: topLeftRightHydrant,
                 squareDefinitions: _rightHydrantSquareList);
+            var squaresInShapes = new List<List<Square>>
+            {
+                _singleSquareShapeSquareList1,
+                _rightHydrantSquareList,
+                _crossShapeSquareList
+            };
             var shapeList = new List<Shape> { singleSquare, rightHydrant, cross };
             var shapeSet = new ShapeSet(shapes: shapeList);
             var shapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
@@ -69,12 +75,13 @@ namespace SquareFillDomain.UnitTests
             shapeSet.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
 
             // Assert
-            for (int shapeCount = 0; shapeCount < shapeSet.NumShapes; shapeCount++)
+            for (int shapeCount = 0; shapeCount < shapeList.Count; shapeCount++)
             {
-                for (int squareCount = 0; squareCount < shapeSet.NumSquares(shapeIndex: shapeCount); squareCount++)
+                for (int squareCount = 0; squareCount < squaresInShapes[shapeCount].Count; squareCount++)
                 {
-                    var xCoord = shapeSet.SquareCornerX(shapeIndex: shapeCount, squareIndex: squareCount) / TestConstants.SquareWidth;
-                    var yCoord = shapeSet.SquareCornerY(shapeIndex: shapeCount, squareIndex: squareCount) / TestConstants.SquareWidth;
+                    var square = squaresInShapes[shapeCount][squareCount];
+                    var xCoord = square.TopLeftCornerX / TestConstants.SquareWidth;
+                    var yCoord = square.TopLeftCornerY / TestConstants.SquareWidth;
                     Asserter.AreEqual(occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord), true);
                 }
             }

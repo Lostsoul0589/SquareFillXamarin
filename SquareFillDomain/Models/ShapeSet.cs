@@ -5,8 +5,6 @@ namespace SquareFillDomain.Models
 {
     public class ShapeSet
     {
-        public int NumShapes { get { return _shapes.Count(); } }
-
         private readonly IEnumerable<Shape> _shapes;
 
 		public ShapeSet(List<Shape> shapes)
@@ -35,21 +33,6 @@ namespace SquareFillDomain.Models
             {
                 shape.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
             }
-        }
-
-        public int NumSquares(int shapeIndex)
-        {
-            return _shapes.ElementAt(shapeIndex).NumSquares;
-        }
-
-        public int SquareCornerX(int shapeIndex, int squareIndex)
-        {
-            return _shapes.ElementAt(shapeIndex).SquareCornerX(squareIndex: squareIndex);
-        }
-
-        public int SquareCornerY(int shapeIndex, int squareIndex)
-        {
-            return _shapes.ElementAt(shapeIndex).SquareCornerY(squareIndex: squareIndex);
         }
     }
 }
