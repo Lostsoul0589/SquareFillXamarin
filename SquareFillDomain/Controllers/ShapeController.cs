@@ -68,7 +68,7 @@ namespace SquareFillDomain.Controllers
                     {
                         _colliding = true;
                         _lastGoodLocation = _shapeMover.CalculateCursorPosition();
-                        _shapeMover.SnapToGridInRelevantDimensionsIfPossible(
+                        _shapeToMove.SnapToGridInRelevantDimensionsIfPossible(
                             movementResult: movementResult,
                             occupiedGridSquares: _occupiedGridSquares);
                         LogMessagePlusOrigins(message: "Blocked. ");

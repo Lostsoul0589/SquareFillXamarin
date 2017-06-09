@@ -30,10 +30,18 @@ namespace SquareFillDomain.Models
             List<Square> squareDefinitions,
             bool topLeftCornerIsInPixels = true)
         {
-            InitialiseTopLeftCorner(topLeftCorner, topLeftCornerIsInPixels);
+            InitialiseTopLeftCorner(
+                topLeftCorner: topLeftCorner,
+                topLeftCornerIsInPixels: topLeftCornerIsInPixels);
+
             _squares = squareDefinitions;
-        
-            Initialise();
+            foreach (var square in _squares)
+            {
+                square.CalculateTopLeftCorner(parentTopLeftCorner: _topLeftCorner);
+            }
+
+            CalculateNumSquaresAroundTopLeftCorner();
+            MoveAllShapeSquares(newTopLeftCorner: _topLeftCorner);
         }
 
         public bool IsInShape(SquareFillPoint point)
@@ -135,12 +143,12 @@ namespace SquareFillDomain.Models
 
 	    public string TopLeftCornersAsString()
         {
-            string origins = String.Empty;
+            string topLeftCornerAsString = String.Empty;
             foreach (var square in _squares)
             {
-                origins = origins + square.TopLeftCornerAsString();
+                topLeftCornerAsString = topLeftCornerAsString + square.TopLeftCornerAsString();
             }
-            return origins;
+            return topLeftCornerAsString;
         }
 
         public int CalculateSnappedX(int newTopLeftCornerX)
@@ -188,6 +196,9 @@ namespace SquareFillDomain.Models
 
         public void SnapToGrid(SquareFillPoint newCursorPosition, SquareFillPoint topLeftCornerRelativeToCursorPosition)
         {
+            // There's a lot of confucion in this class and calling classes about when and how top left corners are calculated!!
+            // Needs clarifying. Apart from anything else, the word "calculate" is sometimes used to mean change the value,
+            // but sometimes used to mean just calculate a new value and return it without making any internal changes.
             var topLeftCornerTakingRelativePositionIntoAccount = CalculateTopLeftCorner(
                 newCursorPosition: newCursorPosition,
                 topLeftCornerRelativeToCursorPosition: topLeftCornerRelativeToCursorPosition);
@@ -222,21 +233,12 @@ namespace SquareFillDomain.Models
             if (newMovementResult.NoShapesAreInTheWay)
             {
                 MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
-                CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
             }
 
-            CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
-        }
-
-        private void Initialise()
-        {
-            foreach (var square in _squares)
-            {
-                square.CalculateTopLeftCorner(parentTopLeftCorner: _topLeftCorner);
-            }
-
-            CalculateNumSquaresAroundTopLeftCorner();
-            MoveAllShapeSquares(newTopLeftCorner: _topLeftCorner);
+            // !! I removed this because CalculateTopLeftCorners is already called from AttemptToUpdateOrigins,
+            // and this seemed like it would override that unnecessarily?
+            // Needs checking though!
+            // CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
         }
 
         private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)

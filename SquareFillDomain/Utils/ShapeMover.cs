@@ -47,13 +47,6 @@ namespace SquareFillDomain.Utils
                 topLeftCornerRelativeToCursorPosition: _topLeftCornerRelativeToCursorPosition);
         }
 
-        public void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult, Grid occupiedGridSquares)
-        {
-            _shapeToMove.SnapToGridInRelevantDimensionsIfPossible(
-                movementResult: movementResult,
-                occupiedGridSquares: occupiedGridSquares);
-        }
-
         private void CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
         {
             _topLeftCornerRelativeToCursorPosition = _shapeToMove.CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: cursorPosition);
