@@ -1,5 +1,6 @@
 //using NUnit.Framework;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
 using SquareFillDomain.Utils;
@@ -7,7 +8,7 @@ using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class ShapeTests
     {
         private Linq.List<Square> _simpleSingleSquareList;
@@ -23,7 +24,7 @@ namespace SquareFillDomain.UnitTests
 
         private readonly Grid _occupiedGridSquares = TestConstants.MakeGridSquares();
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _occupiedGridSquares.VacateAllSquares();
@@ -80,7 +81,7 @@ namespace SquareFillDomain.UnitTests
                 squareFactory: squareFactory);
         }
 
-        [Test]
+        [TestMethod]
 		public void TestCentreOfShapeIsDefinedAsInsideShape() 
         {
 			// Arrange
@@ -99,7 +100,7 @@ namespace SquareFillDomain.UnitTests
 			Asserter.AreEqual(isInShape, true);
 		}
 
-        [Test]
+        [TestMethod]
         public void TestAnyLocationInCentralSquareIsDefinedAsInsideShape()
         {
             // Arrange
@@ -116,7 +117,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(isInShape, true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAnyLocationOutsideShapeIsNotDefinedAsInsideShape()
         {
             // Arrange
@@ -133,7 +134,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(isInShape, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAnyLocationInNonCornerSquareIsDefinedAsInsideShape()
         {
             // Arrange
@@ -152,7 +153,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(isInShape, true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAnyLocationInNonCentralSquareIsDefinedAsInsideShape()
         {
             // Arrange
@@ -171,7 +172,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(isInShape, true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenShapeIsMovedToNewLocationThenAllSpritesArePlacedRelativeToTopLeftCorner()
         {
             // Arrange
@@ -196,7 +197,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestNumSquaresLeftOfTopLeftCornerIsInitialisedAccordingToRelativePosition()
         {
             // Arrange
@@ -214,7 +215,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shape.NumSquaresLeftOfTopLeftCorner, numSquaresLeftOfTopLeftCorner);
         }
 
-        [Test]
+        [TestMethod]
         public void TestNumSquaresRightOfTopLeftCornerIsInitialisedAcordingToRelativePosition()
         {
             // Arrange
@@ -232,7 +233,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shape.NumSquaresRightOfTopLeftCorner, numSquaresRightOfTopLeftCorner);
         }
 
-        [Test]
+        [TestMethod]
         public void TestNumSquaresAboveTopLeftCornerIsInitialisedAcordingToRelativePosition()
         {
             // Arrange
@@ -250,7 +251,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shape.NumSquaresAboveTopLeftCorner, numSquaresAboveTopLeftCorner);
         }
 
-        [Test]
+        [TestMethod]
         public void TestNumSquaresBelowTopLeftCornerIsInitialisedAcordingToRelativePosition()
         {
             // Arrange
@@ -268,7 +269,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shape.NumSquaresBelowTopLeftCorner, numSquaresBelowTopLeftCorner);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeAreWithinTheContainingRectangleIfAllEdgesAreWithinIt()
         {
             // Arrange
@@ -286,7 +287,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result, true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheLeftEdge()
         {
             // Arrange
@@ -304,7 +305,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheTopEdge()
         {
             // Arrange
@@ -322,7 +323,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheRightEdge()
         {
             // Arrange
@@ -340,7 +341,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheBottomEdge()
         {
             // Arrange
@@ -358,7 +359,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestVacateGridSquaresWillVacateOnlyTheSquaresOccupiedByTheShape()
         {
             // Arrange
@@ -395,7 +396,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOccupyGridSquaresWillOccupyOnlyTheSquaresOccupiedByTheShape()
         {
             // Arrange
@@ -425,7 +426,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongLeftEdgeOfGrid()
         {
             // Arrange
@@ -459,7 +460,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongRightEdgeOfGrid()
         {
             // Arrange
@@ -493,7 +494,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongTopEdgeOfGrid()
         {
             // Arrange
@@ -523,7 +524,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongBottomEdgeOfGrid()
         {
             // Arrange
@@ -555,7 +556,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewShapeCentreIsInMiddleOfGrid()
         {
             // Arrange
@@ -586,7 +587,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayOnTheLeft()
         {
             // Arrange
@@ -620,7 +621,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayOnTheRight()
         {
             // Arrange
@@ -654,7 +655,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayBelow()
         {
             // Arrange
@@ -686,7 +687,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayAbove()
         {
             // Arrange
@@ -718,7 +719,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyTopLeft()
         {
             // Arrange
@@ -750,7 +751,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyTopRight()
         {
             // Arrange
@@ -782,7 +783,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyBottomLeft()
         {
             // Arrange
@@ -814,7 +815,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyBottomRight()
         {
             // Arrange
@@ -848,7 +849,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         // !! These tests should be reinstated when we start using grid coordinates for eerything instead of pixels
-        /*[Test]
+        /*[TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingLeft() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -876,7 +877,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingRight() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -904,7 +905,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingUp() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -932,7 +933,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDown() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -960,7 +961,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyUpAndLeft() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -988,7 +989,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyUpAndRight() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -1016,7 +1017,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyDownAndLeft() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -1044,7 +1045,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 		
-        [Test]
+        [TestMethod]
         public void TestOriginsAreNotUpdatedIfShapeHasNotCrossedAGridBoundaryWhenMovingDiagonallyDownAndRight() {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -1073,7 +1074,7 @@ namespace SquareFillDomain.UnitTests
         }*/
         // !! These tests should be reinstated when we start using grid coordinates for eerything instead of pixels
 
-        [Test]
+        [TestMethod]
         public void TestWhenShapeHasOnlyMovedVerticallyThenWeCanStillUpdateOrigins()
         {
             // Arrange
@@ -1104,7 +1105,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenShapeHasOnlyMovedHorizontallyThenWeCanStillUpdateOrigins()
         {
             // Arrange
@@ -1136,7 +1137,7 @@ namespace SquareFillDomain.UnitTests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenShapeHasOnlyMovedVerticallyThenWeCanStillDetectAnotherShapeInTheWay()
         {
             // Arrange
@@ -1158,7 +1159,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenShapeHasOnlyMovedHorizontallyThenWeCanStillDetectAnotherShapeInTheWay()
         {
             // Arrange
@@ -1180,7 +1181,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurLeftSide()
         {
             // Arrange
@@ -1202,7 +1203,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurRightSide()
         {
             // Arrange
@@ -1224,7 +1225,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurTopSide()
         {
             // Arrange
@@ -1246,7 +1247,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurBottomSide()
         {
             // Arrange
@@ -1268,7 +1269,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenItIsCompletelyInsideTheMovingShape()
         {
             // Arrange
@@ -1290,7 +1291,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurLeftSide()
         {
             // Arrange
@@ -1312,7 +1313,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurRightSide()
         {
             // Arrange
@@ -1334,7 +1335,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurTopSide()
         {
             // Arrange
@@ -1356,7 +1357,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurBottomSide()
         {
             // Arrange
@@ -1378,7 +1379,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeIsNotAllowedToMoveBeyondTheTopOfTheScreen()
         {
             // Arrange
@@ -1397,7 +1398,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeIsNotAllowedToMoveBeyondTheBottomOfTheScreen()
         {
             // Arrange
@@ -1416,7 +1417,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeIsNotAllowedToMoveBeyondTheLeftEdgeOfTheScreen()
         {
             // Arrange
@@ -1435,7 +1436,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeIsNotAllowedToMoveBeyondTheRightEdgeOfTheScreen()
         {
             // Arrange
@@ -1454,7 +1455,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeAreHorizontallyAlignedWithTheGrid()
         {
             // Arrange
@@ -1474,7 +1475,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeAreVerticallyAlignedWithTheGrid()
         {
             // Arrange
@@ -1494,7 +1495,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestAShapeCanBeDetectedInTheWayWhenWeArePerfectlyAlignedWithTheGrid()
         {
             // Arrange

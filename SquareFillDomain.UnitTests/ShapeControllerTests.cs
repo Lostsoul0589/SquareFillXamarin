@@ -4,9 +4,11 @@ using SquareFillDomain.Controllers;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace SquareFillDomain.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class ShapeControllerTests
     {
         private TestShapeSetBuilder _shapeSetBuilder;
@@ -20,7 +22,7 @@ namespace SquareFillDomain.UnitTests
         private SquareFillPoint _insideBorder;
         private readonly SquareFillPoint _relativeCursorPosition = new SquareFillPoint(x: 2, y: 3);
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _shapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
@@ -45,7 +47,7 @@ namespace SquareFillDomain.UnitTests
                 y: _topLeftCornerInsideBorder.Y + _relativeCursorPosition.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestPerformanceOfStartMove()
         {
             // Arrange
@@ -58,7 +60,7 @@ namespace SquareFillDomain.UnitTests
         }*/
         }
 
-        [Test]
+        [TestMethod]
         public void TestPerformanceOfContinueMove()
         {
             // Arrange
@@ -78,7 +80,7 @@ namespace SquareFillDomain.UnitTests
             // }
         }
 
-        [Test]
+        [TestMethod]
         public void TestPerformanceOfEndMove()
         {
             // Arrange
@@ -94,7 +96,7 @@ namespace SquareFillDomain.UnitTests
             // }
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenShapeStaysOutsideGameGridThenSquaresAreStillOccupied()
         {
             // Arrange
@@ -122,7 +124,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX + 1, y: topLeftOccupiedGridY + 1), true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeSquaresAreVacatedAfterStartMove()
         {
             // Arrange
@@ -145,7 +147,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestSquaresAreStillVacatedIfShapeStartsOutsideGameGrid()
         {
             // Arrange
@@ -164,7 +166,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX + 1, y: 0 + topLeftGridY + 1), false);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeSquaresAreOccupiedAfterEndMoveWhenShapeIsPerfectlyAlignedWithGrid()
         {
             // Arrange
@@ -186,7 +188,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeSquaresAreOccupiedToSnappedLocationsAfterEndMove()
         {
             // Arrange
@@ -208,7 +210,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
         }
 
-        [Test]
+        [TestMethod]
         public void TestShapeDoesNotMoveIfAnotherShapeIsInTheWay()
         {
             // Arrange
@@ -225,7 +227,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeToMove.TopLeftCornerY, originalY);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenAnObstacleIsDetectedThenAnyFurtherMovesOutsideTheShapeAreIgnored()
         {
             // Arrange
@@ -246,7 +248,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, originalY);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedAndCursorLeavesShapeItWillStartMovingAgainWhenCursorReturns()
         {
             // Arrange
@@ -274,7 +276,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, topLeftCornerImmediatelyToTheRightOfObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedOnTheRightThenShapeWillSnapToRightHandBorderWithObstacle()
         {
             // Arrange
@@ -309,7 +311,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToRightHandBorderWithObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedOnTheLeftThenShapeWillSnapToLeftHandBorderWithObstacle()
         {
             // Arrange
@@ -344,7 +346,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToLeftHandBorderWithObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedAboveThenShapeWillSnapToTopOfBorderWithObstacle()
         {
             // Arrange
@@ -378,7 +380,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToTopOfBorderWithObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedBelowThenShapeWillSnapToBottomOfBorderWithObstacle()
         {
             // Arrange
@@ -413,7 +415,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(snappedToBottomOfBorderWithObstacle.Y, shapeController.CurrentShapeCornerY);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedDiagonallyTopLeftThenShapeWillSnapToTopLeftCornerByObstacle()
         {
             // Arrange
@@ -446,7 +448,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToTopLeftCornerByObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedDiagonallyTopRightThenShapeWillSnapToTopRightCornerByObstacle()
         {
             // Arrange
@@ -479,7 +481,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToTopRightCornerByObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedDiagonallyBottomRightThenShapeWillSnapToTopLeftCornerByObstacle()
         {
             // Arrange
@@ -512,7 +514,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToBottomRightCornerByObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWhenObstacleIsDetectedDiagonallyBottomLeftThenShapeWillSnapToTopRightCornerByObstacle()
         {
             // Arrange
@@ -545,7 +547,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToBottomLeftCornerByObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void
             TestWhenObstacleIsDetectedAndCursorLeavesShapeAndReturnsThenAllSubsequentMovementUsesNewRelativeCursorPosition
             ()
@@ -580,7 +582,7 @@ namespace SquareFillDomain.UnitTests
                                                           - laterRelativeCursorPosition.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void
             TestWhenObstacleIsDetectedAndCursorLeavesShapeAndReturnsInADifferentUnoccupiedPlaceThenItWillNotThinkItIsInOurShape
             ()
@@ -618,7 +620,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, topLeftCornerToTheRightOfObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void
             TestWhenShapeHasStoppedDueToObstacleAndCursorHasKeptMovingIntoFreeSpaceThenEndMoveWillNotSnapToFreeSpace()
         {
@@ -648,7 +650,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeToMove.TopLeftCornerY, topLeftCornerToTheRightOfObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeCanDetectAShapeInTheWayWhenCursorIsNotInCentreOfShape()
         {
             // Arrange
@@ -666,7 +668,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerX, originalTopLeftX);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeCanDetectAShapeInTheWayWhenWeAreHorizontallyAlignedWithGrid()
         {
             // Arrange
@@ -696,7 +698,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, directlyToRightOfObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeCanDetectAShapeInTheWayWhenWeAreVerticallyAlignedWithGrid()
         {
             // Arrange
@@ -726,7 +728,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, directlyBelowObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestWeCanDetectAShapeInTheWayWhenWeArePerfectlyAlignedWithGrid()
         {
             // Arrange
@@ -751,7 +753,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(shapeController.CurrentShapeCornerY, directlyBelowObstacle.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestIfShapeEndsUpInAnAlreadyOccupiedLocationThenItWillSnapToTheLastValidLocation()
         {
             // Arrange
@@ -774,15 +776,15 @@ namespace SquareFillDomain.UnitTests
         }
     }
 
-    public class TestAttribute : Attribute
-    {
-    }
+    //public class TestAttribute : Attribute
+    //{
+    //}
 
-    public class SetUpAttribute : Attribute
-    {
-    }
+    //public class SetUpAttribute : Attribute
+    //{
+    //}
 
-    public class TestFixtureAttribute : Attribute
-    {
-    }
+    //public class TestFixtureAttribute : Attribute
+    //{
+    //}
 }

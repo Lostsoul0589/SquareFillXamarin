@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using NUnit.Framework;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
@@ -7,7 +8,7 @@ using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class ShapeSetTests
     {
         private readonly Linq.List<Square> _singleSquareShapeSquareList1 = new Linq.List<Square>
@@ -34,7 +35,7 @@ namespace SquareFillDomain.UnitTests
             new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[4], sprite: new MockSquareView())
         };
 
-        [Test]
+        [TestMethod]
         public void TestAllShapesArePutIntoGridSquares()
         {
             // Arrange
@@ -87,7 +88,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(occupiedGridSquares.IsSquareOccupied(x: 0, y: 0), false);
         }
 
-        [Test]
+        [TestMethod]
 		public void TestWhenUserClicksInAreaOfScreenWithNoShapeThenNoShapeIsSelected() {
 			// Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -104,7 +105,7 @@ namespace SquareFillDomain.UnitTests
 			Asserter.AreEqual(null, selectedShape);
 		}
 		
-		[Test]
+		[TestMethod]
 		public void TestWhenUserClicksInAreaOfScreenWithSingleSquareShapeThenShapeIsSelected()
 		{
 			// Arrange
@@ -126,7 +127,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(selectedShape.TopLeftCornerY, singleSquareShape.TopLeftCornerY);
 		}
 		
-		[Test]
+		[TestMethod]
 		public void TestWhenTwoShapesExistThatUserCanSelectTheCorrectShape()
 		{
 			// Arrange
@@ -155,7 +156,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
 		}
 		
-		[Test]
+		[TestMethod]
 		public void TestWhenCursorIsNotInCentreOfSingleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
@@ -181,7 +182,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
 		}
 		
-		[Test]
+		[TestMethod]
 		public void TestWhenCursorIsInNonCentralSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
@@ -209,7 +210,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(selectedShape.TopLeftCornerY, secondShape.TopLeftCornerY);
 		}
 
-        [Test]
+        [TestMethod]
         public void TestWhenCursorIsInNonCornerSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
         {
             // Arrange

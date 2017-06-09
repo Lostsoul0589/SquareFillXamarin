@@ -1,14 +1,15 @@
 //using NUnit.Framework;
 
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
 
 namespace SquareFillDomain.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class SquareTests
     {        
-		[Test]
+		[TestMethod]
 		public void TestCentreOfSquareIsDefinedAsInsideSquare() {
 			// Arrange
 			var centreOfSquare = new SquareFillPoint(
@@ -25,7 +26,7 @@ namespace SquareFillDomain.UnitTests
 			Asserter.AreEqual(isInSquare, true);
 		}
 		
-		[Test]
+		[TestMethod]
 		public void TestAnyLocationInSquareIsDefinedAsInsideSquare() {
 			// Arrange
 		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -40,7 +41,7 @@ namespace SquareFillDomain.UnitTests
 			Asserter.AreEqual(isInSquare, true);
 		}
 		
-		[Test]
+		[TestMethod]
 		public void TestAnyLocationOutsideSquareIsNotDefinedAsInsideSquare() {
 			// Arrange
 		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -55,7 +56,7 @@ namespace SquareFillDomain.UnitTests
 			Asserter.AreEqual(isInSquare, false);
 		}
 
-        [Test]
+        [TestMethod]
         public void TestTopLeftCornerIsCalculatedAsParentCornerAdjustedByRelativePosition()
         {
             // Arrange
@@ -74,7 +75,7 @@ namespace SquareFillDomain.UnitTests
                 + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
 
-        [Test]
+        [TestMethod]
         public void TestPotentialTopLeftCornerIsCalculatedAsParentCornerAdjustedByRelativePosition()
         {
             // Arrange

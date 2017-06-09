@@ -1,6 +1,6 @@
 // using NUnit.Framework;
 
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SquareFillDomain.UnitTests.TestUtils
 {
@@ -8,7 +8,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
     {
         public static void AreEqual(object objectToCompare, object expectedValue)
         {
-            //Assert.AreEqual(expectedValue, objectToCompare);
+            Assert.AreEqual(expectedValue, objectToCompare);
         }
     }
 }

@@ -1,14 +1,16 @@
 //using NUnit.Framework;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SquareFillDomain.Builders;
 using SquareFillDomain.UnitTests.TestUtils;
 using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class ShapeSetBuilderTests
     {
-        [Test]
+        [TestMethod]
         public void TestOccupiedGridSquareMatrixIsCorrectSize()
         {
             // Arrange
