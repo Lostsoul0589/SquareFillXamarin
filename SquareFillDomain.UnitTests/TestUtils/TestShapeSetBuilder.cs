@@ -11,6 +11,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public Shape RightHydrantShape { get { return _rightHydrantShape; } }
         public Shape FourSquareShape { get { return _fourSquareShape; } }
         public Shape LeftCornerShape { get { return _leftCornerShape; } }
+        public Shape SingleSquareShape { get { return _singleSquareShape; } }
 
         public List<SquareFillPoint> TopRowBorderSquares { get { return _borderBuilder.TopRowBorderSquares; } }
         public List<SquareFillPoint> LeftWallBorderSquares { get { return _borderBuilder.LeftWallBorderSquares; } }
@@ -23,6 +24,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private Shape _rightHydrantShape;
         private Shape _fourSquareShape;
         private Shape _leftCornerShape;
+        private Shape _singleSquareShape;
+
         private Shape _topLeftCornerOfContainingBorder;
         private Shape _topRightCornerOfContainingBorder;
         private Shape _bottomLeftCornerOfContainingBorder;
@@ -50,6 +53,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 _rightHydrantShape,
                 _fourSquareShape,
                 _leftCornerShape,
+                _singleSquareShape,
                 _topLeftCornerOfContainingBorder,
                 _topRightCornerOfContainingBorder,
                 _bottomLeftCornerOfContainingBorder,
@@ -82,6 +86,13 @@ namespace SquareFillDomain.UnitTests.TestUtils
             _leftCornerShape = MakeShape(colour: SquareFillColour.Green,
                 topLeftCorner: new SquareFillPoint(x: 7, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
+                squareFactory: squareViewFactory,
+                topLeftCornerIsInPixels: false);
+
+            // 14:
+            _singleSquareShape = MakeShape(colour: SquareFillColour.LightGrey,
+                topLeftCorner: new SquareFillPoint(x: 9, y: 18),
+                relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,
                 topLeftCornerIsInPixels: false);
 

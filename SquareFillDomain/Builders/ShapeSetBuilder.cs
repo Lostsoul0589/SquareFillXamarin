@@ -20,7 +20,7 @@ namespace SquareFillDomain.Builders
         private static Shape _threePoleShape;
         private static Shape _twoPoleShape;
         private static Shape _backwardsLShape;
-        private static Shape _singleSquareShape01;
+        private static Shape _singleSquareShape;
 
         private readonly BorderBuilder _borderBuilder = new BorderBuilder();
 
@@ -56,7 +56,7 @@ namespace SquareFillDomain.Builders
                 _backwardsLShape,
                 _rightHydrantShape03,
                 _upsideDownTShape02,
-                _singleSquareShape01
+                _singleSquareShape
             });
         }
 
@@ -159,7 +159,7 @@ namespace SquareFillDomain.Builders
                 topLeftCornerIsInPixels: false);
 
             // 14:
-            _singleSquareShape01 = MakeShape(colour: SquareFillColour.LightGrey,
+            _singleSquareShape = MakeShape(colour: SquareFillColour.LightGrey,
                 topLeftCorner: new SquareFillPoint(x: 9, y: 18),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory,

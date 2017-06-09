@@ -35,17 +35,11 @@ namespace SquareFillDomain.Utils
             if (_shapeToMove != null)
             {
                 _shapeToMove.VacateGridSquares(occupiedGridSquares: _occupiedGridSquares);
-                StartMove(cursorPositionAtStart: cursorPositionAtStart, shapeToMove: _shapeToMove);
+                CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: cursorPositionAtStart);
                 _lastGoodLocation = cursorPositionAtStart;
             }
 
             return _shapeToMove;
-        }
-
-        public void StartMove(SquareFillPoint cursorPositionAtStart, Shape shapeToMove)
-        {
-            _shapeToMove = shapeToMove;
-            CalculateTopLeftCornerRelativeToCursorPosition(cursorPositionAtStart);
         }
 
         public void ContinueMove(SquareFillPoint newLocation)
@@ -82,7 +76,7 @@ namespace SquareFillDomain.Utils
                 {
                     if (cursorIsInShape)
                     {
-                        StartMove(cursorPositionAtStart: newLocation, shapeToMove: _shapeToMove);
+                        StartMove(cursorPositionAtStart: newLocation);
                         _lastGoodLocation = newLocation;
                         _colliding = false;
                         LogMessagePlusOrigins(message: "Moving again. ");
