@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using SquareFillDomain.Builders;
-using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
 using SquareFillDomain.Utils;
 

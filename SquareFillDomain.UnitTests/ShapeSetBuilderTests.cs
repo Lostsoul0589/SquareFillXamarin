@@ -1,9 +1,6 @@
-using System.Collections.Generic;
 //using NUnit.Framework;
 using SquareFillDomain.Builders;
-using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
-using SquareFillDomain.Utils;
 using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests

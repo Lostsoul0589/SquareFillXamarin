@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using SquareFillDomain.Interfaces;
-using SquareFillDomain.Models;
+﻿using SquareFillDomain.Models;
 
 namespace SquareFillDomain.Builders
 {

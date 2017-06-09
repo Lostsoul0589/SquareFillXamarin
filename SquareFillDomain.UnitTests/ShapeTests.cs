@@ -1,7 +1,5 @@
 //using NUnit.Framework;
 
-using System.Security.Cryptography.X509Certificates;
-using SquareFillDomain.Builders;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
 using SquareFillDomain.Utils;
