@@ -35,7 +35,7 @@ namespace SquareFillDomain.UnitTests
                 x: _defaultSingleSquareShape.TopLeftCornerX + TestConstants.SquareWidth / 2,
                 y: _defaultSingleSquareShape.TopLeftCornerY + TestConstants.SquareWidth / 2);
 
-            _centreOfDefaultSingleSquare = new SquareFillPoint(
+            _cornerOfDefaultSingleSquare = new SquareFillPoint(
                 x: _defaultSingleSquareShape.TopLeftCornerX,
                 y: _defaultSingleSquareShape.TopLeftCornerY);
         }
@@ -83,7 +83,7 @@ namespace SquareFillDomain.UnitTests
 		[TestMethod]
 		public void TestNewTopLeftCornerWillBeNewCursorPositionAdjustedAccordingToPositionOfCursorWithinShape() {
 			// Arrange
-            var originalTopLeftCorner = _centreOfDefaultSingleSquare;
+            var originalTopLeftCorner = _cornerOfDefaultSingleSquare;
 			var cursorPositionAtStart = new SquareFillPoint(
 				x: originalTopLeftCorner.X + 10,
 				y: originalTopLeftCorner.Y + 15);
@@ -333,19 +333,19 @@ namespace SquareFillDomain.UnitTests
 		[TestMethod]
 		public void TestIfNewShapeCentreIsBelowContainingRectangleThenItWillNotBeSnappedBackInsideContainer() {
 			// Arrange
-			var cursorAndCentreAtStart = _centreOfDefaultSingleSquare;
+			var cursorAndCornerAtStart = _cornerOfDefaultSingleSquare;
 			var newCursorY = TestConstants.ContainingRectangle.Y
 				+ TestConstants.ContainingRectangle.Height
-				+ TestConstants.SquareWidth/2;
-			var newCursorPosition = new SquareFillPoint(x:cursorAndCentreAtStart.X, y:newCursorY);
+				+ TestConstants.SquareWidth;
+			var newCursorPosition = new SquareFillPoint(x:cursorAndCornerAtStart.X, y:newCursorY);
 			
 			// Act
-			_shapeMover.StartMove(cursorPositionAtStart:cursorAndCentreAtStart, shapeToMove: _defaultSingleSquareShape);
+			_shapeMover.StartMove(cursorPositionAtStart:cursorAndCornerAtStart, shapeToMove: _defaultSingleSquareShape);
 			_shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_defaultSingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_defaultSingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(_defaultSingleSquareShape.TopLeftCornerX, newCursorPosition.X);
+			Asserter.AreEqual(_defaultSingleSquareShape.TopLeftCornerY, newCursorPosition.Y);
 		}
 		
 		[TestMethod]
