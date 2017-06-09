@@ -22,21 +22,15 @@ namespace SquareFillDomain.Utils
 
         public void MoveToNewCursorPosition(SquareFillPoint newCursorPosition)
         {
-            if (_shapeToMove != null)
-            {
-                var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
-                _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
-            }
+            var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
+            _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
         }
 
         public void SnapToGrid(SquareFillPoint newCursorPosition)
         {
-            if (_shapeToMove != null)
-            {
-                _shapeToMove.SnapToGrid(
-                    newCursorPosition: newCursorPosition,
-                    topLeftCornerRelativeToCursorPosition: _topLeftCornerRelativeToCursorPosition);
-            }
+            _shapeToMove.SnapToGrid(
+                newCursorPosition: newCursorPosition,
+                topLeftCornerRelativeToCursorPosition: _topLeftCornerRelativeToCursorPosition);
         }
 
         public SquareFillPoint CalculateCursorPosition()
