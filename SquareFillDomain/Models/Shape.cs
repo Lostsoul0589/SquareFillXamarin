@@ -232,11 +232,6 @@ namespace SquareFillDomain.Models
             {
                 MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
             }
-
-            // !! I removed this because CalculateTopLeftCorners is already called from AttemptToUpdateOrigins,
-            // and this seemed like it would override that unnecessarily?
-            // Needs checking though!
-            // CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
         }
 
         private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)
