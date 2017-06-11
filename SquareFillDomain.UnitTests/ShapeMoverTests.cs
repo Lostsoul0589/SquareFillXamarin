@@ -178,7 +178,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 
             // Assert
             Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
@@ -195,7 +195,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
@@ -215,7 +215,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X + shapeCentreRelativeToCursorPosition.X);
@@ -232,7 +232,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
@@ -241,20 +241,23 @@ namespace SquareFillDomain.UnitTests
 		
 		[TestMethod]
 		public void TestIfNewPositionIsNotInCentreOfAGridSquareAfterAdjustmentForShapeCentreThenSnapToGridGoesToCentreOfNearestSquare(){
-			// Arrange
-			var cursorPositionAtStart = new SquareFillPoint(
-				x: _centreOfDefaultSingleSquare.X + 10,
-				y: _centreOfDefaultSingleSquare.Y + 10);
+            // Arrange
+            var relativeCursorPosition = new SquareFillPoint(
+                x: 10,
+                y: 10);
+            var cursorPositionAtStart = new SquareFillPoint(
+				x: _centreOfDefaultSingleSquare.X + relativeCursorPosition.X,
+				y: _centreOfDefaultSingleSquare.Y + relativeCursorPosition.Y);
 			var centreOfNearestSquare = new SquareFillPoint(
 				x: TestConstants.ContainingRectangle.X + TestConstants.SquareWidth/2,
 				y: TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth/2);
 			var newCursorPosition = new SquareFillPoint(
-				x: centreOfNearestSquare.X + 1,
-				y: centreOfNearestSquare.Y + 1);
+				x: centreOfNearestSquare.X + relativeCursorPosition.X + 1,
+				y: centreOfNearestSquare.Y + relativeCursorPosition.Y + 1);
             _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, centreOfNearestSquare.X);
@@ -271,7 +274,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, TestConstants.ContainingRectangle.X
@@ -285,12 +288,12 @@ namespace SquareFillDomain.UnitTests
 			// Arrange
 			var cursorAndCentreAtStart = _centreOfDefaultSingleSquare;
 			var newCursorPosition = new SquareFillPoint(
-				x:TestConstants.ContainingRectangle.X - TestConstants.SquareWidth/2,
+				x:TestConstants.ContainingRectangle.X - TestConstants.SquareWidth - TestConstants.SquareWidth/2,
 				y:TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth/2);
             _shapeMover.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
@@ -303,11 +306,11 @@ namespace SquareFillDomain.UnitTests
 			var cursorAndCentreAtStart = _centreOfDefaultSingleSquare;
 			var newCursorPosition = new SquareFillPoint(
 				x:TestConstants.ContainingRectangle.X + TestConstants.SquareWidth/2,
-				y:TestConstants.ContainingRectangle.Y - TestConstants.SquareWidth/2);
+				y:TestConstants.ContainingRectangle.Y - TestConstants.SquareWidth - TestConstants.SquareWidth/2);
             _shapeMover.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
@@ -325,7 +328,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
@@ -343,7 +346,7 @@ namespace SquareFillDomain.UnitTests
             _shapeMover.StartMove(cursorPositionAtStart: cursorAndCornerAtStart);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, newCursorPosition.X);
@@ -376,7 +379,7 @@ namespace SquareFillDomain.UnitTests
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-            shapeMover2.SnapToGrid(newCursorPosition: newCursorPosition);
+            shapeMover2.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
             Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftAtStart.X - (numSquaresLeftOfContainer * TestConstants.SquareWidth));
@@ -410,7 +413,7 @@ namespace SquareFillDomain.UnitTests
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-			shapeMover2.SnapToGrid(newCursorPosition: newCursorPosition);
+			shapeMover2.EndMove(finalLocation: newCursorPosition);
 
             // Assert
             Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftAtStart.X);
@@ -418,42 +421,37 @@ namespace SquareFillDomain.UnitTests
 		}
 		
 		[TestMethod]
-		public void TestIfRightShapeEdgeIsRightOfContainerThenShapeWillNotBeSnappedBackInsideContainer() {
+		public void TestIfRightShapeEdgeIsMovedToRightOfContainerThenShapeWillNotBeSnappedBackInsideContainer() {
 			// Arrange
-			int numSquaresRightOfContainer = 1;
 			var cursorAndCentreAtStart = new SquareFillPoint(
 				x:TestConstants.ContainingRectangle.X
 					+ TestConstants.ContainingRectangle.Width
-					- (numSquaresRightOfContainer * TestConstants.SquareWidth)
 					- TestConstants.SquareWidth/2,
 				y:TestConstants.ContainingRectangle.Y + TestConstants.SquareWidth/2);
             var topLeftAtStart = new SquareFillPoint(
-                x: TestConstants.ContainingRectangle.X
-                   + TestConstants.ContainingRectangle.Width
-                   - (numSquaresRightOfContainer * TestConstants.SquareWidth)
-                   - (numSquaresRightOfContainer * TestConstants.SquareWidth)
-                   - TestConstants.SquareWidth,
-                y: TestConstants.ContainingRectangle.Y);
+                x: cursorAndCentreAtStart.X - TestConstants.SquareWidth / 2,
+                y: cursorAndCentreAtStart.Y - TestConstants.SquareWidth / 2);
             var newCursorPosition = new SquareFillPoint(
-				x:cursorAndCentreAtStart.X + (numSquaresRightOfContainer * TestConstants.SquareWidth),
-				y:cursorAndCentreAtStart.Y);
-			var shapeToMove = new Shape(
+                x: TestConstants.ContainingRectangle.X
+                    + TestConstants.ContainingRectangle.Width
+                    + TestConstants.SquareWidth
+                    + TestConstants.SquareWidth / 2,
+                y: cursorAndCentreAtStart.Y);
+            var shapeToMove = new Shape(
                 topLeftCorner: topLeftAtStart,
                 squareDefinitions: new List<Square>{
-					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer, y:0), sprite: new MockSquareView()),
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresRightOfContainer*2, y:0), sprite: new MockSquareView())
+					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
 				});
             var shapeSet = new ShapeSet(new List<Shape> { shapeToMove });
             var shapeMover2 = new ShapeMover(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-			shapeMover2.SnapToGrid(newCursorPosition: newCursorPosition);
+			shapeMover2.EndMove(finalLocation: newCursorPosition);
 
             // Assert
-            Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftAtStart.X + (numSquaresRightOfContainer * TestConstants.SquareWidth));
-            Asserter.AreEqual(shapeToMove.TopLeftCornerY, topLeftAtStart.Y);
+            Asserter.AreEqual(shapeToMove.CentreOfShapeX, newCursorPosition.X);
+            Asserter.AreEqual(shapeToMove.CentreOfShapeY, newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -488,7 +486,7 @@ namespace SquareFillDomain.UnitTests
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
-			shapeMover2.SnapToGrid(newCursorPosition: newCursorPosition);
+			shapeMover2.EndMove(finalLocation: newCursorPosition);
 
             // Assert
             Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftAtStart.X);
@@ -510,7 +508,7 @@ namespace SquareFillDomain.UnitTests
                 y: _shapeSetBuilder.SingleSquareShape.TopLeftCornerY);
 
             // Act
-            _shapeMover.SnapToGrid(newCursorPosition: newCursorPosition);
+            _shapeMover.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
 			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, originalOrigin.X + horizontalMovement);

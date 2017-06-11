@@ -124,7 +124,7 @@ namespace SquareFillDomain.Utils
             _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
         }
 
-        public void SnapToGrid(SquareFillPoint newCursorPosition)
+        private void SnapToGrid(SquareFillPoint newCursorPosition)
         {
             _shapeToMove.SnapToGrid(
                 newCursorPosition: newCursorPosition,
