@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SquareFillDomain.Controllers;
 // using NUnit.Framework;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
@@ -10,7 +11,7 @@ namespace SquareFillDomain.UnitTests
     [TestClass]
     public class ShapeMoverTests
     {
-        private ShapeMover _shapeMover;
+        private ShapeController _shapeMover;
         private SquareFillPoint _centreOfDefaultSingleSquare;
         private SquareFillPoint _cornerOfDefaultSingleSquare;
 
@@ -34,7 +35,7 @@ namespace SquareFillDomain.UnitTests
             _shapeSet = _shapeSetBuilder.GetShapeSet();
             _shapeSetBuilder.OccupyBorderSquares(occupiedGridSquares: _occupiedGridSquares);
             _shapeSet.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
-            _shapeMover = new ShapeMover(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
+            _shapeMover = new ShapeController(shapeSet: _shapeSet, occupiedGridSquares: _occupiedGridSquares);
 
             _outsideContainingRectangleButAtCornerOfRightHydrantX = _shapeSetBuilder.RightHydrantShape.TopLeftCornerX;
             _outsideContainingRectangleButAtCornerOfRightHydrantY = _shapeSetBuilder.RightHydrantShape.TopLeftCornerY;
@@ -375,7 +376,7 @@ namespace SquareFillDomain.UnitTests
                     new Square(positionRelativeToParentCorner: new SquareFillPoint(x:numSquaresLeftOfContainer*2, y:0), sprite: new MockSquareView())
 				});
             var shapeSet = new ShapeSet(new List<Shape> { shapeToMove });
-            var shapeMover2 = new ShapeMover(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
+            var shapeMover2 = new ShapeController(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
@@ -409,7 +410,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresAboveContainer*2), sprite: new MockSquareView())
 				});
             var shapeSet = new ShapeSet(new List<Shape> { shapeToMove });
-            var shapeMover2 = new ShapeMover(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
+            var shapeMover2 = new ShapeController(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
@@ -443,7 +444,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: new MockSquareView())
 				});
             var shapeSet = new ShapeSet(new List<Shape> { shapeToMove });
-            var shapeMover2 = new ShapeMover(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
+            var shapeMover2 = new ShapeController(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act
@@ -482,7 +483,7 @@ namespace SquareFillDomain.UnitTests
 					new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:numSquaresBelowContainer + 2), sprite: new MockSquareView())
 				});
             var shapeSet = new ShapeSet(new List<Shape> { shapeToMove });
-            var shapeMover2 = new ShapeMover(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
+            var shapeMover2 = new ShapeController(shapeSet: shapeSet, occupiedGridSquares: _occupiedGridSquares);
             shapeMover2.StartMove(cursorPositionAtStart: cursorAndCentreAtStart);
 
             // Act

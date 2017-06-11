@@ -1,8 +1,9 @@
 using SquareFillDomain.Models;
+using SquareFillDomain.Utils;
 
-namespace SquareFillDomain.Utils
+namespace SquareFillDomain.Controllers
 {
-    public class ShapeMover
+    public class ShapeController
     {
         public int CurrentShapeCornerX { get { return _shapeToMove.TopLeftCornerX; } }
         public int CurrentShapeCornerY { get { return _shapeToMove.TopLeftCornerY; } }
@@ -16,12 +17,7 @@ namespace SquareFillDomain.Utils
         private readonly Logger _logger = new Logger();
         private SquareFillPoint _topLeftCornerRelativeToCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
-        public ShapeMover()
-        {
-            
-        }
-
-        public ShapeMover(ShapeSet shapeSet, Grid occupiedGridSquares)
+        public ShapeController(ShapeSet shapeSet, Grid occupiedGridSquares)
         {
             _occupiedGridSquares = occupiedGridSquares;
             _shapeSet = shapeSet;
