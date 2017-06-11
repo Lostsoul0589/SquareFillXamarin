@@ -1,4 +1,5 @@
-﻿using SquareFillDomain.Interfaces;
+﻿using System.Collections.Generic;
+using SquareFillDomain.Interfaces;
 using SquareFillDomain.Utils;
 
 namespace SquareFillDomain.Models
@@ -47,6 +48,32 @@ namespace SquareFillDomain.Models
                    && point.Y <= (_topLeftCorner.Y + ShapeConstants.SquareWidth);
         }
 
+        public void CheckWhetherMovementIsPossible(
+            MovementResult movementResultSoFar,
+            Grid occupiedGridSquares,
+            SquareFillPoint newTopLeftCorner)
+        {
+            SquareFillPoint oldGridOrigin = GetGridOrigin();
+            SquareFillPoint newOrigin = CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
+            SquareFillPoint newGridOrigin = CalculateGridOrigin(topLeftCorner: newOrigin);
+
+            IsDivisibleBySquareWidth isDivisibleBySquareWidth = HasCrossedBoundaries(
+                movementResultSoFar: movementResultSoFar,
+                newPixels: newOrigin,
+                oldGridVal: oldGridOrigin,
+                newGridVal: newGridOrigin);
+
+            if (movementResultSoFar.ShapeHasCrossedAHorizontalGridBoundary
+                || movementResultSoFar.ShapeHasCrossedAVerticalGridBoundary)
+            {
+                movementResultSoFar.ThereAreShapesInTheWay = IsSomethingInTheWay(
+                    isDivisibleBySquareWidth: isDivisibleBySquareWidth,
+                    newGridOrigin: newGridOrigin,
+                    somethingWasAlreadyInTheWay: movementResultSoFar.ThereAreShapesInTheWay,
+                    occupiedGridSquares: occupiedGridSquares);
+            }
+        }
+
         public SquareFillPoint GetGridOrigin()
         {
             return new SquareFillPoint(
@@ -54,30 +81,60 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
 
-        public SquareFillPoint CalculateNewGridOrigin(SquareFillPoint newOrigin)
+        public SquareFillPoint CalculateGridOrigin(SquareFillPoint topLeftCorner)
         {
-            int newGridXCoord = newOrigin.X / ShapeConstants.SquareWidth;
-            int newGridYCoord = newOrigin.Y / ShapeConstants.SquareWidth;
+            var gridOrigin = new SquareFillPoint(
+                x: topLeftCorner.X / ShapeConstants.SquareWidth,
+                y: topLeftCorner.Y / ShapeConstants.SquareWidth);
 
-            var newGridOrigin = new SquareFillPoint(
-                x: newGridXCoord,
-                y: newGridYCoord);
-
-            if (newOrigin.X < 0)
+            if (topLeftCorner.X < 0)
             {
-                newGridOrigin.X = newGridOrigin.X - 1;
+                gridOrigin.X = gridOrigin.X - 1;
             }
 
-            if (newOrigin.Y < 0)
+            if (topLeftCorner.Y < 0)
             {
-                newGridOrigin.Y = newGridOrigin.Y - 1;
+                gridOrigin.Y = gridOrigin.Y - 1;
             }
 
-            return newGridOrigin;
+            return gridOrigin;
+        }
+
+        public bool IsSomethingInTheWay(
+            IsDivisibleBySquareWidth isDivisibleBySquareWidth,
+            SquareFillPoint newGridOrigin,
+            bool somethingWasAlreadyInTheWay,
+            Grid occupiedGridSquares)
+        {
+            bool somethingIsInTheWay = somethingWasAlreadyInTheWay;
+
+            List<int> newGridXCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.X, newGridCoord: newGridOrigin.X);
+            List<int> newGridYCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.Y, newGridCoord: newGridOrigin.Y);
+
+            // These nested for loops work because at the moment we are just considering one square, not the whole shape.
+            foreach (var xCoord in newGridXCoords)
+            {
+                foreach (var yCoord in newGridYCoords)
+                {
+                    if (xCoord >= occupiedGridSquares.Width
+                        || yCoord >= occupiedGridSquares.Height
+                        || xCoord < 0
+                        || yCoord < 0)
+                    {
+                        somethingIsInTheWay = true;
+                    }
+                    else
+                    {
+                        somethingIsInTheWay = somethingIsInTheWay || occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord);
+                    }
+                }
+            }
+
+            return somethingIsInTheWay;
         }
 
         public IsDivisibleBySquareWidth HasCrossedBoundaries(
-            MovementResult movementResult, 
+            MovementResult movementResultSoFar, 
             SquareFillPoint newPixels, 
             SquareFillPoint oldGridVal, 
             SquareFillPoint newGridVal)
@@ -87,7 +144,7 @@ namespace SquareFillDomain.Models
             if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
                 || oldGridVal.X != newGridVal.X)
             {
-                movementResult.ShapeHasCrossedAHorizontalGridBoundary = true;
+                movementResultSoFar.ShapeHasCrossedAHorizontalGridBoundary = true;
             }
 
             bool newYDivisibleBySquareWidth = newPixels.Y % ShapeConstants.SquareWidth == 0;
@@ -95,7 +152,7 @@ namespace SquareFillDomain.Models
             if (oldYDivisibleBySquareWidth != newYDivisibleBySquareWidth
                 || oldGridVal.Y != newGridVal.Y)
             {
-                movementResult.ShapeHasCrossedAVerticalGridBoundary = true;
+                movementResultSoFar.ShapeHasCrossedAVerticalGridBoundary = true;
             }
 
             return new IsDivisibleBySquareWidth
@@ -132,6 +189,23 @@ namespace SquareFillDomain.Models
                     newX: newTopLeftCorner.X + (_positionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
                     newY: newTopLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
             }
+        }
+
+        private List<int> GetNewGridCoordinates(bool isDivisibleBySquareWidth, int newGridCoord)
+        {
+            List<int> newGridCoords = new List<int>();
+
+            if (isDivisibleBySquareWidth)
+            {
+                newGridCoords.Add(newGridCoord);
+            }
+            else
+            {
+                newGridCoords.Add(newGridCoord);
+                newGridCoords.Add(newGridCoord + 1);
+            }
+
+            return newGridCoords;
         }
     }
 }

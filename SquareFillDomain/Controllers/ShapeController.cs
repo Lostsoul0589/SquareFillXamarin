@@ -54,14 +54,14 @@ namespace SquareFillDomain.Controllers
 
                 if (_colliding == false)
                 {
-                    if (movementResult.NoShapesAreInTheWay)
-                    {
-                        MoveToNewCursorPosition(newCursorPosition: newLocation, newTopLeftCorner: newTopLeftCorner);
-                    }
-                    else
+                    if (movementResult.ThereAreShapesInTheWay)
                     {
                         _colliding = true;
                         SnapToGridInRelevantDimensionsIfPossible(movementResult: movementResult);
+                    }
+                    else
+                    {
+                        MoveToNewCursorPosition(newCursorPosition: newLocation, newTopLeftCorner: newTopLeftCorner);
                     }
                 }
                 else
@@ -84,13 +84,13 @@ namespace SquareFillDomain.Controllers
                     occupiedGridSquares: _occupiedGridSquares,
                     newTopLeftCorner: newTopLeftCorner);
 
-                if (movementResult.NoShapesAreInTheWay && !_colliding)
+                if (movementResult.ThereAreShapesInTheWay || _colliding)
                 {
-                    EndMoveWithNoObstacles(finalLocation: finalLocation, newTopLeftCorner: newTopLeftCorner);
+                    EndMoveWithObstacles();
                 }
                 else
                 {
-                    EndMoveWithObstacles();
+                    EndMoveWithNoObstacles(finalLocation: finalLocation, newTopLeftCorner: newTopLeftCorner);
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace SquareFillDomain.Controllers
 
         private void MoveToNewCursorPosition(SquareFillPoint newCursorPosition, SquareFillPoint newTopLeftCorner)
         {
-            _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
+            _shapeToMove.UpdateTopLeftCorner(newTopLeftCorner: newTopLeftCorner);
             _lastGoodLocation = newCursorPosition;
             LogMessagePlusOrigins(message: "Clear. ");
         }
