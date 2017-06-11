@@ -171,28 +171,6 @@ namespace SquareFillDomain.UnitTests
 		}
 		
 		[TestMethod]
-		public void TestShapeCornerIsMovedCorrectlyWhenRelativePositionAndCursorMovementAreNegative() {
-			// Arrange
-			var originalCornerOfShape = _cornerOfDefaultSingleSquare;
-			var cursorPositionAtStart = new SquareFillPoint(
-				x: originalCornerOfShape.X - 5,
-				y: originalCornerOfShape.Y - 25);
-			int horizontalMovement = -15;
-			int verticalmovement = -25;
-			var newCursorPosition = new SquareFillPoint(
-				x: cursorPositionAtStart.X + horizontalMovement,
-				y: cursorPositionAtStart.Y + verticalmovement);
-            _shapeMover.StartMove(cursorPositionAtStart: cursorPositionAtStart);
-
-            // Act
-            _shapeMover.MoveToNewCursorPosition(newCursorPosition:newCursorPosition);
-			
-			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, originalCornerOfShape.X + horizontalMovement);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerY, originalCornerOfShape.Y + verticalmovement);
-		}
-		
-		[TestMethod]
 		public void TestSnapToGridIfCursorDoesntMoveAndCursorIsInCentreOfShapeAndCursorInCentreOfAGridSquareThenNewShapeCentreEqualsOriginalCursorPosition(){
 			// Arrange
             var cursorPositionAtStart = _centreOfDefaultSingleSquare;
