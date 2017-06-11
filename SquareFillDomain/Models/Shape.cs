@@ -108,31 +108,13 @@ namespace SquareFillDomain.Models
 	    public string TopLeftCornersAsString()
         {
             string topLeftCornerAsString = String.Empty;
+
             foreach (var square in _squares)
             {
                 topLeftCornerAsString = topLeftCornerAsString + square.TopLeftCornerAsString();
             }
+
             return topLeftCornerAsString;
-        }
-
-        public int CalculateSnappedX(int newTopLeftCornerX)
-        {
-            return CalculateSnappedCoordinate(
-                newTopLeftCornerCoord: newTopLeftCornerX,
-                boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeConstants.ScreenWidth,
-                numSquaresOnSmallestSide: _numSquaresLeftOfTopLeftCorner,
-                numSquaresOnLargestSide: _numSquaresRightOfTopLeftCorner);
-        }
-
-        public int CalculateSnappedY(int newTopLeftCornerY)
-        {
-            return CalculateSnappedCoordinate(
-                newTopLeftCornerCoord: newTopLeftCornerY,
-                boundaryRectangleOriginCoord: 0,
-                boundaryRectangleDimension: ShapeConstants.ScreenHeight,
-                numSquaresOnSmallestSide: _numSquaresAboveTopLeftCorner,
-                numSquaresOnLargestSide: _numSquaresBelowTopLeftCorner);
         }
 
         public SquareFillPoint CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
@@ -142,8 +124,7 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y - cursorPosition.Y);
         }
 
-        public SquareFillPoint CalculateCursorPositionBasedOnTopLeftCorner(
-            SquareFillPoint topLeftCornerRelativeToCursorPosition)
+        public SquareFillPoint CalculateCursorPositionBasedOnTopLeftCorner(SquareFillPoint topLeftCornerRelativeToCursorPosition)
         {
             return new SquareFillPoint(
                 x: _topLeftCorner.X - topLeftCornerRelativeToCursorPosition.X,
@@ -184,6 +165,81 @@ namespace SquareFillDomain.Models
             }
         }
 
+        public int CalculateSnappedX(int newTopLeftCornerX)
+        {
+            return CalculateSnappedCoordinate(
+                newTopLeftCornerCoord: newTopLeftCornerX,
+                boundaryRectangleOriginCoord: 0,
+                boundaryRectangleDimension: ShapeConstants.ScreenWidth,
+                numSquaresOnSmallestSide: _numSquaresLeftOfTopLeftCorner,
+                numSquaresOnLargestSide: _numSquaresRightOfTopLeftCorner);
+        }
+
+        public int CalculateSnappedY(int newTopLeftCornerY)
+        {
+            return CalculateSnappedCoordinate(
+                newTopLeftCornerCoord: newTopLeftCornerY,
+                boundaryRectangleOriginCoord: 0,
+                boundaryRectangleDimension: ShapeConstants.ScreenHeight,
+                numSquaresOnSmallestSide: _numSquaresAboveTopLeftCorner,
+                numSquaresOnLargestSide: _numSquaresBelowTopLeftCorner);
+        }
+
+        private int CalculateSnappedCoordinate(
+            int newTopLeftCornerCoord,
+            int boundaryRectangleOriginCoord,
+            int boundaryRectangleDimension,
+            int numSquaresOnSmallestSide,
+            int numSquaresOnLargestSide)
+        {
+            var squareWidth = ShapeConstants.SquareWidth;
+
+            int numberOfSquaresFromEdgeOfScreen = CalculateNumSquaresFromEdgeOfScreen(topLeftCornerCoordinate: newTopLeftCornerCoord);
+
+            var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
+
+            var topLeftCornerAtOneEndOfContainer = boundaryRectangleOriginCoord;
+
+            var topLeftCornerAtOtherEndOfContainer = boundaryRectangleOriginCoord + boundaryRectangleDimension;
+
+            var potentialTopLeftCornerOfShapeEdgeOnOneSide = potentialNewTopLeftCorner - (numSquaresOnSmallestSide * squareWidth);
+
+            var topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
+                Math.Max(potentialTopLeftCornerOfShapeEdgeOnOneSide, topLeftCornerAtOneEndOfContainer);
+
+            var topLeftCornerAdjustedForSmallestContainerEdge =
+                topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
+                + (numSquaresOnSmallestSide * squareWidth);
+
+            var potentialTopLeftCornerOfShapeEdgeOnOtherSide = topLeftCornerAdjustedForSmallestContainerEdge +
+                                                        (numSquaresOnLargestSide * squareWidth);
+
+            var topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
+                Math.Min(potentialTopLeftCornerOfShapeEdgeOnOtherSide, topLeftCornerAtOtherEndOfContainer);
+
+            int actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
+                                     - (numSquaresOnLargestSide * squareWidth);
+
+            return actualTopLeftCorner;
+        }
+
+        private int CalculateNumSquaresFromEdgeOfScreen(int topLeftCornerCoordinate)
+        {
+            int numberOfSquaresFromEdgeOfScreen = topLeftCornerCoordinate / ShapeConstants.SquareWidth;
+
+            if (MoreThanHalfWayAcrossASquare(topLeftCornerCoordinate: topLeftCornerCoordinate))
+            {
+                numberOfSquaresFromEdgeOfScreen++;
+            }
+
+            return numberOfSquaresFromEdgeOfScreen;
+        }
+
+        private bool MoreThanHalfWayAcrossASquare(int topLeftCornerCoordinate)
+        {
+            return (topLeftCornerCoordinate % ShapeConstants.SquareWidth) > (ShapeConstants.SquareWidth / 2);
+        }
+
         private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)
         {
             if (topLeftCornerIsInPixels)
@@ -215,49 +271,6 @@ namespace SquareFillDomain.Models
         {
             _numSquaresLeftOfTopLeftCorner = Math.Abs(_numSquaresLeftOfTopLeftCorner);
             _numSquaresAboveTopLeftCorner = Math.Abs(_numSquaresAboveTopLeftCorner);
-        }
-
-        private int CalculateSnappedCoordinate(
-            int newTopLeftCornerCoord,
-            int boundaryRectangleOriginCoord,
-            int boundaryRectangleDimension,
-            int numSquaresOnSmallestSide,
-            int numSquaresOnLargestSide)
-        {
-            var squareWidth = ShapeConstants.SquareWidth;
-
-            int topLeftCornerCoord = newTopLeftCornerCoord;
-            int numberOfSquaresFromEdgeOfScreen = topLeftCornerCoord / squareWidth;
-            if (newTopLeftCornerCoord % squareWidth > squareWidth / 2)
-            {
-                numberOfSquaresFromEdgeOfScreen++;
-            }
-
-            var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
-
-            var topLeftCornerAtOneEndOfContainer = boundaryRectangleOriginCoord;
-
-            var topLeftCornerAtOtherEndOfContainer = boundaryRectangleOriginCoord + boundaryRectangleDimension;
-
-            var potentialTopLeftCornerOfShapeEdgeOnOneSide = potentialNewTopLeftCorner - (numSquaresOnSmallestSide * squareWidth);
-
-            var topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge =
-                Math.Max(potentialTopLeftCornerOfShapeEdgeOnOneSide, topLeftCornerAtOneEndOfContainer);
-
-            var topLeftCornerAdjustedForSmallestContainerEdge =
-                topLeftCornerOfShapeEdgeOnOneSideAdjustedForSmallestContainerEdge
-                + (numSquaresOnSmallestSide * squareWidth);
-
-            var potentialTopLeftCornerOfShapeEdgeOnOtherSide = topLeftCornerAdjustedForSmallestContainerEdge +
-                                                        (numSquaresOnLargestSide * squareWidth);
-
-            var topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
-                Math.Min(potentialTopLeftCornerOfShapeEdgeOnOtherSide, topLeftCornerAtOtherEndOfContainer);
-
-            int actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
-                                     - (numSquaresOnLargestSide * squareWidth);
-
-            return actualTopLeftCorner;
         }
     }
 }
