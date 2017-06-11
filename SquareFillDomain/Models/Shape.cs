@@ -65,12 +65,16 @@ namespace SquareFillDomain.Models
         {
             var movementResult = new MovementResult();
 
+            _squares[0].CheckWhetherBoundariesHaveBeenCrossed(
+                movementResultSoFar: movementResult,
+                newParentTopLeftCorner: newTopLeftCorner);
+
             foreach (var square in _squares)
             {
                 square.CheckWhetherMovementIsPossible(
                     movementResultSoFar: movementResult,
                     occupiedGridSquares: occupiedGridSquares,
-                    newTopLeftCorner: newTopLeftCorner);
+                    newParentTopLeftCorner: newTopLeftCorner);
             }
             
             return movementResult;

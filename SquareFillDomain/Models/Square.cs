@@ -6,19 +6,22 @@ namespace SquareFillDomain.Models
 {
     public class Square
     {
-        public int CentreX { get { return _sprite.Centre().X; } }
-        public int CentreY { get { return _sprite.Centre().Y; } }
         public int TopLeftCornerX { get { return _topLeftCorner.X; } }
         public int TopLeftCornerY { get { return _topLeftCorner.Y; } }
+
         public int SpriteCornerX { get { return _sprite.TopLeftCorner().X; } }
         public int SpriteCornerY { get { return _sprite.TopLeftCorner().Y; } }
+
+        public int XRelativeToParentCorner { get { return _positionRelativeToParentCorner.X; } }
+        public int YRelativeToParentCorner { get { return _positionRelativeToParentCorner.Y; } }
+
+        public int RightEdge { get { return _topLeftCorner.X + ShapeConstants.SquareWidth; } }
+        public int BottomEdge { get { return _topLeftCorner.Y + ShapeConstants.SquareWidth; } }
 
         private readonly SquareFillPoint _positionRelativeToParentCorner;
         private readonly ISquareView _sprite;
         private SquareFillPoint _topLeftCorner;
 
-        public int XRelativeToParentCorner { get { return _positionRelativeToParentCorner.X; } }
-        public int YRelativeToParentCorner { get { return _positionRelativeToParentCorner.Y; } }
 
         public Square()
         {
@@ -42,32 +45,23 @@ namespace SquareFillDomain.Models
 
         public bool IsInSquare(SquareFillPoint point)
         {
-            return _topLeftCorner.X <= point.X
-                   && point.X <= (_topLeftCorner.X + ShapeConstants.SquareWidth)
-                   && _topLeftCorner.Y <= point.Y
-                   && point.Y <= (_topLeftCorner.Y + ShapeConstants.SquareWidth);
+            return PointIsBetweenLeftAndRightEdges(point: point)
+                   && PointIsBetweenTopAndBottomEdges(point: point);
         }
 
         public void CheckWhetherMovementIsPossible(
             MovementResult movementResultSoFar,
             Grid occupiedGridSquares,
-            SquareFillPoint newTopLeftCorner)
+            SquareFillPoint newParentTopLeftCorner)
         {
-            SquareFillPoint oldGridOrigin = GetGridOrigin();
-            SquareFillPoint newOrigin = CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
-            SquareFillPoint newGridOrigin = CalculateGridOrigin(topLeftCorner: newOrigin);
-
-            IsDivisibleBySquareWidth isDivisibleBySquareWidth = HasCrossedBoundaries(
-                movementResultSoFar: movementResultSoFar,
-                newPixels: newOrigin,
-                oldGridVal: oldGridOrigin,
-                newGridVal: newGridOrigin);
+            SquareFillPoint newTopLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: newParentTopLeftCorner);
+            SquareFillPoint newGridOrigin = CalculateGridOrigin(topLeftCorner: newTopLeftCorner);
 
             if (movementResultSoFar.ShapeHasCrossedAHorizontalGridBoundary
                 || movementResultSoFar.ShapeHasCrossedAVerticalGridBoundary)
             {
                 movementResultSoFar.ThereAreShapesInTheWay = IsSomethingInTheWay(
-                    isDivisibleBySquareWidth: isDivisibleBySquareWidth,
+                    newTopLeftCorner: newTopLeftCorner,
                     newGridOrigin: newGridOrigin,
                     somethingWasAlreadyInTheWay: movementResultSoFar.ThereAreShapesInTheWay,
                     occupiedGridSquares: occupiedGridSquares);
@@ -101,17 +95,16 @@ namespace SquareFillDomain.Models
         }
 
         public bool IsSomethingInTheWay(
-            IsDivisibleBySquareWidth isDivisibleBySquareWidth,
+            SquareFillPoint newTopLeftCorner,
             SquareFillPoint newGridOrigin,
             bool somethingWasAlreadyInTheWay,
             Grid occupiedGridSquares)
         {
             bool somethingIsInTheWay = somethingWasAlreadyInTheWay;
 
-            List<int> newGridXCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.X, newGridCoord: newGridOrigin.X);
-            List<int> newGridYCoords = GetNewGridCoordinates(isDivisibleBySquareWidth: isDivisibleBySquareWidth.Y, newGridCoord: newGridOrigin.Y);
-
-            // These nested for loops work because at the moment we are just considering one square, not the whole shape.
+            List<int> newGridXCoords = GetNewGridCoordinates(newPixelValue: newTopLeftCorner.X, newGridCoord: newGridOrigin.X);
+            List<int> newGridYCoords = GetNewGridCoordinates(newPixelValue: newTopLeftCorner.Y, newGridCoord: newGridOrigin.Y);
+            
             foreach (var xCoord in newGridXCoords)
             {
                 foreach (var yCoord in newGridYCoords)
@@ -133,33 +126,45 @@ namespace SquareFillDomain.Models
             return somethingIsInTheWay;
         }
 
-        public IsDivisibleBySquareWidth HasCrossedBoundaries(
+        public void CheckWhetherBoundariesHaveBeenCrossed(
             MovementResult movementResultSoFar, 
-            SquareFillPoint newPixels, 
-            SquareFillPoint oldGridVal, 
-            SquareFillPoint newGridVal)
+            SquareFillPoint newParentTopLeftCorner)
         {
-            bool newXDivisibleBySquareWidth = newPixels.X % ShapeConstants.SquareWidth == 0;
-            bool oldXDivisibleBySquareWidth = _topLeftCorner.X % ShapeConstants.SquareWidth == 0;
-            if (oldXDivisibleBySquareWidth != newXDivisibleBySquareWidth
-                || oldGridVal.X != newGridVal.X)
-            {
-                movementResultSoFar.ShapeHasCrossedAHorizontalGridBoundary = true;
-            }
+            SquareFillPoint oldGridOrigin = GetGridOrigin();
+            SquareFillPoint newTopLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: newParentTopLeftCorner);
+            SquareFillPoint newGridOrigin = CalculateGridOrigin(topLeftCorner: newTopLeftCorner);
 
-            bool newYDivisibleBySquareWidth = newPixels.Y % ShapeConstants.SquareWidth == 0;
-            bool oldYDivisibleBySquareWidth = _topLeftCorner.Y % ShapeConstants.SquareWidth == 0;
-            if (oldYDivisibleBySquareWidth != newYDivisibleBySquareWidth
-                || oldGridVal.Y != newGridVal.Y)
-            {
-                movementResultSoFar.ShapeHasCrossedAVerticalGridBoundary = true;
-            }
+            movementResultSoFar.ShapeHasCrossedAHorizontalGridBoundary = HasBoundaryBeenCrossed(
+                oldPixelValue: _topLeftCorner.X,
+                newPixelValue: newTopLeftCorner.X,
+                oldGridRef: oldGridOrigin.X,
+                newGridRef: newGridOrigin.X);
 
-            return new IsDivisibleBySquareWidth
-            {
-                X = newXDivisibleBySquareWidth,
-                Y = newYDivisibleBySquareWidth
-            };
+            movementResultSoFar.ShapeHasCrossedAVerticalGridBoundary = HasBoundaryBeenCrossed(
+                oldPixelValue: _topLeftCorner.Y,
+                newPixelValue: newTopLeftCorner.Y,
+                oldGridRef: oldGridOrigin.Y,
+                newGridRef: newGridOrigin.Y);
+        }
+
+        public bool HasBoundaryBeenCrossed(
+            int oldPixelValue,
+            int newPixelValue,
+            int oldGridRef,
+            int newGridRef)
+        {
+            return OnePositionIsAlignedWithGridButTheOtherIsNot(pixelValue1: oldPixelValue, pixelValue2: newPixelValue)
+                   || TheyAreInDifferentGridSquares(gridRef1: oldGridRef, gridRef2: newGridRef);
+        }
+
+        private bool OnePositionIsAlignedWithGridButTheOtherIsNot(int pixelValue1, int pixelValue2)
+        {
+            return DivisibleBySquareWidth(value: pixelValue1) != DivisibleBySquareWidth(value: pixelValue2);
+        }
+
+        private bool TheyAreInDifferentGridSquares(int gridRef1, int gridRef2)
+        {
+            return gridRef1 != gridRef2;
         }
 
         public void VacateGridSquare(Grid occupiedGridSquares)
@@ -191,11 +196,11 @@ namespace SquareFillDomain.Models
             }
         }
 
-        private List<int> GetNewGridCoordinates(bool isDivisibleBySquareWidth, int newGridCoord)
+        private List<int> GetNewGridCoordinates(int newPixelValue, int newGridCoord)
         {
             List<int> newGridCoords = new List<int>();
 
-            if (isDivisibleBySquareWidth)
+            if (DivisibleBySquareWidth(value: newPixelValue))
             {
                 newGridCoords.Add(newGridCoord);
             }
@@ -206,6 +211,43 @@ namespace SquareFillDomain.Models
             }
 
             return newGridCoords;
+        }
+
+        private bool PointIsBetweenLeftAndRightEdges(SquareFillPoint point)
+        {
+            return PointIsToRightOfLeftEdge(point: point)
+                   && PointIsToLeftOfRightEdge(point: point);
+        }
+
+        private bool PointIsToRightOfLeftEdge(SquareFillPoint point)
+        {
+            return point.X >= _topLeftCorner.X;
+        }
+
+        private bool PointIsToLeftOfRightEdge(SquareFillPoint point)
+        {
+            return point.X <= RightEdge;
+        }
+
+        private bool PointIsBetweenTopAndBottomEdges(SquareFillPoint point)
+        {
+            return PointIsBelowTopEdge(point: point)
+                   && PointIsAboveBottomEdge(point: point);
+        }
+
+        private bool PointIsBelowTopEdge(SquareFillPoint point)
+        {
+            return point.Y >= _topLeftCorner.Y;
+        }
+
+        private bool PointIsAboveBottomEdge(SquareFillPoint point)
+        {
+            return point.Y <= BottomEdge;
+        }
+
+        private bool DivisibleBySquareWidth(int value)
+        {
+            return (value % ShapeConstants.SquareWidth) == 0;
         }
     }
 }
