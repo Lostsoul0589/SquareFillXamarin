@@ -86,36 +86,20 @@ namespace SquareFillDomain.Controllers
 
                 if (movementResult.NoShapesAreInTheWay && !_colliding)
                 {
-                    LogLocation(message: "End move with no obstacles.", locationName: "Final", location: finalLocation);
-                    _shapeToMove.SnapToGrid(newTopLeftCorner: newTopLeftCorner);
+                    EndMoveWithNoObstacles(finalLocation: finalLocation, newTopLeftCorner: newTopLeftCorner);
                 }
                 else
                 {
-                    LogLocation(message: "End move with obstacles.", locationName: "LastGood", location: _lastGoodLocation);
-                    newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: _lastGoodLocation);
-                    _shapeToMove.SnapToGrid(newTopLeftCorner: newTopLeftCorner);
+                    EndMoveWithObstacles();
                 }
-
-                _shapeToMove.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
-                _shapeToMove = null;
-                _colliding = false;
             }
         }
 
-        public SquareFillPoint CalculateTopLeftCorner(SquareFillPoint newCursorPosition)
+        private SquareFillPoint CalculateTopLeftCorner(SquareFillPoint newCursorPosition)
         {
             return new SquareFillPoint(
                 x: newCursorPosition.X + _topLeftCornerRelativeToCursorPosition.X,
                 y: newCursorPosition.Y + _topLeftCornerRelativeToCursorPosition.Y);
-        }
-
-        public SquareFillPoint CalculateTopLeftCorner(
-            SquareFillPoint newCursorPosition,
-            SquareFillPoint topLeftCornerRelativeToCursorPosition)
-        {
-            return new SquareFillPoint(
-                x: newCursorPosition.X + topLeftCornerRelativeToCursorPosition.X,
-                y: newCursorPosition.Y + topLeftCornerRelativeToCursorPosition.Y);
         }
 
         private void MoveToNewCursorPosition(SquareFillPoint newCursorPosition, SquareFillPoint newTopLeftCorner)
@@ -153,6 +137,28 @@ namespace SquareFillDomain.Controllers
             return new SquareFillPoint(
                 x: topLeftCorner.X / ShapeConstants.SquareWidth,
                 y: topLeftCorner.Y / ShapeConstants.SquareWidth);
+        }
+
+        private void EndMoveWithObstacles()
+        {
+            LogLocation(message: "End move with obstacles.", locationName: "LastGood", location: _lastGoodLocation);
+            var topLeftCornerBasedOnLastGoodLocation = CalculateTopLeftCorner(newCursorPosition: _lastGoodLocation);
+            _shapeToMove.SnapToGrid(newTopLeftCorner: topLeftCornerBasedOnLastGoodLocation);
+            CleanUpAtEndOfMove();
+        }
+
+        private void EndMoveWithNoObstacles(SquareFillPoint finalLocation, SquareFillPoint newTopLeftCorner)
+        {
+            LogLocation(message: "End move with no obstacles.", locationName: "Final", location: finalLocation);
+            _shapeToMove.SnapToGrid(newTopLeftCorner: newTopLeftCorner);
+            CleanUpAtEndOfMove();
+        }
+
+        private void CleanUpAtEndOfMove()
+        {
+            _shapeToMove.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
+            _shapeToMove = null;
+            _colliding = false;
         }
 
         private void NoteLocation(SquareFillPoint cursor, SquareFillPoint topLeftCorner, SquareFillPoint gridPosition)

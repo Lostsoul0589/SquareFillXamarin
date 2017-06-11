@@ -175,7 +175,6 @@ namespace SquareFillDomain.Models
                 y: CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y));
 
             MoveAllShapeSquares(newTopLeftCorner: snappedTopLeftCorner);
-            //CalculateTopLeftCorners(newTopLeftCorner: snappedTopLeftCorner);
         }
 
         public void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult, Grid occupiedGridSquares)
