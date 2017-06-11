@@ -807,7 +807,7 @@ namespace SquareFillDomain.UnitTests
             _shapeController.ContinueMove(newLocation: newCursorPosition);
 
             // Act
-            SquareFillPoint calculatedCursorPosition = _shapeController.CalculateCursorPosition();
+            SquareFillPoint calculatedCursorPosition = _shapeController.CalculatePreviousCursorPosition();
 
             // Assert
             Asserter.AreEqual(calculatedCursorPosition.X, newCursorPosition.X);

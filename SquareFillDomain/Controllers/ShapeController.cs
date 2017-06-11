@@ -45,7 +45,7 @@ namespace SquareFillDomain.Controllers
             {
                 SquareFillPoint newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newLocation);
                 bool cursorIsInShape = _shapeToMove.IsInShape(point: newLocation);
-                var movementResult = _shapeToMove.AttemptToUpdateOrigins(
+                var movementResult = _shapeToMove.CheckWhetherMovementIsPossible(
                     occupiedGridSquares: _occupiedGridSquares,
                     newTopLeftCorner: newTopLeftCorner);
 
@@ -80,7 +80,7 @@ namespace SquareFillDomain.Controllers
             if (_shapeToMove != null)
             {
                 SquareFillPoint newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: finalLocation);
-                MovementResult movementResult = _shapeToMove.AttemptToUpdateOrigins(
+                MovementResult movementResult = _shapeToMove.CheckWhetherMovementIsPossible(
                     occupiedGridSquares: _occupiedGridSquares,
                     newTopLeftCorner: newTopLeftCorner);
 
@@ -120,7 +120,6 @@ namespace SquareFillDomain.Controllers
 
         private void MoveToNewCursorPosition(SquareFillPoint newCursorPosition, SquareFillPoint newTopLeftCorner)
         {
-            //var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
             _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
             _lastGoodLocation = newCursorPosition;
             LogMessagePlusOrigins(message: "Clear. ");
@@ -129,22 +128,23 @@ namespace SquareFillDomain.Controllers
         private void GetMovingAgain(SquareFillPoint cursorPosition)
         {
             StartMove(cursorPositionAtStart: cursorPosition);
-            _lastGoodLocation = cursorPosition;
             LogMessagePlusOrigins(message: "Moving again. ");
         }
 
         private void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult)
         {
-            _lastGoodLocation = CalculateCursorPosition();
+            _lastGoodLocation = CalculatePreviousCursorPosition();
             _shapeToMove.SnapToGridInRelevantDimensionsIfPossible(
                 movementResult: movementResult,
                 occupiedGridSquares: _occupiedGridSquares);
             LogMessagePlusOrigins(message: "Blocked. ");
         }
 
-        public SquareFillPoint CalculateCursorPosition()
+        public SquareFillPoint CalculatePreviousCursorPosition()
         {
-            return _shapeToMove.CalculateCursorPosition(
+            // _shapeToMove will still have its previous TopLeftCorner value,
+            // so we can get it to calculate the previous cursor position based on that.
+            return _shapeToMove.CalculateCursorPositionBasedOnTopLeftCorner(
                 topLeftCornerRelativeToCursorPosition: _topLeftCornerRelativeToCursorPosition);
         }
 

@@ -427,7 +427,111 @@ namespace SquareFillDomain.UnitTests
         }
 
         [TestMethod]
-        public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongLeftEdgeOfGrid()
+        public void TestWillNotDetectCollisionWhenNewPositionIsAlongLeftEdgeOfGrid()
+        {
+            // Arrange
+            var topLeftCorner = new SquareFillPoint(
+                x: 0,
+                y: 0);
+            var newTopLeftCorner = new SquareFillPoint(
+                x: 0,
+                y: 2 * TestConstants.SquareWidth);
+            var shape = new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _threePoleSquareList);
+            var originalSquareOrigins = new Linq.List<SquareFillPoint>();
+            for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
+            {
+                originalSquareOrigins.Add(new SquareFillPoint(
+                    x: _threePoleSquareList[squareCount].TopLeftCornerX,
+                    y: _threePoleSquareList[squareCount].TopLeftCornerY));
+            }
+
+            // Act
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
+        }
+
+        [TestMethod]
+        public void TestWillNotDetectCollisionWhenNewPositionIsAlongRightEdgeOfGrid()
+        {
+            // Arrange
+            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = new SquareFillPoint(
+                x: topLeftCorner.X + TestConstants.ScreenWidth - TestConstants.SquareWidth,
+                y: topLeftCorner.Y + 2 * TestConstants.SquareWidth);
+            var xMovement = (TestConstants.ScreenWidth / TestConstants.SquareWidth) - 1;
+            var shape = new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _threePoleSquareList);
+            var originalSquareOrigins = new Linq.List<SquareFillPoint>();
+            for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
+            {
+                originalSquareOrigins.Add(new SquareFillPoint(
+                    x: _threePoleSquareList[squareCount].TopLeftCornerX,
+                    y: _threePoleSquareList[squareCount].TopLeftCornerY));
+            }
+
+            // Act
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
+        }
+
+        [TestMethod]
+        public void TestWillNotDetectCollisionWhenNewPositionIsAlongTopEdgeOfGrid()
+        {
+            // Arrange
+            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = new SquareFillPoint(
+                x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
+                y: topLeftCorner.Y);
+            var shape = new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _threePoleSquareList);
+            var originalSquareOrigins = new Linq.List<SquareFillPoint>();
+            for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
+            {
+                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[squareCount].TopLeftCornerX, y: _threePoleSquareList[squareCount].TopLeftCornerY));
+            }
+
+            // Act
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
+        }
+
+        [TestMethod]
+        public void TestWillNotDetectCollisionWhenNewPositionIsAlongBottomEdgeOfGrid()
+        {
+            // Arrange
+            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = new SquareFillPoint(
+                x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
+                y: topLeftCorner.Y + TestConstants.ScreenHeight - 3 * TestConstants.SquareWidth);
+            var yMovement = (TestConstants.ScreenHeight / TestConstants.SquareWidth) - 3;
+            var shape = new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _threePoleSquareList);
+            var originalSquareOrigins = new Linq.List<SquareFillPoint>();
+            for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
+            {
+                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[squareCount].TopLeftCornerX, y: _threePoleSquareList[squareCount].TopLeftCornerY));
+            }
+
+            // Act
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
+        }
+
+        [TestMethod]
+        public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongLeftEdgeOfGrid()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -448,10 +552,9 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_threePoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X);
@@ -461,7 +564,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         [TestMethod]
-        public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongRightEdgeOfGrid()
+        public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongRightEdgeOfGrid()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -481,10 +584,9 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_threePoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X
@@ -495,7 +597,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         [TestMethod]
-        public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongTopEdgeOfGrid()
+        public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongTopEdgeOfGrid()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -512,10 +614,9 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_threePoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X
@@ -525,7 +626,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         [TestMethod]
-        public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewPositionIsAlongBottomEdgeOfGrid()
+        public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongBottomEdgeOfGrid()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -543,10 +644,9 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_threePoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X
@@ -557,7 +657,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         [TestMethod]
-        public void TestWhenAttemptingToUpdateOriginsWillCalculateOriginsCorrectlyWhenNewShapeCentreIsInMiddleOfGrid()
+        public void TestWillCalculateTopLeftCornersCorrectlyWhenNewShapeCentreIsInMiddleOfGrid()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
@@ -574,10 +674,9 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_threePoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X
@@ -610,7 +709,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[2].X, y: TestConstants.ThreePolePoints[2].X);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -644,7 +743,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[2].X, y: TestConstants.ThreePolePoints[2].Y);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -676,7 +775,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -708,7 +807,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -740,7 +839,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -772,7 +871,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -804,7 +903,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -837,7 +936,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 3);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1075,7 +1174,7 @@ namespace SquareFillDomain.UnitTests
         // !! These tests should be reinstated when we start using grid coordinates for eerything instead of pixels
 
         [TestMethod]
-        public void TestWhenShapeHasOnlyMovedVerticallyThenWeCanStillUpdateOrigins()
+        public void TestWhenShapeHasOnlyMovedVerticallyThenTopLeftCornersAreUpdatedCorrectly()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -1094,10 +1193,9 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.TwoPolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_twoPoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X);
@@ -1106,7 +1204,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         [TestMethod]
-        public void TestWhenShapeHasOnlyMovedHorizontallyThenWeCanStillUpdateOrigins()
+        public void TestWhenShapeHasOnlyMovedHorizontallyThenTopLeftCornersAreUpdatedCorrectly()
         {
             // Arrange
             var topLeftCorner = new SquareFillPoint(
@@ -1125,16 +1223,67 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
             for (int squareCount = 0; squareCount < TestConstants.TwoPolePoints.Count; squareCount++)
             {
                 Asserter.AreEqual(_twoPoleSquareList[squareCount].TopLeftCornerX, originalSquareOrigins[squareCount].X
                     + TestConstants.SquareWidth);
                 Asserter.AreEqual(_twoPoleSquareList[squareCount].TopLeftCornerY, originalSquareOrigins[squareCount].Y);
             }
+        }
+
+        [TestMethod]
+        public void TestWhenShapeHasOnlyMovedVerticallyThenNoCollisionIsDetected()
+        {
+            // Arrange
+            var topLeftCorner = new SquareFillPoint(
+                x: 0 + 1,
+                y: TestConstants.SquareWidth + 1);
+            var newTopLeftCorner = new SquareFillPoint(
+                x: topLeftCorner.X,
+                y: topLeftCorner.Y - TestConstants.SquareWidth);
+            var shape = new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _twoPoleSquareList);
+            var originalSquareOrigins = new Linq.List<SquareFillPoint>();
+            for (int squareCount = 0; squareCount < TestConstants.TwoPolePoints.Count; squareCount++)
+            {
+                originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[squareCount].TopLeftCornerX, y: _twoPoleSquareList[squareCount].TopLeftCornerY));
+            }
+
+            // Act
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
+        }
+
+        [TestMethod]
+        public void TestWhenShapeHasOnlyMovedHorizontallyThenNoCollisionIsDetected()
+        {
+            // Arrange
+            var topLeftCorner = new SquareFillPoint(
+                x: 0 + 1,
+                y: 0 + 1);
+            var newTopLeftCorner = new SquareFillPoint(
+                x: topLeftCorner.X + TestConstants.SquareWidth,
+                y: topLeftCorner.Y);
+            var shape = new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: _twoPoleSquareList);
+            var originalSquareOrigins = new Linq.List<SquareFillPoint>();
+            for (int squareCount = 0; squareCount < TestConstants.TwoPolePoints.Count; squareCount++)
+            {
+                originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[squareCount].TopLeftCornerX, y: _twoPoleSquareList[squareCount].TopLeftCornerY));
+            }
+
+            // Act
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+
+            // Assert
+            Asserter.AreEqual(result.NoShapesAreInTheWay, true);
         }
 
         [TestMethod]
@@ -1153,7 +1302,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1175,7 +1324,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1197,7 +1346,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1219,7 +1368,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1241,7 +1390,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 2, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1263,7 +1412,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 2, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1285,7 +1434,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 4, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1307,7 +1456,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1329,7 +1478,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 2, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1351,7 +1500,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1373,7 +1522,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 2);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1392,7 +1541,7 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _simpleSingleSquareList);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1411,7 +1560,7 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _simpleSingleSquareList);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1430,7 +1579,7 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _simpleSingleSquareList);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1449,7 +1598,7 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _simpleSingleSquareList);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1469,7 +1618,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1489,7 +1638,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);
@@ -1509,7 +1658,7 @@ namespace SquareFillDomain.UnitTests
             _occupiedGridSquares.OccupyGridSquare(x: 1, y:1);
 
             // Act
-            var result = shape.AttemptToUpdateOrigins(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
+            var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(result.NoShapesAreInTheWay, false);

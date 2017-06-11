@@ -33,10 +33,7 @@ namespace SquareFillDomain.Models
                 topLeftCornerIsInPixels: topLeftCornerIsInPixels);
 
             _squares = squareDefinitions;
-            foreach (var square in _squares)
-            {
-                square.CalculateTopLeftCorner(parentTopLeftCorner: _topLeftCorner);
-            }
+            //CalculateTopLeftCorners(newTopLeftCorner: _topLeftCorner);
 
             CalculateNumSquaresAroundTopLeftCorner();
             MoveAllShapeSquares(newTopLeftCorner: _topLeftCorner);
@@ -61,6 +58,7 @@ namespace SquareFillDomain.Models
             {
                 square.MoveTopLeftCorner(newTopLeftCorner: newTopLeftCorner);
             }
+            CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
         }
 
         public void CalculateTopLeftCorners(SquareFillPoint newTopLeftCorner)
@@ -71,7 +69,7 @@ namespace SquareFillDomain.Models
             }
         }
 
-        public MovementResult AttemptToUpdateOrigins(
+        public MovementResult CheckWhetherMovementIsPossible(
             Grid occupiedGridSquares,
             SquareFillPoint newTopLeftCorner)
         {
@@ -99,11 +97,6 @@ namespace SquareFillDomain.Models
                         somethingWasAlreadyInTheWay: somethingIsInTheWay,
                         occupiedGridSquares: occupiedGridSquares);
                 }
-            }
-
-            if (!somethingIsInTheWay)
-            {
-                CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
             }
 
             movementResult.NoShapesAreInTheWay = !somethingIsInTheWay;
@@ -176,7 +169,8 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y - cursorPosition.Y);
         }
 
-        public SquareFillPoint CalculateCursorPosition(SquareFillPoint topLeftCornerRelativeToCursorPosition)
+        public SquareFillPoint CalculateCursorPositionBasedOnTopLeftCorner(
+            SquareFillPoint topLeftCornerRelativeToCursorPosition)
         {
             return new SquareFillPoint(
                 x: _topLeftCorner.X - topLeftCornerRelativeToCursorPosition.X,
@@ -190,7 +184,7 @@ namespace SquareFillDomain.Models
                 y: CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y));
 
             MoveAllShapeSquares(newTopLeftCorner: snappedTopLeftCorner);
-            CalculateTopLeftCorners(newTopLeftCorner: snappedTopLeftCorner);
+            //CalculateTopLeftCorners(newTopLeftCorner: snappedTopLeftCorner);
         }
 
         public void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult, Grid occupiedGridSquares)
@@ -208,7 +202,7 @@ namespace SquareFillDomain.Models
                 newTopLeftCorner.Y = CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y);
             }
 
-            MovementResult newMovementResult = AttemptToUpdateOrigins(
+            MovementResult newMovementResult = CheckWhetherMovementIsPossible(
                 occupiedGridSquares: occupiedGridSquares,
                 newTopLeftCorner: newTopLeftCorner);
 
