@@ -552,7 +552,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
@@ -584,7 +584,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
@@ -614,7 +614,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
@@ -644,7 +644,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
@@ -674,7 +674,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.ThreePolePoints.Count; squareCount++)
@@ -1193,7 +1193,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.TwoPolePoints.Count; squareCount++)
@@ -1223,7 +1223,7 @@ namespace SquareFillDomain.UnitTests
             }
 
             // Act
-            shape.CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            shape.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
 
             // Assert
             for (int squareCount = 0; squareCount < TestConstants.TwoPolePoints.Count; squareCount++)

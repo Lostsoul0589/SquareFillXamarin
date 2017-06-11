@@ -17,7 +17,7 @@ namespace SquareFillDomain.UnitTests
                 y: TestConstants.SquareWidth/2);
 		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
 			var square = new Square();
-            square.CalculateTopLeftCorner(parentTopLeftCorner: topLeftCorner);
+            square.MoveTopLeftCorner(newTopLeftCorner: topLeftCorner);
 			
 			// Act
 			var isInSquare = square.IsInSquare(point: centreOfSquare);
@@ -31,7 +31,7 @@ namespace SquareFillDomain.UnitTests
 			// Arrange
 		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var square = new Square();
-		    square.CalculateTopLeftCorner(parentTopLeftCorner: topLeftCorner);
+		    square.MoveTopLeftCorner(newTopLeftCorner: topLeftCorner);
             var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
 			
 			// Act
@@ -46,7 +46,7 @@ namespace SquareFillDomain.UnitTests
 			// Arrange
 		    var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
 			var square = new Square();
-		    square.CalculateTopLeftCorner(parentTopLeftCorner: topLeftCorner);
+		    square.MoveTopLeftCorner(newTopLeftCorner: topLeftCorner);
             var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 50, y: topLeftCorner.Y - 10);
 			
 			// Act
@@ -66,7 +66,7 @@ namespace SquareFillDomain.UnitTests
             var square = new Square(positionRelativeToParentCorner: new SquareFillPoint(x: -2, y: -3), sprite: null);
 
             // Act
-            square.CalculateTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
+            square.MoveTopLeftCorner(newTopLeftCorner: parentTopLeftCorner);
 
             // Assert
             Asserter.AreEqual(square.TopLeftCornerX, parentTopLeftCorner.X

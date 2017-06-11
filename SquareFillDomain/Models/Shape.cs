@@ -58,15 +58,6 @@ namespace SquareFillDomain.Models
             {
                 square.MoveTopLeftCorner(newTopLeftCorner: newTopLeftCorner);
             }
-            CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
-        }
-
-        public void CalculateTopLeftCorners(SquareFillPoint newTopLeftCorner)
-        {
-            foreach (var square in _squares)
-            {
-                square.CalculateTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
-            }
         }
 
         public MovementResult CheckWhetherMovementIsPossible(

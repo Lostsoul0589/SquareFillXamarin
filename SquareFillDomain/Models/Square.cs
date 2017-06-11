@@ -32,11 +32,6 @@ namespace SquareFillDomain.Models
             _topLeftCorner = new SquareFillPoint(x: 0, y: 0);
         }
 
-        public void CalculateTopLeftCorner(SquareFillPoint parentTopLeftCorner)
-        {
-            _topLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
-        }
-
         public SquareFillPoint CalculatePotentialTopLeftCorner(SquareFillPoint parentTopLeftCorner)
         {
             return new SquareFillPoint(
@@ -130,6 +125,7 @@ namespace SquareFillDomain.Models
 
         public void MoveTopLeftCorner(SquareFillPoint newTopLeftCorner)
         {
+            _topLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
             if (_sprite != null)
             {
                 _sprite.MoveTopLeftCorner(
