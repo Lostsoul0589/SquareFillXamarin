@@ -183,30 +183,14 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y - topLeftCornerRelativeToCursorPosition.Y);
         }
 
-        public SquareFillPoint CalculateTopLeftCorner(
-            SquareFillPoint newCursorPosition,
-            SquareFillPoint topLeftCornerRelativeToCursorPosition)
+        public void SnapToGrid(SquareFillPoint newTopLeftCorner)
         {
-            return new SquareFillPoint(
-                x: newCursorPosition.X + topLeftCornerRelativeToCursorPosition.X,
-                y: newCursorPosition.Y + topLeftCornerRelativeToCursorPosition.Y);
-        }
+            var snappedTopLeftCorner = new SquareFillPoint(
+                x: CalculateSnappedX(newTopLeftCornerX: newTopLeftCorner.X),
+                y: CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y));
 
-        public void SnapToGrid(SquareFillPoint newCursorPosition, SquareFillPoint topLeftCornerRelativeToCursorPosition)
-        {
-            // There's a lot of confucion in this class and calling classes about when and how top left corners are calculated!!
-            // Needs clarifying. Apart from anything else, the word "calculate" is sometimes used to mean change the value,
-            // but sometimes used to mean just calculate a new value and return it without making any internal changes.
-            var topLeftCornerTakingRelativePositionIntoAccount = CalculateTopLeftCorner(
-                newCursorPosition: newCursorPosition,
-                topLeftCornerRelativeToCursorPosition: topLeftCornerRelativeToCursorPosition);
-
-            var newTopLeftCorner = new SquareFillPoint(
-                x: CalculateSnappedX(newTopLeftCornerX: topLeftCornerTakingRelativePositionIntoAccount.X),
-                y: CalculateSnappedY(newTopLeftCornerY: topLeftCornerTakingRelativePositionIntoAccount.Y));
-
-            MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
-            CalculateTopLeftCorners(newTopLeftCorner: newTopLeftCorner);
+            MoveAllShapeSquares(newTopLeftCorner: snappedTopLeftCorner);
+            CalculateTopLeftCorners(newTopLeftCorner: snappedTopLeftCorner);
         }
 
         public void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult, Grid occupiedGridSquares)
