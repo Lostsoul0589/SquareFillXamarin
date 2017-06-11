@@ -118,7 +118,7 @@ namespace SquareFillDomain.Utils
                 y: newCursorPosition.Y + _topLeftCornerRelativeToCursorPosition.Y);
         }
 
-        public void MoveToNewCursorPosition(SquareFillPoint newCursorPosition)
+        private void MoveToNewCursorPosition(SquareFillPoint newCursorPosition)
         {
             var newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: newCursorPosition);
             _shapeToMove.MoveAllShapeSquares(newTopLeftCorner: newTopLeftCorner);
