@@ -59,25 +59,16 @@ namespace SquareFillDomain.Models
             }
         }
 
-        public MovementResult CheckWhetherMovementIsPossible(
+        public MovementAnalyser CheckWhetherMovementIsPossible(
             Grid occupiedGridSquares,
             SquareFillPoint newTopLeftCorner)
         {
-            var movementResult = new MovementResult();
-
-            _squares[0].CheckWhetherBoundariesHaveBeenCrossed(
-                movementResultSoFar: movementResult,
-                newParentTopLeftCorner: newTopLeftCorner);
-
-            foreach (var square in _squares)
-            {
-                square.CheckWhetherMovementIsPossible(
-                    movementResultSoFar: movementResult,
-                    occupiedGridSquares: occupiedGridSquares,
-                    newParentTopLeftCorner: newTopLeftCorner);
-            }
+            var movementAnalyser = new MovementAnalyser(
+                squares: _squares,
+                occupiedGridSquares: occupiedGridSquares,
+                newTopLeftCorner: newTopLeftCorner);
             
-            return movementResult;
+            return movementAnalyser;
         }
 
 	    public void VacateGridSquares(Grid occupiedGridSquares) 
@@ -144,7 +135,7 @@ namespace SquareFillDomain.Models
             UpdateTopLeftCorner(newTopLeftCorner: snappedTopLeftCorner);
         }
 
-        public void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult, Grid occupiedGridSquares)
+        public void SnapToGridInRelevantDimensionsIfPossible(MovementAnalyser movementResult, Grid occupiedGridSquares)
         {
             var previousTopLeftCorner = _topLeftCorner;
             var newTopLeftCorner = new SquareFillPoint(x: previousTopLeftCorner.X, y: previousTopLeftCorner.Y);
@@ -159,7 +150,7 @@ namespace SquareFillDomain.Models
                 newTopLeftCorner.Y = CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y);
             }
 
-            MovementResult newMovementResult = CheckWhetherMovementIsPossible(
+            MovementAnalyser newMovementResult = CheckWhetherMovementIsPossible(
                 occupiedGridSquares: occupiedGridSquares,
                 newTopLeftCorner: newTopLeftCorner);
 

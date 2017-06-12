@@ -80,7 +80,7 @@ namespace SquareFillDomain.Controllers
             if (_shapeToMove != null)
             {
                 SquareFillPoint newTopLeftCorner = CalculateTopLeftCorner(newCursorPosition: finalLocation);
-                MovementResult movementResult = _shapeToMove.CheckWhetherMovementIsPossible(
+                MovementAnalyser movementResult = _shapeToMove.CheckWhetherMovementIsPossible(
                     occupiedGridSquares: _occupiedGridSquares,
                     newTopLeftCorner: newTopLeftCorner);
 
@@ -115,7 +115,7 @@ namespace SquareFillDomain.Controllers
             LogMessagePlusOrigins(message: "Moving again. ");
         }
 
-        private void SnapToGridInRelevantDimensionsIfPossible(MovementResult movementResult)
+        private void SnapToGridInRelevantDimensionsIfPossible(MovementAnalyser movementResult)
         {
             _lastGoodLocation = CalculatePreviousCursorPosition();
             _shapeToMove.SnapToGridInRelevantDimensionsIfPossible(
