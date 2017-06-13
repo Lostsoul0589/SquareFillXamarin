@@ -184,7 +184,7 @@ namespace SquareFillDomain.Models
         {
             var squareWidth = ShapeConstants.SquareWidth;
 
-            int numberOfSquaresFromEdgeOfScreen = CalculateNumSquaresFromEdgeOfScreen(topLeftCornerCoordinate: newTopLeftCornerCoord);
+            var numberOfSquaresFromEdgeOfScreen = CalculateNumSquaresFromEdgeOfScreen(topLeftCornerCoordinate: newTopLeftCornerCoord);
 
             var potentialNewTopLeftCorner = numberOfSquaresFromEdgeOfScreen * squareWidth;
 
@@ -207,7 +207,7 @@ namespace SquareFillDomain.Models
             var topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges =
                 Math.Min(potentialTopLeftCornerOfShapeEdgeOnOtherSide, topLeftCornerAtOtherEndOfContainer);
 
-            int actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
+            var actualTopLeftCorner = topLeftCornerOfShapeEdgeOnOtherSideAdjustedForBothContainerEdges
                                      - (numSquaresOnLargestSide * squareWidth);
 
             return actualTopLeftCorner;
@@ -215,7 +215,7 @@ namespace SquareFillDomain.Models
 
         private int CalculateNumSquaresFromEdgeOfScreen(int topLeftCornerCoordinate)
         {
-            int numberOfSquaresFromEdgeOfScreen = topLeftCornerCoordinate / ShapeConstants.SquareWidth;
+            var numberOfSquaresFromEdgeOfScreen = topLeftCornerCoordinate / ShapeConstants.SquareWidth;
 
             if (MoreThanHalfWayAcrossASquare(topLeftCornerCoordinate: topLeftCornerCoordinate))
             {

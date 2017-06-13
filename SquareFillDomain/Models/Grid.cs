@@ -53,8 +53,8 @@ namespace SquareFillDomain.Models
             Shape shapeInSquare,
             bool occupied)
         {
-            int occupiedXCoordinate = gridReferenceInPixels.X / ShapeConstants.SquareWidth;
-            int occupiedYCoordinate = gridReferenceInPixels.Y / ShapeConstants.SquareWidth;
+            var occupiedXCoordinate = gridReferenceInPixels.X / ShapeConstants.SquareWidth;
+            var occupiedYCoordinate = gridReferenceInPixels.Y / ShapeConstants.SquareWidth;
 
             OccupyGridSquare(x: occupiedXCoordinate, y: occupiedYCoordinate, occupied: occupied);
             PlaceShapeInSquare(x: occupiedXCoordinate, y: occupiedYCoordinate, shapeInSquare: shapeInSquare);

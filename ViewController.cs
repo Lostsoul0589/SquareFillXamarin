@@ -3,6 +3,7 @@ using Foundation;
 using SquareFillDomain.Builders;
 using SquareFillDomain.Controllers;
 using SquareFillDomain.Models;
+using SquareFillDomain.Utils;
 using SquareFillXamarin.UIComponents;
 using UIKit;
 
@@ -25,8 +26,8 @@ namespace SquareFillXamarin
             var squareMaker = UIViewBuilder.InitialiseUIComponents(view: View);
 		    var shapeSetBuilder = new ShapeSetBuilder(squareViewFactory: squareMaker);
 
-            _shapeController = new GameInitialiser(shapeSetBuilder: shapeSetBuilder)
-                .MakeShapeController();
+            _shapeController = new GameInitialiser()
+                .MakeShapeController(shapeSetBuilder: shapeSetBuilder);
 		}
 
 		public override void DidReceiveMemoryWarning()
