@@ -49,7 +49,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
         private ShapeSet MakeTestShapeSet()
         {
-            return new ShapeSet(shapes: new List<Shape> {
+            var shapeList = new List<Shape> {
                 _rightHydrantShape,
                 _fourSquareShape,
                 _leftCornerShape,
@@ -58,7 +58,8 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 _topRightCornerOfContainingBorder,
                 _bottomLeftCornerOfContainingBorder,
                 _bottomRightCornerOfContainingBorder
-			});
+            };
+            return new ShapeSet(shapes: shapeList);
         }
 
         public Grid MakeGridSquares()
@@ -143,10 +144,9 @@ namespace SquareFillDomain.UnitTests.TestUtils
             ISquareViewFactory squareFactory)
         {
             List<Square> squares = new List<Square>();
-            foreach (var point in relativePointsTopLeftCorner)
-            {
+            foreach (var element in relativePointsTopLeftCorner) {
                 squares.Add(new Square(
-                    positionRelativeToParentCorner: point,
+                    positionRelativeToParentCorner: element,
                     sprite: squareFactory.MakeSquare(colour: colour)));
             }
 

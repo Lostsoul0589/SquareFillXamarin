@@ -42,9 +42,8 @@ namespace SquareFillDomain.Models
         {
             bool isInShape = false;
             
-            foreach(var square in _squares) 
-            {
-                isInShape = isInShape || square.IsInSquare(point: point);
+            foreach(var element in _squares) {
+                isInShape = isInShape || element.IsInSquare(point: point);
             }
 
             return isInShape;
@@ -53,9 +52,8 @@ namespace SquareFillDomain.Models
         public void UpdateTopLeftCorner(SquareFillPoint newTopLeftCorner)
         {
             _topLeftCorner = newTopLeftCorner;
-            foreach (var square in _squares)
-            {
-                square.MoveTopLeftCorner(newTopLeftCorner: newTopLeftCorner);
+            foreach (var element in _squares) {
+                element.MoveTopLeftCorner(newTopLeftCorner: newTopLeftCorner);
             }
         }
 
@@ -73,17 +71,15 @@ namespace SquareFillDomain.Models
 
 	    public void VacateGridSquares(Grid occupiedGridSquares) 
         {
-            foreach (var square in _squares)
-            {
-                square.VacateGridSquare(occupiedGridSquares: occupiedGridSquares);
+            foreach (var element in _squares) {
+                element.VacateGridSquare(occupiedGridSquares: occupiedGridSquares);
             }
         }
 
         public void OccupyGridSquares(Grid occupiedGridSquares)
         {
-            foreach (var square in _squares)
-            {
-                square.OccupyGridSquare(occupiedGridSquares: occupiedGridSquares, shapeInSquare: this);
+            foreach (var element in _squares) {
+                element.OccupyGridSquare(occupiedGridSquares: occupiedGridSquares, shapeInSquare: this);
             }
         }
 
@@ -104,9 +100,8 @@ namespace SquareFillDomain.Models
         {
             string topLeftCornerAsString = String.Empty;
 
-            foreach (var square in _squares)
-            {
-                topLeftCornerAsString = topLeftCornerAsString + square.TopLeftCornerAsString();
+            foreach (var element in _squares) {
+                topLeftCornerAsString = topLeftCornerAsString + element.TopLeftCornerAsString();
             }
 
             return topLeftCornerAsString;
@@ -249,12 +244,11 @@ namespace SquareFillDomain.Models
 
         private void CalculateNumSquaresAroundTopLeftCorner()
         {
-            foreach (var square in _squares)
-            {
-                _numSquaresLeftOfTopLeftCorner = Math.Min(_numSquaresLeftOfTopLeftCorner, square.XRelativeToParentCorner);
-                _numSquaresRightOfTopLeftCorner = Math.Max(_numSquaresRightOfTopLeftCorner, square.XRelativeToParentCorner);
-                _numSquaresAboveTopLeftCorner = Math.Min(_numSquaresAboveTopLeftCorner, square.YRelativeToParentCorner);
-                _numSquaresBelowTopLeftCorner = Math.Max(_numSquaresBelowTopLeftCorner, square.YRelativeToParentCorner);
+            foreach (var element in _squares) {
+                _numSquaresLeftOfTopLeftCorner = Math.Min(_numSquaresLeftOfTopLeftCorner, element.XRelativeToParentCorner);
+                _numSquaresRightOfTopLeftCorner = Math.Max(_numSquaresRightOfTopLeftCorner, element.XRelativeToParentCorner);
+                _numSquaresAboveTopLeftCorner = Math.Min(_numSquaresAboveTopLeftCorner, element.YRelativeToParentCorner);
+                _numSquaresBelowTopLeftCorner = Math.Max(_numSquaresBelowTopLeftCorner, element.YRelativeToParentCorner);
             }
 
             DealWithNegativeNumbersOfSquares();

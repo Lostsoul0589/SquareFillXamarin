@@ -405,10 +405,9 @@ namespace SquareFillDomain.UnitTests
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
-            foreach (var relativePoint in TestConstants.RightHydrantPoints)
-            {
-                _occupiedGridSquares.OccupyGridSquare(x: relativePoint.X, y: relativePoint.Y);
-                _occupiedGridSquares.PlaceShapeInSquare(x: relativePoint.X, y: relativePoint.Y, shapeInSquare: shape);
+            foreach (var element in TestConstants.RightHydrantPoints) {
+                _occupiedGridSquares.OccupyGridSquare(x: element.X, y: element.Y);
+                _occupiedGridSquares.PlaceShapeInSquare(x: element.X, y: element.Y, shapeInSquare: shape);
             }
             // Occupy some other squares too, so we can check they're still occupied afterwards
             for (int count = 0; count < _occupiedGridSquares.Height; count++)
@@ -447,11 +446,12 @@ namespace SquareFillDomain.UnitTests
             shape.OccupyGridSquares(occupiedGridSquares: _occupiedGridSquares);
 
             // Assert
-            foreach (var relativePoint in TestConstants.ThreePolePoints)
-            {
-                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: relativePoint.X, y: relativePoint.Y), true);
+            foreach (var element in TestConstants.ThreePolePoints) {
+                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: element.X, y: element.Y), true);
             }
-            for (int yCount = 3; yCount < _occupiedGridSquares.Height; yCount++)
+            int start = 3;
+            int end = _occupiedGridSquares.Height - 1;
+            for (int yCount = start; yCount <= end; yCount++)
             {
                 Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0, y: yCount), false);
             }

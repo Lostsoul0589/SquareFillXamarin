@@ -15,9 +15,8 @@ namespace SquareFillDomain.Builders
 
         public void OccupyBorderSquares(Grid occupiedGridSquares)
         {
-            foreach (var borderSquare in _borderSquares)
-            {
-                occupiedGridSquares.OccupyGridSquare(x: borderSquare.X, y:borderSquare.Y);
+            foreach (var element in _borderSquares) {
+                occupiedGridSquares.OccupyGridSquare(x: element.X, y:element.Y);
             }
         }
 
@@ -35,14 +34,13 @@ namespace SquareFillDomain.Builders
             var topRowY = (containingRectangle.Y / squareWidth) - 1;
             var leftWallX = (containingRectangle.X / squareWidth) - 1;
 
-            for (int squareCount = 0; squareCount < (containingRectangle.Width/squareWidth) + 2; squareCount++)
+            for (int squareCount = 0; squareCount <= (containingRectangle.Width/squareWidth) + 1; squareCount++)
             {
                 TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + squareCount, y: topRowY));
             }
 
-            foreach (var square in TopRowBorderSquares)
-            {
-                _borderSquares.Add(square);
+            foreach (var element in TopRowBorderSquares) {
+                _borderSquares.Add(element);
             }
         }
 
@@ -56,9 +54,8 @@ namespace SquareFillDomain.Builders
                 RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: topY + squareCount));
             }
 
-            foreach (var square in RightWallBorderSquares)
-            {
-                _borderSquares.Add(square);
+            foreach (var element in RightWallBorderSquares) {
+                _borderSquares.Add(element);
             }
         }
 
@@ -70,9 +67,8 @@ namespace SquareFillDomain.Builders
             BottomRightBorderSquares.Add(new SquareFillPoint(x: rightWallX - 1, y: bottomY));
             BottomRightBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: bottomY));
 
-            foreach (var square in BottomRightBorderSquares)
-            {
-                _borderSquares.Add(square);
+            foreach (var element in BottomRightBorderSquares) {
+                _borderSquares.Add(element);
             }
         }
 
@@ -84,9 +80,8 @@ namespace SquareFillDomain.Builders
             BottomLeftBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY));
             BottomLeftBorderSquares.Add(new SquareFillPoint(x: leftWallX + 1, y: bottomY));
 
-            foreach (var square in BottomLeftBorderSquares)
-            {
-                _borderSquares.Add(square);
+            foreach (var element in BottomLeftBorderSquares) {
+                _borderSquares.Add(element);
             }
         }
 
@@ -100,9 +95,8 @@ namespace SquareFillDomain.Builders
                 LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: topY + squareCount));
             }
 
-            foreach (var square in LeftWallBorderSquares)
-            {
-                _borderSquares.Add(square);
+            foreach (var element in LeftWallBorderSquares) {
+                _borderSquares.Add(element);
             }
         }
     }

@@ -19,10 +19,9 @@ namespace SquareFillDomain.Models
 
             CheckWhetherBoundariesHaveBeenCrossed(anySquare: squares[0], newTopLeftCorner: newTopLeftCorner);
 
-            foreach (var square in squares)
-            {
+            foreach (var element in squares) {
                 CheckWhetherMovementIsPossible(
-                    square: square,
+                    square: element,
                     occupiedGridSquares: occupiedGridSquares,
                     newParentTopLeftCorner: newTopLeftCorner);
             }
@@ -77,10 +76,8 @@ namespace SquareFillDomain.Models
             List<int> newGridXCoords = GetNewGridCoordinates(newPixelValue: newSquareTopLeftCorner.X, newGridCoord: newSquareGridOrigin.X);
             List<int> newGridYCoords = GetNewGridCoordinates(newPixelValue: newSquareTopLeftCorner.Y, newGridCoord: newSquareGridOrigin.Y);
 
-            foreach (var xCoord in newGridXCoords)
-            {
-                foreach (var yCoord in newGridYCoords)
-                {
+            foreach (var xCoord in newGridXCoords) {
+                foreach (var yCoord in newGridYCoords) {
                     if (xCoord >= occupiedGridSquares.Width
                         || yCoord >= occupiedGridSquares.Height
                         || xCoord < 0

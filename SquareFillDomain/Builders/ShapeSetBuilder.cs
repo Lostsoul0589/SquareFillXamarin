@@ -174,10 +174,9 @@ namespace SquareFillDomain.Builders
             ISquareViewFactory squareFactory)
         {
             List<Square> squares = new List<Square>();
-            foreach (var point in relativePointsTopLeftCorner)
-            {
+            foreach (var element in relativePointsTopLeftCorner) {
                 squares.Add(new Square(
-                    positionRelativeToParentCorner: point,
+                    positionRelativeToParentCorner: element,
                     sprite: squareFactory.MakeSquare(colour: colour)));
             }
 

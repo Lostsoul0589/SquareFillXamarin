@@ -17,11 +17,11 @@ namespace SquareFillDomain.Models
 
         private void Initialise(int width, int height)
         {
-            for (int xCoord = 0; xCoord < width; xCoord++)
+            for (int xCoord = 0; xCoord <= width - 1; xCoord++)
             {
                 _gridSquares.Add(new List<GridSquare>());
 
-                for (int yCoord = 0; yCoord < height; yCoord++)
+                for (int yCoord = 0; yCoord <= height - 1; yCoord++)
                 {
                     _gridSquares[xCoord].Add(new GridSquare());
                 }
@@ -73,23 +73,19 @@ namespace SquareFillDomain.Models
 
         public void OccupyAllSquares()
         {
-            foreach (var occupiedGridSquareArray in _gridSquares)
-            {
-                foreach (var occupiedGridSquare in occupiedGridSquareArray)
-                {
-                    occupiedGridSquare.Occupied = true;
+            foreach (var outerElement in _gridSquares) {
+                foreach (var innerElement in outerElement) {
+                    innerElement.Occupied = true;
                 }
             }
         }
 
         public void VacateAllSquares()
         {
-            foreach (var gridSquareArray in _gridSquares)
-            {
-                foreach (var gridSquare in gridSquareArray)
-                {
-                    gridSquare.Occupied = false;
-                    gridSquare.ShapeInSquare = null;
+            foreach (var outerElement in _gridSquares) {
+                foreach (var innerElement in outerElement) {
+                    innerElement.Occupied = false;
+                    innerElement.ShapeInSquare = null;
                 }
             }
         }

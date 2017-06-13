@@ -19,11 +19,10 @@ namespace SquareFillDomain.Models
 	            selectedPoint = selectedPoint.ConvertToPixels();
 	        }
 
-	        foreach(var shape in _shapes) 
-            {
-                if (shape.IsInShape(point: selectedPoint))
+	        foreach(var element in _shapes) {
+                if (element.IsInShape(point: selectedPoint))
                 {
-                    selectedShape = shape;
+                    selectedShape = element;
                 }
             }
         
@@ -32,9 +31,8 @@ namespace SquareFillDomain.Models
 
         public void OccupyGridSquares(Grid occupiedGridSquares)
         {
-            foreach (var shape in _shapes)
-            {
-                shape.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
+            foreach (var element in _shapes) {
+                element.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
             }
         }
     }

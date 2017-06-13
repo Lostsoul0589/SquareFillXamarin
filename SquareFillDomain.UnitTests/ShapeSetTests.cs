@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SquareFillDomain.Interfaces;
 //using NUnit.Framework;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
@@ -11,47 +12,98 @@ namespace SquareFillDomain.UnitTests
     [TestClass]
     public class ShapeSetTests
     {
-        private readonly Linq.List<Square> _singleSquareShapeSquareList1 = new Linq.List<Square>
+        private readonly Linq.List<Square> _singleSquareShapeSquareList1;
+        private readonly Linq.List<Square> _singleSquareShapeSquareList2;
+        private readonly Linq.List<Square> _rightHydrantSquareList;
+        private readonly Linq.List<Square> _crossShapeSquareList;
+
+        public ShapeSetTests()
         {
-            new Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
-        };
-        private readonly Linq.List<Square> _singleSquareShapeSquareList2 = new Linq.List<Square>
+            _singleSquareShapeSquareList1 = new List<Square>
+            {
+                Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
+            };
+            _singleSquareShapeSquareList2 = new List<Square>
+            {
+                Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
+            };
+            _rightHydrantSquareList = new List<Square>
+            {
+                Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[0], sprite: null),
+                Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[1], sprite: null),
+                Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[2], sprite: null),
+                Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[3], sprite: null)
+            };
+            _crossShapeSquareList = new List<Square>
+            {
+                Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[0], sprite: new MockSquareView()),
+                Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[1], sprite: new MockSquareView()),
+                Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[2], sprite: new MockSquareView()),
+                Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[3], sprite: new MockSquareView()),
+                Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[4], sprite: new MockSquareView())
+            };
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
         {
-            new Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: null)
-        };
-        readonly Linq.List<Square> _rightHydrantSquareList = new Linq.List<Square>
+            return new SquareFillPoint(x: x, y: y);
+        }
+
+        private Square Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
-            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[0], sprite: null),
-            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[1], sprite: null),
-            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[2], sprite: null),
-            new Square(positionRelativeToParentCorner: ShapeConstants.RightHydrantPoints[3], sprite: null)
-        };
-        readonly Linq.List<Square> _crossShapeSquareList = new Linq.List<Square>
+            return new Square(
+                positionRelativeToParentCorner: positionRelativeToParentCorner,
+                sprite: sprite);
+        }
+
+        private ShapeSet ShapeSet(List<Shape> shapes)
         {
-            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[0], sprite: new MockSquareView()),
-            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[1], sprite: new MockSquareView()),
-            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[2], sprite: new MockSquareView()),
-            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[3], sprite: new MockSquareView()),
-            new Square(positionRelativeToParentCorner: ShapeConstants.CrossShapePoints[4], sprite: new MockSquareView())
-        };
+            return new ShapeSet(shapes: shapes);
+        }
+
+        private Shape Shape(
+            SquareFillPoint topLeftCorner,
+            List<Square> squareDefinitions,
+            bool topLeftCornerIsGridRef = true)
+        {
+            return new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: squareDefinitions,
+                topLeftCornerIsGridRef: topLeftCornerIsGridRef);
+        }
+
+        private List<Shape> ShapeList(Shape shape)
+        {
+            return new List<Shape> { shape };
+        }
+
+        private List<Shape> ShapeList(Shape shape1, Shape shape2)
+        {
+            return new List<Shape> { shape1, shape2 };
+        }
+
+        private List<Shape> ShapeList(Shape shape1, Shape shape2, Shape shape3)
+        {
+            return new List<Shape> { shape1, shape2, shape3 };
+        }
 
         [TestMethod]
         public void TestAllShapesArePutIntoGridSquares()
         {
             // Arrange
-            var topLeftSingleSquare = new SquareFillPoint(x: 0, y: 1);
-            var topLeftRightHydrant = new SquareFillPoint(x: 1, y: 0);
-            var topLeftCross = new SquareFillPoint(x: 5, y: 5);
-            var singleSquare = new Shape(
+            var topLeftSingleSquare = SquareFillPoint(x: 0, y: 1);
+            var topLeftRightHydrant = SquareFillPoint(x: 1, y: 0);
+            var topLeftCross = SquareFillPoint(x: 5, y: 5);
+            var singleSquare = Shape(
                 topLeftCorner: topLeftSingleSquare,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var rightHydrant = new Shape(
+            var rightHydrant = Shape(
                 topLeftCorner: topLeftRightHydrant,
                 squareDefinitions: _rightHydrantSquareList);
-            var cross = new Shape(
+            var cross = Shape(
                 topLeftCorner: topLeftCross,
                 squareDefinitions: _crossShapeSquareList);
-            var thirdShape = new Shape(
+            var thirdShape = Shape(
                 topLeftCorner: topLeftRightHydrant,
                 squareDefinitions: _rightHydrantSquareList);
             var squaresInShapes = new List<List<Square>>
@@ -60,8 +112,8 @@ namespace SquareFillDomain.UnitTests
                 _rightHydrantSquareList,
                 _crossShapeSquareList
             };
-            var shapeList = new List<Shape> { singleSquare, rightHydrant, cross };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( singleSquare, rightHydrant, cross );
+            var shapeSet = ShapeSet(shapes: shapeList);
             var shapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
             var occupiedGridSquares = shapeSetBuilder.MakeGridSquares();
 
@@ -85,12 +137,13 @@ namespace SquareFillDomain.UnitTests
         [TestMethod]
 		public void TestWhenUserClicksInAreaOfScreenWithNoShapeThenNoShapeIsSelected() {
 			// Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var singleSquareShape = new Shape(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var singleSquareShape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _singleSquareShapeSquareList1);
-			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
-			var selectedPoint = new SquareFillPoint(x:TestConstants.SquareWidth*3 + 10, y:TestConstants.SquareWidth*3 + 10);
+            var shapeList = ShapeList(singleSquareShape);
+            var shapeSet = ShapeSet(shapes: shapeList);
+			var selectedPoint = SquareFillPoint(x:TestConstants.SquareWidth*3 + 10, y:TestConstants.SquareWidth*3 + 10);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
@@ -103,14 +156,15 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenUserClicksInAreaOfScreenWithSingleSquareShapeThenShapeIsSelected()
 		{
 			// Arrange
-			var cornerOfShape = new SquareFillPoint(
+			var cornerOfShape = SquareFillPoint(
 				x: 0, 
 				y: 0);
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var singleSquareShape = new Shape(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var singleSquareShape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _singleSquareShapeSquareList1);
-			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
+		    var shapeList = ShapeList(singleSquareShape);
+            var shapeSet = ShapeSet(shapes: shapeList);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: cornerOfShape);
@@ -124,18 +178,18 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenTwoShapesExistThatUserCanSelectTheCorrectShape()
 		{
 			// Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 0, y: 0);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X + 1,
                 y: topLeftFirstShape.Y + 1);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-			var secondSquareShape = new Shape(
+			var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-			var shapeList = new List<Shape>{firstSquareShape, secondSquareShape};
-			var shapeSet = new ShapeSet(shapes: shapeList);
+			var shapeList = ShapeList(firstSquareShape, secondSquareShape);
+			var shapeSet = ShapeSet(shapes: shapeList);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: topLeftSecondShape, selectedPointIsGridRef: true);
@@ -149,18 +203,18 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenTopLeftCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X - 1,
                 y: topLeftFirstShape.Y);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( firstSquareShape, secondSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The top left corner of the first shape is actually on the border between the two shapes.
@@ -176,19 +230,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenBottomLeftCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var bottomLeftFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var bottomLeftFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X,
                 y: topLeftFirstShape.Y + 1);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( secondSquareShape, firstSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The bottom left corner of the first shape is actually on the border between the two shapes.
@@ -204,19 +258,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenLeftEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var leftEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth / 2);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var leftEdgeFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth / 2);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X - 1,
                 y: topLeftFirstShape.Y);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( firstSquareShape, secondSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The left edge of the first shape is actually on the border between the two shapes.
@@ -232,19 +286,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenTopRightCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var topRightFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: 0);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var topRightFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: 0);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X + 1,
                 y: topLeftFirstShape.Y);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( secondSquareShape, firstSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The top right corner of the first shape is actually on the border between the two shapes.
@@ -260,19 +314,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenTopEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 1);
-            var topEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth / 2, y: ShapeConstants.SquareWidth);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 0, y: 1);
+            var topEdgeFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth / 2, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X,
                 y: topLeftFirstShape.Y - 1);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( firstSquareShape, secondSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The top edge of the first shape is actually on the border between the two shapes.
@@ -288,19 +342,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenBottomRightCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var bottomRightFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: ShapeConstants.SquareWidth);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var bottomRightFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X + 1,
                 y: topLeftFirstShape.Y + 1);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( secondSquareShape, firstSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The bottom right corner of the first shape is actually on the border between the two shapes.
@@ -316,19 +370,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenRightEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var rightEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: ShapeConstants.SquareWidth / 2);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var rightEdgeFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: ShapeConstants.SquareWidth / 2);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X + 1,
                 y: topLeftFirstShape.Y);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( secondSquareShape, firstSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The right edge of the first shape is actually on the border between the two shapes.
@@ -344,19 +398,19 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenTwoShapesAreAdjacentThenBottomEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
-            var bottomEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth / 2, y: ShapeConstants.SquareWidth);
-            var topLeftSecondShape = new SquareFillPoint(
+            var topLeftFirstShape = SquareFillPoint(x: 1, y: 0);
+            var bottomEdgeFirstShape = SquareFillPoint(x: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth / 2, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = SquareFillPoint(
                 x: topLeftFirstShape.X,
                 y: topLeftFirstShape.Y + 1);
-            var firstSquareShape = new Shape(
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondSquareShape = new Shape(
+            var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList2);
-            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
+            var shapeList = ShapeList( secondSquareShape, firstSquareShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
 
             // Act
             // The bottom edge of the first shape is actually on the border between the two shapes.
@@ -372,17 +426,17 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenCursorIsNotInCentreOfSingleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
-            var topLeftSecondShape = new SquareFillPoint(x: 2, y: 2);
-            var firstSquareShape = new Shape(
+            var topLeftFirstShape = SquareFillPoint(x: 0, y: 0);
+            var topLeftSecondShape = SquareFillPoint(x: 2, y: 2);
+            var firstSquareShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-			var secondSquareShape = new Shape(
+			var secondSquareShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-			var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
-			var shapeSet = new ShapeSet(shapes: shapeList);
-            var selectedPoint = new SquareFillPoint(
+			var shapeList = ShapeList( firstSquareShape, secondSquareShape );
+			var shapeSet = ShapeSet(shapes: shapeList);
+            var selectedPoint = SquareFillPoint(
                 x: (topLeftSecondShape.X * ShapeConstants.SquareWidth) + 1,
                 y: (topLeftSecondShape.Y * ShapeConstants.SquareWidth) + 1);
 
@@ -398,17 +452,17 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenCursorIsInNonCentralSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 1);
-            var topLeftSecondShape = new SquareFillPoint(x: 1, y: 0);
-            var firstShape = new Shape(
+            var topLeftFirstShape = SquareFillPoint(x: 0, y: 1);
+            var topLeftSecondShape = SquareFillPoint(x: 1, y: 0);
+            var firstShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-			var secondShape = new Shape(
+			var secondShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _rightHydrantSquareList);
-			var shapeList = new List<Shape>{firstShape, secondShape};
-			var shapeSet = new ShapeSet(shapes: shapeList);
-            var selectedPoint = new SquareFillPoint(
+			var shapeList = ShapeList(firstShape, secondShape);
+			var shapeSet = ShapeSet(shapes: shapeList);
+            var selectedPoint = SquareFillPoint(
                 x: (topLeftSecondShape.X * ShapeConstants.SquareWidth) + 1, 
                 y: (topLeftSecondShape.Y * ShapeConstants.SquareWidth) + 1);
 			
@@ -424,17 +478,17 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenCursorIsInNonCornerSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 1);
-            var topLeftSecondShape = new SquareFillPoint(x: 1, y: 0);
-            var firstShape = new Shape(
+            var topLeftFirstShape = SquareFillPoint(x: 0, y: 1);
+            var topLeftSecondShape = SquareFillPoint(x: 1, y: 0);
+            var firstShape = Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
-            var secondShape = new Shape(
+            var secondShape = Shape(
                 topLeftCorner: topLeftSecondShape,
                 squareDefinitions: _rightHydrantSquareList);
-            var shapeList = new List<Shape> { firstShape, secondShape };
-            var shapeSet = new ShapeSet(shapes: shapeList);
-            var selectedPoint = new SquareFillPoint(
+            var shapeList = ShapeList( firstShape, secondShape );
+            var shapeSet = ShapeSet(shapes: shapeList);
+            var selectedPoint = SquareFillPoint(
                 x: topLeftSecondShape.X + TestConstants.SquareWidth + 10,
                 y: topLeftSecondShape.Y + TestConstants.SquareWidth + 10);
 
