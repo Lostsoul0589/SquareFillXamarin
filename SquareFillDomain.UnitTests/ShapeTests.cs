@@ -34,6 +34,29 @@ namespace SquareFillDomain.UnitTests
         private Shape _shape08;
         private Shape _shape09;
 
+        public ShapeTests()
+        {
+            _shape01 = new Shape(topLeftCorner: new SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape02 = new Shape(topLeftCorner: new SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape03 = new Shape(topLeftCorner: new SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape04 = new Shape(topLeftCorner: new SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _centralShape = new Shape(topLeftCorner: new SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape06 = new Shape(topLeftCorner: new SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape07 = new Shape(topLeftCorner: new SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape08 = new Shape(topLeftCorner: new SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+            _shape09 = new Shape(topLeftCorner: new SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList(), topLeftCornerIsInPixels: false);
+        }
+
+        private Linq.List<Square> CreateSimpleSingleSquareList()
+        {
+            return new Linq.List<Square>
+            {
+                new Square(
+                    positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), 
+                    sprite: new MockSquareView())
+            };
+        }
+
         [TestInitialize]
         public void Setup()
         {
@@ -89,28 +112,6 @@ namespace SquareFillDomain.UnitTests
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.RightWayUpTPoints,
                 squareFactory: squareFactory);
-        }
-
-        private void InitialiseNineSquareShapes()
-        {
-            var topLeftCorner01 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner02 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner03 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner04 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCornerCentralShape = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner06 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner07 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner08 = new SquareFillPoint(x: 0, y: 0);
-            var topLeftCorner09 = new SquareFillPoint(x: 0, y: 0);
-            _shape01 = new Shape(topLeftCorner: topLeftCorner01, squareDefinitions: _simpleSingleSquareList);
-            _shape02 = new Shape(topLeftCorner: topLeftCorner02, squareDefinitions: _simpleSingleSquareList);
-            _shape03 = new Shape(topLeftCorner: topLeftCorner03, squareDefinitions: _simpleSingleSquareList);
-            _shape04 = new Shape(topLeftCorner: topLeftCorner04, squareDefinitions: _simpleSingleSquareList);
-            _centralShape = new Shape(topLeftCorner: topLeftCornerCentralShape, squareDefinitions: _simpleSingleSquareList);
-            _shape06 = new Shape(topLeftCorner: topLeftCorner06, squareDefinitions: _simpleSingleSquareList);
-            _shape07 = new Shape(topLeftCorner: topLeftCorner07, squareDefinitions: _simpleSingleSquareList);
-            _shape08 = new Shape(topLeftCorner: topLeftCorner08, squareDefinitions: _simpleSingleSquareList);
-            _shape09 = new Shape(topLeftCorner: topLeftCorner09, squareDefinitions: _simpleSingleSquareList);
         }
 
         [TestMethod]
@@ -1700,9 +1701,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopLeftCornerIsConsideredToBeInsideThatShapeOnly()
         {
             // Arrange
-            var topLeftCornerCentralShape = new SquareFillPoint(x: 0, y: 0);
-            InitialiseNineSquareShapes();
-            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 1);
+            var topLeftCornerCentralShape = new SquareFillPoint(x: _centralShape.TopLeftCornerX, y: _centralShape.TopLeftCornerY);
 
             // Act
             var isInShape01 = _shape01.IsInShape(point: topLeftCornerCentralShape);

@@ -239,7 +239,7 @@ namespace SquareFillDomain.Models
         {
             if (topLeftCornerIsInPixels)
             {
-                _topLeftCorner = topLeftCorner;
+                _topLeftCorner = new SquareFillPoint(x: topLeftCorner.X, y: topLeftCorner.Y);
             }
             else
             {
