@@ -1725,5 +1725,222 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(isInShape08, false);
             Asserter.AreEqual(isInShape09, false);
         }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopEdgeIsConsideredToBeInsideThatShapeOnly()
+        {
+            // Arrange
+            var topEdgeCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth / 2, 
+                y: _centralShape.TopLeftCornerY);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: topEdgeCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: topEdgeCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: topEdgeCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: topEdgeCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: topEdgeCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: topEdgeCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: topEdgeCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: topEdgeCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: topEdgeCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, true);
+            Asserter.AreEqual(isInShape06, false);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, false);
+            Asserter.AreEqual(isInShape09, false);
+        }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopRightCornerIsConsideredToBeInsideOneNeighbouringShapeOnly()
+        {
+            // Arrange
+            var topRightCornerCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth, 
+                y: _centralShape.TopLeftCornerY);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: topRightCornerCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: topRightCornerCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: topRightCornerCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: topRightCornerCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: topRightCornerCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: topRightCornerCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: topRightCornerCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: topRightCornerCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: topRightCornerCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, false);
+            Asserter.AreEqual(isInShape06, true);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, false);
+            Asserter.AreEqual(isInShape09, false);
+        }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenLeftEdgeIsConsideredToBeInsideThatShapeOnly()
+        {
+            // Arrange
+            var leftEdgeCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX, 
+                y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth / 2);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: leftEdgeCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: leftEdgeCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: leftEdgeCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: leftEdgeCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: leftEdgeCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: leftEdgeCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: leftEdgeCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: leftEdgeCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: leftEdgeCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, true);
+            Asserter.AreEqual(isInShape06, false);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, false);
+            Asserter.AreEqual(isInShape09, false);
+        }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenRightEdgeIsConsideredToBeInsideOneNeighbouringShapeOnly()
+        {
+            // Arrange
+            var rightEdgeCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth, 
+                y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth / 2);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: rightEdgeCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: rightEdgeCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: rightEdgeCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: rightEdgeCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: rightEdgeCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: rightEdgeCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: rightEdgeCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: rightEdgeCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: rightEdgeCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, false);
+            Asserter.AreEqual(isInShape06, true);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, false);
+            Asserter.AreEqual(isInShape09, false);
+        }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenBottomLeftCornerIsConsideredToBeInsideOneNeighbouringShapeOnly()
+        {
+            // Arrange
+            var bottomLeftCornerCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX, 
+                y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: bottomLeftCornerCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: bottomLeftCornerCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, false);
+            Asserter.AreEqual(isInShape06, false);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, true);
+            Asserter.AreEqual(isInShape09, false);
+        }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenBottomEdgeIsConsideredToBeInsideOneNeighbouringShapeOnly()
+        {
+            // Arrange
+            var bottomEdgeCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth / 2, 
+                y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: bottomEdgeCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: bottomEdgeCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: bottomEdgeCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, false);
+            Asserter.AreEqual(isInShape06, false);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, true);
+            Asserter.AreEqual(isInShape09, false);
+        }
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenBottomRightCornerIsConsideredToBeInsideDiagonallyBottomRightNeighbour()
+        {
+            // Arrange
+            var bottomRightCornerCentralShape = new SquareFillPoint(
+                x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth, 
+                y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: bottomRightCornerCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: bottomRightCornerCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: bottomRightCornerCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, false);
+            Asserter.AreEqual(isInShape06, false);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, false);
+            Asserter.AreEqual(isInShape09, true);
+        }
     }
 }
