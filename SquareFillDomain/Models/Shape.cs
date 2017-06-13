@@ -243,9 +243,7 @@ namespace SquareFillDomain.Models
             }
             else
             {
-                _topLeftCorner = new SquareFillPoint(
-                    x: topLeftCorner.X * ShapeConstants.SquareWidth,
-                    y: topLeftCorner.Y * ShapeConstants.SquareWidth);
+                _topLeftCorner = topLeftCorner.ConvertToPixels();
             }
         }
 

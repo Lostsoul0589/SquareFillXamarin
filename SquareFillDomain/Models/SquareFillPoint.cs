@@ -1,3 +1,5 @@
+using SquareFillDomain.Utils;
+
 namespace SquareFillDomain.Models
 {
     public class SquareFillPoint
@@ -9,6 +11,13 @@ namespace SquareFillDomain.Models
         {
             X = x;
             Y = y;
+        }
+
+        public SquareFillPoint ConvertToPixels()
+        {
+            return new SquareFillPoint(
+                x: X * ShapeConstants.SquareWidth,
+                y: Y * ShapeConstants.SquareWidth);
         }
     }
 }

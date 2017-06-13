@@ -11,11 +11,15 @@ namespace SquareFillDomain.Models
             _shapes = shapes;
 		}
 
-        public Shape SelectShape(SquareFillPoint selectedPoint)
+        public Shape SelectShape(SquareFillPoint selectedPoint, bool selectedPointIsGridRef = false)
 	    {
             Shape selectedShape = null;
-        
-            foreach(var shape in _shapes) 
+	        if (selectedPointIsGridRef)
+	        {
+	            selectedPoint = selectedPoint.ConvertToPixels();
+	        }
+
+	        foreach(var shape in _shapes) 
             {
                 if (shape.IsInShape(point: selectedPoint))
                 {

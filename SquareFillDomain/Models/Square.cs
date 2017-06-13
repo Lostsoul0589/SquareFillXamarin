@@ -106,34 +106,34 @@ namespace SquareFillDomain.Models
 
         private bool PointIsBetweenLeftAndRightEdges(SquareFillPoint point)
         {
-            return PointIsToRightOfLeftEdge(point: point)
+            return PointIsEqualOrToRightOfLeftEdge(point: point)
                    && PointIsToLeftOfRightEdge(point: point);
         }
 
-        private bool PointIsToRightOfLeftEdge(SquareFillPoint point)
+        private bool PointIsEqualOrToRightOfLeftEdge(SquareFillPoint point)
         {
             return point.X >= _topLeftCorner.X;
         }
 
         private bool PointIsToLeftOfRightEdge(SquareFillPoint point)
         {
-            return point.X <= RightEdge;
+            return point.X < RightEdge;
         }
 
         private bool PointIsBetweenTopAndBottomEdges(SquareFillPoint point)
         {
-            return PointIsBelowTopEdge(point: point)
+            return PointIsEqualOrBelowTopEdge(point: point)
                    && PointIsAboveBottomEdge(point: point);
         }
 
-        private bool PointIsBelowTopEdge(SquareFillPoint point)
+        private bool PointIsEqualOrBelowTopEdge(SquareFillPoint point)
         {
             return point.Y >= _topLeftCorner.Y;
         }
 
         private bool PointIsAboveBottomEdge(SquareFillPoint point)
         {
-            return point.Y <= BottomEdge;
+            return point.Y < BottomEdge;
         }
     }
 }

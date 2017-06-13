@@ -41,25 +41,29 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var topLeftSingleSquare = new SquareFillPoint(
                 x: 0,
-                y: TestConstants.SquareWidth);
+                y: 1);
             var topLeftRightHydrant = new SquareFillPoint(
-                x: TestConstants.SquareWidth,
+                x: 1,
                 y: 0);
             var topLeftCross = new SquareFillPoint(
-                x: TestConstants.SquareWidth * 5,
-                y: TestConstants.SquareWidth * 5);
+                x: 5,
+                y: 5);
             var singleSquare = new Shape(
                 topLeftCorner: topLeftSingleSquare,
-                squareDefinitions: _singleSquareShapeSquareList1);
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
             var rightHydrant = new Shape(
                 topLeftCorner: topLeftRightHydrant,
-                squareDefinitions: _rightHydrantSquareList);
+                squareDefinitions: _rightHydrantSquareList,
+                topLeftCornerIsInPixels: false);
             var cross = new Shape(
                 topLeftCorner: topLeftCross,
-                squareDefinitions: _crossShapeSquareList);
+                squareDefinitions: _crossShapeSquareList,
+                topLeftCornerIsInPixels: false);
             var thirdShape = new Shape(
                 topLeftCorner: topLeftRightHydrant,
-                squareDefinitions: _rightHydrantSquareList);
+                squareDefinitions: _rightHydrantSquareList,
+                topLeftCornerIsInPixels: false);
             var squaresInShapes = new List<List<Square>>
             {
                 _singleSquareShapeSquareList1,
@@ -94,7 +98,8 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: _singleSquareShapeSquareList1);
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
 			var selectedPoint = new SquareFillPoint(x:TestConstants.SquareWidth*3 + 10, y:TestConstants.SquareWidth*3 + 10);
 			
@@ -109,18 +114,18 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenUserClicksInAreaOfScreenWithSingleSquareShapeThenShapeIsSelected()
 		{
 			// Arrange
-			var centreOfShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth/2);
+			var cornerOfShape = new SquareFillPoint(
+				x: 0, 
+				y: 0);
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: _singleSquareShapeSquareList1);
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
-			var selectedPoint = centreOfShape;
 			
 			// Act
-			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
+			var selectedShape = shapeSet.SelectShape(selectedPoint: cornerOfShape);
 			
 			// Assert
             Asserter.AreEqual(selectedShape.TopLeftCornerX, singleSquareShape.TopLeftCornerX);
@@ -131,32 +136,269 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenTwoShapesExistThatUserCanSelectTheCorrectShape()
 		{
 			// Arrange
-			var centreOfSecondShape = new SquareFillPoint(
-				x: TestConstants.SquareWidth + TestConstants.SquareWidth/2, 
-				y: TestConstants.SquareWidth + TestConstants.SquareWidth/2);
             var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
             var topLeftSecondShape = new SquareFillPoint(
-                x: topLeftFirstShape.X + TestConstants.SquareWidth,
-                y: topLeftFirstShape.Y + TestConstants.SquareWidth);
+                x: topLeftFirstShape.X + 1,
+                y: topLeftFirstShape.Y + 1);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1);
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
 			var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2);
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
 			var shapeList = new List<Shape>{firstSquareShape, secondSquareShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
-			var selectedPoint = centreOfSecondShape;
 			
 			// Act
-			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
+			var selectedShape = shapeSet.SelectShape(selectedPoint: topLeftSecondShape, selectedPointIsGridRef: true);
 			
 			// Assert
             Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
             Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
-		}
-		
-		[TestMethod]
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenTopLeftCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X - 1,
+                y: topLeftFirstShape.Y);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The top left corner of the first shape is actually on the border between the two shapes.
+            // But still it should be defined is inside the first shape and not inside the second shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: topLeftFirstShape, selectedPointIsGridRef: true);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, firstSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, firstSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenBottomLeftCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var bottomLeftFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X,
+                y: topLeftFirstShape.Y + 1);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The bottom left corner of the first shape is actually on the border between the two shapes.
+            // But in fact it should be defined is inside the second shape and not inside the first shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: bottomLeftFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenLeftEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var leftEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth, y: ShapeConstants.SquareWidth / 2);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X - 1,
+                y: topLeftFirstShape.Y);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The left edge of the first shape is actually on the border between the two shapes.
+            // But still it should be defined is inside the first shape and not inside the second shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: leftEdgeFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, firstSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, firstSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenTopRightCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var topRightFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: 0);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X + 1,
+                y: topLeftFirstShape.Y);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The top right corner of the first shape is actually on the border between the two shapes.
+            // But in fact it should be defined is inside the second shape and not inside the first shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: topRightFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenTopEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 1);
+            var topEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth / 2, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X,
+                y: topLeftFirstShape.Y - 1);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The top edge of the first shape is actually on the border between the two shapes.
+            // But still it should be defined is inside the first shape and not inside the second shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: topEdgeFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, firstSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, firstSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenBottomRightCornerWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var bottomRightFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X + 1,
+                y: topLeftFirstShape.Y + 1);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The bottom right corner of the first shape is actually on the border between the two shapes.
+            // But in fact it should be defined is inside the second shape and not inside the first shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: bottomRightFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenRightEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var rightEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth * 2, y: ShapeConstants.SquareWidth / 2);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X + 1,
+                y: topLeftFirstShape.Y);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The right edge of the first shape is actually on the border between the two shapes.
+            // But in fact it should be defined is inside the second shape and not inside the first shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: rightEdgeFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
+        public void TestWhenTwoShapesAreAdjacentThenBottomEdgeWillOnlyBeConsideredToBeInsideOneOfTheShapes()
+        {
+            // Arrange
+            var topLeftFirstShape = new SquareFillPoint(x: 1, y: 0);
+            var bottomEdgeFirstShape = new SquareFillPoint(x: ShapeConstants.SquareWidth + ShapeConstants.SquareWidth / 2, y: ShapeConstants.SquareWidth);
+            var topLeftSecondShape = new SquareFillPoint(
+                x: topLeftFirstShape.X,
+                y: topLeftFirstShape.Y + 1);
+            var firstSquareShape = new Shape(
+                topLeftCorner: topLeftFirstShape,
+                squareDefinitions: _singleSquareShapeSquareList1,
+                topLeftCornerIsInPixels: false);
+            var secondSquareShape = new Shape(
+                topLeftCorner: topLeftSecondShape,
+                squareDefinitions: _singleSquareShapeSquareList2,
+                topLeftCornerIsInPixels: false);
+            var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
+            var shapeSet = new ShapeSet(shapes: shapeList);
+
+            // Act
+            // The bottom edge of the first shape is actually on the border between the two shapes.
+            // But in fact it should be defined is inside the second shape and not inside the first shape.
+            var selectedShape = shapeSet.SelectShape(selectedPoint: bottomEdgeFirstShape);
+
+            // Assert
+            Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
+            Asserter.AreEqual(selectedShape.TopLeftCornerY, secondSquareShape.TopLeftCornerY);
+        }
+
+        [TestMethod]
 		public void TestWhenCursorIsNotInCentreOfSingleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
