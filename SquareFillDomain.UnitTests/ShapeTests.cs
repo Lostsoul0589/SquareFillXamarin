@@ -1,6 +1,7 @@
 //using NUnit.Framework;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
 using SquareFillDomain.Utils;
@@ -39,24 +40,42 @@ namespace SquareFillDomain.UnitTests
             return new SquareFillPoint(x: x, y: y);
         }
 
+        private Shape Shape(
+            SquareFillPoint topLeftCorner, 
+            Linq.List<Square> squareDefinitions,
+            bool topLeftCornerIsGridRef = true)
+        {
+            return new Shape(
+                topLeftCorner: topLeftCorner,
+                squareDefinitions: squareDefinitions,
+                topLeftCornerIsGridRef: topLeftCornerIsGridRef);
+        }
+
+        private Square Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
+        {
+            return new Square(
+                positionRelativeToParentCorner: positionRelativeToParentCorner,
+                sprite: sprite);
+        }
+
         public ShapeTests()
         {
-            _shape01 = new Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape02 = new Shape(topLeftCorner: SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape03 = new Shape(topLeftCorner: SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape04 = new Shape(topLeftCorner: SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _centralShape = new Shape(topLeftCorner: SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape06 = new Shape(topLeftCorner: SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape07 = new Shape(topLeftCorner: SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape08 = new Shape(topLeftCorner: SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape09 = new Shape(topLeftCorner: SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape01 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape02 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape03 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape04 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _centralShape = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape06 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape07 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape08 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape09 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
         }
 
         private Linq.List<Square> CreateSimpleSingleSquareList()
         {
             return new Linq.List<Square>
             {
-                new Square(
+                Square(
                     positionRelativeToParentCorner: SquareFillPoint(x: 0, y: 0), 
                     sprite: new MockSquareView())
             };
@@ -127,7 +146,7 @@ namespace SquareFillDomain.UnitTests
 				x: TestConstants.SquareWidth / 2, 
 				y: TestConstants.SquareWidth / 2);
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
 			
@@ -143,7 +162,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
             var pointInQuestion = SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
@@ -160,7 +179,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList );
             var pointInQuestion = SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y - 10);
@@ -177,7 +196,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
             var pointInQuestion = SquareFillPoint(
@@ -196,7 +215,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
             var pointInQuestion = SquareFillPoint(
@@ -215,7 +234,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 1, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _crossShapeSquareList);
             var newTopLeftCorner = SquareFillPoint(
@@ -243,11 +262,11 @@ namespace SquareFillDomain.UnitTests
             var numSquaresLeftOfTopLeftCorner = 2;
 
             // Act
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -261,11 +280,11 @@ namespace SquareFillDomain.UnitTests
             var numSquaresRightOfTopLeftCorner = 2;
 
             // Act
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -279,11 +298,11 @@ namespace SquareFillDomain.UnitTests
             var numSquaresAboveTopLeftCorner = 2;
 
             // Act
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -297,11 +316,11 @@ namespace SquareFillDomain.UnitTests
             var numSquaresBelowTopLeftCorner = 2;
 
             // Act
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
-                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -315,7 +334,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X + TestConstants.SquareWidth,
                 y: TestConstants.TopLeftGridSquare.Y + TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList,
                 topLeftCornerIsGridRef: false);
@@ -334,7 +353,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X - TestConstants.SquareWidth,
                 y: TestConstants.TopLeftGridSquare.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList,
                 topLeftCornerIsGridRef: false);
@@ -353,7 +372,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X,
                 y: TestConstants.TopLeftGridSquare.Y - TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList,
                 topLeftCornerIsGridRef: false);
@@ -372,7 +391,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X + TestConstants.ContainingRectangle.Width,
                 y: TestConstants.TopLeftGridSquare.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList,
                 topLeftCornerIsGridRef: false);
@@ -391,7 +410,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X,
                 y: TestConstants.TopLeftGridSquare.Y + TestConstants.ContainingRectangle.Height - TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList,
                 topLeftCornerIsGridRef: false);
@@ -408,7 +427,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
             foreach (var element in TestConstants.RightHydrantPoints) {
@@ -448,7 +467,7 @@ namespace SquareFillDomain.UnitTests
         {
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
 
@@ -481,7 +500,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = SquareFillPoint(x: 0, y: 2);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
 
@@ -501,7 +520,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + TestConstants.ScreenWidth - TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 2 * TestConstants.SquareWidth);
             var xMovement = (TestConstants.ScreenWidth / TestConstants.SquareWidth) - 1;
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
 
@@ -520,7 +539,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
 
@@ -540,7 +559,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.ScreenHeight - 3 * TestConstants.SquareWidth);
             var yMovement = (TestConstants.ScreenHeight / TestConstants.SquareWidth) - 3;
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
 
@@ -557,7 +576,7 @@ namespace SquareFillDomain.UnitTests
             // Arrange
             var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var newTopLeftCorner = SquareFillPoint(x: 0, y: 2 * TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -591,7 +610,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + TestConstants.ScreenWidth - TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 2 * TestConstants.SquareWidth);
             var xMovement = (TestConstants.ScreenWidth / TestConstants.SquareWidth) - 1;
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -625,7 +644,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -657,7 +676,7 @@ namespace SquareFillDomain.UnitTests
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.ScreenHeight - 3 * TestConstants.SquareWidth);
             var yMovement = (TestConstants.ScreenHeight / TestConstants.SquareWidth) - 3;
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -689,7 +708,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 3 * TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -721,7 +740,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -755,7 +774,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -789,7 +808,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -821,7 +840,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -853,7 +872,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -885,7 +904,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -917,7 +936,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y + 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -949,7 +968,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y + 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
@@ -984,7 +1003,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _twoPoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1017,7 +1036,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _twoPoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1051,7 +1070,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _twoPoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1079,7 +1098,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _twoPoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1107,7 +1126,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _twoPoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1130,7 +1149,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _twoPoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1153,7 +1172,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1176,7 +1195,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1197,7 +1216,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _fourBarSquareList);
             _occupiedGridSquares.OccupyGridSquare(x: 2, y: 0);
@@ -1219,7 +1238,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _fourBarSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1240,7 +1259,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 3 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _nineSquareSquareList);
             _occupiedGridSquares.OccupyGridSquare(x: 4, y: 1);
@@ -1260,7 +1279,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _leftHydrantSquareList);
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
@@ -1282,7 +1301,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1305,7 +1324,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _upsideDownTSquareList,
                 topLeftCornerIsGridRef: false);
@@ -1328,7 +1347,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightWayUpTList,
                 topLeftCornerIsGridRef: false);
@@ -1349,7 +1368,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
 
@@ -1368,7 +1387,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + _occupiedGridSquares.Height * TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
 
@@ -1387,7 +1406,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
 
@@ -1406,7 +1425,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + _occupiedGridSquares.Width * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
 
@@ -1425,7 +1444,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 10,
                 y: topLeftCorner.Y);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
@@ -1445,7 +1464,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 10);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 1);
@@ -1465,7 +1484,7 @@ namespace SquareFillDomain.UnitTests
             var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.SquareWidth);
-            var shape = new Shape(
+            var shape = Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
             _occupiedGridSquares.OccupyGridSquare(x: 1, y:1);

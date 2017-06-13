@@ -1,6 +1,7 @@
 //using NUnit.Framework;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SquareFillDomain.Interfaces;
 using SquareFillDomain.Models;
 using SquareFillDomain.UnitTests.TestUtils;
 
@@ -14,6 +15,18 @@ namespace SquareFillDomain.UnitTests
             return new SquareFillPoint(x: x, y: y);
         }
 
+        private Square Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
+        {
+            return new Square(
+                positionRelativeToParentCorner: positionRelativeToParentCorner,
+                sprite: sprite);
+        }
+
+        private Square Square()
+        {
+            return new Square();
+        }
+
 		[TestMethod]
 		public void TestCentreOfSquareIsDefinedAsInsideSquare() {
 			// Arrange
@@ -21,7 +34,7 @@ namespace SquareFillDomain.UnitTests
 				x: TestConstants.SquareWidth/2,
                 y: TestConstants.SquareWidth/2);
 		    var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-			var square = new Square();
+			var square = Square();
             square.MoveTopLeftCorner(newTopLeftCorner: topLeftCorner);
 			
 			// Act
@@ -35,7 +48,7 @@ namespace SquareFillDomain.UnitTests
 		public void TestAnyLocationInSquareIsDefinedAsInsideSquare() {
 			// Arrange
 		    var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-            var square = new Square();
+            var square = Square();
 		    square.MoveTopLeftCorner(newTopLeftCorner: topLeftCorner);
             var pointInQuestion = SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
 			
@@ -50,7 +63,7 @@ namespace SquareFillDomain.UnitTests
 		public void TestAnyLocationOutsideSquareIsNotDefinedAsInsideSquare() {
 			// Arrange
 		    var topLeftCorner = SquareFillPoint(x: 0, y: 0);
-			var square = new Square();
+			var square = Square();
 		    square.MoveTopLeftCorner(newTopLeftCorner: topLeftCorner);
             var pointInQuestion = SquareFillPoint(x: topLeftCorner.X + 50, y: topLeftCorner.Y - 10);
 			
@@ -68,7 +81,7 @@ namespace SquareFillDomain.UnitTests
             var parentTopLeftCorner = SquareFillPoint(
                 x: 4 * TestConstants.SquareWidth,
                 y: 4 * TestConstants.SquareWidth);
-            var square = new Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: null);
+            var square = Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: null);
 
             // Act
             square.MoveTopLeftCorner(newTopLeftCorner: parentTopLeftCorner);
@@ -87,7 +100,7 @@ namespace SquareFillDomain.UnitTests
             var parentTopLeftCorner = SquareFillPoint(
                 x: 4 * TestConstants.SquareWidth,
                 y: 4 * TestConstants.SquareWidth);
-            var square = new Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: null);
+            var square = Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: null);
 
             // Act
             SquareFillPoint result = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
