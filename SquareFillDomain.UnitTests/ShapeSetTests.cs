@@ -121,11 +121,15 @@ namespace SquareFillDomain.UnitTests
             shapeSet.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
 
             // Assert
-            for (int shapeCount = 0; shapeCount <= shapeList.Count - 1; shapeCount++)
+            var start1 = 0;
+            var end1 = shapeList.Count - 1;
+            for (int count1 = start1; count1 <= end1; count1++)
             {
-                for (int squareCount = 0; squareCount <= squaresInShapes[shapeCount].Count - 1; squareCount++)
+                var start2 = 0;
+                var end2 = squaresInShapes[count1].Count - 1;
+                for (int count2 = start2; count2 <= end2; count2++)
                 {
-                    var square = squaresInShapes[shapeCount][squareCount];
+                    var square = squaresInShapes[count1][count2];
                     var xCoord = square.TopLeftCornerX / TestConstants.SquareWidth;
                     var yCoord = square.TopLeftCornerY / TestConstants.SquareWidth;
                     Asserter.AreEqual(occupiedGridSquares.IsSquareOccupied(x: xCoord, y: yCoord), true);

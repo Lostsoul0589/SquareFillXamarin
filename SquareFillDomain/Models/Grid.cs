@@ -17,13 +17,17 @@ namespace SquareFillDomain.Models
 
         private void Initialise(int width, int height)
         {
-            for (int xCoord = 0; xCoord <= width - 1; xCoord++)
+            var start1 = 0;
+            var end1 = width - 1;
+            for (int count1 = start1; count1 <= end1; count1++)
             {
                 _gridSquares.Add(new List<GridSquare>());
 
-                for (int yCoord = 0; yCoord <= height - 1; yCoord++)
+                var start2 = 0;
+                var end2 = height - 1;
+                for (int count2 = start2; count2 <= end2; count2++)
                 {
-                    _gridSquares[xCoord].Add(new GridSquare());
+                    _gridSquares[count1].Add(new GridSquare());
                 }
             }
         }

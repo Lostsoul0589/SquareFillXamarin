@@ -91,7 +91,9 @@ namespace SquareFillDomain.UnitTests
 
             // Assert
             // self.measure()	{
-            // for(int count = 1; count <= 100; count) {
+            // var start = 1;
+            // var end = 100;
+            // for(int count = start; count <= end; count++) {
             // shapeController.ContinueMove(newLocation: insideContainingRectangle);
             // insideContainingRectangle.X = startingX + count;
             // }
