@@ -121,9 +121,9 @@ namespace SquareFillDomain.UnitTests
             shapeSet.OccupyGridSquares(occupiedGridSquares: occupiedGridSquares);
 
             // Assert
-            for (int shapeCount = 0; shapeCount < shapeList.Count; shapeCount++)
+            for (int shapeCount = 0; shapeCount <= shapeList.Count - 1; shapeCount++)
             {
-                for (int squareCount = 0; squareCount < squaresInShapes[shapeCount].Count; squareCount++)
+                for (int squareCount = 0; squareCount <= squaresInShapes[shapeCount].Count - 1; squareCount++)
                 {
                     var square = squaresInShapes[shapeCount][squareCount];
                     var xCoord = square.TopLeftCornerX / TestConstants.SquareWidth;
