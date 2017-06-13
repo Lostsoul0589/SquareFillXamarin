@@ -26,11 +26,11 @@ namespace SquareFillDomain.Models
         public Shape(
             SquareFillPoint topLeftCorner,
             List<Square> squareDefinitions,
-            bool topLeftCornerIsInPixels = true)
+            bool topLeftCornerIsGridRef = true)
         {
             InitialiseTopLeftCorner(
                 topLeftCorner: topLeftCorner,
-                topLeftCornerIsInPixels: topLeftCornerIsInPixels);
+                topLeftCornerIsGridRef: topLeftCornerIsGridRef);
 
             _squares = squareDefinitions;
 
@@ -235,15 +235,15 @@ namespace SquareFillDomain.Models
             return (topLeftCornerCoordinate % ShapeConstants.SquareWidth) > (ShapeConstants.SquareWidth / 2);
         }
 
-        private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsInPixels)
+        private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsGridRef)
         {
-            if (topLeftCornerIsInPixels)
+            if (topLeftCornerIsGridRef)
             {
-                _topLeftCorner = new SquareFillPoint(x: topLeftCorner.X, y: topLeftCorner.Y);
+                _topLeftCorner = topLeftCorner.ConvertToPixels();
             }
             else
             {
-                _topLeftCorner = topLeftCorner.ConvertToPixels();
+                _topLeftCorner = new SquareFillPoint(x: topLeftCorner.X, y: topLeftCorner.Y);
             }
         }
 

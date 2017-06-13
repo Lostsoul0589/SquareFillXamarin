@@ -39,31 +39,21 @@ namespace SquareFillDomain.UnitTests
         public void TestAllShapesArePutIntoGridSquares()
         {
             // Arrange
-            var topLeftSingleSquare = new SquareFillPoint(
-                x: 0,
-                y: 1);
-            var topLeftRightHydrant = new SquareFillPoint(
-                x: 1,
-                y: 0);
-            var topLeftCross = new SquareFillPoint(
-                x: 5,
-                y: 5);
+            var topLeftSingleSquare = new SquareFillPoint(x: 0, y: 1);
+            var topLeftRightHydrant = new SquareFillPoint(x: 1, y: 0);
+            var topLeftCross = new SquareFillPoint(x: 5, y: 5);
             var singleSquare = new Shape(
                 topLeftCorner: topLeftSingleSquare,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var rightHydrant = new Shape(
                 topLeftCorner: topLeftRightHydrant,
-                squareDefinitions: _rightHydrantSquareList,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _rightHydrantSquareList);
             var cross = new Shape(
                 topLeftCorner: topLeftCross,
-                squareDefinitions: _crossShapeSquareList,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _crossShapeSquareList);
             var thirdShape = new Shape(
                 topLeftCorner: topLeftRightHydrant,
-                squareDefinitions: _rightHydrantSquareList,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _rightHydrantSquareList);
             var squaresInShapes = new List<List<Square>>
             {
                 _singleSquareShapeSquareList1,
@@ -98,8 +88,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
 			var selectedPoint = new SquareFillPoint(x:TestConstants.SquareWidth*3 + 10, y:TestConstants.SquareWidth*3 + 10);
 			
@@ -120,8 +109,7 @@ namespace SquareFillDomain.UnitTests
             var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
             var singleSquareShape = new Shape(
                 topLeftCorner: topLeftCorner,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeSet = new ShapeSet(shapes: new List<Shape>{singleSquareShape});
 			
 			// Act
@@ -142,12 +130,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y + 1);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
 			var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
 			var shapeList = new List<Shape>{firstSquareShape, secondSquareShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
 			
@@ -169,12 +155,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -199,12 +183,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y + 1);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -229,12 +211,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -259,12 +239,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -289,12 +267,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y - 1);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -319,12 +295,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y + 1);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -349,12 +323,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -379,12 +351,10 @@ namespace SquareFillDomain.UnitTests
                 y: topLeftFirstShape.Y + 1);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
-                squareDefinitions: _singleSquareShapeSquareList1,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList1);
             var secondSquareShape = new Shape(
                 topLeftCorner: topLeftSecondShape,
-                squareDefinitions: _singleSquareShapeSquareList2,
-                topLeftCornerIsInPixels: false);
+                squareDefinitions: _singleSquareShapeSquareList2);
             var shapeList = new List<Shape> { secondSquareShape, firstSquareShape };
             var shapeSet = new ShapeSet(shapes: shapeList);
 
@@ -403,9 +373,7 @@ namespace SquareFillDomain.UnitTests
 		{
 			// Arrange
             var topLeftFirstShape = new SquareFillPoint(x: 0, y: 0);
-            var topLeftSecondShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth*2,
-                y: TestConstants.SquareWidth*2);
+            var topLeftSecondShape = new SquareFillPoint(x: 2, y: 2);
             var firstSquareShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
@@ -414,10 +382,12 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _singleSquareShapeSquareList1);
 			var shapeList = new List<Shape> { firstSquareShape, secondSquareShape };
 			var shapeSet = new ShapeSet(shapes: shapeList);
-            var selectedPoint = new SquareFillPoint(x: topLeftSecondShape.X + 1, y: topLeftSecondShape.Y + 1);
-			
-			// Act
-			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
+            var selectedPoint = new SquareFillPoint(
+                x: (topLeftSecondShape.X * ShapeConstants.SquareWidth) + 1,
+                y: (topLeftSecondShape.Y * ShapeConstants.SquareWidth) + 1);
+
+            // Act
+            var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
 			
 			// Assert
             Asserter.AreEqual(selectedShape.TopLeftCornerX, secondSquareShape.TopLeftCornerX);
@@ -428,12 +398,8 @@ namespace SquareFillDomain.UnitTests
 		public void TestWhenCursorIsInNonCentralSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
 		{
 			// Arrange
-            var topLeftFirstShape = new SquareFillPoint(
-                x: 0, 
-                y: TestConstants.SquareWidth);
-            var topLeftSecondShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth,
-                y: 0);
+            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 1);
+            var topLeftSecondShape = new SquareFillPoint(x: 1, y: 0);
             var firstShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
@@ -442,7 +408,9 @@ namespace SquareFillDomain.UnitTests
                 squareDefinitions: _rightHydrantSquareList);
 			var shapeList = new List<Shape>{firstShape, secondShape};
 			var shapeSet = new ShapeSet(shapes: shapeList);
-            var selectedPoint = new SquareFillPoint(x: topLeftSecondShape.X + 1, y: topLeftSecondShape.Y + 1);
+            var selectedPoint = new SquareFillPoint(
+                x: (topLeftSecondShape.X * ShapeConstants.SquareWidth) + 1, 
+                y: (topLeftSecondShape.Y * ShapeConstants.SquareWidth) + 1);
 			
 			// Act
 			var selectedShape = shapeSet.SelectShape(selectedPoint: selectedPoint);
@@ -456,12 +424,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenCursorIsInNonCornerSquareOfMultipleSquareShapeThenShapeCanStillBeSelected()
         {
             // Arrange
-            var topLeftFirstShape = new SquareFillPoint(
-                x: 0,
-                y: TestConstants.SquareWidth);
-            var topLeftSecondShape = new SquareFillPoint(
-                x: TestConstants.SquareWidth,
-                y: 0);
+            var topLeftFirstShape = new SquareFillPoint(x: 0, y: 1);
+            var topLeftSecondShape = new SquareFillPoint(x: 1, y: 0);
             var firstShape = new Shape(
                 topLeftCorner: topLeftFirstShape,
                 squareDefinitions: _singleSquareShapeSquareList1);
