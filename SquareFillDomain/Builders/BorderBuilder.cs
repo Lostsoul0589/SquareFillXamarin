@@ -37,7 +37,7 @@ namespace SquareFillDomain.Builders
             var start = 0;
             var end = (containingRectangle.Width / squareWidth) + 1;
             for (int count = start; count <= end; count++) {
-                TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + count, y: topRowY));
+                TopRowBorderSquares.Add(SquareFillPoint(x: leftWallX + count, y: topRowY));
             }
 
             foreach (var element in TopRowBorderSquares) {
@@ -53,7 +53,7 @@ namespace SquareFillDomain.Builders
             var start = 1;
             var end = containingRectangle.Height / squareWidth;
             for (int count = start; count <= end; count++) {
-                RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: topY + count));
+                RightWallBorderSquares.Add(SquareFillPoint(x: rightWallX, y: topY + count));
             }
 
             foreach (var element in RightWallBorderSquares) {
@@ -66,8 +66,8 @@ namespace SquareFillDomain.Builders
             var bottomY = (containingRectangle.Y + containingRectangle.Height) / squareWidth;
             var rightWallX = (containingRectangle.X + containingRectangle.Width) / squareWidth;
 
-            BottomRightBorderSquares.Add(new SquareFillPoint(x: rightWallX - 1, y: bottomY));
-            BottomRightBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: bottomY));
+            BottomRightBorderSquares.Add(SquareFillPoint(x: rightWallX - 1, y: bottomY));
+            BottomRightBorderSquares.Add(SquareFillPoint(x: rightWallX, y: bottomY));
 
             foreach (var element in BottomRightBorderSquares) {
                 _borderSquares.Add(element);
@@ -79,8 +79,8 @@ namespace SquareFillDomain.Builders
             var bottomY = (containingRectangle.Y + containingRectangle.Height) / squareWidth;
             var leftWallX = (containingRectangle.X / squareWidth) - 1;
 
-            BottomLeftBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: bottomY));
-            BottomLeftBorderSquares.Add(new SquareFillPoint(x: leftWallX + 1, y: bottomY));
+            BottomLeftBorderSquares.Add(SquareFillPoint(x: leftWallX, y: bottomY));
+            BottomLeftBorderSquares.Add(SquareFillPoint(x: leftWallX + 1, y: bottomY));
 
             foreach (var element in BottomLeftBorderSquares) {
                 _borderSquares.Add(element);
@@ -95,12 +95,17 @@ namespace SquareFillDomain.Builders
             var start = 1;
             var end = containingRectangle.Height / squareWidth;
             for (int count = start; count <= end; count++) {
-                LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: topY + count));
+                LeftWallBorderSquares.Add(SquareFillPoint(x: leftWallX, y: topY + count));
             }
 
             foreach (var element in LeftWallBorderSquares) {
                 _borderSquares.Add(element);
             }
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
         }
     }
 }

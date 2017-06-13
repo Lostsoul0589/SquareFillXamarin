@@ -34,17 +34,22 @@ namespace SquareFillDomain.UnitTests
         private readonly Shape _shape08;
         private readonly Shape _shape09;
 
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
+        }
+
         public ShapeTests()
         {
-            _shape01 = new Shape(topLeftCorner: new SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape02 = new Shape(topLeftCorner: new SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape03 = new Shape(topLeftCorner: new SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape04 = new Shape(topLeftCorner: new SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _centralShape = new Shape(topLeftCorner: new SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape06 = new Shape(topLeftCorner: new SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape07 = new Shape(topLeftCorner: new SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape08 = new Shape(topLeftCorner: new SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape09 = new Shape(topLeftCorner: new SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape01 = new Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape02 = new Shape(topLeftCorner: SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape03 = new Shape(topLeftCorner: SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape04 = new Shape(topLeftCorner: SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _centralShape = new Shape(topLeftCorner: SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape06 = new Shape(topLeftCorner: SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape07 = new Shape(topLeftCorner: SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape08 = new Shape(topLeftCorner: SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape09 = new Shape(topLeftCorner: SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
         }
 
         private Linq.List<Square> CreateSimpleSingleSquareList()
@@ -52,7 +57,7 @@ namespace SquareFillDomain.UnitTests
             return new Linq.List<Square>
             {
                 new Square(
-                    positionRelativeToParentCorner: new SquareFillPoint(x: 0, y: 0), 
+                    positionRelativeToParentCorner: SquareFillPoint(x: 0, y: 0), 
                     sprite: new MockSquareView())
             };
         }
@@ -118,10 +123,10 @@ namespace SquareFillDomain.UnitTests
 		public void TestCentreOfShapeIsDefinedAsInsideShape() 
         {
 			// Arrange
-			var centreOfShape = new SquareFillPoint(
+			var centreOfShape = SquareFillPoint(
 				x: TestConstants.SquareWidth / 2, 
 				y: TestConstants.SquareWidth / 2);
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
@@ -137,11 +142,11 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationInCentralSquareIsDefinedAsInsideShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList);
-            var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
+            var pointInQuestion = SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y + 11);
 
             // Act
             var isInShape = shape.IsInShape(point: pointInQuestion);
@@ -154,11 +159,11 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationOutsideShapeIsNotDefinedAsInsideShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _simpleSingleSquareList );
-            var pointInQuestion = new SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y - 10);
+            var pointInQuestion = SquareFillPoint(x: topLeftCorner.X + 10, y: topLeftCorner.Y - 10);
 
             // Act
             var isInShape = shape.IsInShape(point: pointInQuestion);
@@ -171,11 +176,11 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationInNonCornerSquareIsDefinedAsInsideShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
-            var pointInQuestion = new SquareFillPoint(
+            var pointInQuestion = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth + 10,
                 y: topLeftCorner.Y + TestConstants.SquareWidth + 10);
 
@@ -190,11 +195,11 @@ namespace SquareFillDomain.UnitTests
         public void TestAnyLocationInNonCentralSquareIsDefinedAsInsideShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
-            var pointInQuestion = new SquareFillPoint(
+            var pointInQuestion = SquareFillPoint(
                 x: topLeftCorner.X + 10,
                 y: topLeftCorner.Y + 10);
 
@@ -209,11 +214,11 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeIsMovedToNewLocationThenAllSpritesArePlacedRelativeToTopLeftCorner()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 1, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 1, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _crossShapeSquareList);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 80,
                 y: topLeftCorner.Y + 90);
 
@@ -239,10 +244,10 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -257,10 +262,10 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -275,10 +280,10 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -293,10 +298,10 @@ namespace SquareFillDomain.UnitTests
 
             // Act
             var shape = new Shape(
-                topLeftCorner: new SquareFillPoint(x: 0, y: 0),
+                topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
-                    new Square(positionRelativeToParentCorner: new SquareFillPoint(x:0, y:0), sprite: null)
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
+                    new Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
                 });
 
             // Assert
@@ -307,7 +312,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreWithinTheContainingRectangleIfAllEdgesAreWithinIt()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X + TestConstants.SquareWidth,
                 y: TestConstants.TopLeftGridSquare.Y + TestConstants.SquareWidth);
             var shape = new Shape(
@@ -326,7 +331,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheLeftEdge()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X - TestConstants.SquareWidth,
                 y: TestConstants.TopLeftGridSquare.Y);
             var shape = new Shape(
@@ -345,7 +350,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheTopEdge()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X,
                 y: TestConstants.TopLeftGridSquare.Y - TestConstants.SquareWidth);
             var shape = new Shape(
@@ -364,7 +369,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheRightEdge()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X + TestConstants.ContainingRectangle.Width,
                 y: TestConstants.TopLeftGridSquare.Y);
             var shape = new Shape(
@@ -383,7 +388,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWeAreNotInTheContainingRectangleIfWeOverlapTheBottomEdge()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.TopLeftGridSquare.X,
                 y: TestConstants.TopLeftGridSquare.Y + TestConstants.ContainingRectangle.Height - TestConstants.SquareWidth);
             var shape = new Shape(
@@ -402,7 +407,7 @@ namespace SquareFillDomain.UnitTests
         public void TestVacateGridSquaresWillVacateOnlyTheSquaresOccupiedByTheShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _rightHydrantSquareList);
@@ -442,7 +447,7 @@ namespace SquareFillDomain.UnitTests
         public void TestOccupyGridSquaresWillOccupyOnlyTheSquaresOccupiedByTheShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
@@ -474,8 +479,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillNotDetectCollisionWhenNewPositionIsAlongLeftEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(x: 0, y: 2);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(x: 0, y: 2);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
@@ -491,8 +496,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillNotDetectCollisionWhenNewPositionIsAlongRightEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.ScreenWidth - TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 2 * TestConstants.SquareWidth);
             var xMovement = (TestConstants.ScreenWidth / TestConstants.SquareWidth) - 1;
@@ -511,8 +516,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillNotDetectCollisionWhenNewPositionIsAlongTopEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -530,8 +535,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillNotDetectCollisionWhenNewPositionIsAlongBottomEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.ScreenHeight - 3 * TestConstants.SquareWidth);
             var yMovement = (TestConstants.ScreenHeight / TestConstants.SquareWidth) - 3;
@@ -550,8 +555,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongLeftEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(x: 0, y: 2 * TestConstants.SquareWidth);
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(x: 0, y: 2 * TestConstants.SquareWidth);
             var shape = new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: _threePoleSquareList);
@@ -559,7 +564,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(
+                originalSquareOrigins.Add(SquareFillPoint(
                     x: _threePoleSquareList[count].TopLeftCornerX, 
                     y: _threePoleSquareList[count].TopLeftCornerY));
             }
@@ -581,8 +586,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongRightEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.ScreenWidth - TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 2 * TestConstants.SquareWidth);
             var xMovement = (TestConstants.ScreenWidth / TestConstants.SquareWidth) - 1;
@@ -593,7 +598,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(
+                originalSquareOrigins.Add(SquareFillPoint(
                     x: _threePoleSquareList[count].TopLeftCornerX, 
                     y: _threePoleSquareList[count].TopLeftCornerY));
             }
@@ -616,8 +621,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongTopEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -627,7 +632,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -647,8 +652,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillCalculateTopLeftCornersCorrectlyWhenNewPositionIsAlongBottomEdgeOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.ScreenHeight - 3 * TestConstants.SquareWidth);
             var yMovement = (TestConstants.ScreenHeight / TestConstants.SquareWidth) - 3;
@@ -659,7 +664,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -680,8 +685,8 @@ namespace SquareFillDomain.UnitTests
         public void TestWillCalculateTopLeftCornersCorrectlyWhenNewShapeCentreIsInMiddleOfGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 2 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y + 3 * TestConstants.SquareWidth);
             var shape = new Shape(
@@ -691,7 +696,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -712,8 +717,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayOnTheLeft()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 1, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 1, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -723,7 +728,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[0].X, y: TestConstants.ThreePolePoints[0].X);
             _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[1].X, y: TestConstants.ThreePolePoints[1].X);
@@ -746,8 +751,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayOnTheRight()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -757,7 +762,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[0].X, y: TestConstants.ThreePolePoints[0].Y);
             _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[1].X, y: TestConstants.ThreePolePoints[1].Y);
@@ -780,8 +785,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayBelow()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(
@@ -791,7 +796,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
 
@@ -812,8 +817,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayAbove()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 1);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -823,7 +828,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
@@ -844,8 +849,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyTopLeft()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 1, y: 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 1, y: 1);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -855,7 +860,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
 
@@ -876,8 +881,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyTopRight()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 1);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -887,7 +892,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
 
@@ -908,8 +913,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyBottomLeft()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 1, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 1, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(
@@ -919,7 +924,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
 
@@ -940,8 +945,8 @@ namespace SquareFillDomain.UnitTests
         public void TestOriginsAreNotUpdatedIfAnotherShapeIsInTheWayDiagonallyBottomRight()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(
@@ -951,7 +956,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(
+                originalSquareOrigins.Add(SquareFillPoint(
                     x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 3);
@@ -973,10 +978,10 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedVerticallyThenTopLeftCornersAreUpdatedCorrectly()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: TestConstants.SquareWidth + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - TestConstants.SquareWidth);
             var shape = new Shape(
@@ -987,7 +992,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -1006,10 +1011,10 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedHorizontallyThenTopLeftCornersAreUpdatedCorrectly()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: 0 + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1020,7 +1025,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -1040,10 +1045,10 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedVerticallyThenNoCollisionIsDetected()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: TestConstants.SquareWidth + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - TestConstants.SquareWidth);
             var shape = new Shape(
@@ -1054,7 +1059,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -1068,10 +1073,10 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedHorizontallyThenNoCollisionIsDetected()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: 0 + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1082,7 +1087,7 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
+                originalSquareOrigins.Add(SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
             // Act
@@ -1096,10 +1101,10 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedVerticallyThenWeCanStillDetectAnotherShapeInTheWay()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: TestConstants.SquareWidth);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -1119,10 +1124,10 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenShapeHasOnlyMovedHorizontallyThenWeCanStillDetectAnotherShapeInTheWay()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0,
                 y: 0 + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1142,10 +1147,10 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurLeftSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.SquareWidth,
                 y: 0 + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1165,10 +1170,10 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurRightSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0,
                 y: 0 + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1188,8 +1193,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurTopSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 1);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -1208,10 +1213,10 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItHasASquareStickingOutInTheMiddleOfOurBottomSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(
@@ -1231,8 +1236,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenItIsCompletelyInsideTheMovingShape()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 3 * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1251,8 +1256,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurLeftSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 2, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 2, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1271,10 +1276,10 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurRightSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0,
                 y: 0 + 1);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1294,10 +1299,10 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurTopSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: TestConstants.SquareWidth + 1,
                 y: TestConstants.SquareWidth);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -1317,10 +1322,10 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeHaveASquareStickingOutInTheMiddleOfOurBottomSide()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(
                 x: 0 + 1,
                 y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 1);
             var shape = new Shape(
@@ -1340,8 +1345,8 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheTopOfTheScreen()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y - 1);
             var shape = new Shape(
@@ -1359,8 +1364,8 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheBottomOfTheScreen()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + _occupiedGridSquares.Height * TestConstants.SquareWidth);
             var shape = new Shape(
@@ -1378,8 +1383,8 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheLeftEdgeOfTheScreen()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X - 1,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1397,8 +1402,8 @@ namespace SquareFillDomain.UnitTests
         public void TestShapeIsNotAllowedToMoveBeyondTheRightEdgeOfTheScreen()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + _occupiedGridSquares.Width * TestConstants.SquareWidth,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1416,8 +1421,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeAreHorizontallyAlignedWithTheGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + 10,
                 y: topLeftCorner.Y);
             var shape = new Shape(
@@ -1436,8 +1441,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeAreVerticallyAlignedWithTheGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X,
                 y: topLeftCorner.Y + 10);
             var shape = new Shape(
@@ -1456,8 +1461,8 @@ namespace SquareFillDomain.UnitTests
         public void TestAShapeCanBeDetectedInTheWayWhenWeArePerfectlyAlignedWithTheGrid()
         {
             // Arrange
-            var topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            var newTopLeftCorner = new SquareFillPoint(
+            var topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            var newTopLeftCorner = SquareFillPoint(
                 x: topLeftCorner.X + TestConstants.SquareWidth,
                 y: topLeftCorner.Y + TestConstants.SquareWidth);
             var shape = new Shape(
@@ -1476,7 +1481,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopLeftCornerIsConsideredToBeInsideThatShapeOnly()
         {
             // Arrange
-            var topLeftCornerCentralShape = new SquareFillPoint(x: _centralShape.TopLeftCornerX, y: _centralShape.TopLeftCornerY);
+            var topLeftCornerCentralShape = SquareFillPoint(x: _centralShape.TopLeftCornerX, y: _centralShape.TopLeftCornerY);
 
             // Act
             var isInShape01 = _shape01.IsInShape(point: topLeftCornerCentralShape);
@@ -1505,7 +1510,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopEdgeIsConsideredToBeInsideThatShapeOnly()
         {
             // Arrange
-            var topEdgeCentralShape = new SquareFillPoint(
+            var topEdgeCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth / 2, 
                 y: _centralShape.TopLeftCornerY);
 
@@ -1536,7 +1541,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopRightCornerIsConsideredToBeInsideOneNeighbouringShapeOnly()
         {
             // Arrange
-            var topRightCornerCentralShape = new SquareFillPoint(
+            var topRightCornerCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth, 
                 y: _centralShape.TopLeftCornerY);
 
@@ -1567,7 +1572,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenLeftEdgeIsConsideredToBeInsideThatShapeOnly()
         {
             // Arrange
-            var leftEdgeCentralShape = new SquareFillPoint(
+            var leftEdgeCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX, 
                 y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth / 2);
 
@@ -1598,7 +1603,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenRightEdgeIsConsideredToBeInsideOneNeighbouringShapeOnly()
         {
             // Arrange
-            var rightEdgeCentralShape = new SquareFillPoint(
+            var rightEdgeCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth, 
                 y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth / 2);
 
@@ -1629,7 +1634,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenBottomLeftCornerIsConsideredToBeInsideOneNeighbouringShapeOnly()
         {
             // Arrange
-            var bottomLeftCornerCentralShape = new SquareFillPoint(
+            var bottomLeftCornerCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX, 
                 y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth);
 
@@ -1660,7 +1665,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenBottomEdgeIsConsideredToBeInsideOneNeighbouringShapeOnly()
         {
             // Arrange
-            var bottomEdgeCentralShape = new SquareFillPoint(
+            var bottomEdgeCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth / 2, 
                 y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth);
 
@@ -1691,7 +1696,7 @@ namespace SquareFillDomain.UnitTests
         public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenBottomRightCornerIsConsideredToBeInsideDiagonallyBottomRightNeighbour()
         {
             // Arrange
-            var bottomRightCornerCentralShape = new SquareFillPoint(
+            var bottomRightCornerCentralShape = SquareFillPoint(
                 x: _centralShape.TopLeftCornerX + ShapeConstants.SquareWidth, 
                 y: _centralShape.TopLeftCornerY + ShapeConstants.SquareWidth);
 

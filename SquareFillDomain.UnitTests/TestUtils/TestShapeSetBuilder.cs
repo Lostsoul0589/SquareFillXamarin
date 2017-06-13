@@ -71,37 +71,37 @@ namespace SquareFillDomain.UnitTests.TestUtils
         {
             // 1:
             _rightHydrantShape = MakeShape(colour: SquareFillColour.Red,
-                topLeftCorner: new SquareFillPoint(x: 3, y: 1),
+                topLeftCorner: SquareFillPoint(x: 3, y: 1),
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareViewFactory);
 
             // 4:
             _fourSquareShape = MakeShape(colour: SquareFillColour.Orange,
-                topLeftCorner: new SquareFillPoint(x: 6, y: 2),
+                topLeftCorner: SquareFillPoint(x: 6, y: 2),
                 relativePointsTopLeftCorner: ShapeConstants.FourSquarePoints,
                 squareFactory: squareViewFactory);
 
             // 5:
             _leftCornerShape = MakeShape(colour: SquareFillColour.Green,
-                topLeftCorner: new SquareFillPoint(x: 7, y: 15),
+                topLeftCorner: SquareFillPoint(x: 7, y: 15),
                 relativePointsTopLeftCorner: ShapeConstants.LeftCornerPoints,
                 squareFactory: squareViewFactory);
 
             // 14:
             _singleSquareShape = MakeShape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: 9, y: 18),
+                topLeftCorner: SquareFillPoint(x: 9, y: 18),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _topLeftCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: TopRowBorderSquares[0].X, y: TopRowBorderSquares[0].Y),
+                topLeftCorner: SquareFillPoint(x: TopRowBorderSquares[0].X, y: TopRowBorderSquares[0].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _topRightCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(
+                topLeftCorner: SquareFillPoint(
                     x: TopRowBorderSquares[TopRowBorderSquares.Count - 1].X, 
                     y: TopRowBorderSquares[TopRowBorderSquares.Count - 1].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
@@ -109,13 +109,13 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
             // created purely for test:
             _bottomLeftCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(x: BottomLeftBorderSquares[0].X, y: BottomLeftBorderSquares[0].Y),
+                topLeftCorner: SquareFillPoint(x: BottomLeftBorderSquares[0].X, y: BottomLeftBorderSquares[0].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareViewFactory);
 
             // created purely for test:
             _bottomRightCornerOfContainingBorder = MakeShape(colour: SquareFillColour.LightGrey,
-                topLeftCorner: new SquareFillPoint(
+                topLeftCorner: SquareFillPoint(
                     x: BottomRightBorderSquares[BottomRightBorderSquares.Count - 1].X, 
                     y: BottomRightBorderSquares[BottomRightBorderSquares.Count - 1].Y),
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
@@ -151,6 +151,11 @@ namespace SquareFillDomain.UnitTests.TestUtils
             }
 
             return squares;
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
         }
     }
 }

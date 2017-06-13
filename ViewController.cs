@@ -43,7 +43,7 @@ namespace SquareFillXamarin
             {
                 var newLocation = touch.GetPreciseLocation(View);
                 _shapeController.StartMove(
-                    new SquareFillPoint(
+                    SquareFillPoint(
                         x: Convert.ToInt16(newLocation.X), 
                         y: Convert.ToInt16(newLocation.Y)));
 	        }
@@ -56,7 +56,7 @@ namespace SquareFillXamarin
             {
                 var newLocation = touch.GetPreciseLocation(View);
                 _shapeController.ContinueMove(
-                    new SquareFillPoint(
+                    SquareFillPoint(
                         x: Convert.ToInt16(newLocation.X),
                         y: Convert.ToInt16(newLocation.Y)));
             }
@@ -69,10 +69,15 @@ namespace SquareFillXamarin
             {
                 var touchLocation = touch.GetPreciseLocation(View);
                 _shapeController.EndMove(
-                    new SquareFillPoint(
+                    SquareFillPoint(
                         x: Convert.ToInt16(touchLocation.X),
                         y: Convert.ToInt16(touchLocation.Y)));
             }
         }
+
+	    private SquareFillPoint SquareFillPoint(int x, int y)
+	    {
+	        return new SquareFillPoint(x: x, y: y);
+	    }
 	}
 }

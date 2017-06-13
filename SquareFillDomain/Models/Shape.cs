@@ -109,21 +109,21 @@ namespace SquareFillDomain.Models
 
         public SquareFillPoint CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: _topLeftCorner.X - cursorPosition.X,
                 y: _topLeftCorner.Y - cursorPosition.Y);
         }
 
         public SquareFillPoint CalculateCursorPositionBasedOnTopLeftCorner(SquareFillPoint topLeftCornerRelativeToCursorPosition)
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: _topLeftCorner.X - topLeftCornerRelativeToCursorPosition.X,
                 y: _topLeftCorner.Y - topLeftCornerRelativeToCursorPosition.Y);
         }
 
         public void SnapToGrid(SquareFillPoint newTopLeftCorner)
         {
-            var snappedTopLeftCorner = new SquareFillPoint(
+            var snappedTopLeftCorner = SquareFillPoint(
                 x: CalculateSnappedX(newTopLeftCornerX: newTopLeftCorner.X),
                 y: CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y));
 
@@ -133,7 +133,7 @@ namespace SquareFillDomain.Models
         public void SnapToGridInRelevantDimensionsIfPossible(MovementAnalyser movementResult, Grid occupiedGridSquares)
         {
             var previousTopLeftCorner = _topLeftCorner;
-            var newTopLeftCorner = new SquareFillPoint(x: previousTopLeftCorner.X, y: previousTopLeftCorner.Y);
+            var newTopLeftCorner = SquareFillPoint(x: previousTopLeftCorner.X, y: previousTopLeftCorner.Y);
 
             if (movementResult.ShapeHasCrossedAHorizontalGridBoundary)
             {
@@ -238,7 +238,7 @@ namespace SquareFillDomain.Models
             }
             else
             {
-                _topLeftCorner = new SquareFillPoint(x: topLeftCorner.X, y: topLeftCorner.Y);
+                _topLeftCorner = SquareFillPoint(x: topLeftCorner.X, y: topLeftCorner.Y);
             }
         }
 
@@ -258,6 +258,11 @@ namespace SquareFillDomain.Models
         {
             _numSquaresLeftOfTopLeftCorner = Math.Abs(_numSquaresLeftOfTopLeftCorner);
             _numSquaresAboveTopLeftCorner = Math.Abs(_numSquaresAboveTopLeftCorner);
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
         }
     }
 }

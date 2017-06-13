@@ -21,7 +21,7 @@ namespace SquareFillDomain.Controllers
         {
             _occupiedGridSquares = occupiedGridSquares;
             _shapeSet = shapeSet;
-            _lastGoodLocation = new SquareFillPoint(x: 0, y: 0);
+            _lastGoodLocation = SquareFillPoint(x: 0, y: 0);
         }
 
         public Shape StartMove(SquareFillPoint cursorPositionAtStart)
@@ -97,7 +97,7 @@ namespace SquareFillDomain.Controllers
 
         private SquareFillPoint CalculateTopLeftCorner(SquareFillPoint newCursorPosition)
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: newCursorPosition.X + _topLeftCornerRelativeToCursorPosition.X,
                 y: newCursorPosition.Y + _topLeftCornerRelativeToCursorPosition.Y);
         }
@@ -134,7 +134,7 @@ namespace SquareFillDomain.Controllers
 
         private SquareFillPoint CalculateGridPosition(SquareFillPoint topLeftCorner)
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: topLeftCorner.X / ShapeConstants.SquareWidth,
                 y: topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
@@ -184,6 +184,11 @@ namespace SquareFillDomain.Controllers
                 .WithMessage(message: message)
                 .WithPoint(desc: locationName, point: location)
                 .Log();
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
         }
     }
 }

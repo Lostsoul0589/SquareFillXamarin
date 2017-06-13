@@ -25,34 +25,34 @@ namespace SquareFillDomain.Models
 
         public Square()
         {
-            _topLeftCorner = new SquareFillPoint(x: 0, y: 0);
-            _positionRelativeToParentCorner = new SquareFillPoint(x: 0, y: 0);
+            _topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            _positionRelativeToParentCorner = SquareFillPoint(x: 0, y: 0);
         }
 
         public Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
             _positionRelativeToParentCorner = positionRelativeToParentCorner;
             _sprite = sprite;
-            _topLeftCorner = new SquareFillPoint(x: 0, y: 0);
+            _topLeftCorner = SquareFillPoint(x: 0, y: 0);
         }
 
         public SquareFillPoint CalculatePotentialTopLeftCorner(SquareFillPoint parentTopLeftCorner)
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: parentTopLeftCorner.X + (_positionRelativeToParentCorner.X * ShapeConstants.SquareWidth),
                 y: parentTopLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
         }
 
         public SquareFillPoint GetGridOrigin()
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: _topLeftCorner.X / ShapeConstants.SquareWidth,
                 y: _topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
 
         public SquareFillPoint CalculateGridOrigin(SquareFillPoint topLeftCorner)
         {
-            var gridOrigin = new SquareFillPoint(
+            var gridOrigin = SquareFillPoint(
                 x: topLeftCorner.X / ShapeConstants.SquareWidth,
                 y: topLeftCorner.Y / ShapeConstants.SquareWidth);
 
@@ -134,6 +134,11 @@ namespace SquareFillDomain.Models
         private bool PointIsAboveBottomEdge(SquareFillPoint point)
         {
             return point.Y < BottomEdge;
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
         }
     }
 }

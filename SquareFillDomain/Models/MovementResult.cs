@@ -155,5 +155,10 @@ namespace SquareFillDomain.Models
         {
             return (value % ShapeConstants.SquareWidth) == 0;
         }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
+        }
     }
 }

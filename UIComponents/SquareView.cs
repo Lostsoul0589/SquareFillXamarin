@@ -39,14 +39,14 @@ namespace SquareFillXamarin.UIComponents
     
         public SquareFillPoint Centre()
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: (int)_imageView.Center.X,
                 y: (int)_imageView.Center.Y);
         }
 
         public SquareFillPoint TopLeftCorner()
         {
-            return new SquareFillPoint(
+            return SquareFillPoint(
                 x: (int)(_imageView.Center.X - _imageView.Frame.Width/2),
                 y: (int)(_imageView.Center.Y - _imageView.Frame.Height/2));
         }
@@ -86,6 +86,11 @@ namespace SquareFillXamarin.UIComponents
                 default: 
                     return UIColor.Black;
             }
+        }
+
+        private SquareFillPoint SquareFillPoint(int x, int y)
+        {
+            return new SquareFillPoint(x: x, y: y);
         }
     }
 }
