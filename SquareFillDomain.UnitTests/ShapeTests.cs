@@ -24,6 +24,16 @@ namespace SquareFillDomain.UnitTests
 
         private readonly Grid _occupiedGridSquares = TestConstants.MakeGridSquares();
 
+        private Shape _shape01;
+        private Shape _shape02;
+        private Shape _shape03;
+        private Shape _shape04;
+        private Shape _centralShape;
+        private Shape _shape06;
+        private Shape _shape07;
+        private Shape _shape08;
+        private Shape _shape09;
+
         [TestInitialize]
         public void Setup()
         {
@@ -79,6 +89,28 @@ namespace SquareFillDomain.UnitTests
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.RightWayUpTPoints,
                 squareFactory: squareFactory);
+        }
+
+        private void InitialiseNineSquareShapes()
+        {
+            var topLeftCorner01 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner02 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner03 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner04 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCornerCentralShape = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner06 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner07 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner08 = new SquareFillPoint(x: 0, y: 0);
+            var topLeftCorner09 = new SquareFillPoint(x: 0, y: 0);
+            _shape01 = new Shape(topLeftCorner: topLeftCorner01, squareDefinitions: _simpleSingleSquareList);
+            _shape02 = new Shape(topLeftCorner: topLeftCorner02, squareDefinitions: _simpleSingleSquareList);
+            _shape03 = new Shape(topLeftCorner: topLeftCorner03, squareDefinitions: _simpleSingleSquareList);
+            _shape04 = new Shape(topLeftCorner: topLeftCorner04, squareDefinitions: _simpleSingleSquareList);
+            _centralShape = new Shape(topLeftCorner: topLeftCornerCentralShape, squareDefinitions: _simpleSingleSquareList);
+            _shape06 = new Shape(topLeftCorner: topLeftCorner06, squareDefinitions: _simpleSingleSquareList);
+            _shape07 = new Shape(topLeftCorner: topLeftCorner07, squareDefinitions: _simpleSingleSquareList);
+            _shape08 = new Shape(topLeftCorner: topLeftCorner08, squareDefinitions: _simpleSingleSquareList);
+            _shape09 = new Shape(topLeftCorner: topLeftCorner09, squareDefinitions: _simpleSingleSquareList);
         }
 
         [TestMethod]
@@ -1663,5 +1695,36 @@ namespace SquareFillDomain.UnitTests
             // Assert
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
         }
-	}
+
+        [TestMethod]
+        public void TestWhenOneSquareShapeIsSurroundedByEightOtherSquareShapesThenTopLeftCornerIsConsideredToBeInsideThatShapeOnly()
+        {
+            // Arrange
+            var topLeftCornerCentralShape = new SquareFillPoint(x: 0, y: 0);
+            InitialiseNineSquareShapes();
+            _occupiedGridSquares.OccupyGridSquare(x: 1, y: 1);
+
+            // Act
+            var isInShape01 = _shape01.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape02 = _shape02.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape03 = _shape03.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape04 = _shape04.IsInShape(point: topLeftCornerCentralShape);
+            var isInCentralShape = _centralShape.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape06 = _shape06.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape07 = _shape07.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape08 = _shape08.IsInShape(point: topLeftCornerCentralShape);
+            var isInShape09 = _shape09.IsInShape(point: topLeftCornerCentralShape);
+
+            // Assert
+            Asserter.AreEqual(isInShape01, false);
+            Asserter.AreEqual(isInShape02, false);
+            Asserter.AreEqual(isInShape03, false);
+            Asserter.AreEqual(isInShape04, false);
+            Asserter.AreEqual(isInCentralShape, true);
+            Asserter.AreEqual(isInShape06, false);
+            Asserter.AreEqual(isInShape07, false);
+            Asserter.AreEqual(isInShape08, false);
+            Asserter.AreEqual(isInShape09, false);
+        }
+    }
 }

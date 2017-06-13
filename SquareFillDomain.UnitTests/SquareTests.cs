@@ -91,5 +91,5 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.X, parentTopLeftCorner.X + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
             Asserter.AreEqual(result.Y, parentTopLeftCorner.Y + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
-	}
+    }
 }
