@@ -123,12 +123,10 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var start1 = 0;
             var end1 = shapeList.Count - 1;
-            for (int count1 = start1; count1 <= end1; count1++)
-            {
+            for (int count1 = start1; count1 <= end1; count1++) {
                 var start2 = 0;
                 var end2 = squaresInShapes[count1].Count - 1;
-                for (int count2 = start2; count2 <= end2; count2++)
-                {
+                for (int count2 = start2; count2 <= end2; count2++) {
                     var square = squaresInShapes[count1][count2];
                     var xCoord = square.TopLeftCornerX / TestConstants.SquareWidth;
                     var yCoord = square.TopLeftCornerY / TestConstants.SquareWidth;

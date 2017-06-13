@@ -36,8 +36,7 @@ namespace SquareFillDomain.Builders
 
             var start = 0;
             var end = (containingRectangle.Width / squareWidth) + 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 TopRowBorderSquares.Add(new SquareFillPoint(x: leftWallX + count, y: topRowY));
             }
 
@@ -53,8 +52,7 @@ namespace SquareFillDomain.Builders
 
             var start = 1;
             var end = containingRectangle.Height / squareWidth;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 RightWallBorderSquares.Add(new SquareFillPoint(x: rightWallX, y: topY + count));
             }
 
@@ -96,8 +94,7 @@ namespace SquareFillDomain.Builders
 
             var start = 1;
             var end = containingRectangle.Height / squareWidth;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 LeftWallBorderSquares.Add(new SquareFillPoint(x: leftWallX, y: topY + count));
             }
 

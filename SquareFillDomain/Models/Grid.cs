@@ -19,14 +19,12 @@ namespace SquareFillDomain.Models
         {
             var start1 = 0;
             var end1 = width - 1;
-            for (int count1 = start1; count1 <= end1; count1++)
-            {
+            for (int count1 = start1; count1 <= end1; count1++) {
                 _gridSquares.Add(new List<GridSquare>());
 
                 var start2 = 0;
                 var end2 = height - 1;
-                for (int count2 = start2; count2 <= end2; count2++)
-                {
+                for (int count2 = start2; count2 <= end2; count2++) {
                     _gridSquares[count1].Add(new GridSquare());
                 }
             }

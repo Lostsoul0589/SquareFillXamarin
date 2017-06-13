@@ -223,8 +223,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var start = 0;
             var end = _crossShapeSquareList.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_crossShapeSquareList[count].SpriteCornerX,
                                newTopLeftCorner.X + (ShapeConstants.CrossShapePoints[count].X * TestConstants.SquareWidth));
                 Asserter.AreEqual(_crossShapeSquareList[count].SpriteCornerY,
@@ -236,7 +235,7 @@ namespace SquareFillDomain.UnitTests
         public void TestNumSquaresLeftOfTopLeftCornerIsInitialisedAccordingToRelativePosition()
         {
             // Arrange
-            int numSquaresLeftOfTopLeftCorner = 2;
+            var numSquaresLeftOfTopLeftCorner = 2;
 
             // Act
             var shape = new Shape(
@@ -254,7 +253,7 @@ namespace SquareFillDomain.UnitTests
         public void TestNumSquaresRightOfTopLeftCornerIsInitialisedAcordingToRelativePosition()
         {
             // Arrange
-            int numSquaresRightOfTopLeftCorner = 2;
+            var numSquaresRightOfTopLeftCorner = 2;
 
             // Act
             var shape = new Shape(
@@ -272,7 +271,7 @@ namespace SquareFillDomain.UnitTests
         public void TestNumSquaresAboveTopLeftCornerIsInitialisedAcordingToRelativePosition()
         {
             // Arrange
-            int numSquaresAboveTopLeftCorner = 2;
+            var numSquaresAboveTopLeftCorner = 2;
 
             // Act
             var shape = new Shape(
@@ -290,7 +289,7 @@ namespace SquareFillDomain.UnitTests
         public void TestNumSquaresBelowTopLeftCornerIsInitialisedAcordingToRelativePosition()
         {
             // Arrange
-            int numSquaresBelowTopLeftCorner = 2;
+            var numSquaresBelowTopLeftCorner = 2;
 
             // Act
             var shape = new Shape(
@@ -414,8 +413,7 @@ namespace SquareFillDomain.UnitTests
             // Occupy some other squares too, so we can check they're still occupied afterwards
             var start = 0;
             var end = _occupiedGridSquares.Height - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 _occupiedGridSquares.OccupyGridSquare(x: _occupiedGridSquares.Width - 1, y: count);
             }
 
@@ -425,20 +423,17 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var start1 = 0;
             var end1 = _occupiedGridSquares.Width - 2;
-            for (int count1 = start1; count1 <= end1; count1++)
-            {
+            for (int count1 = start1; count1 <= end1; count1++) {
                 var start2 = 0;
                 var end2 = _occupiedGridSquares.Height - 1;
-                for (int count2 = start2; count2 <= end2; count2++)
-                {
+                for (int count2 = start2; count2 <= end2; count2++) {
                     Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: count1, y: count2), false);
                 }
             }
             // Check the other occupied squares are still occupied
             start = 0;
             end = _occupiedGridSquares.Height - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: _occupiedGridSquares.Width - 1, y: count), true);
             }
         }
@@ -461,18 +456,15 @@ namespace SquareFillDomain.UnitTests
             }
             var start = 3;
             var end = _occupiedGridSquares.Height - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0, y: count), false);
             }
             var start1 = 1;
             var end1 = _occupiedGridSquares.Width - 1;
-            for (int count1 = start1; count1 <= end1; count1++)
-            {
+            for (int count1 = start1; count1 <= end1; count1++) {
                 var start2 = 0;
                 var end2 = _occupiedGridSquares.Height - 1;
-                for (int count2 = start2; count2 <= end2; count2++)
-                {
+                for (int count2 = start2; count2 <= end2; count2++) {
                     Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: count1, y: count2), false);
                 }
             }
@@ -566,8 +558,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(
                     x: _threePoleSquareList[count].TopLeftCornerX, 
                     y: _threePoleSquareList[count].TopLeftCornerY));
@@ -579,8 +570,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
                     + 2 * TestConstants.SquareWidth);
@@ -602,8 +592,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(
                     x: _threePoleSquareList[count].TopLeftCornerX, 
                     y: _threePoleSquareList[count].TopLeftCornerY));
@@ -615,8 +604,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
                     + xMovement * TestConstants.SquareWidth);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
@@ -638,8 +626,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
 
@@ -649,8 +636,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
                     + 2 * TestConstants.SquareWidth);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
@@ -672,8 +658,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
 
@@ -683,8 +668,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
                     + 2 * TestConstants.SquareWidth);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
@@ -706,8 +690,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
 
@@ -717,8 +700,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
                     + 2 * TestConstants.SquareWidth);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
@@ -740,8 +722,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: TestConstants.ThreePolePoints[0].X, y: TestConstants.ThreePolePoints[0].X);
@@ -755,8 +736,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -776,8 +756,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 1 + TestConstants.ThreePolePoints[0].X, y: TestConstants.ThreePolePoints[0].Y);
@@ -791,8 +770,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -812,8 +790,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
@@ -825,8 +802,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -846,8 +822,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
@@ -859,8 +834,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -880,8 +854,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 0);
@@ -893,8 +866,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -914,8 +886,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 1, y: 0);
@@ -927,8 +898,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -948,8 +918,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
             _occupiedGridSquares.OccupyGridSquare(x: 0, y: 3);
@@ -961,8 +930,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -982,8 +950,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(
                     x: _threePoleSquareList[count].TopLeftCornerX, y: _threePoleSquareList[count].TopLeftCornerY));
             }
@@ -996,8 +963,7 @@ namespace SquareFillDomain.UnitTests
             Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
             }
@@ -1020,8 +986,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
@@ -1031,8 +996,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.TwoPolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
                 Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y - TestConstants.SquareWidth);
             }
@@ -1055,8 +1019,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
@@ -1066,8 +1029,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             start = 0;
             end = TestConstants.TwoPolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
                     + TestConstants.SquareWidth);
                 Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
@@ -1091,8 +1053,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
@@ -1120,8 +1081,7 @@ namespace SquareFillDomain.UnitTests
             var originalSquareOrigins = new Linq.List<SquareFillPoint>();
             var start = 0;
             var end = TestConstants.TwoPolePoints.Count - 1;
-            for (int count = start; count <= end; count++)
-            {
+            for (int count = start; count <= end; count++) {
                 originalSquareOrigins.Add(new SquareFillPoint(x: _twoPoleSquareList[count].TopLeftCornerX, y: _twoPoleSquareList[count].TopLeftCornerY));
             }
 
