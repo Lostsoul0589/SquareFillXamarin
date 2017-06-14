@@ -27,7 +27,7 @@ namespace SquareFillDomain.Models
                 occupied: false);
         }
 
-        // public func OccupyGridSquareUsingPixels(gridReferenceInPixels: SquareFillPoint, shapeInSquare: Shape)
+        // public func OccupyGridSquareUsingPixels(gridReferenceInPixels: SquareFillPoint, shapeInSquare: Shape!)
         public void OccupyGridSquareUsingPixels(SquareFillPoint gridReferenceInPixels, Shape shapeInSquare)
         {
             ChangeGridSquareOccupation(
@@ -42,7 +42,7 @@ namespace SquareFillDomain.Models
             _gridSquares[x][y].Occupied = occupied;
         }
 
-        // public func PlaceShapeInSquare(x: Int, y: Int, shapeInSquare: Shape)
+        // public func PlaceShapeInSquare(x: Int, y: Int, shapeInSquare: Shape!)
         public void PlaceShapeInSquare(int x, int y, Shape shapeInSquare)
         {
             _gridSquares[x][y].ShapeInSquare = shapeInSquare;
