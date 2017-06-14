@@ -16,6 +16,11 @@ namespace SquareFillDomain.UnitTests
             return new SquareFillPoint(x: x, y: y);
         }
 
+        private ISquareView MockSquareView()
+        {
+            return new MockSquareView();
+        }
+
         private Square Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
             return new Square(
@@ -54,7 +59,7 @@ namespace SquareFillDomain.UnitTests
 			var isInSquare = square.IsInSquare(point: centreOfSquare);
 			
 			// Assert
-			Asserter.AreEqual(isInSquare, true);
+			Asserter.AreEqual(actual: isInSquare, expected: true);
 		}
 		
 		[TestMethod]
@@ -69,7 +74,7 @@ namespace SquareFillDomain.UnitTests
 			var isInSquare = square.IsInSquare(point: pointInQuestion);
 			
 			// Assert
-			Asserter.AreEqual(isInSquare, true);
+			Asserter.AreEqual(actual: isInSquare, expected: true);
 		}
 		
 		[TestMethod]
@@ -84,7 +89,7 @@ namespace SquareFillDomain.UnitTests
 			var isInSquare = square.IsInSquare(point: pointInQuestion);
 			
 			// Assert
-			Asserter.AreEqual(isInSquare, false);
+			Asserter.AreEqual(actual: isInSquare, expected: false);
 		}
 
         [TestMethod]
@@ -94,16 +99,16 @@ namespace SquareFillDomain.UnitTests
             var parentTopLeftCorner = SquareFillPoint(
                 x: 4 * TestConstants.SquareWidth,
                 y: 4 * TestConstants.SquareWidth);
-            var square = Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: null);
+            var square = Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: MockSquareView());
 
             // Act
             square.MoveTopLeftCorner(newTopLeftCorner: parentTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(square.TopLeftCornerX, parentTopLeftCorner.X
-                + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
-            Asserter.AreEqual(square.TopLeftCornerY, parentTopLeftCorner.Y
-                + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
+            Asserter.AreEqual(actual: square.TopLeftCornerX,
+                expected: parentTopLeftCorner.X + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
+            Asserter.AreEqual(actual: square.TopLeftCornerY,
+                expected: parentTopLeftCorner.Y + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
 
         [TestMethod]
@@ -113,14 +118,14 @@ namespace SquareFillDomain.UnitTests
             var parentTopLeftCorner = SquareFillPoint(
                 x: 4 * TestConstants.SquareWidth,
                 y: 4 * TestConstants.SquareWidth);
-            var square = Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: null);
+            var square = Square(positionRelativeToParentCorner: SquareFillPoint(x: -2, y: -3), sprite: MockSquareView());
 
             // Act
-            SquareFillPoint result = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
+            var result = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: parentTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.X, parentTopLeftCorner.X + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
-            Asserter.AreEqual(result.Y, parentTopLeftCorner.Y + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
+            Asserter.AreEqual(actual: result.X, expected: parentTopLeftCorner.X + (square.XRelativeToParentCorner * TestConstants.SquareWidth));
+            Asserter.AreEqual(actual: result.Y, expected: parentTopLeftCorner.Y + (square.YRelativeToParentCorner * TestConstants.SquareWidth));
         }
     }
 }

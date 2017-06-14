@@ -27,6 +27,7 @@ namespace SquareFillDomain.Models
         {
             _topLeftCorner = SquareFillPoint(x: 0, y: 0);
             _positionRelativeToParentCorner = SquareFillPoint(x: 0, y: 0);
+            _sprite = new NullSquareView();
         }
 
         // init (positionRelativeToParentCorner: SquareFillPoint, sprite: ISquareView)
@@ -88,6 +89,7 @@ namespace SquareFillDomain.Models
         // public func TopLeftCornerAsString() -> String
         public string TopLeftCornerAsString()
         {
+            // var originX = String(_topLeftCorner.X);
             var originX = _topLeftCorner.X.ToString();
             var originY = _topLeftCorner.Y.ToString();
 

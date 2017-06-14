@@ -41,6 +41,11 @@ namespace SquareFillDomain.UnitTests
             return new SquareFillPoint(x: x, y: y);
         }
 
+        private ISquareView MockSquareView()
+        {
+            return new MockSquareView();
+        }
+
         private Shape Shape(
             SquareFillPoint topLeftCorner,
             Linq.List<Square> squareDefinitions,
@@ -59,9 +64,11 @@ namespace SquareFillDomain.UnitTests
                 sprite: sprite);
         }
 
-        // init()
+        // override init()
         public ShapeTests()
         {
+            //super.init();
+
             _shape01 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
             _shape02 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
             _shape03 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
@@ -81,7 +88,7 @@ namespace SquareFillDomain.UnitTests
             {
                 Square(
                     positionRelativeToParentCorner: SquareFillPoint(x: 0, y: 0), 
-                    sprite: new MockSquareView())
+                    sprite: MockSquareView())
             };
             // ];
         }
@@ -169,7 +176,7 @@ namespace SquareFillDomain.UnitTests
 			var isInShape = shape.IsInShape(point: centreOfShape);
 			
 			// Assert
-			Asserter.AreEqual(isInShape, true);
+			Asserter.AreEqual(actual: isInShape, expected: true);
 		}
 
         [TestMethod]
@@ -186,7 +193,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Asserter.AreEqual(isInShape, true);
+            Asserter.AreEqual(actual: isInShape, expected: true);
         }
 
         [TestMethod]
@@ -203,7 +210,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Asserter.AreEqual(isInShape, false);
+            Asserter.AreEqual(actual: isInShape, expected: false);
         }
 
         [TestMethod]
@@ -222,7 +229,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Asserter.AreEqual(isInShape, true);
+            Asserter.AreEqual(actual: isInShape, expected: true);
         }
 
         [TestMethod]
@@ -241,7 +248,7 @@ namespace SquareFillDomain.UnitTests
             var isInShape = shape.IsInShape(point: pointInQuestion);
 
             // Assert
-            Asserter.AreEqual(isInShape, true);
+            Asserter.AreEqual(actual: isInShape, expected: true);
         }
 
         [TestMethod]
@@ -263,10 +270,10 @@ namespace SquareFillDomain.UnitTests
             var start = 0;
             var end = _crossShapeSquareList.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_crossShapeSquareList[count].SpriteCornerX,
-                               newTopLeftCorner.X + (ShapeConstants.CrossShapePoints[count].X * TestConstants.SquareWidth));
-                Asserter.AreEqual(_crossShapeSquareList[count].SpriteCornerY,
-                               newTopLeftCorner.Y + (ShapeConstants.CrossShapePoints[count].Y * TestConstants.SquareWidth));
+                Asserter.AreEqual(actual: _crossShapeSquareList[count].SpriteCornerX,
+                    expected: newTopLeftCorner.X + (ShapeConstants.CrossShapePoints[count].X * TestConstants.SquareWidth));
+                Asserter.AreEqual(actual: _crossShapeSquareList[count].SpriteCornerY,
+                    expected: newTopLeftCorner.Y + (ShapeConstants.CrossShapePoints[count].Y * TestConstants.SquareWidth));
             }
         }
 
@@ -280,12 +287,12 @@ namespace SquareFillDomain.UnitTests
             var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: null),
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x: -numSquaresLeftOfTopLeftCorner, y:0), sprite: MockSquareView()),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: MockSquareView())
                 });
 
             // Assert
-            Asserter.AreEqual(shape.NumSquaresLeftOfTopLeftCorner, numSquaresLeftOfTopLeftCorner);
+            Asserter.AreEqual(actual: shape.NumSquaresLeftOfTopLeftCorner, expected: numSquaresLeftOfTopLeftCorner);
         }
 
         [TestMethod]
@@ -298,12 +305,12 @@ namespace SquareFillDomain.UnitTests
             var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: null),
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x: numSquaresRightOfTopLeftCorner, y:0), sprite: MockSquareView()),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: MockSquareView())
                 });
 
             // Assert
-            Asserter.AreEqual(shape.NumSquaresRightOfTopLeftCorner, numSquaresRightOfTopLeftCorner);
+            Asserter.AreEqual(actual: shape.NumSquaresRightOfTopLeftCorner, expected: numSquaresRightOfTopLeftCorner);
         }
 
         [TestMethod]
@@ -316,12 +323,12 @@ namespace SquareFillDomain.UnitTests
             var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: null),
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: -numSquaresAboveTopLeftCorner), sprite: MockSquareView()),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: MockSquareView())
                 });
 
             // Assert
-            Asserter.AreEqual(shape.NumSquaresAboveTopLeftCorner, numSquaresAboveTopLeftCorner);
+            Asserter.AreEqual(actual: shape.NumSquaresAboveTopLeftCorner, expected: numSquaresAboveTopLeftCorner);
         }
 
         [TestMethod]
@@ -334,12 +341,12 @@ namespace SquareFillDomain.UnitTests
             var shape = Shape(
                 topLeftCorner: SquareFillPoint(x: 0, y: 0),
                 squareDefinitions: new Linq.List<Square> {
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: null),
-                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: null)
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y: numSquaresBelowTopLeftCorner), sprite: MockSquareView()),
+                    Square(positionRelativeToParentCorner: SquareFillPoint(x:0, y:0), sprite: MockSquareView())
                 });
 
             // Assert
-            Asserter.AreEqual(shape.NumSquaresBelowTopLeftCorner, numSquaresBelowTopLeftCorner);
+            Asserter.AreEqual(actual: shape.NumSquaresBelowTopLeftCorner, expected: numSquaresBelowTopLeftCorner);
         }
 
         [TestMethod]
@@ -358,7 +365,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Asserter.AreEqual(result, true);
+            Asserter.AreEqual(actual: result, expected: true);
         }
 
         [TestMethod]
@@ -377,7 +384,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Asserter.AreEqual(result, false);
+            Asserter.AreEqual(actual: result, expected: false);
         }
 
         [TestMethod]
@@ -396,7 +403,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Asserter.AreEqual(result, false);
+            Asserter.AreEqual(actual: result, expected: false);
         }
 
         [TestMethod]
@@ -415,7 +422,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Asserter.AreEqual(result, false);
+            Asserter.AreEqual(actual: result, expected: false);
         }
 
         [TestMethod]
@@ -434,7 +441,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.WeStartedWithinTheContainingRectangle();
 
             // Assert
-            Asserter.AreEqual(result, false);
+            Asserter.AreEqual(actual: result, expected: false);
         }
 
         [TestMethod]
@@ -466,14 +473,14 @@ namespace SquareFillDomain.UnitTests
                 var start2 = 0;
                 var end2 = _occupiedGridSquares.Height - 1;
                 for (int count2 = start2; count2 <= end2; count2++) {
-                    Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: count1, y: count2), false);
+                    Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: count1, y: count2), expected: false);
                 }
             }
             // Check the other occupied squares are still occupied
             start = 0;
             end = _occupiedGridSquares.Height - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: _occupiedGridSquares.Width - 1, y: count), true);
+                Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: _occupiedGridSquares.Width - 1, y: count), expected: true);
             }
         }
 
@@ -491,12 +498,12 @@ namespace SquareFillDomain.UnitTests
 
             // Assert
             foreach (var element in TestConstants.ThreePolePoints) {
-                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: element.X, y: element.Y), true);
+                Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: element.X, y: element.Y), expected: true);
             }
             var start = 3;
             var end = _occupiedGridSquares.Height - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0, y: count), false);
+                Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0, y: count), expected: false);
             }
             var start1 = 1;
             var end1 = _occupiedGridSquares.Width - 1;
@@ -504,7 +511,7 @@ namespace SquareFillDomain.UnitTests
                 var start2 = 0;
                 var end2 = _occupiedGridSquares.Height - 1;
                 for (int count2 = start2; count2 <= end2; count2++) {
-                    Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: count1, y: count2), false);
+                    Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: count1, y: count2), expected: false);
                 }
             }
         }
@@ -523,7 +530,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, false);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: false);
         }
 
         [TestMethod]
@@ -543,7 +550,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, false);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: false);
         }
 
         [TestMethod]
@@ -562,7 +569,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, false);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: false);
         }
 
         [TestMethod]
@@ -582,7 +589,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, false);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: false);
         }
 
         [TestMethod]
@@ -610,9 +617,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
-                    + 2 * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, 
+                    expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY,
+                    expected: originalSquareOrigins[count].Y + 2 * TestConstants.SquareWidth);
             }
         }
 
@@ -644,10 +652,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
-                    + xMovement * TestConstants.SquareWidth);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
-                    + 2 * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX,
+                    expected: originalSquareOrigins[count].X + xMovement * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY,
+                    expected: originalSquareOrigins[count].Y + 2 * TestConstants.SquareWidth);
             }
         }
 
@@ -676,9 +684,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
-                    + 2 * TestConstants.SquareWidth);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX,
+                    expected: originalSquareOrigins[count].X + 2 * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY,
+                    expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -708,10 +717,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
-                    + 2 * TestConstants.SquareWidth);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
-                    + yMovement * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX,
+                    expected: originalSquareOrigins[count].X + 2 * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY,
+                    expected: originalSquareOrigins[count].Y + yMovement * TestConstants.SquareWidth);
             }
         }
 
@@ -740,10 +749,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
-                    + 2 * TestConstants.SquareWidth);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y
-                    + 3 * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX,
+                    expected: originalSquareOrigins[count].X + 2 * TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY,
+                    expected: originalSquareOrigins[count].Y + 3 * TestConstants.SquareWidth);
             }
         }
 
@@ -772,12 +781,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -806,12 +815,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -838,12 +847,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -870,12 +879,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -902,12 +911,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -934,12 +943,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -966,12 +975,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -999,12 +1008,12 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
             start = 0;
             end = TestConstants.ThreePolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_threePoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerX, expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _threePoleSquareList[count].TopLeftCornerY, expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -1036,8 +1045,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.TwoPolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X);
-                Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y - TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _twoPoleSquareList[count].TopLeftCornerX, 
+                    expected: originalSquareOrigins[count].X);
+                Asserter.AreEqual(actual: _twoPoleSquareList[count].TopLeftCornerY,
+                    expected: originalSquareOrigins[count].Y - TestConstants.SquareWidth);
             }
         }
 
@@ -1069,9 +1080,10 @@ namespace SquareFillDomain.UnitTests
             start = 0;
             end = TestConstants.TwoPolePoints.Count - 1;
             for (int count = start; count <= end; count++) {
-                Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerX, originalSquareOrigins[count].X
-                    + TestConstants.SquareWidth);
-                Asserter.AreEqual(_twoPoleSquareList[count].TopLeftCornerY, originalSquareOrigins[count].Y);
+                Asserter.AreEqual(actual: _twoPoleSquareList[count].TopLeftCornerX,
+                    expected: originalSquareOrigins[count].X + TestConstants.SquareWidth);
+                Asserter.AreEqual(actual: _twoPoleSquareList[count].TopLeftCornerY, 
+                    expected: originalSquareOrigins[count].Y);
             }
         }
 
@@ -1100,7 +1112,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, false);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: false);
         }
 
         [TestMethod]
@@ -1128,7 +1140,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, false);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: false);
         }
 
         [TestMethod]
@@ -1151,7 +1163,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1174,7 +1186,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1197,7 +1209,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1220,7 +1232,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1240,7 +1252,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1263,7 +1275,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1283,7 +1295,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1303,7 +1315,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1326,7 +1338,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1349,7 +1361,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1372,7 +1384,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1391,7 +1403,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1410,7 +1422,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1429,7 +1441,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1448,7 +1460,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1468,7 +1480,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1488,7 +1500,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1508,7 +1520,7 @@ namespace SquareFillDomain.UnitTests
             var result = shape.CheckWhetherMovementIsPossible(occupiedGridSquares: _occupiedGridSquares, newTopLeftCorner: newTopLeftCorner);
 
             // Assert
-            Asserter.AreEqual(result.ThereAreShapesInTheWay, true);
+            Asserter.AreEqual(actual: result.ThereAreShapesInTheWay, expected: true);
         }
 
         [TestMethod]
@@ -1529,15 +1541,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: topLeftCornerCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, true);
-            Asserter.AreEqual(isInShape06, false);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, false);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: true);
+            Asserter.AreEqual(actual: isInShape06, expected: false);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: false);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1560,15 +1572,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: topEdgeCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, true);
-            Asserter.AreEqual(isInShape06, false);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, false);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: true);
+            Asserter.AreEqual(actual: isInShape06, expected: false);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: false);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1591,15 +1603,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: topRightCornerCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, false);
-            Asserter.AreEqual(isInShape06, true);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, false);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: false);
+            Asserter.AreEqual(actual: isInShape06, expected: true);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: false);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1622,15 +1634,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: leftEdgeCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, true);
-            Asserter.AreEqual(isInShape06, false);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, false);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: true);
+            Asserter.AreEqual(actual: isInShape06, expected: false);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: false);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1653,15 +1665,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: rightEdgeCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, false);
-            Asserter.AreEqual(isInShape06, true);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, false);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: false);
+            Asserter.AreEqual(actual: isInShape06, expected: true);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: false);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1684,15 +1696,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: bottomLeftCornerCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, false);
-            Asserter.AreEqual(isInShape06, false);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, true);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: false);
+            Asserter.AreEqual(actual: isInShape06, expected: false);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: true);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1715,15 +1727,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: bottomEdgeCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, false);
-            Asserter.AreEqual(isInShape06, false);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, true);
-            Asserter.AreEqual(isInShape09, false);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: false);
+            Asserter.AreEqual(actual: isInShape06, expected: false);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: true);
+            Asserter.AreEqual(actual: isInShape09, expected: false);
         }
 
         [TestMethod]
@@ -1746,15 +1758,15 @@ namespace SquareFillDomain.UnitTests
             var isInShape09 = _shape09.IsInShape(point: bottomRightCornerCentralShape);
 
             // Assert
-            Asserter.AreEqual(isInShape01, false);
-            Asserter.AreEqual(isInShape02, false);
-            Asserter.AreEqual(isInShape03, false);
-            Asserter.AreEqual(isInShape04, false);
-            Asserter.AreEqual(isInCentralShape, false);
-            Asserter.AreEqual(isInShape06, false);
-            Asserter.AreEqual(isInShape07, false);
-            Asserter.AreEqual(isInShape08, false);
-            Asserter.AreEqual(isInShape09, true);
+            Asserter.AreEqual(actual: isInShape01, expected: false);
+            Asserter.AreEqual(actual: isInShape02, expected: false);
+            Asserter.AreEqual(actual: isInShape03, expected: false);
+            Asserter.AreEqual(actual: isInShape04, expected: false);
+            Asserter.AreEqual(actual: isInCentralShape, expected: false);
+            Asserter.AreEqual(actual: isInShape06, expected: false);
+            Asserter.AreEqual(actual: isInShape07, expected: false);
+            Asserter.AreEqual(actual: isInShape08, expected: false);
+            Asserter.AreEqual(actual: isInShape09, expected: true);
         }
     }
 }

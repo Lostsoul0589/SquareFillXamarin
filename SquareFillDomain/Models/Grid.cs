@@ -42,13 +42,13 @@ namespace SquareFillDomain.Models
             _gridSquares[x][y].Occupied = occupied;
         }
 
-        // public func PlaceShapeInSquare(int x, int y, shapeInSquare: Shape)
+        // public func PlaceShapeInSquare(x: Int, y: Int, shapeInSquare: Shape)
         public void PlaceShapeInSquare(int x, int y, Shape shapeInSquare)
         {
             _gridSquares[x][y].ShapeInSquare = shapeInSquare;
         }
 
-        // public func IsSquareOccupied(int x, int y) -> Bool
+        // public func IsSquareOccupied(x: Int, y: Int) -> Bool
         public bool IsSquareOccupied(int x, int y)
         {
             return _gridSquares[x][y].Occupied;
@@ -80,15 +80,13 @@ namespace SquareFillDomain.Models
         {
             var start1 = 0;
             var end1 = width - 1;
-            for (int count1 = start1; count1 <= end1; count1++)
-            {
+            for (int count1 = start1; count1 <= end1; count1++) {
                 //_gridSquares.append([]);
                 _gridSquares.Add(new List<GridSquare>());
 
                 var start2 = 0;
                 var end2 = height - 1;
-                for (int count2 = start2; count2 <= end2; count2++)
-                {
+                for (int count2 = start2; count2 <= end2; count2++) {
                     _gridSquares[count1].Add(new GridSquare());
                 }
             }
@@ -96,7 +94,7 @@ namespace SquareFillDomain.Models
 
         // private func ChangeGridSquareOccupation(
         //      gridReferenceInPixels: SquareFillPoint,
-        //      shapeInSquare: Shape,
+        //      shapeInSquare: Shape!,
         //      occupied: Bool)
         private void ChangeGridSquareOccupation(
             SquareFillPoint gridReferenceInPixels,

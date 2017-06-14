@@ -33,8 +33,8 @@ namespace SquareFillDomain.UnitTests
             var gridSquares = shapeSetBuilder.MakeGridSquares();
 
             // Assert
-            Asserter.AreEqual(gridSquares.Width, TestConstants.GridWidth);
-            Asserter.AreEqual(gridSquares.Height, TestConstants.GridHeight);
+            Asserter.AreEqual(actual: gridSquares.Width, expected: TestConstants.GridWidth);
+            Asserter.AreEqual(actual: gridSquares.Height, expected: TestConstants.GridHeight);
         }
     }
 }

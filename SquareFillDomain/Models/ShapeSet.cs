@@ -12,17 +12,18 @@ namespace SquareFillDomain.Models
             _shapes = shapes;
 		}
 
-        // public func SelectShape(selectedPoint: SquareFillPoint, selectedPointIsGridRef: Bool = false) -> Shape
+        // public func SelectShape(selectedPoint: SquareFillPoint, selectedPointIsGridRef: Bool = false) -> Shape!
         public Shape SelectShape(SquareFillPoint selectedPoint, bool selectedPointIsGridRef = false)
-	    {
+        {
+            var convertedSelectedPoint = selectedPoint;
             Shape selectedShape = null;
 	        if (selectedPointIsGridRef)
 	        {
-	            selectedPoint = selectedPoint.ConvertToPixels();
+	            convertedSelectedPoint = selectedPoint.ConvertToPixels();
 	        }
 
-	        foreach(var element in _shapes) {
-                if (element.IsInShape(point: selectedPoint))
+	        foreach (var element in _shapes) {
+                if (element.IsInShape(point: convertedSelectedPoint))
                 {
                     selectedShape = element;
                 }

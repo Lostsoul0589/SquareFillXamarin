@@ -10,6 +10,7 @@ namespace SquareFillDomain.Models
         public bool ShapeHasCrossedAVerticalGridBoundary { get; private set; }
         public bool ThereAreShapesInTheWay { get; private set; }
 
+        // public var NoShapesAreInTheWay: Bool { get { return !ThereAreShapesInTheWay; } }
         public bool NoShapesAreInTheWay { get { return !ThereAreShapesInTheWay; } }
 
         // init(
@@ -21,6 +22,10 @@ namespace SquareFillDomain.Models
             Grid occupiedGridSquares,
             SquareFillPoint newTopLeftCorner)
         {
+            // Even though these values are initialised in the methods below, 
+            // we have to set them here too otherwise Swift will complain.
+            ShapeHasCrossedAHorizontalGridBoundary = false;
+            ShapeHasCrossedAVerticalGridBoundary = false;
             ThereAreShapesInTheWay = false;
 
             CheckWhetherBoundariesHaveBeenCrossed(anySquare: squares[0], newTopLeftCorner: newTopLeftCorner);
@@ -150,7 +155,7 @@ namespace SquareFillDomain.Models
             return newGridCoords;
         }
 
-        // private func HasBoundaryBeenCrossed
+        // private func HasBoundaryBeenCrossed(
         //      oldPixelValue: Int,
         //      newPixelValue: Int,
         //      oldGridRef: Int,

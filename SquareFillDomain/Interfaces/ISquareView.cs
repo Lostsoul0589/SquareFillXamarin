@@ -2,7 +2,7 @@ using SquareFillDomain.Models;
 
 namespace SquareFillDomain.Interfaces
 {
-    // protocol ISquareView
+    // public protocol ISquareView
     public interface ISquareView
     {
         // func MoveSquare(newX: Int, newY: Int)

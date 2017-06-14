@@ -8,20 +8,21 @@ namespace SquareFillDomain.Builders
 {
     public class ShapeSetBuilder : IShapeSetBuilder
     {
-        private static Shape _rightHydrantShape01;
-        private static Shape _rightHydrantShape02;
-        private static Shape _rightHydrantShape03;
-        private static Shape _fourBarShape;
-        private static Shape _sevenShape;
-        private static Shape _fourSquareShape01;
-        private static Shape _fourSquareShape02;
-        private static Shape _leftCornerShape;
-        private static Shape _upsideDownTShape01;
-        private static Shape _upsideDownTShape02;
-        private static Shape _threePoleShape;
-        private static Shape _twoPoleShape;
-        private static Shape _backwardsLShape;
-        private static Shape _singleSquareShape;
+        // private var _rightHydrantShape01: Shape! = nil;
+        private Shape _rightHydrantShape01 = null;
+        private Shape _rightHydrantShape02 = null;
+        private Shape _rightHydrantShape03 = null;
+        private Shape _fourBarShape = null;
+        private Shape _sevenShape = null;
+        private Shape _fourSquareShape01 = null;
+        private Shape _fourSquareShape02 = null;
+        private Shape _leftCornerShape = null;
+        private Shape _upsideDownTShape01 = null;
+        private Shape _upsideDownTShape02 = null;
+        private Shape _threePoleShape = null;
+        private Shape _twoPoleShape = null;
+        private Shape _backwardsLShape = null;
+        private Shape _singleSquareShape = null;
 
         private readonly BorderBuilder _borderBuilder = new BorderBuilder();
 
@@ -34,7 +35,7 @@ namespace SquareFillDomain.Builders
                 containingRectangle: ShapeConstants.ContainingRectangle);
         }
 
-        // public func GetShapeSet() -> ShapeSet 
+        // public static func GetShapeSet() -> ShapeSet 
         public ShapeSet GetShapeSet() 
         {
             return MakeHardCodedShapeSet();
@@ -52,7 +53,7 @@ namespace SquareFillDomain.Builders
             return ShapeConstants.MakeGridSquares();
         }
 
-        // private func MakeHardCodedShapeSet() -> ShapeSet 
+        // private static func MakeHardCodedShapeSet() -> ShapeSet 
         private ShapeSet MakeHardCodedShapeSet()
         {
             return new ShapeSet(shapes: new List<Shape> {

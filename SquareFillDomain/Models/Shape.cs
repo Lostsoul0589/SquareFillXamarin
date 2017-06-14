@@ -32,11 +32,18 @@ namespace SquareFillDomain.Models
             List<Square> squareDefinitions,
             bool topLeftCornerIsGridRef = true)
         {
+            // Even though these values are initialised in the methods below, 
+            // we have to set them here too otherwise Swift will complain.
+            _topLeftCorner = SquareFillPoint(x: 0, y: 0);
+            _squares = squareDefinitions;
+            _numSquaresLeftOfTopLeftCorner = 0;
+            _numSquaresRightOfTopLeftCorner = 0;
+            _numSquaresAboveTopLeftCorner = 0;
+            _numSquaresBelowTopLeftCorner = 0;
+
             InitialiseTopLeftCorner(
                 topLeftCorner: topLeftCorner,
                 topLeftCornerIsGridRef: topLeftCornerIsGridRef);
-
-            _squares = squareDefinitions;
 
             CalculateNumSquaresAroundTopLeftCorner();
             UpdateTopLeftCorner(newTopLeftCorner: _topLeftCorner);
@@ -47,7 +54,7 @@ namespace SquareFillDomain.Models
         {
             var isInShape = false;
             
-            foreach(var element in _squares) {
+            foreach (var element in _squares) {
                 isInShape = isInShape || element.IsInSquare(point: point);
             }
 
@@ -63,7 +70,7 @@ namespace SquareFillDomain.Models
             }
         }
 
-        // public func CheckWhetherMovementIsPossible()
+        // public func CheckWhetherMovementIsPossible(
         //      occupiedGridSquares: Grid,
         //      newTopLeftCorner: SquareFillPoint) -> MovementAnalyser
         public MovementAnalyser CheckWhetherMovementIsPossible(
@@ -245,7 +252,7 @@ namespace SquareFillDomain.Models
 
             if (MoreThanHalfWayAcrossASquare(topLeftCornerCoordinate: topLeftCornerCoordinate))
             {
-                numberOfSquaresFromEdgeOfScreen++;
+                numberOfSquaresFromEdgeOfScreen += 1;
             }
 
             return numberOfSquaresFromEdgeOfScreen;

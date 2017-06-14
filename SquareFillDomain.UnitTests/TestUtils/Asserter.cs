@@ -1,17 +1,26 @@
 // using NUnit.Framework;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SquareFillDomain.Models;
 
 namespace SquareFillDomain.UnitTests.TestUtils
 {
     // public class Asserter
     public static class Asserter
     {
-        // public static func AreEqual(objectToCompare: AnyObject, expectedValue: AnyObject)
-        public static void AreEqual(object objectToCompare, object expectedValue)
+        public static void AreEqual(object actual, object expected)
         {
-            //XCTAssertEqual(expectedValue, objectToCompare);
-            Assert.AreEqual(expectedValue, objectToCompare);
+            Assert.AreEqual(expected, actual);
         }
+
+        //public static func AreEqual(actual: Bool, expected: Bool)
+        //{
+        //    XCTAssertEqual(expected, actual);
+        //}
+
+        //public static func AreEqual(actual: Int, expected: Int)
+        //{
+        //    XCTAssertEqual(expected, actual);
+        //}
     }
 }

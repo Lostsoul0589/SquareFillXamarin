@@ -18,6 +18,7 @@ namespace SquareFillDomain.Utils
         // public func WithPoint(desc: String, point: SquareFillPoint) -> Logger
         public Logger WithPoint(string desc, SquareFillPoint point)
         {
+            // var xCoord = String(point.X);
             var xCoord = point.X.ToString();
             var yCoord = point.Y.ToString();
             _message = _message + " " + desc + "(x:" + xCoord + ",y:" + yCoord + ")" + "; ";
@@ -45,6 +46,7 @@ namespace SquareFillDomain.Utils
         // public func Log()
         public void Log()
         {
+            // NSLog(_message);
             Debug.WriteLine(_message);
         }
     }

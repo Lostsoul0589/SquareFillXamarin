@@ -2,7 +2,7 @@
 
 namespace SquareFillDomain.Builders
 {
-    // protocol IShapeSetBuilder
+    // public protocol IShapeSetBuilder
     public interface IShapeSetBuilder
     {
         // func OccupyBorderSquares(occupiedGridSquares: Grid);

@@ -12,21 +12,22 @@ namespace SquareFillDomain.UnitTests
     [TestClass]
     public class ShapeControllerTests
     {
-        private ShapeController _shapeController;
-        private SquareFillPoint _centreOfDefaultSingleSquare;
-        private SquareFillPoint _cornerOfDefaultSingleSquare;
+        // All member vars have to have default initial values otherwise Swift will insist on having a constructor.
+        private ShapeController _shapeController = null;
+        private SquareFillPoint _centreOfDefaultSingleSquare = new SquareFillPoint(x: 0, y: 0);
+        private SquareFillPoint _cornerOfDefaultSingleSquare = new SquareFillPoint(x: 0, y: 0);
 
-        private TestShapeSetBuilder _shapeSetBuilder;
-        private Grid _occupiedGridSquares;
-        private ShapeSet _shapeSet;
+        private TestShapeSetBuilder _shapeSetBuilder = null;
+        private Grid _occupiedGridSquares = null;
+        private ShapeSet _shapeSet = null;
 
-        private int _outsideContainingRectangleButAtCornerOfRightHydrantX;
-        private int _outsideContainingRectangleButAtCornerOfRightHydrantY;
-        private SquareFillPoint _outsideContainingRectangleButInsideRightHydrant;
-        private SquareFillPoint _topLeftCornerSingleSquare;
-        private SquareFillPoint _topLeftCornerInsideBorder;
-        private SquareFillPoint _insideBorder;
-        private SquareFillPoint _relativeCursorPosition;
+        private int _outsideContainingRectangleButAtCornerOfRightHydrantX = 0;
+        private int _outsideContainingRectangleButAtCornerOfRightHydrantY = 0;
+        private SquareFillPoint _outsideContainingRectangleButInsideRightHydrant = new SquareFillPoint(x: 0, y: 0);
+        private SquareFillPoint _topLeftCornerSingleSquare = new SquareFillPoint(x: 0, y: 0);
+        private SquareFillPoint _topLeftCornerInsideBorder = new SquareFillPoint(x: 0, y: 0);
+        private SquareFillPoint _insideBorder = new SquareFillPoint(x: 0, y: 0);
+        private SquareFillPoint _relativeCursorPosition = new SquareFillPoint(x: 0, y: 0);
 
         private SquareFillPoint SquareFillPoint(int x, int y)
         {
@@ -96,7 +97,7 @@ namespace SquareFillDomain.UnitTests
             // Assert
             /*self.measure()	{
                 // Act
-                shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
+                shapeController.StartMove(cursorPositionAtStart: self._outsideContainingRectangleButInsideRightHydrant);
             }*/
         }
 
@@ -115,7 +116,7 @@ namespace SquareFillDomain.UnitTests
             // self.measure()	{
             //    var start = 1;
             //    var end = 100;
-            //    for(int count = start; count <= end; count++) {
+            //    for (int count = start; count <= end; count++) {
             //        shapeController.ContinueMove(newLocation: insideContainingRectangle);
             //        insideContainingRectangle.X = startingX + count;
             //    }
@@ -156,14 +157,14 @@ namespace SquareFillDomain.UnitTests
             shapeController.EndMove(finalLocation: stillOutsideContainingRectangle);
 
             // Assert
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 1), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 2), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX + 1, y: topLeftVacatedGridY + 1), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 1), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 2), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX + 1, y: topLeftOccupiedGridY + 1), true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 1), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX, y: topLeftVacatedGridY + 2), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftVacatedGridX + 1, y: topLeftVacatedGridY + 1), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 1), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX, y: topLeftOccupiedGridY + 2), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: topLeftOccupiedGridX + 1, y: topLeftOccupiedGridY + 1), expected: true);
         }
 
         [TestMethod]
@@ -183,10 +184,10 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
             var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), expected: false);
         }
 
         [TestMethod]
@@ -202,10 +203,10 @@ namespace SquareFillDomain.UnitTests
             shapeController.StartMove(cursorPositionAtStart: _outsideContainingRectangleButInsideRightHydrant);
 
             // Assert
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 1), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 2), false);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX + 1, y: 0 + topLeftGridY + 1), false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 1), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX, y: 0 + topLeftGridY + 2), expected: false);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + topLeftGridX + 1, y: 0 + topLeftGridY + 1), expected: false);
         }
 
         [TestMethod]
@@ -224,10 +225,10 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
             var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), expected: true);
         }
 
         [TestMethod]
@@ -246,10 +247,10 @@ namespace SquareFillDomain.UnitTests
             // Assert
             var containingX = TestConstants.ContainingRectangle.X / TestConstants.SquareWidth;
             var containingY = TestConstants.ContainingRectangle.Y / TestConstants.SquareWidth;
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), true);
-            Asserter.AreEqual(_occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 0 + containingY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 1 + containingY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 0 + containingX, y: 2 + containingY), expected: true);
+            Asserter.AreEqual(actual: _occupiedGridSquares.IsSquareOccupied(x: 1 + containingX, y: 1 + containingY), expected: true);
         }
 
         [TestMethod]
@@ -265,8 +266,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.EndMove(finalLocation: _insideBorder);
 
             // Assert
-            Asserter.AreEqual(shapeToMove.TopLeftCornerX, originalX);
-            Asserter.AreEqual(shapeToMove.TopLeftCornerY, originalY);
+            Asserter.AreEqual(actual: shapeToMove.TopLeftCornerX, expected: originalX);
+            Asserter.AreEqual(actual: shapeToMove.TopLeftCornerY, expected: originalY);
         }
 
         [TestMethod]
@@ -286,8 +287,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: cursorOutsideLatestShapePosition);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, originalX);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, originalY);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: originalX);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: originalY);
         }
 
         [TestMethod]
@@ -314,8 +315,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: immediatelyToTheRightOfObstacleWithoutOffset);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, topLeftCornerImmediatelyToTheRightOfObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, topLeftCornerImmediatelyToTheRightOfObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: topLeftCornerImmediatelyToTheRightOfObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: topLeftCornerImmediatelyToTheRightOfObstacle.Y);
         }
 
         [TestMethod]
@@ -349,8 +350,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleToRightOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToRightHandBorderWithObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToRightHandBorderWithObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToRightHandBorderWithObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToRightHandBorderWithObstacle.Y);
         }
 
         [TestMethod]
@@ -384,8 +385,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleToLeftOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToLeftHandBorderWithObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToLeftHandBorderWithObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToLeftHandBorderWithObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToLeftHandBorderWithObstacle.Y);
         }
 
         [TestMethod]
@@ -418,8 +419,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleAboveFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToTopOfBorderWithObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToTopOfBorderWithObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToTopOfBorderWithObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToTopOfBorderWithObstacle.Y);
         }
 
         [TestMethod]
@@ -453,8 +454,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleBelowFourSquare);
 
             // Assert
-            Asserter.AreEqual(snappedToBottomOfBorderWithObstacle.X, shapeController.CurrentShapeCornerX);
-            Asserter.AreEqual(snappedToBottomOfBorderWithObstacle.Y, shapeController.CurrentShapeCornerY);
+            Asserter.AreEqual(actual: snappedToBottomOfBorderWithObstacle.X, expected: shapeController.CurrentShapeCornerX);
+            Asserter.AreEqual(actual: snappedToBottomOfBorderWithObstacle.Y, expected: shapeController.CurrentShapeCornerY);
         }
 
         [TestMethod]
@@ -486,8 +487,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleDiagonallyTopLeftOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToTopLeftCornerByObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToTopLeftCornerByObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToTopLeftCornerByObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToTopLeftCornerByObstacle.Y);
         }
 
         [TestMethod]
@@ -519,8 +520,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleDiagonallyTopRightOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToTopRightCornerByObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToTopRightCornerByObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToTopRightCornerByObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToTopRightCornerByObstacle.Y);
         }
 
         [TestMethod]
@@ -552,8 +553,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleDiagonallyBottomRightOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToBottomRightCornerByObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToBottomRightCornerByObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToBottomRightCornerByObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToBottomRightCornerByObstacle.Y);
         }
 
         [TestMethod]
@@ -585,14 +586,12 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleDiagonallyBottomLeftOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, snappedToBottomLeftCornerByObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, snappedToBottomLeftCornerByObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: snappedToBottomLeftCornerByObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: snappedToBottomLeftCornerByObstacle.Y);
         }
 
         [TestMethod]
-        public void
-            TestWhenObstacleIsDetectedAndCursorLeavesShapeAndReturnsThenAllSubsequentMovementUsesNewRelativeCursorPosition
-            ()
+        public void TestWhenObstacleIsDetectedAndCursorLeavesShapeAndReturnsThenAllSubsequentMovementUsesNewRelativeCursorPosition()
         {
             // Arrange
             var initialRelativeCursorPosition = SquareFillPoint(x: 10, y: 11);
@@ -618,10 +617,10 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: cursorToTheRightOfObstacleWithLaterRelativeCursorPosition);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, cursorToTheRightOfObstacleWithLaterRelativeCursorPosition.X
-                                                          - laterRelativeCursorPosition.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, cursorToTheRightOfObstacleWithLaterRelativeCursorPosition.Y
-                                                          - laterRelativeCursorPosition.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX,
+                expected: cursorToTheRightOfObstacleWithLaterRelativeCursorPosition.X - laterRelativeCursorPosition.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY,
+                expected: cursorToTheRightOfObstacleWithLaterRelativeCursorPosition.Y - laterRelativeCursorPosition.Y);
         }
 
         [TestMethod]
@@ -658,8 +657,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: cursorToTheRightOfUnoccupiedSpace);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, topLeftCornerToTheRightOfObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, topLeftCornerToTheRightOfObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: topLeftCornerToTheRightOfObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: topLeftCornerToTheRightOfObstacle.Y);
         }
 
         [TestMethod]
@@ -688,8 +687,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.EndMove(finalLocation: cursorInAnUnoccupiedSpace);
 
             // Assert
-            Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftCornerToTheRightOfObstacle.X);
-            Asserter.AreEqual(shapeToMove.TopLeftCornerY, topLeftCornerToTheRightOfObstacle.Y);
+            Asserter.AreEqual(actual: shapeToMove.TopLeftCornerX, expected: topLeftCornerToTheRightOfObstacle.X);
+            Asserter.AreEqual(actual: shapeToMove.TopLeftCornerY, expected: topLeftCornerToTheRightOfObstacle.Y);
         }
 
         [TestMethod]
@@ -707,7 +706,7 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: _insideBorder);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, originalTopLeftX);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: originalTopLeftX);
         }
 
         [TestMethod]
@@ -736,8 +735,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleToLeftOfFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, directlyToRightOfObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, directlyToRightOfObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: directlyToRightOfObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: directlyToRightOfObstacle.Y);
         }
 
         [TestMethod]
@@ -766,8 +765,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleAboveFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, directlyBelowObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, directlyBelowObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: directlyBelowObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: directlyBelowObstacle.Y);
         }
 
         [TestMethod]
@@ -791,8 +790,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.ContinueMove(newLocation: insideObstacleAboveFourSquare);
 
             // Assert
-            Asserter.AreEqual(shapeController.CurrentShapeCornerX, directlyBelowObstacle.X);
-            Asserter.AreEqual(shapeController.CurrentShapeCornerY, directlyBelowObstacle.Y);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerX, expected: directlyBelowObstacle.X);
+            Asserter.AreEqual(actual: shapeController.CurrentShapeCornerY, expected: directlyBelowObstacle.Y);
         }
 
         [TestMethod]
@@ -813,8 +812,8 @@ namespace SquareFillDomain.UnitTests
             shapeController.EndMove(finalLocation: _insideBorder);
 
             // Assert
-            Asserter.AreEqual(shapeToMove.TopLeftCornerX, topLeftCornerLastValidLocation.X);
-            Asserter.AreEqual(shapeToMove.TopLeftCornerY, topLeftCornerLastValidLocation.Y);
+            Asserter.AreEqual(actual: shapeToMove.TopLeftCornerX, expected: topLeftCornerLastValidLocation.X);
+            Asserter.AreEqual(actual: shapeToMove.TopLeftCornerY, expected: topLeftCornerLastValidLocation.Y);
         }
 
         [TestMethod]
@@ -834,8 +833,8 @@ namespace SquareFillDomain.UnitTests
             SquareFillPoint calculatedCursorPosition = _shapeController.CalculatePreviousCursorPosition();
 
             // Assert
-            Asserter.AreEqual(calculatedCursorPosition.X, newCursorPosition.X);
-            Asserter.AreEqual(calculatedCursorPosition.Y, newCursorPosition.Y);
+            Asserter.AreEqual(actual: calculatedCursorPosition.X, expected: newCursorPosition.X);
+            Asserter.AreEqual(actual: calculatedCursorPosition.Y, expected: newCursorPosition.Y);
         }
 		
 		[TestMethod]
@@ -853,8 +852,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.ContinueMove(newLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -875,8 +874,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.ContinueMove(newLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, originalTopLeftCorner.X + horizontalMovement);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerY, originalTopLeftCorner.Y + verticalmovement);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerX, expected: originalTopLeftCorner.X + horizontalMovement);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerY, expected: originalTopLeftCorner.Y + verticalmovement);
 		}
 		
 		[TestMethod]
@@ -897,8 +896,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.ContinueMove(newLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, originalCornerOfShape.X + horizontalMovement);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerY, originalCornerOfShape.Y + verticalmovement);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerX, expected: originalCornerOfShape.X + horizontalMovement);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerY, expected: originalCornerOfShape.Y + verticalmovement);
 		}
 		
 		[TestMethod]
@@ -912,8 +911,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 
             // Assert
-            Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -929,8 +928,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -951,8 +950,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X - relativeCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y - relativeCursorPosition.Y);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X - relativeCursorPosition.X);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y - relativeCursorPosition.Y);
 		}
 
         [TestMethod]
@@ -968,8 +967,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -993,8 +992,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, centreOfNearestSquare.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, centreOfNearestSquare.Y);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: centreOfNearestSquare.X);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: centreOfNearestSquare.Y);
 		}
 		
 		[TestMethod]
@@ -1014,8 +1013,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, centreOfNearestSquare.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, centreOfNearestSquare.Y);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: centreOfNearestSquare.X);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: centreOfNearestSquare.Y);
 		}
 		
 		[TestMethod]
@@ -1031,8 +1030,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -1048,8 +1047,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -1066,8 +1065,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.CentreOfShapeY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.CentreOfShapeY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -1084,8 +1083,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, newCursorPosition.X);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerY, newCursorPosition.Y);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerX, expected: newCursorPosition.X);
+			Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerY, expected: newCursorPosition.Y);
 		}
 		
 		[TestMethod]
@@ -1106,8 +1105,8 @@ namespace SquareFillDomain.UnitTests
             _shapeController.EndMove(finalLocation: newCursorPosition);
 			
 			// Assert
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerX, originalOrigin.X + horizontalMovement);
-			Asserter.AreEqual(_shapeSetBuilder.SingleSquareShape.TopLeftCornerY, originalOrigin.Y + verticalMovement);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerX, expected: originalOrigin.X + horizontalMovement);
+            Asserter.AreEqual(actual: _shapeSetBuilder.SingleSquareShape.TopLeftCornerY, expected: originalOrigin.Y + verticalMovement);
 		}
 	}
 }
