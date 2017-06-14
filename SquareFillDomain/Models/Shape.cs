@@ -23,6 +23,10 @@ namespace SquareFillDomain.Models
         private int _numSquaresAboveTopLeftCorner;
         private int _numSquaresBelowTopLeftCorner;
 
+        // init(
+        //      topLeftCorner: SquareFillPoint,
+        //      squareDefinitions: [Square],
+        //      topLeftCornerIsGridRef: Bool = true)
         public Shape(
             SquareFillPoint topLeftCorner,
             List<Square> squareDefinitions,
@@ -38,9 +42,10 @@ namespace SquareFillDomain.Models
             UpdateTopLeftCorner(newTopLeftCorner: _topLeftCorner);
         }
 
+        // public func IsInShape(point: SquareFillPoint) -> Bool
         public bool IsInShape(SquareFillPoint point)
         {
-            bool isInShape = false;
+            var isInShape = false;
             
             foreach(var element in _squares) {
                 isInShape = isInShape || element.IsInSquare(point: point);
@@ -49,6 +54,7 @@ namespace SquareFillDomain.Models
             return isInShape;
         }
 
+        // public func UpdateTopLeftCorner (newTopLeftCorner: SquareFillPoint)
         public void UpdateTopLeftCorner(SquareFillPoint newTopLeftCorner)
         {
             _topLeftCorner = newTopLeftCorner;
@@ -57,6 +63,9 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // public func CheckWhetherMovementIsPossible()
+        //      occupiedGridSquares: Grid,
+        //      newTopLeftCorner: SquareFillPoint) -> MovementAnalyser
         public MovementAnalyser CheckWhetherMovementIsPossible(
             Grid occupiedGridSquares,
             SquareFillPoint newTopLeftCorner)
@@ -69,6 +78,7 @@ namespace SquareFillDomain.Models
             return movementAnalyser;
         }
 
+        // public func VacateGridSquares(occupiedGridSquares: Grid)
 	    public void VacateGridSquares(Grid occupiedGridSquares) 
         {
             foreach (var element in _squares) {
@@ -76,6 +86,7 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // public func OccupyGridSquares(occupiedGridSquares: Grid)
         public void OccupyGridSquares(Grid occupiedGridSquares)
         {
             foreach (var element in _squares) {
@@ -83,6 +94,7 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // public func WeStartedWithinTheContainingRectangle() -> Bool
         public bool WeStartedWithinTheContainingRectangle()
         {
             var leftEdge = _topLeftCorner.X - _numSquaresLeftOfTopLeftCorner * ShapeConstants.SquareWidth;
@@ -96,9 +108,10 @@ namespace SquareFillDomain.Models
                 && bottomEdge <= (ShapeConstants.ContainingRectangle.Y + ShapeConstants.ContainingRectangle.Height);
         }
 
+        // public func TopLeftCornersAsString() -> String
 	    public string TopLeftCornersAsString()
         {
-            string topLeftCornerAsString = String.Empty;
+            var topLeftCornerAsString = "";
 
             foreach (var element in _squares) {
                 topLeftCornerAsString = topLeftCornerAsString + element.TopLeftCornerAsString();
@@ -107,6 +120,7 @@ namespace SquareFillDomain.Models
             return topLeftCornerAsString;
         }
 
+        // public func CalculateTopLeftCornerRelativeToCursorPosition(cursorPosition: SquareFillPoint) -> SquareFillPoint
         public SquareFillPoint CalculateTopLeftCornerRelativeToCursorPosition(SquareFillPoint cursorPosition)
         {
             return SquareFillPoint(
@@ -114,6 +128,7 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y - cursorPosition.Y);
         }
 
+        // public func CalculateCursorPositionBasedOnTopLeftCorner(topLeftCornerRelativeToCursorPosition: SquareFillPoint) -> SquareFillPoint
         public SquareFillPoint CalculateCursorPositionBasedOnTopLeftCorner(SquareFillPoint topLeftCornerRelativeToCursorPosition)
         {
             return SquareFillPoint(
@@ -121,6 +136,7 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y - topLeftCornerRelativeToCursorPosition.Y);
         }
 
+        // public func SnapToGrid(newTopLeftCorner: SquareFillPoint)
         public void SnapToGrid(SquareFillPoint newTopLeftCorner)
         {
             var snappedTopLeftCorner = SquareFillPoint(
@@ -130,6 +146,7 @@ namespace SquareFillDomain.Models
             UpdateTopLeftCorner(newTopLeftCorner: snappedTopLeftCorner);
         }
 
+        // public func SnapToGridInRelevantDimensionsIfPossible(movementResult: MovementAnalyser, occupiedGridSquares: Grid)
         public void SnapToGridInRelevantDimensionsIfPossible(MovementAnalyser movementResult, Grid occupiedGridSquares)
         {
             var previousTopLeftCorner = _topLeftCorner;
@@ -145,7 +162,7 @@ namespace SquareFillDomain.Models
                 newTopLeftCorner.Y = CalculateSnappedY(newTopLeftCornerY: newTopLeftCorner.Y);
             }
 
-            MovementAnalyser newMovementResult = CheckWhetherMovementIsPossible(
+            var newMovementResult = CheckWhetherMovementIsPossible(
                 occupiedGridSquares: occupiedGridSquares,
                 newTopLeftCorner: newTopLeftCorner);
 
@@ -155,6 +172,7 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // public func CalculateSnappedX(newTopLeftCornerX: Int) -> Int
         public int CalculateSnappedX(int newTopLeftCornerX)
         {
             return CalculateSnappedCoordinate(
@@ -165,6 +183,7 @@ namespace SquareFillDomain.Models
                 numSquaresOnLargestSide: _numSquaresRightOfTopLeftCorner);
         }
 
+        // public func CalculateSnappedY(newTopLeftCornerY: Int) -> Int
         public int CalculateSnappedY(int newTopLeftCornerY)
         {
             return CalculateSnappedCoordinate(
@@ -175,6 +194,12 @@ namespace SquareFillDomain.Models
                 numSquaresOnLargestSide: _numSquaresBelowTopLeftCorner);
         }
 
+        // private func CalculateSnappedCoordinate(
+        //      newTopLeftCornerCoord: Int,
+        //      boundaryRectangleOriginCoord: Int,
+        //      boundaryRectangleDimension: Int,
+        //      numSquaresOnSmallestSide: Int,
+        //      numSquaresOnLargestSide: Int) -> Int
         private int CalculateSnappedCoordinate(
             int newTopLeftCornerCoord,
             int boundaryRectangleOriginCoord,
@@ -213,6 +238,7 @@ namespace SquareFillDomain.Models
             return actualTopLeftCorner;
         }
 
+        // private func CalculateNumSquaresFromEdgeOfScreen(topLeftCornerCoordinate: Int) -> Int
         private int CalculateNumSquaresFromEdgeOfScreen(int topLeftCornerCoordinate)
         {
             var numberOfSquaresFromEdgeOfScreen = topLeftCornerCoordinate / ShapeConstants.SquareWidth;
@@ -225,11 +251,13 @@ namespace SquareFillDomain.Models
             return numberOfSquaresFromEdgeOfScreen;
         }
 
+        // private func MoreThanHalfWayAcrossASquare(topLeftCornerCoordinate: Int) -> Bool
         private bool MoreThanHalfWayAcrossASquare(int topLeftCornerCoordinate)
         {
             return (topLeftCornerCoordinate % ShapeConstants.SquareWidth) > (ShapeConstants.SquareWidth / 2);
         }
 
+        // private func InitialiseTopLeftCorner(topLeftCorner: SquareFillPoint, topLeftCornerIsGridRef: Bool)
         private void InitialiseTopLeftCorner(SquareFillPoint topLeftCorner, bool topLeftCornerIsGridRef)
         {
             if (topLeftCornerIsGridRef)
@@ -242,6 +270,7 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // private func CalculateNumSquaresAroundTopLeftCorner()
         private void CalculateNumSquaresAroundTopLeftCorner()
         {
             foreach (var element in _squares) {
@@ -254,6 +283,7 @@ namespace SquareFillDomain.Models
             DealWithNegativeNumbersOfSquares();
         }
 
+        // private func DealWithNegativeNumbersOfSquares()
         private void DealWithNegativeNumbersOfSquares()
         {
             _numSquaresLeftOfTopLeftCorner = Math.Abs(_numSquaresLeftOfTopLeftCorner);

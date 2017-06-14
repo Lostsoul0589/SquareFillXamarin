@@ -5,11 +5,17 @@ namespace SquareFillDomain.Models
 {
     public class MovementAnalyser
     {
+        // private(set) var ShapeHasCrossedAHorizontalGridBoundary: Bool;
         public bool ShapeHasCrossedAHorizontalGridBoundary { get; private set; }
         public bool ShapeHasCrossedAVerticalGridBoundary { get; private set; }
         public bool ThereAreShapesInTheWay { get; private set; }
+
         public bool NoShapesAreInTheWay { get { return !ThereAreShapesInTheWay; } }
 
+        // init(
+        //      squares: [Square],
+        //      occupiedGridSquares: Grid,
+        //      newTopLeftCorner: SquareFillPoint) 
         public MovementAnalyser(
             List<Square> squares,
             Grid occupiedGridSquares,
@@ -27,13 +33,16 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // private func CheckWhetherBoundariesHaveBeenCrossed(
+        //      anySquare: Square,
+        //      newTopLeftCorner: SquareFillPoint)
         private void CheckWhetherBoundariesHaveBeenCrossed(
             Square anySquare,
             SquareFillPoint newTopLeftCorner)
         {
-            SquareFillPoint oldSquareGridOrigin = anySquare.GetGridOrigin();
-            SquareFillPoint newSquareTopLeftCorner = anySquare.CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
-            SquareFillPoint newSquareGridOrigin = CalculateGridOrigin(topLeftCorner: newSquareTopLeftCorner);
+            var oldSquareGridOrigin = anySquare.GetGridOrigin();
+            var newSquareTopLeftCorner = anySquare.CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
+            var newSquareGridOrigin = CalculateGridOrigin(topLeftCorner: newSquareTopLeftCorner);
 
             ShapeHasCrossedAHorizontalGridBoundary = HasBoundaryBeenCrossed(
                 oldPixelValue: anySquare.TopLeftCornerX,
@@ -48,13 +57,17 @@ namespace SquareFillDomain.Models
                 newGridRef: newSquareGridOrigin.Y);
         }
 
+        // private func CheckWhetherMovementIsPossible(
+        //      square: Square,
+        //      occupiedGridSquares: Grid,
+        //      newParentTopLeftCorner: SquareFillPoint)
         private void CheckWhetherMovementIsPossible(
             Square square,
             Grid occupiedGridSquares,
             SquareFillPoint newParentTopLeftCorner)
         {
-            SquareFillPoint newSquareTopLeftCorner = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: newParentTopLeftCorner);
-            SquareFillPoint newSquareGridOrigin = CalculateGridOrigin(topLeftCorner: newSquareTopLeftCorner);
+            var newSquareTopLeftCorner = square.CalculatePotentialTopLeftCorner(parentTopLeftCorner: newParentTopLeftCorner);
+            var newSquareGridOrigin = CalculateGridOrigin(topLeftCorner: newSquareTopLeftCorner);
 
             if (ShapeHasCrossedAHorizontalGridBoundary
                 || ShapeHasCrossedAVerticalGridBoundary)
@@ -66,15 +79,19 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // private func IsSomethingInTheWay(
+        //      newSquareTopLeftCorner: SquareFillPoint,
+        //      newSquareGridOrigin: SquareFillPoint,
+        //      occupiedGridSquares: Grid) -> Bool
         private bool IsSomethingInTheWay(
             SquareFillPoint newSquareTopLeftCorner,
             SquareFillPoint newSquareGridOrigin,
             Grid occupiedGridSquares)
         {
-            bool somethingIsInTheWay = ThereAreShapesInTheWay;
+            var somethingIsInTheWay = ThereAreShapesInTheWay;
 
-            List<int> newGridXCoords = GetNewGridCoordinates(newPixelValue: newSquareTopLeftCorner.X, newGridCoord: newSquareGridOrigin.X);
-            List<int> newGridYCoords = GetNewGridCoordinates(newPixelValue: newSquareTopLeftCorner.Y, newGridCoord: newSquareGridOrigin.Y);
+            var newGridXCoords = GetNewGridCoordinates(newPixelValue: newSquareTopLeftCorner.X, newGridCoord: newSquareGridOrigin.X);
+            var newGridYCoords = GetNewGridCoordinates(newPixelValue: newSquareTopLeftCorner.Y, newGridCoord: newSquareGridOrigin.Y);
 
             foreach (var xCoord in newGridXCoords) {
                 foreach (var yCoord in newGridYCoords) {
@@ -95,6 +112,7 @@ namespace SquareFillDomain.Models
             return somethingIsInTheWay;
         }
 
+        // private func CalculateGridOrigin(topLeftCorner: SquareFillPoint) -> SquareFillPoint
         private SquareFillPoint CalculateGridOrigin(SquareFillPoint topLeftCorner)
         {
             var gridOrigin = new SquareFillPoint(
@@ -114,9 +132,10 @@ namespace SquareFillDomain.Models
             return gridOrigin;
         }
 
+        // private func GetNewGridCoordinates(newPixelValue: Int, newGridCoord: Int) -> [Int]
         private List<int> GetNewGridCoordinates(int newPixelValue, int newGridCoord)
         {
-            List<int> newGridCoords = new List<int>();
+            var newGridCoords = new List<int>();
 
             if (DivisibleBySquareWidth(value: newPixelValue))
             {
@@ -131,6 +150,11 @@ namespace SquareFillDomain.Models
             return newGridCoords;
         }
 
+        // private func HasBoundaryBeenCrossed
+        //      oldPixelValue: Int,
+        //      newPixelValue: Int,
+        //      oldGridRef: Int,
+        //      newGridRef: Int) -> Bool
         private bool HasBoundaryBeenCrossed(
             int oldPixelValue,
             int newPixelValue,
@@ -141,16 +165,19 @@ namespace SquareFillDomain.Models
                    || TheyAreInDifferentGridSquares(gridRef1: oldGridRef, gridRef2: newGridRef);
         }
 
+        // private func OnePositionIsAlignedWithGridButTheOtherIsNot(pixelValue1: Int, pixelValue2: Int) -> Bool
         private bool OnePositionIsAlignedWithGridButTheOtherIsNot(int pixelValue1, int pixelValue2)
         {
             return DivisibleBySquareWidth(value: pixelValue1) != DivisibleBySquareWidth(value: pixelValue2);
         }
 
+        // private func TheyAreInDifferentGridSquares(gridRef1: Int, gridRef2: Int) -> Bool
         private bool TheyAreInDifferentGridSquares(int gridRef1, int gridRef2)
         {
             return gridRef1 != gridRef2;
         }
 
+        // private func DivisibleBySquareWidth(value: Int) -> Bool
         private bool DivisibleBySquareWidth(int value)
         {
             return (value % ShapeConstants.SquareWidth) == 0;

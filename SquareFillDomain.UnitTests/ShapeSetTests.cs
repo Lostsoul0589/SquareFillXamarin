@@ -9,6 +9,7 @@ using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests
 {
+    // class ShapeSetTests: XCTestCase
     [TestClass]
     public class ShapeSetTests
     {
@@ -17,6 +18,19 @@ namespace SquareFillDomain.UnitTests
         private readonly Linq.List<Square> _rightHydrantSquareList;
         private readonly Linq.List<Square> _crossShapeSquareList;
 
+        // override func tearDown() 
+        // {
+        //      // This method is called after the invocation of each test method in the class.
+        //      super.tearDown();
+        // }
+
+        // override func setUp() 
+        // {
+        //      // This method is called before the invocation of each test method in the class.
+        //      super.setUp();
+        // }
+
+        // init()
         public ShapeSetTests()
         {
             _singleSquareShapeSquareList1 = new List<Square>
@@ -72,18 +86,24 @@ namespace SquareFillDomain.UnitTests
                 topLeftCornerIsGridRef: topLeftCornerIsGridRef);
         }
 
+        // private func ShapeList(shape: Shape) -> [Shape]
         private List<Shape> ShapeList(Shape shape)
         {
+            // return [shape];
             return new List<Shape> { shape };
         }
 
+        // private func ShapeList(shape1: Shape, shape2: Shape) -> [Shape]
         private List<Shape> ShapeList(Shape shape1, Shape shape2)
         {
+            // return [shape1, shape2];
             return new List<Shape> { shape1, shape2 };
         }
 
+        // private func ShapeList(shape1: Shape, shape2: Shape, shape3: Shape) -> [Shape]
         private List<Shape> ShapeList(Shape shape1, Shape shape2, Shape shape3)
         {
+            // return [shape1, shape2, shape3];
             return new List<Shape> { shape1, shape2, shape3 };
         }
 

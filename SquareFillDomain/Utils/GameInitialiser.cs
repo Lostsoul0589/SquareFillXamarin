@@ -6,6 +6,7 @@ namespace SquareFillDomain.Utils
 {
     public class GameInitialiser
     {
+        // public func MakeShapeController(shapeSetBuilder: IShapeSetBuilder) -> ShapeController
         public ShapeController MakeShapeController(IShapeSetBuilder shapeSetBuilder)
         {
             var occupiedGridSquares = shapeSetBuilder.MakeGridSquares();
@@ -20,6 +21,10 @@ namespace SquareFillDomain.Utils
                 occupiedGridSquares: occupiedGridSquares);
         }
 
+        // private func PutAllShapesIntoGrid(
+        //      shapeSetBuilder: IShapeSetBuilder,
+        //      shapeSet: ShapeSet,
+        //      occupiedGridSquares: Grid)
         private void PutAllShapesIntoGrid(
             IShapeSetBuilder shapeSetBuilder,
             ShapeSet shapeSet,

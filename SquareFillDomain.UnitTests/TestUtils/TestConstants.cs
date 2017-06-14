@@ -15,11 +15,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public static int ScreenWidth = ShapeConstants.ScreenWidth;
         public static int ScreenHeight = ShapeConstants.ScreenHeight;
 
-        public static Grid MakeGridSquares()
-        {
-            return ShapeConstants.MakeGridSquares();
-        }
-
+        // public static let RightHydrantPoints: [SquareFillPoint] = ShapeConstants.RightHydrantPoints;
         public static List<SquareFillPoint> RightHydrantPoints = ShapeConstants.RightHydrantPoints;
         public static List<SquareFillPoint> FourBarPoints = ShapeConstants.FourBarPoints;
         public static List<SquareFillPoint> SevenPoints = ShapeConstants.SevenPoints;
@@ -34,5 +30,11 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public static List<SquareFillPoint> LeftHydrantPoints = ShapeConstants.LeftHydrantPoints;
         public static List<SquareFillPoint> RightWayUpTPoints = ShapeConstants.RightWayUpTPoints;
         public static List<SquareFillPoint> NineSquarePoints = ShapeConstants.NineSquarePoints;
+
+        // public static func MakeGridSquares() -> Grid
+        public static Grid MakeGridSquares()
+        {
+            return ShapeConstants.MakeGridSquares();
+        }
     }
 }

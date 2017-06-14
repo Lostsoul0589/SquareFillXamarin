@@ -37,13 +37,16 @@ namespace SquareFillXamarin
 		}
 
 	    public override void TouchesBegan(NSSet touches, UIEvent evt)
-	    {
+        {
+            //for touch: AnyObject in touches
 	        var touch = touches.AnyObject as UITouch;
 	        if (touch != null)
             {
+                //let newLocation = touch.location(in: self.view);
                 var newLocation = touch.GetPreciseLocation(View);
                 _shapeController.StartMove(
-                    SquareFillPoint(
+                    cursorPositionAtStart: SquareFillPoint(
+                        //x: Int(newLocation.X),
                         x: Convert.ToInt16(newLocation.X), 
                         y: Convert.ToInt16(newLocation.Y)));
 	        }
@@ -51,12 +54,15 @@ namespace SquareFillXamarin
 
         public override void TouchesMoved(NSSet touches, UIEvent evt)
         {
+            //for touch: AnyObject in touches
             var touch = touches.AnyObject as UITouch;
             if (touch != null)
             {
+                //let newLocation = touch.location(in: self.view);
                 var newLocation = touch.GetPreciseLocation(View);
                 _shapeController.ContinueMove(
-                    SquareFillPoint(
+                    newLocation: SquareFillPoint(
+                        //x: Int(newLocation.X),
                         x: Convert.ToInt16(newLocation.X),
                         y: Convert.ToInt16(newLocation.Y)));
             }
@@ -64,12 +70,15 @@ namespace SquareFillXamarin
 
         public override void TouchesEnded(NSSet touches, UIEvent evt)
         {
+            //for touch: AnyObject in touches
             var touch = touches.AnyObject as UITouch;
             if (touch != null)
             {
+                //let touchLocation = touch.location(in: self.view);
                 var touchLocation = touch.GetPreciseLocation(View);
                 _shapeController.EndMove(
-                    SquareFillPoint(
+                    finalLocation: SquareFillPoint(
+                        //x: Int(touchLocation.X),
                         x: Convert.ToInt16(touchLocation.X),
                         y: Convert.ToInt16(touchLocation.Y)));
             }

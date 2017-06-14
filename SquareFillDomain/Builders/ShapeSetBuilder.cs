@@ -25,24 +25,36 @@ namespace SquareFillDomain.Builders
 
         private readonly BorderBuilder _borderBuilder = new BorderBuilder();
 
-        // init(squareViewFactory: ISquareViewFactory) {
-        public ShapeSetBuilder(ISquareViewFactory squareViewFactory) {
+        // init(squareViewFactory: ISquareViewFactory) 
+        public ShapeSetBuilder(ISquareViewFactory squareViewFactory) 
+        {
             MakeShapes(squareViewFactory: squareViewFactory);
-            _borderBuilder.BuildBorderSquares(squareWidth: ShapeConstants.SquareWidth, containingRectangle: ShapeConstants.ContainingRectangle);
+            _borderBuilder.BuildBorderSquares(
+                squareWidth: ShapeConstants.SquareWidth, 
+                containingRectangle: ShapeConstants.ContainingRectangle);
         }
 
-        // public func GetShapeSet() -> ShapeSet {
-        public ShapeSet GetShapeSet() {
+        // public func GetShapeSet() -> ShapeSet 
+        public ShapeSet GetShapeSet() 
+        {
             return MakeHardCodedShapeSet();
         }
 
-        // public func OccupyBorderSquares(occupiedGridSquares: Grid) {
-        public void OccupyBorderSquares(Grid occupiedGridSquares) {
+        // public func OccupyBorderSquares(occupiedGridSquares: Grid) 
+        public void OccupyBorderSquares(Grid occupiedGridSquares) 
+        {
             _borderBuilder.OccupyBorderSquares(occupiedGridSquares: occupiedGridSquares);
         }
 
-        // private func MakeHardCodedShapeSet() -> ShapeSet {
-        private ShapeSet MakeHardCodedShapeSet() {
+        // public func MakeGridSquares() -> Grid 
+        public Grid MakeGridSquares() 
+        {
+            return ShapeConstants.MakeGridSquares();
+        }
+
+        // private func MakeHardCodedShapeSet() -> ShapeSet 
+        private ShapeSet MakeHardCodedShapeSet()
+        {
             return new ShapeSet(shapes: new List<Shape> {
                 _rightHydrantShape01,
                 _fourBarShape,
@@ -61,13 +73,9 @@ namespace SquareFillDomain.Builders
             });
         }
 
-        // public func MakeGridSquares() -> Grid {
-        public Grid MakeGridSquares() {
-            return ShapeConstants.MakeGridSquares();
-        }
-
-        // private func MakeShapes(squareViewFactory: ISquareViewFactory) {
-        private void MakeShapes(ISquareViewFactory squareViewFactory) {
+        // private func MakeShapes(squareViewFactory: ISquareViewFactory) 
+        private void MakeShapes(ISquareViewFactory squareViewFactory) 
+        {
             // 1:
             _rightHydrantShape01 = MakeShape(colour: SquareFillColour.Red,
                 topLeftCorner: SquareFillPoint(x: 3, y: 1),
@@ -157,7 +165,7 @@ namespace SquareFillDomain.Builders
         //      colour: SquareFillColour,
         //      topLeftCorner: SquareFillPoint,
         //      relativePointsTopLeftCorner: [SquareFillPoint],
-        //      squareFactory: ISquareViewFactory) -> Shape {
+        //      squareFactory: ISquareViewFactory) -> Shape 
         private Shape MakeShape(
             SquareFillColour colour,
             SquareFillPoint topLeftCorner,
@@ -177,7 +185,7 @@ namespace SquareFillDomain.Builders
         // private func MakeSquares(
         //      colour: SquareFillColour,
         //      relativePointsTopLeftCorner: [SquareFillPoint],
-        //      squareFactory: ISquareViewFactory) -> [Square] {
+        //      squareFactory: ISquareViewFactory) -> [Square] 
         private List<Square> MakeSquares(
             SquareFillColour colour,
             List<SquareFillPoint> relativePointsTopLeftCorner,

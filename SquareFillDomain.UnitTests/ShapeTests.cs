@@ -9,6 +9,7 @@ using Linq = System.Collections.Generic;
 
 namespace SquareFillDomain.UnitTests
 {
+    // class ShapeTests: XCTestCase
     [TestClass]
     public class ShapeTests
     {
@@ -41,7 +42,7 @@ namespace SquareFillDomain.UnitTests
         }
 
         private Shape Shape(
-            SquareFillPoint topLeftCorner, 
+            SquareFillPoint topLeftCorner,
             Linq.List<Square> squareDefinitions,
             bool topLeftCornerIsGridRef = true)
         {
@@ -58,6 +59,7 @@ namespace SquareFillDomain.UnitTests
                 sprite: sprite);
         }
 
+        // init()
         public ShapeTests()
         {
             _shape01 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
@@ -71,16 +73,29 @@ namespace SquareFillDomain.UnitTests
             _shape09 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
         }
 
+        // private func CreateSimpleSingleSquareList() -> [Square]
         private Linq.List<Square> CreateSimpleSingleSquareList()
         {
+            // return [
             return new Linq.List<Square>
             {
                 Square(
                     positionRelativeToParentCorner: SquareFillPoint(x: 0, y: 0), 
                     sprite: new MockSquareView())
             };
+            // ];
         }
 
+        // override func tearDown() 
+        // {
+        //      // This method is called after the invocation of each test method in the class.
+        //      super.tearDown();
+        // }
+
+        // override func setUp() 
+        // {
+        //      // This method is called before the invocation of each test method in the class.
+        //      super.setUp();
         [TestInitialize]
         public void Setup()
         {

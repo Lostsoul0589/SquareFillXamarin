@@ -8,11 +8,11 @@ namespace SquareFillXamarin.UIComponents
 {
     public class UIViewBuilder
 	{
-        private static CGRect _containingRectangle = new CGRect(
-        x: ShapeConstants.ContainingRectangle.X,
-        y: ShapeConstants.ContainingRectangle.Y,
-        width: ShapeConstants.ContainingRectangle.Width,
-        height: ShapeConstants.ContainingRectangle.Height);
+        private static readonly CGRect ContainingRectangle = new CGRect(
+            x: ShapeConstants.ContainingRectangle.X,
+            y: ShapeConstants.ContainingRectangle.Y,
+            width: ShapeConstants.ContainingRectangle.Width,
+            height: ShapeConstants.ContainingRectangle.Height);
 
         private static readonly CGRect TopGridBorder = new CGRect(
 			x: 3 * ShapeConstants.SquareWidth,
@@ -64,22 +64,16 @@ namespace SquareFillXamarin.UIComponents
         private static void MakeContainingRectangle(UIKit.UIView view)
         {
             var containingRectangle = new UIImageView();
-
-            containingRectangle.Frame = _containingRectangle;
-
+            containingRectangle.Frame = ContainingRectangle;
             containingRectangle.BackgroundColor = UIColor.Yellow;
-
             view.AddSubview(containingRectangle);
         }
 
         private static void MakeBorderPiece(UIKit.UIView view, CGRect rect)
         {
             var borderPiece = new UIImageView();
-
             borderPiece.Frame = rect;
-
             borderPiece.BackgroundColor = UIColor.Black;
-
             view.AddSubview(borderPiece);
         }
 	}

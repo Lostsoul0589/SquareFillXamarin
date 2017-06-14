@@ -5,6 +5,7 @@ namespace SquareFillDomain.Builders
 {
     public class BorderBuilder
     {
+        // public var TopRowBorderSquares: [SquareFillPoint] = [];
         public readonly List<SquareFillPoint> TopRowBorderSquares = new List<SquareFillPoint>();
         public readonly List<SquareFillPoint> LeftWallBorderSquares = new List<SquareFillPoint>();
         public readonly List<SquareFillPoint> RightWallBorderSquares = new List<SquareFillPoint>();
@@ -13,14 +14,16 @@ namespace SquareFillDomain.Builders
 
         private readonly List<SquareFillPoint> _borderSquares = new List<SquareFillPoint>();
 
-        public void OccupyBorderSquares(Grid occupiedGridSquares)
+        // public func OccupyBorderSquares(occupiedGridSquares: Grid) 
+        public void OccupyBorderSquares(Grid occupiedGridSquares) 
         {
             foreach (var element in _borderSquares) {
                 occupiedGridSquares.OccupyGridSquare(x: element.X, y:element.Y);
             }
         }
 
-        public void BuildBorderSquares(int squareWidth, SquareFillRect containingRectangle)
+        // public func BuildBorderSquares(squareWidth: Int, containingRectangle: SquareFillRect) 
+        public void BuildBorderSquares(int squareWidth, SquareFillRect containingRectangle) 
         {
             BuildTopRowBorderSquares(squareWidth: squareWidth, containingRectangle: containingRectangle);
             BuildRightWallBorderSquares(squareWidth: squareWidth, containingRectangle: containingRectangle);
@@ -29,6 +32,7 @@ namespace SquareFillDomain.Builders
             BuildLeftWallBorderSquares(squareWidth: squareWidth, containingRectangle: containingRectangle);
         }
 
+        // private func BuildTopRowBorderSquares(squareWidth: Int, containingRectangle: SquareFillRect) 
         private void BuildTopRowBorderSquares(int squareWidth, SquareFillRect containingRectangle)
         {
             var topRowY = (containingRectangle.Y / squareWidth) - 1;
@@ -45,6 +49,7 @@ namespace SquareFillDomain.Builders
             }
         }
 
+        // private func BuildRightWallBorderSquares(squareWidth: Int, containingRectangle: SquareFillRect)
         private void BuildRightWallBorderSquares(int squareWidth, SquareFillRect containingRectangle)
         {
             var rightWallX = (containingRectangle.X + containingRectangle.Width) / squareWidth;
@@ -61,6 +66,7 @@ namespace SquareFillDomain.Builders
             }
         }
 
+        // private func BuildBottomRightBorderSquares(squareWidth: Int, containingRectangle: SquareFillRect)
         private void BuildBottomRightBorderSquares(int squareWidth, SquareFillRect containingRectangle)
         {
             var bottomY = (containingRectangle.Y + containingRectangle.Height) / squareWidth;
@@ -74,6 +80,7 @@ namespace SquareFillDomain.Builders
             }
         }
 
+        // private func BuildBottomLeftBorderSquares(squareWidth: Int, containingRectangle: SquareFillRect)
         private void BuildBottomLeftBorderSquares(int squareWidth, SquareFillRect containingRectangle)
         {
             var bottomY = (containingRectangle.Y + containingRectangle.Height) / squareWidth;
@@ -87,6 +94,7 @@ namespace SquareFillDomain.Builders
             }
         }
 
+        // private func BuildLeftWallBorderSquares(squareWidth: Int, containingRectangle: SquareFillRect)
         private void BuildLeftWallBorderSquares(int squareWidth, SquareFillRect containingRectangle)
         {
             var leftWallX = (containingRectangle.X / squareWidth) - 1;

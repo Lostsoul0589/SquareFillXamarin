@@ -40,14 +40,13 @@
     <Compile Include="Builders\BorderBuilder.cs" />
     <Compile Include="Builders\IShapeSetBuilder.cs" />
     <Compile Include="Utils\GameInitialiser.cs" />
-    <Compile Include="Models\DivisibleBySquareWidths.cs" />
     <Compile Include="Models\Grid.cs" />
     <Compile Include="Utils\ShapeConstants.cs" />
     <Compile Include="Builders\ShapeSetBuilder.cs" />
     <Compile Include="Interfaces\ISquareView.cs" />
     <Compile Include="Interfaces\ISquareViewFactory.cs" />
     <Compile Include="Models\GridSquare.cs" />
-    <Compile Include="Models\MovementResult.cs" />
+    <Compile Include="Models\MovementAnalyser.cs" />
     <Compile Include="Models\Shape.cs" />
     <Compile Include="Models\ShapeSet.cs" />
     <Compile Include="Models\Square.cs" />

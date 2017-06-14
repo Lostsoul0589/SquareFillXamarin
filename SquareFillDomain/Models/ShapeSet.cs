@@ -6,11 +6,13 @@ namespace SquareFillDomain.Models
     {
         private readonly IEnumerable<Shape> _shapes;
 
+        // init(shapes: [Shape])
 		public ShapeSet(List<Shape> shapes)
         {
             _shapes = shapes;
 		}
 
+        // public func SelectShape(selectedPoint: SquareFillPoint, selectedPointIsGridRef: Bool = false) -> Shape
         public Shape SelectShape(SquareFillPoint selectedPoint, bool selectedPointIsGridRef = false)
 	    {
             Shape selectedShape = null;
@@ -29,6 +31,7 @@ namespace SquareFillDomain.Models
             return selectedShape;
 	    }
 
+        // public func OccupyGridSquares(occupiedGridSquares: Grid)
         public void OccupyGridSquares(Grid occupiedGridSquares)
         {
             foreach (var element in _shapes) {

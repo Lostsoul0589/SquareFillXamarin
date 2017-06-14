@@ -22,13 +22,14 @@ namespace SquareFillDomain.Models
         private readonly ISquareView _sprite;
         private SquareFillPoint _topLeftCorner;
 
-
+        // init()
         public Square()
         {
             _topLeftCorner = SquareFillPoint(x: 0, y: 0);
             _positionRelativeToParentCorner = SquareFillPoint(x: 0, y: 0);
         }
 
+        // init (positionRelativeToParentCorner: SquareFillPoint, sprite: ISquareView)
         public Square(SquareFillPoint positionRelativeToParentCorner, ISquareView sprite)
         {
             _positionRelativeToParentCorner = positionRelativeToParentCorner;
@@ -36,6 +37,7 @@ namespace SquareFillDomain.Models
             _topLeftCorner = SquareFillPoint(x: 0, y: 0);
         }
 
+        // public func CalculatePotentialTopLeftCorner(parentTopLeftCorner: SquareFillPoint) -> SquareFillPoint
         public SquareFillPoint CalculatePotentialTopLeftCorner(SquareFillPoint parentTopLeftCorner)
         {
             return SquareFillPoint(
@@ -43,6 +45,7 @@ namespace SquareFillDomain.Models
                 y: parentTopLeftCorner.Y + (_positionRelativeToParentCorner.Y * ShapeConstants.SquareWidth));
         }
 
+        // public func GetGridOrigin() -> SquareFillPoint
         public SquareFillPoint GetGridOrigin()
         {
             return SquareFillPoint(
@@ -50,6 +53,7 @@ namespace SquareFillDomain.Models
                 y: _topLeftCorner.Y / ShapeConstants.SquareWidth);
         }
 
+        // public func CalculateGridOrigin(topLeftCorner: SquareFillPoint) -> SquareFillPoint
         public SquareFillPoint CalculateGridOrigin(SquareFillPoint topLeftCorner)
         {
             var gridOrigin = SquareFillPoint(
@@ -69,24 +73,28 @@ namespace SquareFillDomain.Models
             return gridOrigin;
         }
 
+        // public func VacateGridSquare(occupiedGridSquares: Grid)
         public void VacateGridSquare(Grid occupiedGridSquares)
         {
             occupiedGridSquares.VacateGridSquareUsingPixels(gridReferenceInPixels: _topLeftCorner);
         }
 
+        // public func OccupyGridSquare(occupiedGridSquares: Grid, shapeInSquare: Shape)
         public void OccupyGridSquare(Grid occupiedGridSquares, Shape shapeInSquare)
         {
             occupiedGridSquares.OccupyGridSquareUsingPixels(gridReferenceInPixels: _topLeftCorner, shapeInSquare: shapeInSquare);
         }
 
+        // public func TopLeftCornerAsString() -> String
         public string TopLeftCornerAsString()
         {
-            string originX = _topLeftCorner.X.ToString();
-            string originY = _topLeftCorner.Y.ToString();
+            var originX = _topLeftCorner.X.ToString();
+            var originY = _topLeftCorner.Y.ToString();
 
             return originX + "," + originY + " ";
         }
 
+        // public func MoveTopLeftCorner(newTopLeftCorner: SquareFillPoint)
         public void MoveTopLeftCorner(SquareFillPoint newTopLeftCorner)
         {
             _topLeftCorner = CalculatePotentialTopLeftCorner(parentTopLeftCorner: newTopLeftCorner);
@@ -98,39 +106,46 @@ namespace SquareFillDomain.Models
             }
         }
 
+        // public func IsInSquare(point: SquareFillPoint) -> Bool
         public bool IsInSquare(SquareFillPoint point)
         {
             return PointIsBetweenLeftAndRightEdges(point: point)
                    && PointIsBetweenTopAndBottomEdges(point: point);
         }
 
+        // private func PointIsBetweenLeftAndRightEdges(point: SquareFillPoint) -> Bool
         private bool PointIsBetweenLeftAndRightEdges(SquareFillPoint point)
         {
             return PointIsEqualOrToRightOfLeftEdge(point: point)
                    && PointIsToLeftOfRightEdge(point: point);
         }
 
+        // private func PointIsEqualOrToRightOfLeftEdge(point: SquareFillPoint) -> Bool
         private bool PointIsEqualOrToRightOfLeftEdge(SquareFillPoint point)
         {
             return point.X >= _topLeftCorner.X;
         }
 
+        // private func PointIsToLeftOfRightEdge(point: SquareFillPoint) -> Bool
         private bool PointIsToLeftOfRightEdge(SquareFillPoint point)
         {
             return point.X < RightEdge;
         }
 
+        // private func PointIsBetweenTopAndBottomEdges(point: SquareFillPoint) -> Bool
         private bool PointIsBetweenTopAndBottomEdges(SquareFillPoint point)
         {
             return PointIsEqualOrBelowTopEdge(point: point)
                    && PointIsAboveBottomEdge(point: point);
         }
 
+        // private func PointIsEqualOrBelowTopEdge(point: SquareFillPoint) -> Bool
         private bool PointIsEqualOrBelowTopEdge(SquareFillPoint point)
         {
             return point.Y >= _topLeftCorner.Y;
         }
 
+        // private func PointIsAboveBottomEdge(point: SquareFillPoint) -> Bool
         private bool PointIsAboveBottomEdge(SquareFillPoint point)
         {
             return point.Y < BottomEdge;

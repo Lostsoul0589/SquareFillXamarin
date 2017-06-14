@@ -8,6 +8,7 @@ namespace SquareFillDomain.Models
         public int Width { get; set; }
         public int Height { get; set; }
 
+        // init(x: Int, y: Int, width: Int, height: Int)
         public SquareFillRect(int x, int y, int width, int height)
         {
             X = x;

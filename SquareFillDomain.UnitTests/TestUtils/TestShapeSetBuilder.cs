@@ -13,6 +13,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
         public Shape LeftCornerShape { get { return _leftCornerShape; } }
         public Shape SingleSquareShape { get { return _singleSquareShape; } }
 
+        // public var TopRowBorderSquares: [SquareFillPoint] { get { return _borderBuilder.TopRowBorderSquares; } }
         public List<SquareFillPoint> TopRowBorderSquares { get { return _borderBuilder.TopRowBorderSquares; } }
         public List<SquareFillPoint> LeftWallBorderSquares { get { return _borderBuilder.LeftWallBorderSquares; } }
         public List<SquareFillPoint> RightWallBorderSquares { get { return _borderBuilder.RightWallBorderSquares; } }
@@ -31,22 +32,52 @@ namespace SquareFillDomain.UnitTests.TestUtils
         private Shape _bottomLeftCornerOfContainingBorder;
         private Shape _bottomRightCornerOfContainingBorder;
 
+        // init(squareViewFactory: ISquareViewFactory)
         public TestShapeSetBuilder(ISquareViewFactory squareViewFactory)
         {
             _borderBuilder.BuildBorderSquares(squareWidth: TestConstants.SquareWidth, containingRectangle: TestConstants.ContainingRectangle);
             MakeShapes(squareViewFactory: squareViewFactory);
         }
 
+        // public func GetShapeSet() -> ShapeSet
         public ShapeSet GetShapeSet()
         {
             return MakeTestShapeSet();
         }
 
+        // public func OccupyBorderSquares(occupiedGridSquares: Grid)
         public void OccupyBorderSquares(Grid occupiedGridSquares)
         {
             _borderBuilder.OccupyBorderSquares(occupiedGridSquares: occupiedGridSquares);
         }
 
+        // public func MakeGridSquares() -> Grid
+        public Grid MakeGridSquares()
+        {
+            return TestConstants.MakeGridSquares();
+        }
+
+        // public static func MakeSquares(
+        //      colour: SquareFillColour,
+        //      relativePointsTopLeftCorner: [SquareFillPoint],
+        //      squareFactory: ISquareViewFactory) -> [Square]
+        public static List<Square> MakeSquares(
+            SquareFillColour colour,
+            List<SquareFillPoint> relativePointsTopLeftCorner,
+            ISquareViewFactory squareFactory)
+        {
+            var squares = new List<Square>();
+            foreach (var element in relativePointsTopLeftCorner)
+            {
+                squares.Add(new Square(
+                    positionRelativeToParentCorner: element,
+                    sprite: squareFactory.MakeSquare(colour: colour)));
+            }
+
+            return squares;
+        }
+
+        // private func MakeTestShapeSet() -> ShapeSet
         private ShapeSet MakeTestShapeSet()
         {
             var shapeList = new List<Shape> {
@@ -62,11 +93,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
             return new ShapeSet(shapes: shapeList);
         }
 
-        public Grid MakeGridSquares()
-        {
-            return TestConstants.MakeGridSquares();
-        }
-
+        // private func MakeShapes(squareViewFactory: ISquareViewFactory)
         private void MakeShapes(ISquareViewFactory squareViewFactory)
         {
             // 1:
@@ -122,6 +149,11 @@ namespace SquareFillDomain.UnitTests.TestUtils
                 squareFactory: squareViewFactory);
         }
 
+        // private func MakeShape(
+        //      colour: SquareFillColour,
+        //      topLeftCorner: SquareFillPoint,
+        //      relativePointsTopLeftCorner: [SquareFillPoint],
+        //      squareFactory: ISquareViewFactory) -> Shape
         private Shape MakeShape(
             SquareFillColour colour,
             SquareFillPoint topLeftCorner,
@@ -136,21 +168,6 @@ namespace SquareFillDomain.UnitTests.TestUtils
             return new Shape(
                 topLeftCorner: topLeftCorner,
                 squareDefinitions: squares);
-        }
-
-        public static List<Square> MakeSquares(
-            SquareFillColour colour,
-            List<SquareFillPoint> relativePointsTopLeftCorner,
-            ISquareViewFactory squareFactory)
-        {
-            List<Square> squares = new List<Square>();
-            foreach (var element in relativePointsTopLeftCorner) {
-                squares.Add(new Square(
-                    positionRelativeToParentCorner: element,
-                    sprite: squareFactory.MakeSquare(colour: colour)));
-            }
-
-            return squares;
         }
 
         private SquareFillPoint SquareFillPoint(int x, int y)
