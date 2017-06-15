@@ -22,11 +22,12 @@ namespace SquareFillDomain.UnitTests.TestUtils
 
         private readonly BorderBuilder _borderBuilder = new BorderBuilder();
 
+        // These all have to be initialised in XCode to keep Swift happy 
+        // (which means they have to be of type Shape!, and then initialised to nil).
         private Shape _rightHydrantShape;
         private Shape _fourSquareShape;
         private Shape _leftCornerShape;
         private Shape _singleSquareShape;
-
         private Shape _topLeftCornerOfContainingBorder;
         private Shape _topRightCornerOfContainingBorder;
         private Shape _bottomLeftCornerOfContainingBorder;
@@ -61,7 +62,7 @@ namespace SquareFillDomain.UnitTests.TestUtils
         //      colour: SquareFillColour,
         //      relativePointsTopLeftCorner: [SquareFillPoint],
         //      squareFactory: ISquareViewFactory) -> [Square]
-        public static List<Square> MakeSquares(
+        public List<Square> MakeSquares(
             SquareFillColour colour,
             List<SquareFillPoint> relativePointsTopLeftCorner,
             ISquareViewFactory squareFactory)

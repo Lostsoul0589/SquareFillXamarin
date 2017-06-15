@@ -13,6 +13,7 @@ namespace SquareFillDomain.UnitTests
     [TestClass]
     public class ShapeTests
     {
+        // These all have to be initialised in XCode to keep Swift happy.
         private Linq.List<Square> _simpleSingleSquareList;
         private Linq.List<Square> _rightHydrantSquareList;
         private Linq.List<Square> _crossShapeSquareList;
@@ -26,6 +27,8 @@ namespace SquareFillDomain.UnitTests
 
         private readonly Grid _occupiedGridSquares = TestConstants.MakeGridSquares();
 
+        // These all have to be initialised in XCode to keep Swift happy 
+        // (which means they have to be of type Shape!, and then initialised to nil).
         private readonly Shape _shape01;
         private readonly Shape _shape02;
         private readonly Shape _shape03;
@@ -64,22 +67,6 @@ namespace SquareFillDomain.UnitTests
                 sprite: sprite);
         }
 
-        // override init()
-        public ShapeTests()
-        {
-            //super.init();
-
-            _shape01 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape02 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape03 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape04 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _centralShape = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape06 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape07 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape08 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-            _shape09 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
-        }
-
         // private func CreateSimpleSingleSquareList() -> [Square]
         private Linq.List<Square> CreateSimpleSingleSquareList()
         {
@@ -103,61 +90,77 @@ namespace SquareFillDomain.UnitTests
         // {
         //      // This method is called before the invocation of each test method in the class.
         //      super.setUp();
+        //      !! The code in the constructor (below) has to be moved in here for Swift
         [TestInitialize]
         public void Setup()
         {
             _occupiedGridSquares.VacateAllSquares();
             var squareFactory = new MockSquareFactory();
+            var testShapeSetBuilder = new TestShapeSetBuilder(squareViewFactory: new MockSquareFactory());
 
-            _simpleSingleSquareList = TestShapeSetBuilder.MakeSquares(
+            _simpleSingleSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.SingleSquarePoints,
                 squareFactory: squareFactory);
 
-            _rightHydrantSquareList = TestShapeSetBuilder.MakeSquares(
+            _rightHydrantSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.RightHydrantPoints,
                 squareFactory: squareFactory);
 
-            _crossShapeSquareList = TestShapeSetBuilder.MakeSquares(
+            _crossShapeSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.CrossShapePoints,
                 squareFactory: squareFactory);
 
-            _threePoleSquareList = TestShapeSetBuilder.MakeSquares(
+            _threePoleSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.ThreePolePoints,
                 squareFactory: squareFactory);
 
-            _twoPoleSquareList = TestShapeSetBuilder.MakeSquares(
+            _twoPoleSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.TwoPolePoints,
                 squareFactory: squareFactory);
 
-            _fourBarSquareList = TestShapeSetBuilder.MakeSquares(
+            _fourBarSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.FourBarPoints,
                 squareFactory: squareFactory);
 
-            _nineSquareSquareList = TestShapeSetBuilder.MakeSquares(
+            _nineSquareSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.NineSquarePoints,
                 squareFactory: squareFactory);
 
-            _leftHydrantSquareList = TestShapeSetBuilder.MakeSquares(
+            _leftHydrantSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.LeftHydrantPoints,
                 squareFactory: squareFactory);
 
-            _upsideDownTSquareList = TestShapeSetBuilder.MakeSquares(
+            _upsideDownTSquareList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.UpsideDownTPoints,
                 squareFactory: squareFactory);
 
-            _rightWayUpTList = TestShapeSetBuilder.MakeSquares(
+            _rightWayUpTList = testShapeSetBuilder.MakeSquares(
                 colour: SquareFillColour.Red,
                 relativePointsTopLeftCorner: ShapeConstants.RightWayUpTPoints,
                 squareFactory: squareFactory);
+        }
+
+        public ShapeTests()
+        {
+            // !! In Swift, all this code has to go in the setUp method (above). 
+            _shape01 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape02 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape03 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 0), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape04 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _centralShape = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape06 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 1), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape07 = Shape(topLeftCorner: SquareFillPoint(x: 0, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape08 = Shape(topLeftCorner: SquareFillPoint(x: 1, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
+            _shape09 = Shape(topLeftCorner: SquareFillPoint(x: 2, y: 2), squareDefinitions: CreateSimpleSingleSquareList());
         }
 
         [TestMethod]

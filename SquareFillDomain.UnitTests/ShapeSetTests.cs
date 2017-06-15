@@ -13,6 +13,7 @@ namespace SquareFillDomain.UnitTests
     [TestClass]
     public class ShapeSetTests
     {
+        // These all have to be initialised in XCode to keep Swift happy.
         private readonly Linq.List<Square> _singleSquareShapeSquareList1;
         private readonly Linq.List<Square> _singleSquareShapeSquareList2;
         private readonly Linq.List<Square> _rightHydrantSquareList;
@@ -28,13 +29,12 @@ namespace SquareFillDomain.UnitTests
         // {
         //      // This method is called before the invocation of each test method in the class.
         //      super.setUp();
+        //      !! The code in the constructor has to be moved in here for Swift
         // }
 
-        // override init()
         public ShapeSetTests()
         {
-            // super.init();
-
+            // !! In Swift, all this code has to go in the setUp method. 
             _singleSquareShapeSquareList1 = new List<Square>
             {
                 Square(positionRelativeToParentCorner: ShapeConstants.SingleSquarePoints[0], sprite: MockSquareView())
